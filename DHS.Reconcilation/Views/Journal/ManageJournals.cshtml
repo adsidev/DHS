@@ -1,0 +1,199 @@
+﻿@model DHSEntities.JournalResponse
+@using PagedList.Mvc
+@using DHS.Reconcilation.Models
+
+@{
+    ViewBag.Title = "Manage Journals";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+<script src="~/Scripts/jquery-1.10.2.min.js"></script>
+@section LeftMenuSection
+{
+    @Html.Partial("_menuCRPayments");
+}
+@using (Html.BeginForm("ManageJournals", "Journal", FormMethod.Post, new { @id = "frmJournals" }))
+{
+    <title>@ViewBag.Title</title>
+    <input type="hidden" id="hdnJournalId" name="hdnJournalId" />
+    <div class="tab-pane active" id="dashboard">
+        <div class="container-fluid">
+            <!-- top tiles -->
+            <div class="row ">
+                <div class="col-lg-12">
+                    <div class="mrp_content">
+                        <h2>View Journals</h2>
+                        <form class="mrp_selectdetails form-inline">
+                           
+                        </form>
+                    </div>
+                </div>
+            </div>
+            <div class="row mrp_table-row">
+                <div class="col-lg-12 col-xs-12">
+                    <div class="table-responsive">
+                        <div class="mrp_contentbody mrp_contenttable">
+                            <div class="mrp_table">
+                                <table class="table table-bordered table-striped">
+                                    <thead>
+                                        <tr>
+                                            <th style="margin-left:1px; margin-right:1px;">
+                                                Action
+                                            </th>
+                                            <th nowrap>
+                                                Journal Code
+                                            </th>
+                                            <th nowrap>
+                                                Journal Name
+                                            </th>
+                                            <th nowrap>
+                                                Description
+                                            </th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        @{foreach (var item in Model.pagedJournalEntities)
+                                            {
+                                                <tr>
+                                                    <td>
+                                                        @if (Model.rolePermissionEntity.ViewBit)
+                                                        {
+                                                            <img src="~/images/view-icon.png" class="img-responsive" onclick="ViewJournal('@item.JournalId')" style="cursor:pointer;" />
+                                                        }
+                                                        else
+                                                        {
+                                                            <a class="mrp_popup disableButton" data-toggle="modal">
+                                                                <img src="~/images/view-icon.png" class="img-responsive disableButton" />
+                                                            </a>
+                                                        }
+                                                    </td>
+                                                    <td nowrap>
+                                                        @item.JournalCode
+                                                    </td>
+                                                    <td nowrap>
+                                                        @item.JournalName
+                                                    </td>
+                                                    <td >
+                                                        @item.JournalDescription
+                                                    </td>
+                                                </tr>
+                                            }
+                                        }
+                                    </tbody>
+                                </table>
+
+                                <!-- popup -->
+                                <div class="modal fade mrp_modalpopup" id="JournalModal">
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- /top tiles -->
+                </div>
+            </div>
+            <!-- /page content -->
+            <div id="container" class="mra_pagination">
+                <div class="pagination">
+                    @Html.PagedListPager(Model.pagedJournalEntities, page => Url.Action("ManageJournals", new { page }))
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+
+    <script type="text/javascript">
+
+        function ViewJournal(paymentId) {
+            var options = { "backdrop": "static", keyboard: true };
+            $.ajax({
+                type: "GET",
+                url: "/Journal/ViewJournal/" + paymentId,
+                dataType: "html",
+                success: function (evt) {
+                    $('#JournalModal').html(evt);
+                    $('#JournalModal').modal(options);
+                    $('#JournalModal').modal('show');
+                },
+                error: function (req, status, error) {
+                    alert(error);
+                    alert("Error!Occured");
+                }
+            });
+        }
+
+        function EditJournal() {
+            var options = { "backdrop": "static", keyboard: true };
+            $.ajax({
+                type: "GET",
+                url: "/Journal/EditJournal",
+                dataType: "html",
+                success: function (evt) {
+                    $('#JournalModal').html(evt);
+                    $('#JournalModal').modal(options);
+                    $('#JournalModal').modal('show');
+                },
+                error: function (req, status, error) {
+                    alert("Error!Occured");
+                }
+            });
+        }
+
+
+        function SubmitValue() {
+            var journalEntity = {
+                JournalId: document.getElementById("JournalId").value,
+                JournalCode: document.getElementById("JournalCode").value,
+                JournalName: document.getElementById("JournalName").value,
+                JournalDescription: document.getElementById("JournalDescription").value,
+                ModifiedBy:@Common.GetSession("UserID"),
+                };
+                var journalRequest = {
+                    JournalEntity: journalEntity
+                };
+
+            $.ajax({
+                url: "/Journal/SaveJournal",
+                type: "POST",
+                data: journalRequest,
+                dataType: 'json',
+                success: function (result) {
+                    location.href = "/Journal/ManageJournals";
+                },
+                complete: function () {
+
+                }
+            });
+            return true;
+        }
+
+        function SelectedIndexChanged() {
+            if ($("#SearchOn").val() != "" & $("#txtSearch").val() == "") {
+                alert("Please enter value to search");
+                $("#txtSearch").focus();
+            }
+            else {
+                $('#frmJournals').submit();
+            }
+        }
+
+        function SortOrder(SortOrder) {
+            $("#hdnSortOrder").val(SortOrder)
+            $('#frmJournals').submit();
+        }
+
+        function Validate() {
+            alert("You don't have access to this activity. Please contact your administrator.");
+            return false;
+        }
+
+        $(document).ready(function () {
+            $('#mra_subli7').addClass('active');
+        });
+
+        function CreatePayment(InvoiceId) {
+            document.getElementById("hdnJournalId").value = InvoiceId;
+            document.forms[0].action = "CreateInvoicePayment";
+            document.forms[0].submit();
+        }
+    </script>
+}

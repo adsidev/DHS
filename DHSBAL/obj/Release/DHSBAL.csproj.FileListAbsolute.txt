@@ -1,0 +1,16 @@
+D:\Development\DHS.Reconcilation\DHSBAL\bin\Release\DHSBAL.dll
+D:\Development\DHS.Reconcilation\DHSBAL\bin\Release\DHSBAL.pdb
+D:\Development\DHS.Reconcilation\DHSBAL\bin\Release\DHSDAL.dll
+D:\Development\DHS.Reconcilation\DHSBAL\bin\Release\DHSEntities.dll
+D:\Development\DHS.Reconcilation\DHSBAL\bin\Release\DataAccessLayer.dll
+D:\Development\DHS.Reconcilation\DHSBAL\bin\Release\PagedList.dll
+D:\Development\DHS.Reconcilation\DHSBAL\bin\Release\DHSDAL.pdb
+D:\Development\DHS.Reconcilation\DHSBAL\bin\Release\DHSDAL.dll.config
+D:\Development\DHS.Reconcilation\DHSBAL\bin\Release\DHSEntities.pdb
+D:\Development\DHS.Reconcilation\DHSBAL\bin\Release\DataAccessLayer.pdb
+D:\Development\DHS.Reconcilation\DHSBAL\bin\Release\PagedList.xml
+D:\Development\DHS.Reconcilation\DHSBAL\obj\Release\DHSBAL.csprojAssemblyReference.cache
+D:\Development\DHS.Reconcilation\DHSBAL\obj\Release\DHSBAL.csproj.CoreCompileInputs.cache
+D:\Development\DHS.Reconcilation\DHSBAL\obj\Release\DHSBAL.csproj.CopyComplete
+D:\Development\DHS.Reconcilation\DHSBAL\obj\Release\DHSBAL.dll
+D:\Development\DHS.Reconcilation\DHSBAL\obj\Release\DHSBAL.pdb

@@ -1,0 +1,137 @@
+﻿@model DHSEntities.RevenueResponse
+
+@{
+    ViewBag.Title = "DHS Reconcilation Application :: Create/Edit Revenue Documents";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+<script src="~/js/jquery.min.js"></script>
+<title>@ViewBag.Title</title>
+@section LeftMenuSection
+{    @Html.Partial("_menuCRPayments")
+
+}
+@using (Html.BeginForm("CreateRevenueDocument", "Revenue", FormMethod.Post, new { @id = "frmRevenueDocument", @enctype = "multipart/form-data" }))
+{
+    @Html.AntiForgeryToken()
+    @Html.HiddenFor(m => m.documentEntity.DocumentId, htmlAttributes: new { @id = "DocumentId" })
+    <input type="hidden" name="RevenueId" id="RevenueId" value="@Model.documentEntity.DocumentReferenceId" />
+    <div class="tab-pane active" id="dashboard">
+        <div class="container-fluid">
+            <!-- top tiles -->
+            <div class="mrp_content">
+                <h2>Create/Edit Revenue Document</h2>
+            </div>
+            <div class="mra_create_edit_fiscalperiod">
+                <div class="row">
+                    <div class="col-lg-6 col-xs-12 col-sm-4 col-md-6">
+                        <div class="form_modal">
+                            <label>Document Title:</label>
+                            @Html.TextBoxFor(m => m.documentEntity.DocumentTitle, htmlAttributes: new { @id = "DocumentTitle", @class = "form-control mrp_modalselect" })
+                        </div>
+                    </div>
+                    <div class="col-lg-6 col-xs-12 col-sm-4 col-md-6">
+                        <div class="form_modal">
+                            <label for="">Document:</label>
+                            <input style="width:250px;" id="fileUpload" name="fileUpload" type="file" />
+                            <br />
+                            <a href="javascript:void()" onclick="OpenDocument('@Model.documentEntity.DocumentFile')" style="cursor:pointer;">@Model.documentEntity.DocumentFile</a>
+                            <input type="hidden" id="DocumentFile" name="DocumentFile" value="@Model.documentEntity.DocumentFile" />
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-lg-6 col-xs-12 col-sm-4 col-md-6">
+                        <div class="form_modal">
+                            <label for="">Display Order:</label>
+                            @Html.TextBoxFor(m => m.documentEntity.DisplayOrder, htmlAttributes: new { @id = "DisplayOrder", @class = "form-control mrp_modalselect" })
+                        </div>
+                    </div>
+                    <div class="col-lg-6 col-xs-12 col-sm-4 col-md-6">
+                        <div class="form_modal">
+                            <label for="">Document Category:</label>
+                            @Html.DropDownList("DocumentCategoryId", new SelectList(Model.documentCategoryEntities, "DocumentCategoryId", "DocumentCategoryName", Model.documentEntity.DocumentCategoryId), "", new {@id= "DocumentCategoryId", @class = "form-control mrp_modalselect" })
+                        </div>
+                    </div>
+                </div>
+                <div class="row">&nbsp;</div>
+                <div class="row">
+                    <div class="col-lg-2 col-xs-12 col-sm-4 col-md-2">
+                        <div class="form_modal">
+                            <label>Description</label>
+                        </div>
+                    </div>
+                    <div class="col-lg-11 col-xs-12 col-sm-8 col-md-10">
+                        <div class="form_modal">
+                            <textarea id="Description" name="Description" style="margin: 0px; width: 100%; height: 80px;">@Model.documentEntity.DocumentDescription</textarea>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <hr />
+            <div class="row">
+                <div class="col-lg-12">
+                    <div class="modal-footer pull-right">
+                        <button type="submit" class="btn btn-primary btn-updated" onclick="return ValidateFields()">Save</button>
+                        <button type="button" class="btn btn-secondary btn-close" data-dismiss="modal" onclick="OpenRevenueDocuments()">Cancel</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+
+        <!-- /page content -->
+    </div>
+}
+<script src="~/js/jquery-3.3.1.min.js"></script>
+<script type="text/javascript">
+    function ValidateFields() {
+        if (document.getElementById("DocumentTitle").value == "") {
+            alert("please enter document title.");
+            $("#DocumentTitle").focus();
+            return false;
+        }
+
+        /*var FacilityId = $('#cboCategory option:selected').text();
+
+        if (FacilityId == "Select Category") {
+            alert("Please select category .");
+            $("#cboCategory").focus();
+            return false;
+        }*/
+        if (document.getElementById("DocumentId").value == "0") {
+            if ($('input[type=file]').val() == "") {
+                alert("Attachment Required");
+                $('input[type=file]').focus();
+                return false;
+            }
+        }
+        return true;
+    }
+    $(function () {
+        $('input[type=file]').change(function () {
+            var val = $(this).val().toLowerCase(),
+                regex = new RegExp("(.*?)\.(docx|doc|pdf|jpg|jpeg|pdf|bmp|ppt|png|xls)$");
+
+            if (!(regex.test(val))) {
+                $(this).val('');
+                alert('Please select correct file format');
+            }
+        });
+    });
+
+    $(document).ready(function () {
+        $('#mra_subli3').addClass('active');
+    });
+
+
+    function OpenRevenueDocuments() {
+        document.forms[0].action = "/Revenue/RevenueDocuments/" + document.getElementById("RevenueId").value;
+        document.forms[0].submit();
+    }
+
+    function OpenDocument(FileName) {
+        window.open("/Documents/Revenue/" + FileName);
+    }
+
+</script>

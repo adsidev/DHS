@@ -1,0 +1,705 @@
+/* Add here all your CSS customizations */
+@font-face {
+    font-family: 'Helvetica Neue LT Std';
+    src: url('~/fonts/HelveticaNeueLTStd-Roman/HelveticaNeueLTStd-Roman.eot');
+    src: url('~/fonts/HelveticaNeueLTStd-Roman/HelveticaNeueLTStd-Roman.eot?#iefix') format('embedded-opentype'), url('~/fonts/HelveticaNeueLTStd-Roman/HelveticaNeueLTStd-Roman.woff2') format('woff2'), url('~/fonts/HelveticaNeueLTStd-Roman/HelveticaNeueLTStd-Roman.woff') format('woff'), url('~/fonts/HelveticaNeueLTStd-Roman/HelveticaNeueLTStd-Roman.ttf') format('truetype');
+    font-weight: normal;
+    font-style: normal;
+}
+html {
+    height: auto;
+}
+body{
+	margin: 0px;
+	padding:0px;
+	font-family: 'Helvetica Neue LT Std','Roboto',Arial,sans-serif;
+	background:#fff;
+}
+.container {
+    width: 100%;
+}
+header{
+	margin: 10px 0 0px;
+    border-bottom: solid 1px #c7c7c7;
+    padding-bottom: 10px;
+	box-shadow: 0 8px 16px -13px #888;
+}
+/*header*/
+.mrp_header .mrp_logo1 img.img-responsive {
+    margin-left: 10px;
+	display:inline-block;
+}
+.mrp_header .divideline .img_divideline {
+    display: inline-block;
+    margin: 2px 8px 0 12px;
+    max-width: 26%;
+}
+.mrp_headerright.pull-right ul.nav.navbar-nav span.divideline img.img-responsive.img_divideline {
+    display: inline-block;
+    margin: -1px 0px 0 0px;
+    max-width: 71%;
+}
+.mrp_header .mrp_logo1 img.mrp_logo1 {
+    max-width: 28%;
+    margin-top: 1px;
+}
+.mrp_header .mrp_logo1, .mrp_header .logo.mrp_logo2{
+	float:left;
+}
+.mrp_header .logo.mrp_logo2 img.img-responsive.mrp_headerlogo2{
+	margin: 0px;
+    max-width: 70%;
+}
+h1.mrp_headerh1 {
+    font-family: 'Helvetica Neue LT Std','Roboto',Arial,sans-serif;
+    font-size: 22px;
+    color: #242f3f;
+    display: inline-block;
+    position: relative;
+    top: 0;
+    padding-left: 22px;
+    padding-bottom: 0;
+    margin-top: 20px;
+    margin-left: 44px;
+}
+.mrp_header .mrp_headerright{
+	float:right;
+}
+span.mrp_name {
+    font-size: 16px;
+	font-family: 'Helvetica Neue LT Std','Roboto',Arial,sans-serif;
+}
+img.img-responsive.mrp_headerlogo3 {
+    margin-top: 3px;
+    max-width: 70%;
+    display: inline-block;
+    margin-left: 5px;
+}
+i.fa.fa-user-circle-o.mrp_user_icon {
+    font-size: 22px;
+    padding-left: 10px;
+}
+.mrp_headerright.pull-right ul.nav.navbar-nav li a.user-profile.dropdown-toggle {
+    margin-top: 5px;
+    background: transparent;
+    padding: 10px 10px 0 0px;
+}
+.nav.navbar-nav>li>a {
+    color: #515356;
+	font-weight: 600;
+}
+.top_nav .nav .open>a, .top_nav .nav .open>a:focus, .top_nav .nav .open>a:hover, .top_nav .nav>li>a:focus, .top_nav .nav>li>a:hover{
+	background: transparent;
+}
+.nav.side-menu>li, .nav.side-menu>li, .nav-sm .nav.child_menu li.active, .nav-sm .nav.side-menu li.active-sm {
+    border-right: 5px solid #242f3f;
+}
+.nav li li.current-page a, .nav.child_menu li li a.active, .nav.child_menu li li a:hover {
+    color: #9a9a9a;
+}
+.mrp_content{
+	background-color:rgba(255, 255, 255, 0.55);
+    padding-left: 15px;
+    padding-right: 0px;
+}
+#wrapper.toggled .mrp_content{
+	background-color:rgba(255, 255, 255, 0.55);
+    padding-left: 32px;
+    padding-right: 0px;
+}
+.mrp_table-row{
+	background-color:rgba(255, 255, 255, 0.55);
+    padding: 0 0 15px 0;
+    margin-bottom: 0px;
+	margin-top: 0px;
+}
+.mra_pagination .pagination {
+    margin: 0;
+    float: right;
+}
+#wrapper.toggled .table-responsive {
+    margin-left: 32px;
+}
+.table-responsive {
+    margin-left: 15px;
+}
+.mrp_table-row .table-responsive {
+    margin-left: 0;
+}
+.mrp_content h2{
+	font-size: 26px;
+	font-family: 'Helvetica Neue LT Std','Roboto',Arial,sans-serif;
+	color:#36598c;
+	margin-top: 10px;
+    margin-bottom: 15px;
+}
+body .container.body .right_col {
+    background: transparent;
+}
+.mrp_contentbody form.mrp_selectdetails.form-inline .form-group select.form-control{
+	width:100%;
+	margin-left: 0px;
+}
+.mrp_contentbody form.mrp_selectdetails.form-inline .form-group label{
+	font-size:15px;
+	font-family: 'Helvetica Neue LT Std','Roboto',Arial,sans-serif;
+	color:#444444;
+	font-weight:500;
+}
+form.mrp_selectdetails.form-inline {
+    margin-bottom: 16px;
+}
+form.mrp_selectdetails.form-inline select.form-control {
+    border-radius: 5px;
+	width:100%;
+}
+.mrp_table {
+    /*width: 730%;*/
+	/*margin-top:15px;*/
+}
+.mrp_contentbody.mrp_contenttableshort .mrp_table table,
+.mrp_contentbody.mrp_contenttable .mrp_table table {
+    margin-bottom: 0;
+}
+.mrp_contentbody.mrp_contenttableshort .mrp_table table.table.table-bordered thead tr th,
+.mrp_contentbody.mrp_contenttable .mrp_table table.table.table-bordered thead tr th {
+    background-color: #17345f;
+    color: #fff;
+    padding:5px;
+	
+}
+
+.mrp_contenttableshort .mrp_table table.table.table-bordered thead tr th,
+.mrp_contenttable .mrp_table table.table.table-bordered thead tr th,
+.mrp_contenttable .mrp_table table.table.table-bordered tbody tr td {
+    font-family: 'Helvetica Neue LT Std','Roboto',Arial,sans-serif;
+    font-size: 14px;
+    font-weight: 400;
+    text-align: center;
+    color: #505050;
+    padding: 0px;
+}
+.mrp_contenttableshort .mrp_table table.table.table-bordered tbody tr td img,
+.mrp_contenttable .mrp_table table.table.table-bordered tbody tr td img{
+	display: inline-block;
+}
+.mrp_contenttableshort .mrp_table table.table.table-bordered.table-striped > tbody > tr:nth-child(odd),
+.mrp_contenttable .mrp_table table.table.table-bordered.table-striped > tbody > tr:nth-child(odd) {
+    background-color: #ececec;
+}
+.mrp_h1, .mrp_header .divideline{
+	float:left;
+}
+.row.mrp_table-row.mra_select-tables {
+    position: relative;
+    top: 100px;
+    margin-right: 225px;
+}
+/*header end*/
+
+footer p {
+    font-family: 'Helvetica Neue LT Std','Roboto',Arial,sans-serif;
+    font-size: 14px;
+    font-weight: 400;
+    color: #fff;
+    margin: 0;
+    padding: 9px;
+}
+footer {
+    text-align: center;
+    width: 100%;
+    height: 39px;
+    background-color: #010f23;
+}
+.col-lg-1, .col-lg-10, .col-lg-11, .col-lg-12, .col-lg-2, .col-lg-3, .col-lg-4, .col-lg-5, .col-lg-6, .col-lg-7, .col-lg-8, .col-lg-9, .col-md-1, .col-md-10, .col-md-11, .col-md-12, .col-md-2, .col-md-3, .col-md-4, .col-md-5, .col-md-55, .col-md-6, .col-md-7, .col-md-8, .col-md-9, .col-sm-1, .col-sm-10, .col-sm-11, .col-sm-12, .col-sm-2, .col-sm-3, .col-sm-4, .col-sm-5, .col-sm-6, .col-sm-7, .col-sm-8, .col-sm-9, .col-xs-1, .col-xs-10, .col-xs-11, .col-xs-12, .col-xs-2, .col-xs-3, .col-xs-4, .col-xs-5, .col-xs-6, .col-xs-7, .col-xs-8, .col-xs-9{
+	padding-right: 15px;
+    padding-left: 15px;
+}
+label {
+    color: #333;
+    font-family: 'Helvetica Neue LT Std','Roboto',Arial,sans-serif;
+    font-size: 16px;
+    float: left;
+    padding-top: 8px;
+    width: 34%;
+    font-weight: 400;
+}
+select.form-control.mrp_modalselect {
+    float: left;
+    display: inline-block;
+    width: 77%;
+}
+.navbar-nav .open .dropdown-menu{
+	border-radius:5px;
+	border: 1px solid #c1c1c1;
+}
+.mrp_contenttable .mrp_table table.table.table-bordered tbody tr:first-child td:focus, 
+.mrp_contenttable .mrp_table table.table.table-bordered tbody tr:last-child td:focus{
+	border-color:#242F3F;
+}
+.mrp_contenttable .mrp_table table.table.table-bordered tbody tr td {
+    border-color: none;
+    vertical-align: middle;
+}
+.mrp_contenttable .mrp_table table.table.table-bordered thead tr td {
+    vertical-align: middle;
+}
+.mrp_contentbody.mrp_contenttable {
+    height: 650px;
+    overflow: auto;
+}
+
+.mrp_contentbody.mrp_contenttableshort {
+    height: 225px;
+    overflow: auto;
+}
+.row.mrp_table-row.mra_rules_view .mrp_contentbody.mrp_contenttable, .mra_settlement_view .mrp_contentbody.mrp_contenttable, .mrp_contentbody.mrp_contenttableshort {
+    height: auto;
+    max-height: 700px;
+}
+.mra_settlement_view .form-group.col-lg-7.col-xs-12.col-sm-6 select.form-control.mrp_modalselect {
+    margin-right: 25px;
+    width: 42%;
+}
+.mra_settlement_view .form-group.col-lg-7.col-xs-12.col-sm-6 label {
+    width: 21%;
+}
+.mra_settlement_view .mrp_modalcontent {
+    margin-left: 17px;
+}
+.top_nav .dropdown-menu li a {
+    width: 100%;
+    padding: 12px 20px;
+    font-family: 'Helvetica Neue LT Std','Roboto',Arial,sans-serif;
+    font-size: 14px;
+    color: #333;
+}
+/*popup*/
+input.form-control.mrp_modalselect {
+    float: left;
+    width: 77%;
+    margin-right: 10px;
+}
+textarea.form-control.mrp_area {
+    float: left;
+    width: 87%;
+    margin-right: 10px;
+    height:45%
+}
+.mrp_modalpopup .modal-dialog .modal-content .modal-header h5.modal-title{
+	color:#444444;
+	font-family: 'Helvetica Neue LT Std','Roboto',Arial,sans-serif;
+	font-size:26px;
+    display: inline-block;
+	margin-bottom:15px;
+}
+.mrp_modalpopup .modal-dialog .modal-content .modal-header .close {
+    margin-top: 6px;
+    right: 0px;
+    position: relative;
+}
+.mrp_modaldate{
+	color:#565353;
+	font-family: 'Helvetica Neue LT Std','Roboto',Arial,sans-serif;
+	font-size:14px;
+}
+.red{
+	color:red;
+}
+.modal-dialog {
+    width: 60%;
+    margin: 20px auto 60px 400px;
+    padding: 30px 6%;
+}
+.mrp_modalcontent h2 {
+    color: #36598c;
+    font-family: 'Helvetica Neue LT Std','Roboto',Arial,sans-serif;
+    font-size: 26px;
+    font-weight: 600;
+    margin-top: 10px;
+    margin-bottom: 10px;
+}
+.mrp_modalcontent h4 {
+    color: #36598c;
+    font-family: 'Helvetica Neue LT Std','Roboto',Arial,sans-serif;
+    font-size: 18px;
+    font-weight: 600;
+    margin-top: 10px;
+    margin-bottom: 10px;
+}
+.form_modal label{
+	color:#333333;
+	font-family: 'Helvetica Neue LT Std','Roboto',Arial,sans-serif;
+	font-size:14px;
+	font-weight:500;
+	margin-bottom:15px;
+}
+.form_modal p{
+	color:#333333;
+	font-family: 'Helvetica Neue LT Std','Roboto',Arial,sans-serif;
+	font-size:12px;
+	font-weight:400;
+    margin-top:12px;
+}
+.form_modal .mrp_modalselect, .form_modal .mrp_modalselect::placeholder, .form_modal textarea{
+	border-radius:8px;
+	border-color:#747474;
+	color:#333333;
+	font-family: 'Helvetica Neue LT Std','Roboto',Arial,sans-serif;
+	font-size:15px;
+}
+.form_modal textarea.form-control:focus {
+    border-color: #747474;
+    box-shadow: none!important;
+}
+.btn.btn-secondary.btn-close {
+    border-style: solid;
+    border-width: 1px 1px 3px;
+    border-color: #4b4b4b;
+    background-color: #6d6d6d;
+    font-family: 'Helvetica Neue LT Std','Roboto',Arial,sans-serif;
+    font-size: 16px;
+    color: #fff;
+    padding: 5px 10px 3px;
+}
+.btn.btn-secondary.btn-close:focus, .btn.btn-secondary.btn-close:hover{
+	background-color:#7a7a7a;
+}
+.btn.btn-primary.btn-updated {
+    border-style: solid;
+    border-width: 1px 1px 3px;
+    border-color: #073e6d;
+    background-color: #286090;
+    font-family: 'Helvetica Neue LT Std','Roboto',Arial,sans-serif;
+    font-size: 16px;
+    color: #fff;
+    padding: 5px 19px 3px;
+    letter-spacing: 1px;
+}
+.btn.btn-primary.btn-updated:focus, .btn.btn-primary.btn-updated:hover{
+	background-color:#1d5484;
+}
+.mrp_modaledit {
+    color: red;
+    float: right;
+    cursor: pointer;
+    position: relative;
+    top: 6px;
+    right: 15px;
+}
+.row.mra_edit-view .col-lg-6 {
+    margin-bottom: 10px;
+}
+.modal-footer.mra_edit_footer {
+    border: none;
+    position: relative;
+    padding: 0;
+    top: -45px;
+    right: 35px;
+}
+.modal-footer.mra_edit_footer .mra_edit_save {
+    top: 0px;
+    position: absolute;
+}
+.modal-footer.mra_edit_footer .mra_edit_save i.fa.fa-floppy-o {
+    font-size: 18px;
+    color: #2164b7;
+}
+
+/*popup end*/
+.toggle {
+    float: right;
+    margin: 0;
+    padding-top: 16px;
+    width: 61px;
+}
+.nav-sm .navbar.nav_title a i {
+    margin: 0px 0 0 0px;
+	font-size: 26px;
+}
+.toggle a i {
+    color: #c3c3c3;
+    font-size: 26px;
+    -webkit-transition: all 0.15s ease-in-out;
+    -moz-transition: all 0.15s ease-in-out;
+    transition: all 0.15s ease-in-out;
+}
+.toggle a i.open_close_icons {
+    display: inline-block;
+    font-family: FontAwesome;
+    font-style: normal;
+    font-weight: normal;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+}
+.nav-sm .toggle a i.open_close_icons:before {
+    content: "\f0c9";
+}
+.nav-md .toggle a i.open_close_icons:after {
+    content: "\f00d";
+}
+.nav-sm .toggle a i.open_close_icons:after {
+    content: " ";
+}
+.navbar-nav .open .dropdown-menu:before{
+	content: "\f0d8";
+	display: inline-block;
+    font-family: FontAwesome;
+    font-style: normal;
+    font-weight: normal;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+	position: absolute;
+    top: -16px;
+    right: 21px;
+    font-size: 16px;
+	color: #c1c1c1;
+}
+#container .pagination > li > a, .pagination > li > span {
+    padding: 5px 10px;
+    color: #023765;
+    margin: 0px 0px 0px 0px;
+}
+#container .pagination > .active > a,
+#container .pagination > .active > a:focus,
+#container .pagination > .active > a:hover,
+#container .pagination > .active > span,
+#container .pagination > .active > span:focus,
+#container .pagination > .active > span:hover {
+    background-color: #023765;
+    border-color: #023765;
+    color: #fff;
+}
+.mra_manage_cr_summary_report label, .mra_manage_cr_analysis label {
+    width: 20%;
+}
+.mra_manage_settlement_report select.form-control.mrp_modalselect {
+    width: 38%;
+}
+.mra_manage_settlement_report .form-group select.form-control.mrp_modalselect {
+    width: 56%;
+}
+
+/**/
+
+.mra_createcost_report_payment label {
+    width: 100%;
+}
+.mra_managecrsummary_report, .mra_create_role, .mra_create_fiscalyear, .mra_create_edit_fiscalperiod, .mra_create_monthly_match, .mra_create_reporting_facility, .mra_edit_invoicetype, .mra_createusers {
+    margin-left: 14px;
+    margin-right: 0;
+}
+    .mra_create_role input.form-control.mrp_modalselect, .mra_create_edit_fiscalperiod .form_modal label,
+    .mra_create_edit_fiscalperiod .form_modal select.form-control.mrp_modalselect, .mra_create_edit_fiscalperiod .form_modal input.form-control.mrp_modalselect,
+    .mra_createusers label, .mra_createusers select.form-control.mrp_modalselect, .mra_createusers input.form-control.mrp_modalselect {
+        width: 100%;
+    }
+.mra_create_role .form_modal textarea, .mra_create_role .form_modal label {
+    width: 100% !important;
+}
+.mra_create_edit_fiscalperiod .modal-footer{
+    border-top:none;
+}
+    .mra_create_monthly_match .modal-footer, .mra_create_reporting_facility .modal-footer {
+        margin-top: 10px;
+    }
+.tab-content .modal.fade.mrp_modalpopup.in {
+    z-index: 9999999;
+}
+.mra_note label {
+    width: 4%;
+    padding: 0;
+    margin: 0;
+}
+.mra_note p{
+    padding-top:3px;
+}
+.mra_comments label, .row.mra_edit-view label, .row.mra_createcost_report_payment select.form-control.mrp_modalselect, .row.mra_createcost_report_payment input.form-control.mrp_modalselect {
+    width: 100%;
+    margin: 0;
+    padding: 0;
+    word-break: break-word;
+}
+
+
+
+    /*end*/
+    /*media*/
+
+    @media screen and (min-width:1200px) and (max-width:2000px){
+        footer {
+            position: fixed;
+            bottom: 0;
+        }
+        .tab-pane {
+            max-height: 560px;
+        }
+    }
+
+    @media screen and (min-width:1024px) and (max-width:1199px) {
+        .nav.side-menu>li.active>a{
+		font-size: 10px;
+	}
+	.container{
+		width:100%;
+	}
+	form.mrp_selectdetails.form-inline select.form-control{
+		margin-bottom: 15px;
+	}
+	.mrp_content{
+		margin-top: 0;
+		padding: 10px 10px 1px;
+	}
+	.mrp_header .mrp_logo1 img.img-responsive{
+		margin-left: 10px;
+	}
+	.mrp_h1{
+		float:none;
+	}
+	img.img-responsive.mrp_logo1 {
+		width: auto;
+		height: 67px;
+		margin-left:0px;
+	}
+	.mrp_headerright.pull-right ul.nav.navbar-nav li a.user-profile.dropdown-toggle {
+		margin-top: 13px;
+		padding: 13px 13px 12px 0;
+	}
+	.nav-sm img.img-responsive.mrp_logo1 {
+		width: auto;
+		height: 87px;
+		margin-top: 6px;
+	}
+	.modal-dialog{
+		width:auto;
+	}
+	.nav-md .left_col {
+		background: #242f3f;
+		position: fixed;
+		height: calc(100vh - 40px);
+		min-height: auto !important;
+	}
+	.mrp_table {
+		width: 6000px;
+		margin-top: 0;
+	}
+}
+
+@media only screen and (min-width:768px) and (max-width:1023px){
+	.left_col{
+		position:relative;
+	}
+	.container{
+		width:100%;
+	}
+	.mrp_header .mrp_logo1 img.img-responsive{
+		max-width:73%;
+	}
+	.mrp_h1{
+		float:none;
+	}
+	.mrp_h1 h1{
+		padding: 0;
+		margin:0px 0 18px 0;
+	}
+	.nav-md .container.body .right_col{
+	    min-height: 10px !important;	
+	}
+	.nav-md .container.body .right_col, .main_container .top_nav{
+		margin-left:0px;
+	}
+	.nav-md .toggle {
+		text-align: right;
+		width: 264px;
+	}
+	.nav-sm .toggle {
+		text-align: right;
+		width: 207px;
+	}
+	img.img-responsive.mrp_headerlogo3{
+		margin-bottom: 0px;
+	}
+	h1.mrp_headerh1{
+		
+	}
+	form.mrp_selectdetails.form-inline select.form-control{
+		margin-bottom: 15px;
+	}
+	.mrp_content{
+		margin-top: 0px;
+		padding: 10px 10px 1px;
+	}
+	.nav.side-menu>li.active>a{
+		font-size: 10px;
+	}
+	.modal-dialog{
+		width:auto;
+	}
+	.mrp_table {
+		width: 6000px;
+		margin-top: 0;
+	}
+
+}
+@media screen and (max-width:767px){
+	.container{
+		width:100%;
+	}
+	.mrp_header .mrp_logo1 img.img-responsive {
+		margin-left: 0;
+		display: inline-block;
+	}
+	span.divideline{
+		display:none;
+	}
+	.mrp_header .logo.mrp_logo2 {
+		margin-top: 10px;
+	}
+	span.logo.mrp_logo3.hidden-lg.hidden-sm.hidden-md {
+		float: right;
+		margin-top: 10px;
+	}
+	h1.mrp_headerh1 {
+		top: 14px;
+		padding: 0;
+		font-size: 18px;
+		line-height: 26px;
+		margin: 0;
+	}
+	.navbar-nav .open .dropdown-menu:before{
+		top: 30px;
+	}
+	.navbar-nav .open .dropdown-menu {
+		margin-right: 9px;
+	}
+	.table-responsive {
+		margin-left: 0;
+	}
+	.mrp_table {
+		width: 6000px;
+		margin-top: 0;
+	}
+	.mrp_table-row{
+		padding: 0;
+		margin-bottom: 0;
+	}
+    .pagination
+    {margin: 0px 0px 0px 0px; }
+	
+}
+@media screen and (min-width:600px) and (max-width:678px){
+	
+}
+@media screen and (min-width:480px) and (max-width:599px){
+	
+}
+@media screen and (min-width:400px) and (max-width:479px){
+	
+}
+@media screen and (max-width:320px){
+	
+}
+
+
+
+

@@ -1,0 +1,251 @@
+﻿@model DHSEntities.RevenueResponse
+@using PagedList.Mvc
+@using DHS.Reconcilation.Models
+
+@{
+    ViewBag.Title = "Manage Revenues";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+<script src="~/Scripts/jquery-1.10.2.min.js"></script>
+@section LeftMenuSection
+{
+    @Html.Partial("_menuCRPayments");
+}
+@using (Html.BeginForm("RevenueExpense", "Revenue", FormMethod.Post, new { @id = "frmRevenues" }))
+{
+    <title>@ViewBag.Title</title>
+    <input type="hidden" id="RevenueId" name="RevenueId"  value="@Model.revenueEntity.RevenueId"/>
+    <div class="tab-pane active" id="dashboard">
+        <div class="container-fluid">
+            <!-- top tiles -->
+            <div class="row ">
+                <div class="col-lg-12">
+                    <div class="mrp_content">
+                        <h2>View Linked Expenses</h2>
+                        <form class="mrp_selectdetails form-inline">
+                        </form>
+                    </div>
+                </div>
+            </div>
+            <div class="row mrp_table-row">
+                <div class="col-lg-12 col-xs-12">
+                    <div class="table-responsive">
+                        <div class="mrp_contentbody mrp_contenttable">
+                            <div class="mrp_table">
+                                <table class="table table-bordered table-striped">
+                                    <thead>
+                                        <tr>
+                                            <th style="margin-left:1px; margin-right:1px;" nowrap>
+                                                D-Link
+                                            </th>
+                                            <th nowrap>
+                                                Period
+                                            </th>
+                                            <th nowrap>
+                                                Expense Date
+                                            </th>
+                                            <th nowrap>
+                                                Journal
+                                            </th>
+                                            <th nowrap>
+                                                Source
+                                            </th>
+                                            <th nowrap>
+                                                Fund
+                                            </th>
+                                            <th nowrap>
+                                                Org
+                                            </th>
+                                            <th nowrap>
+                                                Function
+                                            </th>
+                                            <th nowrap>
+                                                Function Description
+                                            </th>
+                                            <th nowrap>
+                                                Department
+                                            </th>
+                                            <th nowrap>
+                                                Department Description
+                                            </th>
+                                            <th nowrap>
+                                                Activity
+                                            </th>
+                                            <th nowrap>
+                                                Activity Description
+                                            </th>
+                                            <th nowrap>
+                                                Object
+                                            </th>
+                                            <th nowrap>
+                                                Object Description
+                                            </th>
+                                            <th nowrap>
+                                                Project
+                                            </th>
+                                            <th nowrap>
+                                                Project Title
+                                            </th>
+                                            <th nowrap>
+                                                CFDA
+                                            </th>
+                                            <th nowrap>
+                                                Reference 1
+                                            </th>
+                                            <th nowrap>
+                                                Reference 2
+                                            </th>
+                                            <th nowrap>
+                                                Reference 3
+                                            </th>
+                                            <th nowrap>
+                                                Reference 4
+                                            </th>
+                                            <th nowrap>
+                                                Net Amount
+                                            </th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        @{foreach (var item in Model.expenseEntities)
+                                            {
+                                                <tr>
+                                                    <td>
+                                                        @if (Model.rolePermissionEntity.ViewBit)
+                                                        {
+                                                            <img src="~/images/view-icon.png" class="img-responsive" onclick="DLinkRevenue('@item.ExpenseId')"  style="cursor:pointer;" />
+                                                        }
+                                                        else
+                                                        {
+                                                            <a class="mrp_popup disableButton" data-toggle="modal">
+                                                                <img src="~/images/view-icon.png" class="img-responsive disableButton" />
+                                                            </a>
+                                                        }
+                                                    </td>
+                                                    <td nowrap>
+                                                        @item.PeriodName
+                                                    </td>
+                                                    <td nowrap>
+                                                        @item.ExpenseDate
+                                                    </td>
+                                                    <td nowrap>
+                                                        @item.Journal
+                                                    </td>
+                                                    <td nowrap>
+                                                        @item.SourceName
+                                                    </td>
+                                                    <td>
+                                                        @item.Fund
+                                                    </td>
+                                                    <td>
+                                                        @item.OrgName
+                                                    </td>
+                                                    <td nowrap>
+                                                        @item.FunctionName
+                                                    </td>
+                                                    <td nowrap>
+                                                        @item.FunctionDescription
+                                                    </td>
+                                                    <td nowrap>
+                                                        @item.DepartmentName
+                                                    </td>
+                                                    <td nowrap>
+                                                        @item.DepartmentDescription
+                                                    </td>
+                                                    <td nowrap>
+                                                        @item.ActivityName
+                                                    </td>
+                                                    <td nowrap>
+                                                        @item.ActivityDescription
+                                                    </td>
+                                                    <td nowrap>
+                                                        @item.ObjectName
+                                                    </td>
+                                                    <td nowrap>
+                                                        @item.ObjectDescription
+                                                    </td>
+                                                    <td nowrap>
+                                                        @item.ProjectName
+                                                    </td>
+                                                    <td nowrap>
+                                                        @item.ProjectDescription
+                                                    </td>
+                                                    <td nowrap>
+                                                        @item.CFDA
+                                                    </td>
+                                                    <td nowrap>
+                                                        @item.Reference1
+                                                    </td>
+                                                    <td nowrap>
+                                                        @item.Reference2
+                                                    </td>
+                                                    <td nowrap>
+                                                        @item.Reference3
+                                                    </td>
+                                                    <td nowrap>
+                                                        @item.Reference4
+                                                    </td>
+                                                    <td nowrap>
+                                                        @string.Format("{0:C}", item.NetAmount)
+                                                    </td>
+                                                </tr>
+                                            }
+                                        }
+                                    </tbody>
+                                </table>
+
+                                <!-- popup -->
+                                <div class="modal fade mrp_modalpopup" id="CostReportInvoiceModal">
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- /top tiles -->
+                </div>
+            </div>
+            <!-- /page content -->
+            <div id="container" class="mra_pagination">
+            </div>
+        </div>
+    </div>
+
+
+
+    <script type="text/javascript">
+
+
+        function DLinkRevenue(ExpenseId) {
+            if (window.confirm("Are you sure want to d-link Expense and Revenue?")) {
+                var expenseRequest = {
+                    expenseEntity:
+                    {
+                        ExpenseId: ExpenseId,
+                        ProjectId: document.getElementById("RevenueId").value
+                    },
+                };
+
+                $.ajax({
+                    url: "/Expense/DLinkRevenue",
+                    type: "POST",
+                    data: expenseRequest,
+                    dataType: 'json',
+                    success: function (result) {
+                        location.href = "/Revenue/RevenueExpense/" + document.getElementById("RevenueId").value;
+                    },
+                    complete: function () {
+
+                    }
+                });
+            }
+        }
+
+        $(document).ready(function () {
+            $('#mra_subli3').addClass('active');
+        });
+
+        function CreateLinkToExpense(revenueId) {
+            var url = "/Revenue/LinkToExpense/" + revenueId;
+            location.href = url;
+        }
+    </script>
+}

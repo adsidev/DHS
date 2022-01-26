@@ -1,0 +1,88 @@
+﻿using DHSBAL;
+using DHSEntities;
+using System;
+using System.Web.Http;
+
+namespace Medicaid.Reconcilation.Areas
+{
+    [RoutePrefix("Import")]
+    public class ImportController : ApiController
+    {
+        IImportRepository importRepository;
+
+        public ImportController()
+        {
+            importRepository = new ImportBAL();
+        }
+
+        [HttpPost]
+        [Route("ImportExpense")]
+        public ErrorMessages ImportExpense(ImportRequest ImportRequest)
+        {
+            ErrorMessages errorMessages = new ErrorMessages();
+            try
+            {
+                errorMessages = importRepository.ImportExpense(ImportRequest);
+            }
+            catch (Exception ex)
+            {
+                errorMessages.ErrorMessage = ex.Message;
+                errorMessages.Exception = ex;
+            }
+            return errorMessages;
+        }
+
+        [HttpPost]
+        [Route("CheckImportExpense")]
+        public ErrorMessages CheckImportExpense(ImportRequest ImportRequest)
+        {
+            ErrorMessages errorMessages = new ErrorMessages();
+            try
+            {
+                errorMessages = importRepository.CheckImportExpense(ImportRequest);
+            }
+            catch (Exception ex)
+            {
+                errorMessages.ErrorMessage = ex.Message;
+                errorMessages.Exception = ex;
+            }
+            return errorMessages;
+        }
+
+
+        [HttpPost]
+        [Route("ImportRevenue")]
+        public ErrorMessages ImportRevenue(ImportRequest ImportRequest)
+        {
+            ErrorMessages errorMessages = new ErrorMessages();
+            try
+            {
+                errorMessages = importRepository.ImportRevenue(ImportRequest);
+            }
+            catch (Exception ex)
+            {
+                errorMessages.ErrorMessage = ex.Message;
+                errorMessages.Exception = ex;
+            }
+            return errorMessages;
+        }
+
+        [HttpPost]
+        [Route("CheckImportRevenue")]
+        public ErrorMessages CheckImportRevenue(ImportRequest ImportRequest)
+        {
+            ErrorMessages errorMessages = new ErrorMessages();
+            try
+            {
+                errorMessages = importRepository.CheckImportRevenue(ImportRequest);
+            }
+            catch (Exception ex)
+            {
+                errorMessages.ErrorMessage = ex.Message;
+                errorMessages.Exception = ex;
+            }
+            return errorMessages;
+        }
+
+    }
+}

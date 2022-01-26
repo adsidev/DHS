@@ -1,0 +1,787 @@
+﻿@model DHSEntities.RevenueResponse
+@using PagedList.Mvc
+@using DHS.Reconcilation.Models
+
+@{
+    ViewBag.Title = "DHS Reconcilation Application :: View Revenue Documents";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+<script src="~/js/jquery.min.js"></script>
+<title>@ViewBag.Title</title>
+@section LeftMenuSection
+{
+    @Html.Partial("_menuCRPayments")
+}
+
+@using (Html.BeginForm("RevenueInfo", "Revenue", FormMethod.Post, new{ @id = "frmRevenueInfo" }))
+{
+    @Html.AntiForgeryToken()
+    <div class="tab-pane active" id="dashboard">
+        <div class="container-fluid mra_settlement_view">
+            <!-- top tiles -->
+            <div class="row ">
+                <div class="col-lg-10">
+                    <div class="mrp_modalcontent">
+                        <h2>View Revenue Information</h2>
+                        <form class="mrp_selectdetails form-inline"></form>
+                    </div>
+                </div>
+                <div class="col-lg-1">
+                    <img src="~/images/document.png" class="img-responsive" onclick="OpenRevenueDocuments('@Model.revenueEntity.RevenueId')" style="cursor:pointer;" height="40" width="40" alt="View Revenue Documents." />
+                </div>
+                <div class="col-lg-1">
+                    @if (Model.rolePermissionEntity.EditBit)
+                    {
+                        <img src="~/images/edit.png" class="img-responsive" height="40" width="40" onclick="EditRevenue('@Model.revenueEntity.RevenueId')" style="cursor:pointer;" alt="Edit Revenue Information" />
+
+                    }
+                    else
+                    {
+                        <a class="mrp_popup disableButton" data-toggle="modal">
+                            <img src="~/images/edit.png" class="img-responsive disableButton" height="40" width="40" alt="Edit Revenue Information" />
+                        </a>
+                    }
+                </div>
+            </div>
+
+
+            <input type="hidden" id="RevenueId" value='@Model.revenueEntity.RevenueId' name="RevenueId" />
+
+            <div class="row">
+                <div class="col-lg-4">
+                    <div class="row">
+                        <div class="col-lg-3 col-xs-12 col-sm-3 col-md-3">
+                            <div class="form_modal">
+                                <label>Period</label>
+                            </div>
+                        </div>
+                        <div class="col-lg-9 col-xs-12 col-sm-9 col-md-9">
+                            <div class="form_modal">
+                                @Html.TextBoxFor(m => m.revenueEntity.PeriodName, htmlAttributes: new { @class = "form-control mrp_modalselect", @disabled = "disabled" })
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="col-lg-4">
+                    <div class="row">
+                        <div class="col-lg-3 col-xs-12 col-sm-3 col-md-3">
+                            <div class="form_modal">
+                                <label>Fiscal&nbsp;Year</label>
+                            </div>
+                        </div>
+                        <div class="col-lg-9 col-xs-12 col-sm-9 col-md-9">
+                            <div class="form_modal">
+                                @Html.TextBoxFor(m => m.revenueEntity.FiscalYear, htmlAttributes: new { @class = "form-control mrp_modalselect", @disabled = "disabled" })
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="col-lg-4">
+                    <div class="row">
+                        <div class="col-lg-3 col-xs-12 col-sm-3 col-md-3">
+                            <div class="form_modal">
+                                <label>Revenue&nbsp;No</label>
+                            </div>
+                        </div>
+                        <div class="col-lg-9 col-xs-12 col-sm-9 col-md-9">
+                            <div class="form_modal">
+                                @Html.TextBoxFor(m => m.revenueEntity.RevenueNumber, htmlAttributes: new { @class = "form-control mrp_modalselect", @disabled = "disabled" })
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-lg-4">
+                    <div class="row">
+                        <div class="col-lg-3 col-xs-12 col-sm-3 col-md-3">
+                            <div class="form_modal">
+                                <label>Source</label>
+                            </div>
+                        </div>
+                        <div class="col-lg-9 col-xs-12 col-sm-9 col-md-9">
+                            <div class="form_modal">
+                                @Html.TextBoxFor(m => m.revenueEntity.SourceName, htmlAttributes: new { @class = "form-control mrp_modalselect", @disabled = "disabled" })
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="col-lg-4">
+                    <div class="row">
+                        <div class="col-lg-3 col-xs-12 col-sm-3 col-md-3">
+                            <div class="form_modal">
+                                <label>Journal</label>
+                            </div>
+                        </div>
+                        <div class="col-lg-9 col-xs-12 col-sm-9 col-md-9">
+                            <div class="form_modal">
+                                @Html.TextBoxFor(m => m.revenueEntity.Journal, htmlAttributes: new { @class = "form-control mrp_modalselect", @disabled = "disabled" })
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="col-lg-4">
+                    <div class="row">
+                        <div class="col-lg-3 col-xs-12 col-sm-3 col-md-3">
+                            <div class="form_modal">
+                                <label>Function </label>
+                            </div>
+                        </div>
+                        <div class="col-lg-9 col-xs-12 col-sm-9 col-md-9">
+                            <div class="form_modal">
+                                @Html.TextBoxFor(m => m.revenueEntity.FunctionName, htmlAttributes: new { @class = "form-control mrp_modalselect", @disabled = "disabled" })
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="col-lg-4">
+                    <div class="row">
+                        <div class="col-lg-3 col-xs-12 col-sm-3 col-md-3">
+                            <div class="form_modal">
+                                <label>Department</label>
+                            </div>
+                        </div>
+                        <div class="col-lg-9 col-xs-12 col-sm-9 col-md-9">
+                            <div class="form_modal">
+                                @Html.TextBoxFor(m => m.revenueEntity.DepartmentName, htmlAttributes: new { @class = "form-control mrp_modalselect", @disabled = "disabled" })
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="col-lg-4">
+                    <div class="row">
+                        <div class="col-lg-3 col-xs-12 col-sm-3 col-md-3">
+                            <div class="form_modal">
+                                <label>Activity</label>
+                            </div>
+                        </div>
+                        <div class="col-lg-9 col-xs-12 col-sm-9 col-md-9">
+                            <div class="form_modal">
+                                @Html.TextBoxFor(m => m.revenueEntity.ActivityName, htmlAttributes: new { @class = "form-control mrp_modalselect", @disabled = "disabled" })
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="col-lg-4">
+                    <div class="row">
+                        <div class="col-lg-3 col-xs-12 col-sm-3 col-md-3">
+                            <div class="form_modal">
+                                <label>Org</label>
+                            </div>
+                        </div>
+                        <div class="col-lg-9 col-xs-12 col-sm-9 col-md-9">
+                            <div class="form_modal">
+                                @Html.TextBoxFor(m => m.revenueEntity.OrgName, htmlAttributes: new { @class = "form-control mrp_modalselect", @disabled = "disabled" })
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="col-lg-4">
+                    <div class="row">
+                        <div class="col-lg-3 col-xs-12 col-sm-3 col-md-3">
+                            <div class="form_modal">
+                                <label>Object</label>
+                            </div>
+                        </div>
+                        <div class="col-lg-9 col-xs-12 col-sm-9 col-md-9">
+                            <div class="form_modal">
+                                @Html.TextBoxFor(m => m.revenueEntity.ObjectName, htmlAttributes: new { @class = "form-control mrp_modalselect", @disabled = "disabled" })
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="col-lg-4">
+                    <div class="row">
+                        <div class="col-lg-3 col-xs-12 col-sm-3 col-md-3">
+                            <div class="form_modal">
+                                <label>Fund</label>
+                            </div>
+                        </div>
+                        <div class="col-lg-9 col-xs-12 col-sm-9 col-md-9">
+                            <div class="form_modal">
+                                @Html.TextBoxFor(m => m.revenueEntity.Fund, htmlAttributes: new { @class = "form-control mrp_modalselect", @disabled = "disabled" })
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="col-lg-4">
+                    <div class="row">
+                        <div class="col-lg-3 col-xs-12 col-sm-3 col-md-3">
+                            <div class="form_modal">
+                                <label>Project</label>
+                            </div>
+                        </div>
+                        <div class="col-lg-9 col-xs-12 col-sm-9 col-md-9">
+                            <div class="form_modal">
+                                @Html.TextBoxFor(m => m.revenueEntity.ProjectName, htmlAttributes: new { @class = "form-control mrp_modalselect", @disabled = "disabled" })
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="col-lg-4">
+                    <div class="row">
+                        <div class="col-lg-3 col-xs-12 col-sm-3 col-md-3">
+                            <div class="form_modal">
+                                <label>Reference&nbsp;1</label>
+                            </div>
+                        </div>
+                        <div class="col-lg-9 col-xs-12 col-sm-9 col-md-9">
+                            <div class="form_modal">
+                                @Html.TextBoxFor(m => m.revenueEntity.Reference1, htmlAttributes: new { @class = "form-control mrp_modalselect", @disabled = "disabled" })
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="col-lg-4">
+                    <div class="row">
+                        <div class="col-lg-3 col-xs-12 col-sm-3 col-md-3">
+                            <div class="form_modal">
+                                <label>Reference&nbsp;2</label>
+                            </div>
+                        </div>
+                        <div class="col-lg-9 col-xs-12 col-sm-9 col-md-9">
+                            <div class="form_modal">
+                                @Html.TextBoxFor(m => m.revenueEntity.Reference2, htmlAttributes: new { @class = "form-control mrp_modalselect", @disabled = "disabled" })
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="col-lg-4">
+                    <div class="row">
+                        <div class="col-lg-3 col-xs-12 col-sm-3 col-md-3">
+                            <div class="form_modal">
+                                <label>Reference&nbsp;3</label>
+                            </div>
+                        </div>
+                        <div class="col-lg-9 col-xs-12 col-sm-9 col-md-9">
+                            <div class="form_modal">
+                                @Html.TextBoxFor(m => m.revenueEntity.Reference3, htmlAttributes: new { @class = "form-control mrp_modalselect", @disabled = "disabled" })
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="col-lg-4">
+                    <div class="row">
+                        <div class="col-lg-3 col-xs-12 col-sm-3 col-md-3">
+                            <div class="form_modal">
+                                <label>Reference&nbsp;4</label>
+                            </div>
+                        </div>
+                        <div class="col-lg-9 col-xs-12 col-sm-9 col-md-9">
+                            <div class="form_modal">
+                                @Html.TextBoxFor(m => m.revenueEntity.Reference4, htmlAttributes: new { @class = "form-control mrp_modalselect", @disabled = "disabled" })
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="col-lg-4">
+                    <div class="row">
+                        <div class="col-lg-3 col-xs-12 col-sm-3 col-md-3">
+                            <div class="form_modal">
+                                <label>Net&nbsp;Amount</label>
+                            </div>
+                        </div>
+                        <div class="col-lg-9 col-xs-12 col-sm-9 col-md-9">
+                            <div class="form_modal">
+                                <input type="text" disabled="disabled" value="@String.Format("{0:$#,##0.00}", Model.revenueEntity.NetAmount)" class="form-control mrp_modalselect" />
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="col-lg-4">
+                    <div class="row">
+                        <div class="col-lg-3 col-xs-12 col-sm-3 col-md-3">
+                            <div class="form_modal">
+                                <label>Status</label>
+                            </div>
+                        </div>
+                        <div class="col-lg-9 col-xs-12 col-sm-9 col-md-9">
+                            <div class="form_modal">
+                                @Html.TextBoxFor(m => m.revenueEntity.StatusName, htmlAttributes: new { @class = "form-control mrp_modalselect", @disabled = "disabled" })
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="col-lg-4">
+                    <div class="row">
+                        <div class="col-lg-3 col-xs-12 col-sm-3 col-md-3">
+                            <div class="form_modal">
+                                <label>Revenue&nbsp;Type</label>
+                            </div>
+                        </div>
+                        <div class="col-lg-9 col-xs-12 col-sm-9 col-md-9">
+                            <div class="form_modal">
+                                @Html.TextBoxFor(m => m.revenueEntity.RevenueTypeName, htmlAttributes: new { @class = "form-control mrp_modalselect", @disabled = "disabled" })
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="col-lg-4">
+                    <div class="row">
+                        <div class="col-lg-3 col-xs-12 col-sm-3 col-md-3">
+                            <div class="form_modal">
+                                <label>Assigned&nbsp;To</label>
+                            </div>
+                        </div>
+                        <div class="col-lg-9 col-xs-12 col-sm-9 col-md-9">
+                            <div class="form_modal">
+                                @Html.TextBoxFor(m => m.revenueEntity.AssignedToUser, htmlAttributes: new { @class = "form-control mrp_modalselect", @disabled = "disabled" })
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="col-lg-4">
+                    <div class="row">
+                        <div class="col-lg-3 col-xs-12 col-sm-3 col-md-3">
+                            <div class="form_modal">
+                                <label>Draw&nbsp;No</label>
+                            </div>
+                        </div>
+                        <div class="col-lg-9 col-xs-12 col-sm-9 col-md-9">
+                            <div class="form_modal">
+                                @if (Model.revenueEntity.DrawNumber != "0")
+                                {
+                                    <label>
+                                        @foreach (var items in Model.drawEntities)
+                                        {
+                                            <a class="img-responsive" onclick="ViewDraw('@items.DrawId')" style="cursor:pointer;">
+                                                @items.DrawNumber
+                                            </a>
+                                        }
+                                    </label>
+                                }
+                                else
+                                {
+                                    <label>
+                                        <img src="~/images/linking.png" class="img-responsive" onclick="LinkToDraw('@Model.revenueEntity.RevenueId')" style="cursor:pointer;" alt="Linking to Draw" height="30" width="30" />
+                                    </label>
+                                }
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-lg-1">
+                    <label>
+                        Notes:
+                    </label>
+                </div>
+                <div class="col-log-11">
+                    <textarea id="txtNotes" name="txtNotes" disabled="disabled" style="margin: 0px; width: 850px; height: 120px;">@Model.revenueEntity.Notes</textarea>
+                </div>
+            </div>
+
+            <div class="row ">
+                <div class="col-lg-12">
+                    <div class="mrp_content">
+                        <h2>Expense Information Linked to this Revenue</h2>
+                        <form class="mrp_selectdetails form-inline">
+                        </form>
+                    </div>
+                </div>
+            </div>
+            <div class="row mrp_table-row">
+                <div class="col-lg-12 col-xs-12">
+                    <div class="table-responsive">
+                        <div class="mrp_contentbody mrp_contenttable">
+                            <div class="mrp_table">
+                                <table class="table table-bordered table-striped">
+                                    <thead>
+                                        <tr>
+                                            <th nowrap>
+                                                Exp No
+                                            </th>
+                                            <th nowrap>
+                                                Period
+                                            </th>
+                                            <th nowrap>
+                                                Net Amount
+                                            </th>
+                                            <th nowrap>
+                                                Fiscal Year
+                                            </th>
+                                            @*<th nowrap>
+                                            Expense Date
+                                        </th>*@
+                                            <th nowrap>
+                                                Journal
+                                            </th>
+                                            <th nowrap>
+                                                Source
+                                            </th>
+                                            <th nowrap>
+                                                Fund
+                                            </th>
+                                            <th nowrap>
+                                                Org
+                                            </th>
+                                            <th nowrap>
+                                                Function
+                                            </th>
+                                            <th nowrap>
+                                                Function Description
+                                            </th>
+                                            <th nowrap>
+                                                Department
+                                            </th>
+                                            <th nowrap>
+                                                Department Description
+                                            </th>
+                                            <th nowrap>
+                                                Activity
+                                            </th>
+                                            <th nowrap>
+                                                Activity Description
+                                            </th>
+                                            <th nowrap>
+                                                Object
+                                            </th>
+                                            <th nowrap>
+                                                Object Description
+                                            </th>
+                                            <th nowrap>
+                                                Project
+                                            </th>
+                                            <th nowrap>
+                                                Project Title
+                                            </th>
+                                            <th nowrap>
+                                                CFDA
+                                            </th>
+                                            <th nowrap>
+                                                Reference 1
+                                            </th>
+                                            <th nowrap>
+                                                Reference 2
+                                            </th>
+                                            <th nowrap>
+                                                Reference 3
+                                            </th>
+                                            <th nowrap>
+                                                Reference 4
+                                            </th>
+                                            <th nowrap>
+                                                Status
+                                            </th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        @{
+                                            decimal Total = 0;
+                                            foreach (var item in Model.expenseEntities)
+                                            {
+                                                Total = Total + item.NetAmount;
+                                                <tr>
+                                                    <td nowrap>
+                                                        @item.ExpenseNumber
+                                                    </td>
+                                                    <td nowrap>
+                                                        @item.PeriodName
+                                                    </td>
+                                                    <td nowrap>
+                                                        @string.Format("{0:C}", item.NetAmount)
+                                                    </td>
+                                                    <td nowrap>
+                                                        @item.FiscalYear
+                                                    </td>
+                                                    @*<td nowrap>
+                                                    @item.ExpenseDate
+                                                </td>*@
+                                                    <td nowrap>
+                                                        @item.Journal
+                                                    </td>
+                                                    <td nowrap>
+                                                        @item.SourceName
+                                                    </td>
+                                                    <td>
+                                                        @item.Fund
+                                                    </td>
+                                                    <td>
+                                                        @item.OrgName
+                                                    </td>
+                                                    <td nowrap>
+                                                        @item.FunctionName
+                                                    </td>
+                                                    <td nowrap>
+                                                        @item.FunctionDescription
+                                                    </td>
+                                                    <td nowrap>
+                                                        @item.DepartmentName
+                                                    </td>
+                                                    <td nowrap>
+                                                        @item.DepartmentDescription
+                                                    </td>
+                                                    <td nowrap>
+                                                        @item.ActivityName
+                                                    </td>
+                                                    <td nowrap>
+                                                        @item.ActivityDescription
+                                                    </td>
+                                                    <td nowrap>
+                                                        @item.ObjectName
+                                                    </td>
+                                                    <td nowrap>
+                                                        @item.ObjectDescription
+                                                    </td>
+                                                    <td nowrap>
+                                                        @item.ProjectName
+                                                    </td>
+                                                    <td nowrap>
+                                                        @item.ProjectDescription
+                                                    </td>
+                                                    <td nowrap>
+                                                        @item.CFDA
+                                                    </td>
+                                                    <td nowrap>
+                                                        @item.Reference1
+                                                    </td>
+                                                    <td nowrap>
+                                                        @item.Reference2
+                                                    </td>
+                                                    <td nowrap>
+                                                        @item.Reference3
+                                                    </td>
+                                                    <td nowrap>
+                                                        @item.Reference4
+                                                    </td>
+                                                    <td nowrap>
+                                                        @item.StatusName
+                                                    </td>
+                                                </tr>
+                                            }
+                                            if (Model.expenseEntities.Count > 0)
+                                            {
+                                                <tr>
+                                                    <td colspan="2" style="text-align:right"><b>Total: </b></td>
+                                                    <td><b>@String.Format("{0:$#,##0.00}", Total)</b></td>
+                                                </tr>
+                                            }
+                                        }
+                                    </tbody>
+                                </table>
+                                <div class="modal fade mrp_modalpopup" id="RevenueModal">
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- /top tiles -->
+                </div>
+            </div>
+
+
+            <div class="row ">
+                <div class="col-lg-12">
+                    <div class="mrp_content">
+                        <h2>Revenue Transaction Details</h2>
+                    </div>
+                </div>
+            </div>
+
+            <div class="row mrp_table-row">
+                <div class="col-lg-12 col-xs-12">
+                    <div class="table-responsive">
+                        <div class="mrp_contentbody mrp_contenttable">
+                            <div class="mrp_table">
+
+                                <table class="table table-bordered table-striped">
+                                    <thead>
+                                        <tr>
+                                            <td colspan="8" align="right"><input type="button" value="Add" class="btn btn-primary btn-updated" onclick="CreateRevenueTransaction('@Model.revenueEntity.RevenueId')" /></td>
+                                        </tr>
+                                        <tr>
+                                            <th style="margin-left:1px; margin-right:1px;">
+                                                Action
+                                            </th>
+                                            <th nowrap>
+                                                Transaction No
+                                            </th>
+                                            <th nowrap>
+                                                Transaction Date
+                                            </th>
+                                            <th nowrap>
+                                                Transaction Amount
+                                            </th>
+                                            <th nowrap>
+                                                Org
+                                            </th>
+                                            <th nowrap>
+                                                Object
+                                            </th>
+                                            <th nowrap>
+                                                Project
+                                            </th>
+                                            <th nowrap>
+                                                Revenue Type
+                                            </th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        @{
+                                            decimal RevenueTotal = 0;
+                                            foreach (var item in Model.revenueTransactionEntities)
+                                            {
+                                                RevenueTotal = RevenueTotal + item.RevenueTransactionAmount;
+                                                <tr>
+                                                    <td>
+                                                        @if (Model.rolePermissionEntity.ViewBit)
+                                                        {
+                                                            <img src="~/images/view-icon.png" class="img-responsive" style="cursor:pointer;" alt="View Revenue Transaction Information" onclick="ViewRevenueTransaction('@item.RevenueTransactionId')" />
+                                                        }
+                                                        else
+                                                        {
+                                                            <a class="mrp_popup disableButton" data-toggle="modal">
+                                                                <img src="~/images/view-icon.png" alt="View Revenue Transaction Information"  class="img-responsive disableButton" />
+                                                            </a>
+                                                        }
+                                                    </td>
+                                                    <td>
+                                                        @item.RevenueTransactionNumber
+                                                    </td>
+                                                    <td>
+                                                        @item.RevenueTransactionDate
+                                                    </td>
+                                                    <td>
+                                                        @String.Format("{0:$#,##0.00}", item.RevenueTransactionAmount)
+                                                    </td>
+                                                    <td>
+                                                        @item.OrgName
+                                                    </td>
+                                                    <td>
+                                                        @item.ObjectName
+                                                    </td>
+                                                    <td>
+                                                        @item.ProjectName
+                                                    </td>
+                                                    <td>
+                                                        @item.RevenueTypeName
+                                                    </td>
+                                                </tr>
+                                            }
+                                            if (Model.revenueTransactionEntities.Count > 0)
+                                            {
+                                                <tr>
+                                                    <td colspan="3" style="text-align:right"><b>Total: </b></td>
+                                                    <td><b>@String.Format("{0:$#,##0.00}", RevenueTotal)</b></td>
+                                                    <td colspan="8" style="text-align:right"></td>
+                                                </tr>
+                                            }
+                                        }
+                                    </tbody>
+                                </table>
+
+                                <!-- popup -->
+                                <div class="modal fade mrp_modalpopup" id="RevenueTransactionModal">
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- /top tiles -->
+                </div>
+            </div>
+
+
+        </div>
+    </div>
+    <script type="text/javascript">
+        function OpenDocument(FileName) {
+            window.open("/Documents/Revenue/" + FileName);
+        }
+        function AddDocument() {
+            var id = document.getElementById("RevenueId").value;
+            document.location.href = "/Revenue/CreateRevenueDocument/0?pid=" + id;
+        }
+
+        $(document).ready(function () {
+            $('#mra_subli3').addClass('active');
+        });
+
+        function EditRevenue(revenueId) {
+            var options = { "backdrop": "static", keyboard: true };
+            $.ajax({
+                type: "GET",
+                url: "/Revenue/EditRevenue/" + revenueId,
+                dataType: "html",
+                success: function (evt) {
+                    $('#RevenueModal').html(evt);
+                    $('#RevenueModal').modal(options);
+                    $('#RevenueModal').modal('show');
+                },
+                error: function (req, status, error) {
+                    alert("Error!Occured");
+                }
+            });
+        }
+
+        function OpenRevenueDocuments(RevenueId) {
+            var url = "/Revenue/RevenueDocuments/" + RevenueId;
+            location.href = url;
+        }
+
+        function ViewDraw(drawId) {
+            window.open('/Draw/DrawInfo/'+drawId,'')
+        }
+
+        function LinkToDraw(revenueId) {
+            var url = "/Revenue/LinkToDraw/" + revenueId;
+            location.href = url;
+        }
+
+        function CreateRevenueTransaction(revenueId) {
+            var url = "/Revenue/CreateRevenueTransaction/" + revenueId;
+            location.href = url;
+        }
+
+        function ViewRevenueTransaction(revenueId) {
+            var options = { "backdrop": "static", keyboard: true };
+            $.ajax({
+                type: "GET",
+                url: "/Revenue/ViewRevenueTransaction/" + revenueId,
+                dataType: "html",
+                success: function (evt) {
+                    $('#RevenueTransactionModal').html(evt);
+                    $('#RevenueTransactionModal').modal(options);
+                    $('#RevenueTransactionModal').modal('show');
+                },
+                error: function (req, status, error) {
+                    alert(error);
+                    alert("Error!Occured");
+                }
+            }); 
+        }
+
+        function EditRevenueTransaction(revenueId) {
+            var options = { "backdrop": "static", keyboard: true };
+            $.ajax({
+                type: "GET",
+                url: "/Revenue/EditRevenueTransaction/" + revenueId,
+                dataType: "html",
+                success: function (evt) {
+                    $('#RevenueTransactionModal').html(evt);
+                    $('#RevenueTransactionModal').modal(options);
+                    $('#RevenueTransactionModal').modal('show');
+                },
+                error: function (req, status, error) {
+                    alert("Error!Occured");
+                }
+            });
+        }
+    </script>
+}

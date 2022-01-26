@@ -1,0 +1,119 @@
+﻿@model DHSEntities.FGTCategoryResponse
+@using DHS.Reconcilation.Models
+
+@{
+
+    ViewBag.Title = "DHS Reconcilation Application :: Manage Federal Grant Template Category";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+<script src="~/Scripts/jquery-1.10.2.min.js"></script>
+@section LeftMenuSection
+{
+    @Html.Partial("_menuCRPayments");
+}
+
+@using (Html.BeginForm("CreateFGTCategory", "FGTCategory", FormMethod.Post, new { @id = "frmFGTCategory" }))
+{
+    <title>@ViewBag.Title</title>
+    <div class="tab-pane active" id="dashboard">
+        <div class="container-fluid">
+            <!-- top tiles -->
+            <div class="mrp_content">
+                <h2>Federal Grant Template Category Information</h2>
+
+                <div class="row mra_createcost_report_payment">
+
+                    <div class="col-lg-6">
+                        <div class="row">
+                            <div class="col-lg-4 col-xs-12 col-sm-4 col-md-4">
+                                <div class="form_modal">
+                                    <label> FGT Category Name</label>
+                                </div>
+                            </div>
+                            <div class="col-lg-8 col-xs-12 col-sm-8 col-md-8">
+                                <div class="form_modal">
+                                    <input type="text" value="@Model.fGTCategoryEntity.FGTCategoryName" id="FGTCategoryName" name="FGTCategoryName" class="form-control mrp_modalselect" />
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="col-lg-6">
+                        <div class="row">
+                            <div class="col-lg-4 col-xs-12 col-sm-4 col-md-4">
+                                <div class="form_modal">
+                                    <label>Parent FGT Category</label>
+                                </div>
+                            </div>
+                            <div class="col-lg-8 col-xs-12 col-sm-8 col-md-8">
+                                <div class="form_modal">
+                                    @Html.DropDownList("FGTParentCategoryId", new SelectList(Model.fGTCategoryEntities, "FGTCategoryId", "FGTCategoryName", Model.fGTCategoryEntity.FGTParentCategoryId), "", new { @id = "FGTParentCategoryId", @class = "form-control mrp_modalselect" })
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+
+                <div class="row">
+                    <div class="col-lg-2 col-xs-12 col-sm-4 col-md-2">
+                        <div class="form_modal">
+                            <label>Description</label>
+                        </div>
+                    </div>
+                    <div class="col-lg-10 col-xs-12 col-sm-8 col-md-10">
+                        <div class="form_modal">
+                            <textarea id="FGTCategoryDescription" name="FGTCategoryDescription" style="margin: 0px; width: 100%; height: 80px;">@Model.fGTCategoryEntity.FGTCategoryDescription</textarea>
+                        </div>
+                    </div>
+                </div>
+
+
+                <div class="modal-footer">
+                    <input type="submit" id="btnSubmit" class="btn btn-primary btn-updated" onclick="return SubmitValue()" value="Save Changes" />
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+
+
+    <script type="text/javascript">
+        function SubmitValue() {
+
+            if (document.getElementById("FGTCategoryName").value == "") {
+                alert("Please enter category name.")
+                document.getElementById("FGTCategoryName").focus();
+                return false;
+            }
+
+            var fGTCategoryEntity = {
+                FGTCategoryName: document.getElementById("FGTCategoryName").value,
+                FGTParentCategoryId: document.getElementById("FGTParentCategoryId").value,
+                FGTCategoryDescription: document.getElementById("FGTCategoryDescription").value,
+                ModifiedBy:@Common.GetSession("UserID"),
+            };
+            var fGTCategoryRequest = {
+                FGTCategoryEntity: fGTCategoryEntity
+            };
+            $.ajax({
+                url: "/FGTCategory/SaveFGTCategory",
+                type: "POST",
+                data: fGTCategoryRequest,
+                dataType: 'json',
+                success: function (result) {
+                    location.href = "/FGTCategory/ManageFGTCategories";
+                },
+                complete: function () {
+
+                }
+            });
+            return true;
+        }
+
+        $(document).ready(function () {
+            $('#mra_subli9').addClass('active');
+        });
+    </script>
+}

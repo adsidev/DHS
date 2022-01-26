@@ -1,0 +1,112 @@
+﻿@model DHSEntities.JournalResponse
+@using PagedList.Mvc
+@using DHS.Reconcilation.Models
+
+@{
+    ViewBag.Title = "Create Journals";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+<script src="~/Scripts/jquery-1.10.2.min.js"></script>
+@section LeftMenuSection
+{
+    @Html.Partial("_menuCRPayments");
+}
+
+@using (Html.BeginForm("CreateJournal", "Journal", FormMethod.Post, new { @id = "frmJournal" }))
+{
+
+    <title>@ViewBag.Title</title>
+    <div class="tab-pane active" id="dashboard">
+        <div class="container-fluid">
+            <!-- top tiles -->
+            <div class="mrp_content">
+                <h2>Journal Information</h2>
+
+                <div class="row mra_createcost_report_payment">
+
+                    <div class="col-lg-6">
+                        <div class="row">
+                            <div class="col-lg-4 col-xs-12 col-sm-4 col-md-4">
+                                <div class="form_modal">
+                                    <label> Journal Code</label>
+                                </div>
+                            </div>
+                            <div class="col-lg-8 col-xs-12 col-sm-8 col-md-8">
+                                <div class="form_modal">
+                                    @Html.TextBoxFor(m => m.journalEntity.JournalCode, htmlAttributes: new { @id = "JournalCode", @class = "form-control mrp_modalselect" })
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="col-lg-6">
+                        <div class="row">
+                            <div class="col-lg-4 col-xs-12 col-sm-4 col-md-4">
+                                <div class="form_modal">
+                                    <label>Journal Name</label>
+                                </div>
+                            </div>
+                            <div class="col-lg-8 col-xs-12 col-sm-8 col-md-8">
+                                <div class="form_modal">
+                                    @Html.TextBoxFor(m => m.journalEntity.JournalName, htmlAttributes: new { @id = "JournalName", @class = "form-control mrp_modalselect" })
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="row">
+                    <div class="col-lg-2 col-xs-12 col-sm-4 col-md-2">
+                        <div class="form_modal">
+                            <label>Description</label>
+                        </div>
+                    </div>
+                    <div class="col-lg-10 col-xs-12 col-sm-8 col-md-10">
+                        <div class="form_modal">
+                            <textarea id="JournalDescription" name="JournalDescription" style="margin: 0px; width: 100%; height: 80px;">@Model.journalEntity.JournalDescription</textarea>
+                        </div>
+                    </div>
+                </div>
+
+
+                <div class="modal-footer">
+                    <input type="submit" id="btnSubmit" class="btn btn-primary btn-updated" onclick="return SubmitValue()" value="Save Changes" />
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+
+
+    <script type="text/javascript">
+        function SubmitValue() {
+            var journalEntity = {
+                JournalId: 0,
+                JournalCode: document.getElementById("JournalCode").value,
+                JournalName: document.getElementById("JournalName").value,
+                JournalDescription: document.getElementById("JournalDescription").value
+            };
+            var journalRequest = {
+                JournalEntity: journalEntity
+            };
+            $.ajax({
+                url: "/Journal/SaveJournal",
+                type: "POST",
+                data: journalRequest,
+                dataType: 'json',
+                success: function (result) {
+                    location.href = "/Journal/ManageJournals";
+                },
+                complete: function () {
+
+                }
+            });
+            return true;
+        }
+
+        $(document).ready(function () {
+            $('#mra_subli8').addClass('active');
+        });
+    </script>
+}

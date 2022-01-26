@@ -1,0 +1,514 @@
+﻿@model DHSEntities.CostReportInvoiceResponse
+@{
+    ViewBag.Title = "Cost Report Invoices";
+}
+
+<div class="modal-dialog" role="document">
+    <div class="modal-content">
+        <div class="modal-header">
+            <h5 class="modal-title" id="CostReportInvoiceModalLabel">
+                View Cost Report Invoice
+            </h5>
+
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+            </button>
+            <span class="mrp_modaledit"> <strong><a href="Javascript:void()" onclick="EditCostReportInvoice()" title="Edit"><i class="fa fa-pencil" aria-hidden="true" onclick="EditCostReportInvoice()"></i></a></strong></span>
+        </div>
+        <div class="modal-body">
+            <div class="mrp_modalcontent">
+                <h2>Invoice Information</h2>
+
+                <div class="row">
+
+                    <div class="col-lg-12">
+                        <div class="row">
+                            <div class="col-lg-3 col-xs-12 col-sm-3 col-md-3">
+                                <div class="form_modal">
+                                    <label>Fiscal&nbsp;Period</label>
+                                </div>
+                            </div>
+                            <div class="col-lg-9 col-xs-12 col-sm-9 col-md-9">
+                                <div class="form_modal">
+                                    <lable id="lbFacilityCharges">@Model.costReportInvoiceEntity.FiscalPeriodName</lable>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="col-lg-12">
+                        <div class="row">
+                            <div class="col-lg-3 col-xs-12 col-sm-3 col-md-3">
+                                <div class="form_modal">
+                                    <label>Reporting&nbsp;Facility</label>
+                                </div>
+                            </div>
+                            <div class="col-lg-9 col-xs-12 col-sm-9 col-md-9">
+                                <div class="form_modal">
+                                    <p><lable id="lbFacilityCharges">@Model.costReportInvoiceEntity.FacilityName</lable></p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="col-lg-12">
+                        <div class="row">
+                            <div class="col-lg-3 col-xs-12 col-sm-3 col-md-3">
+                                <div class="form_modal">
+                                    <label>Unique&nbsp;Invoice</label>
+                                </div>
+                            </div>
+                            <div class="col-lg-9 col-xs-12 col-sm-9 col-md-9">
+                                <div class="form_modal">
+                                    <p>@Model.costReportInvoiceEntity.UniqueInvoice</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="col-lg-12">
+                        <div class="row">
+                            <div class="col-lg-3 col-xs-12 col-sm-3 col-md-3">
+                                <div class="form_modal">
+                                    <label>Invoice&nbsp;Number </label>
+                                </div>
+                            </div>
+                            <div class="col-lg-9 col-xs-12 col-sm-9 col-md-9">
+                                <div class="form_modal">
+                                    <p>@Model.costReportInvoiceEntity.InvoiceNumber</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="col-lg-12">
+                        <div class="row">
+                            <div class="col-lg-3 col-xs-12 col-sm-3 col-md-3">
+                                <div class="form_modal">
+                                    <label>Document&nbsp;Number</label>
+                                </div>
+                            </div>
+                            <div class="col-lg-9 col-xs-12 col-sm-9 col-md-9">
+                                <div class="form_modal">
+                                    <p>@Model.costReportInvoiceEntity.DocumentNumber</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="col-lg-12">
+                        <div class="row">
+                            <div class="col-lg-3 col-xs-12 col-sm-3 col-md-3">
+                                <div class="form_modal">
+                                    <label>Issue&nbsp;Type</label>
+                                </div>
+                            </div>
+                            <div class="col-lg-9 col-xs-12 col-sm-9 col-md-9">
+                                <div class="form_modal">
+                                    <p>@Model.costReportInvoiceEntity.IssueType</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="col-lg-12">
+                        <div class="row">
+                            <div class="col-lg-3 col-xs-12 col-sm-3 col-md-3">
+                                <div class="form_modal">
+                                    <label>Payment&nbsp;Type</label>
+                                </div>
+                            </div>
+                            <div class="col-lg-9 col-xs-12 col-sm-9 col-md-9">
+                                <div class="form_modal">
+                                    <p>@Model.costReportInvoiceEntity.PaymentTypes</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="col-lg-12">
+                        <div class="row">
+                            <div class="col-lg-3 col-xs-12 col-sm-3 col-md-3">
+                                <div class="form_modal">
+                                    <label>Invoice&nbsp;Type</label>
+                                </div>
+                            </div>
+                            <div class="col-lg-9 col-xs-12 col-sm-9 col-md-9">
+                                <div class="form_modal">
+                                    <p>@Model.costReportInvoiceEntity.InvoiceType</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="col-lg-12">
+                        <div class="row">
+                            <div class="col-lg-3 col-xs-12 col-sm-3 col-md-3">
+                                <div class="form_modal">
+                                    <label> Invoice&nbsp;Date</label>
+                                </div>
+                            </div>
+                            <div class="col-lg-9 col-xs-12 col-sm-9 col-md-9">
+                                <div class="form_modal">
+                                    <p>@Model.costReportInvoiceEntity.InvoiceDate</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="col-lg-12">
+                        <div class="row">
+                            <div class="col-lg-3 col-xs-12 col-sm-3 col-md-3">
+                                <div class="form_modal">
+                                    <label>Calculated&nbsp;Share</label>
+                                </div>
+                            </div>
+                            <div class="col-lg-9 col-xs-12 col-sm-9 col-md-9">
+                                <div class="form_modal">
+                                    <p>@Model.costReportInvoiceEntity.CalculatedShare</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="col-lg-12">
+                        <div class="row">
+                            <div class="col-lg-3 col-xs-12 col-sm-3 col-md-3">
+                                <div class="form_modal">
+                                    <label>Vendor&nbsp;Total&nbsp;Charges</label>
+                                </div>
+                            </div>
+                            <div class="col-lg-9 col-xs-12 col-sm-9 col-md-9">
+                                <div class="form_modal">
+                                    <p> @String.Format("{0:$#,##0.00}", Model.costReportInvoiceEntity.VendorTotalCharges)</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="col-lg-12">
+                        <div class="row">
+                            <div class="col-lg-3 col-xs-12 col-sm-3 col-md-3">
+                                <div class="form_modal">
+                                    <label>DHS&nbsp;Approved&nbsp;Federal Match,&nbsp;%</label>
+                                </div>
+                            </div>
+                            <div class="col-lg-9 col-xs-12 col-sm-9 col-md-9">
+                                <div class="form_modal">
+                                    <p>@Model.costReportInvoiceEntity.DHSApprovedFederalMatchPercentage</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="col-lg-12">
+                        <div class="row">
+                            <div class="col-lg-3 col-xs-12 col-sm-3 col-md-3">
+                                <div class="form_modal">
+                                    <label>Vendor&nbsp;Deductible</label>
+                                </div>
+                            </div>
+                            <div class="col-lg-9 col-xs-12 col-sm-9 col-md-9">
+                                <div class="form_modal">
+                                    <p>@String.Format("{0:$#,##0.00}", Model.costReportInvoiceEntity.VendorDeductible)</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="col-lg-12">
+                        <div class="row">
+                            <div class="col-lg-3 col-xs-12 col-sm-3 col-md-3">
+                                <div class="form_modal">
+                                    <label>DHS&nbsp;Approved&nbsp;Federal Match&nbsp;$</label>
+                                </div>
+                            </div>
+                            <div class="col-lg-9 col-xs-12 col-sm-9 col-md-9">
+                                <div class="form_modal">
+                                    <p>@String.Format("{0:$#,##0.00}", Model.costReportInvoiceEntity.DHSApprovedFederalMatch)</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="col-lg-12">
+                        <div class="row">
+                            <div class="col-lg-3 col-xs-12 col-sm-3 col-md-3">
+                                <div class="form_modal">
+                                    <label>DHS&nbsp;Approved Deductible</label>
+                                </div>
+                            </div>
+                            <div class="col-lg-9 col-xs-12 col-sm-9 col-md-9">
+                                <div class="form_modal">
+                                    <p>@String.Format("{0:$#,##0.00}", Model.costReportInvoiceEntity.DHSApprovedDeductible)</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="col-lg-12">
+                        <div class="row">
+                            <div class="col-lg-3 col-xs-12 col-sm-3 col-md-3">
+                                <div class="form_modal">
+                                    <label>DHS&nbsp;Approved Local&nbsp;Match&nbsp;%</label>
+                                </div>
+                            </div>
+                            <div class="col-lg-9 col-xs-12 col-sm-9 col-md-9">
+                                <div class="form_modal">
+                                    <p>@Model.costReportInvoiceEntity.DHSApprovedLocalMatchPercentage</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="col-lg-12">
+                        <div class="row">
+                            <div class="col-lg-3 col-xs-12 col-sm-3 col-md-3">
+                                <div class="form_modal">
+                                    <label>Vendor&nbsp;Days</label>
+                                </div>
+                            </div>
+                            <div class="col-lg-9 col-xs-12 col-sm-9 col-md-9">
+                                <div class="form_modal">
+                                    <p>@Model.costReportInvoiceEntity.VendorDays</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="col-lg-12">
+                        <div class="row">
+                            <div class="col-lg-3 col-xs-12 col-sm-3 col-md-3">
+                                <div class="form_modal">
+                                    <label>DHS&nbsp;Approved Local&nbsp;Match&nbsp;$</label>
+                                </div>
+                            </div>
+                            <div class="col-lg-9 col-xs-12 col-sm-9 col-md-9">
+                                <div class="form_modal">
+                                    <p>@String.Format("{0:$#,##0.00}", Model.costReportInvoiceEntity.DHSApprovedLocalMatch)</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="col-lg-12">
+                        <div class="row">
+                            <div class="col-lg-3 col-xs-12 col-sm-3 col-md-3">
+                                <div class="form_modal">
+                                    <label>DHS&nbsp;Approved Days</label>
+                                </div>
+                            </div>
+                            <div class="col-lg-9 col-xs-12 col-sm-9 col-md-9">
+                                <div class="form_modal">
+                                    <p>@Model.costReportInvoiceEntity.DHSApprovedDays</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="col-lg-12">
+                        <div class="row">
+                            <div class="col-lg-3 col-xs-12 col-sm-3 col-md-3">
+                                <div class="form_modal">
+                                    <label>Calculated&nbsp;Inpatient days</label>
+                                </div>
+                            </div>
+                            <div class="col-lg-9 col-xs-12 col-sm-9 col-md-9">
+                                <div class="form_modal">
+                                    <p>@Model.costReportInvoiceEntity.CalculatedInPatientDays</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="col-lg-12">
+                        <div class="row">
+                            <div class="col-lg-3 col-xs-12 col-sm-3 col-md-3">
+                                <div class="form_modal">
+                                    <label>Vendor&nbsp;Billed Amount</label>
+                                </div>
+                            </div>
+                            <div class="col-lg-9 col-xs-12 col-sm-9 col-md-9">
+                                <div class="form_modal">
+                                    <p>@String.Format("{0:$#,##0.00}", Model.costReportInvoiceEntity.VendorAllowableAmount)</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="col-lg-12">
+                        <div class="row">
+                            <div class="col-lg-3 col-xs-12 col-sm-3 col-md-3">
+                                <div class="form_modal">
+                                    <label>Calculated&nbsp;Outpatient Days</label>
+                                </div>
+                            </div>
+                            <div class="col-lg-9 col-xs-12 col-sm-9 col-md-9">
+                                <div class="form_modal">
+                                    <p>  @Model.costReportInvoiceEntity.CalculatedOutPatientDays</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="col-lg-12">
+                        <div class="row">
+                            <div class="col-lg-3 col-xs-12 col-sm-3 col-md-3">
+                                <div class="form_modal">
+                                    <label>DHS&nbsp;Approved Allowable&nbsp;Amount</label>
+                                </div>
+                            </div>
+                            <div class="col-lg-9 col-xs-12 col-sm-9 col-md-9">
+                                <div class="form_modal">
+                                    <p>@String.Format("{0:$#,##0.00}", Model.costReportInvoiceEntity.DHSApprovedAllowableAmount)</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="col-lg-12">
+                        <div class="row">
+                            <div class="col-lg-3 col-xs-12 col-sm-3 col-md-3">
+                                <div class="form_modal">
+                                    <label>Per&nbsp;Diem Rate&nbsp;Used </label>
+                                </div>
+                            </div>
+                            <div class="col-lg-9 col-xs-12 col-sm-9 col-md-9">
+                                <div class="form_modal">
+                                    <p>@Model.costReportInvoiceEntity.PerdiemRateUsed</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="col-lg-12">
+                        <div class="row">
+                            <div class="col-lg-3 col-xs-12 col-sm-3 col-md-3">
+                                <div class="form_modal">
+                                    <label>DHS&nbsp;Federal Match</label>
+                                </div>
+                            </div>
+                            <div class="col-lg-9 col-xs-12 col-sm-9 col-md-9">
+                                <div class="form_modal">
+                                    <p>@Model.costReportInvoiceEntity.RuleName</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="col-lg-12">
+                        <div class="row">
+                            <div class="col-lg-3 col-xs-12 col-sm-3 col-md-3">
+                                <div class="form_modal">
+                                    <label>Correct&nbsp;Per Diem&nbsp;Rate</label>
+                                </div>
+                            </div>
+                            <div class="col-lg-9 col-xs-12 col-sm-9 col-md-9">
+                                <div class="form_modal">
+                                    <p>  @Model.costReportInvoiceEntity.CorrectPerdiemRate</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="col-lg-12">
+                        <div class="row">
+                            <div class="col-lg-3 col-xs-12 col-sm-3 col-md-3">
+                                <div class="form_modal">
+                                    <label><span class="red">Notes:</span></label>
+                                </div>
+                            </div>
+                            <div class="col-lg-9 col-xs-12 col-sm-9 col-md-9">
+                                <div class="form_modal">
+                                    <p>@Model.costReportInvoiceEntity.Notes</p>
+                                </div>
+                            </div>
+                        </div>
+
+                    </div>
+                    <hr />
+                    <h2>Payment Information</h2>
+                    <div class="col-lg-12">
+                        <div class="row mrp_table-row">
+                            <div class="col-lg-12 col-xs-12">
+                                <div class="table-responsive">
+                                    <div class="mrp_contentbody mrp_contenttable">
+                                        <div class="mrp_table">
+                                            <table class="table table-bordered table-striped" cellpadding="2" cellspacing="5">
+                                                <thead>
+                                                    <tr>
+                                                        <td nowrap>
+                                                            Document Number
+                                                        </td>
+                                                        <td nowrap>
+                                                            Vendor Name - Full
+                                                        </td>
+                                                        <td nowrap>
+                                                            Purchase Order
+                                                        </td>
+                                                        <td nowrap>
+                                                            Invoice (Payment) Amount
+                                                        </td>
+                                                        <td>
+                                                            Org
+                                                        </td>
+                                                        <td>
+                                                            Object
+                                                        </td>
+                                                        <td>
+                                                            Project
+                                                        </td>
+                                                        <td nowrap>
+                                                            Project Type
+                                                        </td>
+                                                        <td nowrap>
+                                                            Project Title
+                                                        </td>
+                                                        <td nowrap>
+                                                            Check Date
+                                                        </td>
+                                                        <td nowrap>
+                                                            Check Number
+                                                        </td>
+                                                        <td nowrap>
+                                                            Check Amount
+                                                        </td>
+                                                    </tr>
+                                                </thead>
+                                                <tbody>
+                                                    @foreach (var item in Model.costReportInvoiceEntities)
+                                                    {
+                                                        <tr>
+                                                            <td>
+                                                                @item.DocumentNumber
+                                                            </td>
+                                                            <td nowrap> @item.VendorName</td>
+                                                            <td nowrap> @item.PurchaseOrder</td>
+                                                            <td nowrap> @item.InvoicePaymentAmount</td>
+                                                            <td nowrap> @item.Org</td>
+                                                            <td nowrap> @item.Object</td>
+                                                            <td nowrap> @item.Project</td>
+                                                            <td nowrap> @item.ProjectType</td>
+                                                            <td nowrap> @item.ProjectTitle</td>
+                                                            <td nowrap> @item.CheckDate</td>
+                                                            <td nowrap> @item.CheckNumber</td>
+                                                            <td nowrap>@String.Format("{0:$#,##0.00}", item.CheckAmount)</td>
+                                                        </tr>
+                                                    }
+                                                </tbody>
+                                            </table>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+
+                
+
+            </div>
+                            </div>
+                        </div>
+                    </div>

@@ -1,0 +1,98 @@
+﻿@model DHSEntities.UserResponse
+
+@{
+    /**/
+
+    ViewBag.Title = "Home";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+@section LeftMenuSection
+{
+}
+<div class="row ">
+
+</div>
+<div class="row mrp_table-row mra_select-tables">
+    <div class="col-lg-12 col-xs-12">
+        <div class="table-responsive">
+            <div class="mrp_contentbody mrp_contenttable" style="text-align:center;vertical-align:middle;">
+                @*@if (Model.rolePermissionEntity.EditBit)
+                {
+                    <img src="~/Images/Reconciliation.png" style="cursor:pointer;width:200px;height:200px;" id="btnReconciliation" />
+                }
+                else
+                {
+
+                }*@
+                <img src="~/Images/Reconciliation.png" style="cursor:pointer;width:200px;height:200px;" id="btnCostReport" alt="Reconcilation" />
+                @if (Model.rolePermissionEntity.EditBit)
+                {
+                    <img src="~/Images/Admin.png" style="cursor:pointer;width:200px;height:200px;" id="btnAdmin" />
+                }
+                else
+                {
+
+                }
+                @Html.HiddenFor(m => m.adminAndReconciliation.isAdmin, htmlAttributes: new { @id = "isAdmin" })
+                @Html.HiddenFor(m => m.adminAndReconciliation.IsReconciliation, htmlAttributes: new { @id = "IsReconciliation" })
+                @Html.HiddenFor(m => m.adminAndReconciliation.IsCostReport, htmlAttributes: new { @id = "IsCostReport" })
+                @Html.HiddenFor(m => m.adminAndReconciliation.PageToRedirectForAdmin, htmlAttributes: new { @id = "PageToRedirectForAdmin" })
+                @Html.HiddenFor(m => m.adminAndReconciliation.PageToRedirectForReconciliation, htmlAttributes: new { @id = "PageToRedirectForReconciliation" })
+                @Html.HiddenFor(m => m.adminAndReconciliation.PageToRedirectForCostReport, htmlAttributes: new { @id = "PageToRedirectForCostReport" })
+            </div>
+        </div>
+    </div>
+</div>
+<script src="~/js/jquery-3.3.1.min.js"></script>
+<script type="text/javascript">
+
+    $('#btnReconciliation').click(function () {
+        var reconciliation = $("#IsReconciliation").val()
+        alert(reconciliation);
+        if (reconciliation == "True") {
+            var pageToRedirect = $("#PageToRedirectForReconciliation").val();
+            if (pageToRedirect == "ManagePayments")
+                document.location = '@Url.Action("ManagePayments", "Home")';
+            if (pageToRedirect == "ManageVendors")
+                document.location = '@Url.Action("ManageVendors", "Home")';
+            if (pageToRedirect == "ViewAccounts")
+                document.location = '@Url.Action("ViewAccounts", "Home")';
+            if (pageToRedirect == "ViewReports")
+                document.location = '@Url.Action("ViewReports", "Home")';
+            if (pageToRedirect == "ManageForm64Categories")
+                document.location = '@Url.Action("ManageForm64Categories", "Home")';
+        }
+        else
+            alert("You don't have access to this activity. Please contact your administrator.");
+    });
+
+    $('#btnAdmin').click(function () {
+        var admin = $("#isAdmin").val()
+        if (admin == "True") {
+            var pageToRedirect = $("#PageToRedirectForAdmin").val();
+            if (pageToRedirect == "ManageRevenueTypes")
+                document.location = '@Url.Action("ManageRevenueTypes", "RevenueType")';
+            if (pageToRedirect == "CreateBaseline")
+                document.location = '@Url.Action("CreateBaseline", "Home")';
+        }
+        else
+            alert("You don't have access to this activity. Please contact your administrator.");
+    });
+
+     $('#btnCostReport').click(function () {
+        var reconciliation = $("#IsCostReport").val()
+        if (reconciliation == "True") {
+            var pageToRedirect = $("#PageToRedirectForCostReport").val();
+            if (pageToRedirect == "ManageExpenses")
+                document.location = '@Url.Action("ManageExpenses", "Expense")';
+            if (pageToRedirect == "ManageVendors")
+                document.location = '@Url.Action("ManageVendors", "Home")';
+            if (pageToRedirect == "ManageCRInvoices")
+                document.location = '@Url.Action("CostReportInvoices", "CostReportInvoice")';
+            if (pageToRedirect == "ManageCRReports")
+                document.location = '@Url.Action("ManageCRReports", "Home")';
+        }
+        else
+            alert("You don't have access to this activity. Please contact your administrator.");
+    });
+</script>

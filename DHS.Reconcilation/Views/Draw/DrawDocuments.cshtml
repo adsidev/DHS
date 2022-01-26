@@ -1,0 +1,114 @@
+﻿@model DHSEntities.DrawResponse
+@using PagedList.Mvc
+@using DHS.Reconcilation.Models
+
+@{
+    ViewBag.Title = "DHS Reconcilation Application :: View Draw Documents";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+<script src="~/js/jquery.min.js"></script>
+<title>@ViewBag.Title</title>
+@section LeftMenuSection
+{
+    @Html.Partial("_menuCRPayments")
+}
+
+@using (Html.BeginForm("DrawDocuments", "Draw", FormMethod.Post, new { @id = "frmManageDrawDocuments" }))
+{
+    @Html.AntiForgeryToken()
+    <div class="tab-pane active" id="dashboard">
+        <div class="container-fluid mra_settlement_view">
+            <!-- top tiles -->
+            <div class="row ">
+                <div class="col-lg-12">
+                    <div class="mrp_modalcontent">
+                        <h2>View Draw Information</h2>
+                        <form class="mrp_selectdetails form-inline"></form>
+                    </div>
+                </div>
+            </div>
+            <input type="hidden" id="DrawId" value='@Model.drawEntity.DrawId' name="DrawId" />
+
+            <div class="row mrp_table-row">
+                <div class="col-lg-12 col-xs-12">
+                    <div class="table-responsive">
+                        <div class="mrp_contentbody mrp_contenttable">
+                            <div class="mrp_table">
+                                @if (Model.rolePermissionEntity.CreateBit)
+                                {
+                                    <table class="table table-bordered table-striped" cellpadding="2" cellspacing="5" border="0">
+                                        <thead>
+                                            <tr>
+                                                <td align="right"><input type="button" class="btn btn-primary btn-updated" value=" Add Document " onclick="AddDocument()" /></td>
+                                            </tr>
+                                        </thead>
+                                    </table>
+                                }
+                                <table class="table table-bordered table-striped" cellpadding="2" cellspacing="5">
+                                    <thead>
+                                        <tr>
+                                            <th scope="col" id="Action" aria-label="Action">Action</th>
+                                            <th nowrap>Document Title</th>
+                                            <th nowrap>Description</th>
+                                            <th nowrap>Document</th>
+                                            <th nowrap>Display Order</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        @{foreach (var item in Model.documentEntities)
+                                            {
+                                                <tr>
+                                                    <td headers="Action">
+                                                        @if (Model.rolePermissionEntity.ViewBit)
+                                                        {
+                                                            @Html.ActionLink("Edit", "CreateDrawDocument", "Draw", new { ID = item.DocumentId, pid = item.DocumentReferenceId }, null)
+                                                        }
+                                                        else
+                                                        {
+                                                            <a class="mrp_popup disableButton" data-toggle="modal">
+                                                                <img src="~/images/view-icon.png" class="img-responsive disableButton" alt="View Settlement Payment Document Information" />
+                                                            </a>
+                                                        }
+                                                    </td>
+                                                    <td>
+                                                        @item.DocumentTitle
+                                                    </td>
+                                                    <td>
+                                                        @item.DocumentDescription
+                                                    </td>
+                                                    <td>
+                                                        <a href="javascript:void()" onclick="OpenDocument('@item.DocumentFile')" style="cursor:pointer;">@item.DocumentFile</a>
+                                                    </td>
+                                                    <td>
+                                                        @item.DisplayOrder
+                                                    </td>
+                                                </tr>
+                                            }
+                                        }
+                                    </tbody>
+                                </table>
+                                <div class="modal fade mrp_modalpopup" id="DocumentModal">
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- /top tiles -->
+                </div>
+            </div>
+
+        </div>
+    </div>
+    <script type="text/javascript">
+        function OpenDocument(FileName) {
+            window.open("/Documents/Draw/" + FileName);
+        }
+        function AddDocument() {
+            var id = document.getElementById("DrawId").value;
+            document.location.href = "/Draw/CreateDrawDocument/0?pid=" + id;
+        }
+
+        $(document).ready(function () {
+            $('#mra_subli5').addClass('active');
+        });
+    </script>
+}

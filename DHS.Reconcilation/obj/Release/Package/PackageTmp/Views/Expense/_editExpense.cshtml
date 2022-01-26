@@ -1,0 +1,443 @@
+﻿@model DHSEntities.ExpenseResponse
+@{
+    ViewBag.Title = "Edit Expenses";
+}
+@Html.HiddenFor(m => m.expenseEntity.ExpenseId, htmlAttributes: new { @id = "ExpenseId" })
+<div class="modal-dialog" role="document">
+    <div class="modal-content">
+        <div class="modal-header">
+            <h5 class="modal-title" id="exampleModalLabel">Edit Expense Information</h5>
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+            </button>
+            <div class="modal-footer mra_edit_footer">
+                <a href="Javascript:void()" title="Save" onclick="return SubmitValue()" id="btnSubmit" class="mra_edit_save">
+                    <i class="fa fa-floppy-o" aria-hidden="true"></i>
+                </a>
+            </div>
+            <div class="modal-body">
+                <div class="mrp_modalcontent">
+                    <div class="row">
+                        <div class="col-lg-6">
+                            <div class="row">
+                                <div class="col-lg-3 col-xs-12 col-sm-3 col-md-3">
+                                    <div class="form_modal">
+                                        <label>Period</label>
+                                    </div>
+                                </div>
+                                <div class="col-lg-9 col-xs-12 col-sm-9 col-md-9">
+                                    <div class="form_modal">
+                                        @Html.TextBoxFor(m => m.expenseEntity.PeriodName, htmlAttributes: new { @class = "form-control mrp_modalselect", @disabled = "disabled" })
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="col-lg-6">
+                            <div class="row">
+                                <div class="col-lg-3 col-xs-12 col-sm-3 col-md-3">
+                                    <div class="form_modal">
+                                        <label>Fiscal&nbsp;Year</label>
+                                    </div>
+                                </div>
+                                <div class="col-lg-9 col-xs-12 col-sm-9 col-md-9">
+                                    <div class="form_modal">
+                                        @Html.TextBoxFor(m => m.expenseEntity.FiscalYear, htmlAttributes: new { @class = "form-control mrp_modalselect", @disabled = "disabled" })
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        @*<div class="col-lg-6">
+            <div class="row">
+                <div class="col-lg-3 col-xs-12 col-sm-3 col-md-3">
+                    <div class="form_modal">
+                        <label>Expense&nbsp;Date</label>
+                    </div>
+                </div>
+                <div class="col-lg-9 col-xs-12 col-sm-9 col-md-9">
+                    <div class="form_modal">
+                        @Html.TextBoxFor(m => m.expenseEntity.ExpenseDate, htmlAttributes: new { @class = "form-control mrp_modalselect", @disabled = "disabled" })
+                    </div>
+                </div>
+            </div>
+        </div>*@
+
+                        <div class="col-lg-6">
+                            <div class="row">
+                                <div class="col-lg-3 col-xs-12 col-sm-3 col-md-3">
+                                    <div class="form_modal">
+                                        <label>Expense&nbsp;No</label>
+                                    </div>
+                                </div>
+                                <div class="col-lg-9 col-xs-12 col-sm-9 col-md-9">
+                                    <div class="form_modal">
+                                        @Html.TextBoxFor(m => m.expenseEntity.ExpenseNumber, htmlAttributes: new { @class = "form-control mrp_modalselect", @disabled = "disabled" })
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="col-lg-6">
+                            <div class="row">
+                                <div class="col-lg-3 col-xs-12 col-sm-3 col-md-3">
+                                    <div class="form_modal">
+                                        <label>Source</label>
+                                    </div>
+                                </div>
+                                <div class="col-lg-9 col-xs-12 col-sm-9 col-md-9">
+                                    <div class="form_modal">
+                                        @Html.TextBoxFor(m => m.expenseEntity.SourceName, htmlAttributes: new { @class = "form-control mrp_modalselect", @disabled = "disabled" })
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="col-lg-6">
+                            <div class="row">
+                                <div class="col-lg-3 col-xs-12 col-sm-3 col-md-3">
+                                    <div class="form_modal">
+                                        <label>Journal</label>
+                                    </div>
+                                </div>
+                                <div class="col-lg-9 col-xs-12 col-sm-9 col-md-9">
+                                    <div class="form_modal">
+                                        @Html.TextBoxFor(m => m.expenseEntity.Journal, htmlAttributes: new { @class = "form-control mrp_modalselect", @disabled = "disabled" })
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="col-lg-6">
+                            <div class="row">
+                                <div class="col-lg-3 col-xs-12 col-sm-3 col-md-3">
+                                    <div class="form_modal">
+                                        <label>Function </label>
+                                    </div>
+                                </div>
+                                <div class="col-lg-9 col-xs-12 col-sm-9 col-md-9">
+                                    <div class="form_modal">
+                                        @Html.TextBoxFor(m => m.expenseEntity.FunctionName, htmlAttributes: new { @class = "form-control mrp_modalselect", @disabled = "disabled" })
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="col-lg-6">
+                            <div class="row">
+                                <div class="col-lg-3 col-xs-12 col-sm-3 col-md-3">
+                                    <div class="form_modal">
+                                        <label>Department</label>
+                                    </div>
+                                </div>
+                                <div class="col-lg-9 col-xs-12 col-sm-9 col-md-9">
+                                    <div class="form_modal">
+                                        @Html.TextBoxFor(m => m.expenseEntity.DepartmentName, htmlAttributes: new { @class = "form-control mrp_modalselect", @disabled = "disabled" })
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="col-lg-6">
+                            <div class="row">
+                                <div class="col-lg-3 col-xs-12 col-sm-3 col-md-3">
+                                    <div class="form_modal">
+                                        <label>Activity</label>
+                                    </div>
+                                </div>
+                                <div class="col-lg-9 col-xs-12 col-sm-9 col-md-9">
+                                    <div class="form_modal">
+                                        @Html.TextBoxFor(m => m.expenseEntity.ActivityName, htmlAttributes: new { @class = "form-control mrp_modalselect", @disabled = "disabled" })
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="col-lg-6">
+                            <div class="row">
+                                <div class="col-lg-3 col-xs-12 col-sm-3 col-md-3">
+                                    <div class="form_modal">
+                                        <label>Org</label>
+                                    </div>
+                                </div>
+                                <div class="col-lg-9 col-xs-12 col-sm-9 col-md-9">
+                                    <div class="form_modal">
+                                        @Html.TextBoxFor(m => m.expenseEntity.OrgName, htmlAttributes: new { @class = "form-control mrp_modalselect", @disabled = "disabled" })
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="col-lg-6">
+                            <div class="row">
+                                <div class="col-lg-3 col-xs-12 col-sm-3 col-md-3">
+                                    <div class="form_modal">
+                                        <label>Object</label>
+                                    </div>
+                                </div>
+                                <div class="col-lg-9 col-xs-12 col-sm-9 col-md-9">
+                                    <div class="form_modal">
+                                        @Html.TextBoxFor(m => m.expenseEntity.ObjectName, htmlAttributes: new { @class = "form-control mrp_modalselect", @disabled = "disabled" })
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="col-lg-6">
+                            <div class="row">
+                                <div class="col-lg-3 col-xs-12 col-sm-3 col-md-3">
+                                    <div class="form_modal">
+                                        <label>Fund</label>
+                                    </div>
+                                </div>
+                                <div class="col-lg-9 col-xs-12 col-sm-9 col-md-9">
+                                    <div class="form_modal">
+                                        @Html.TextBoxFor(m => m.expenseEntity.Fund, htmlAttributes: new { @class = "form-control mrp_modalselect", @disabled = "disabled" })
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="col-lg-6">
+                            <div class="row">
+                                <div class="col-lg-3 col-xs-12 col-sm-3 col-md-3">
+                                    <div class="form_modal">
+                                        <label>Project</label>
+                                    </div>
+                                </div>
+                                <div class="col-lg-9 col-xs-12 col-sm-9 col-md-9">
+                                    <div class="form_modal">
+                                        @Html.TextBoxFor(m => m.expenseEntity.ProjectName, htmlAttributes: new { @class = "form-control mrp_modalselect", @disabled = "disabled" })
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="col-lg-6">
+                            <div class="row">
+                                <div class="col-lg-3 col-xs-12 col-sm-3 col-md-3">
+                                    <div class="form_modal">
+                                        <label>Reference&nbsp;1</label>
+                                    </div>
+                                </div>
+                                <div class="col-lg-9 col-xs-12 col-sm-9 col-md-9">
+                                    <div class="form_modal">
+                                        @Html.TextBoxFor(m => m.expenseEntity.Reference1, htmlAttributes: new { @class = "form-control mrp_modalselect", @disabled = "disabled" })
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="col-lg-6">
+                            <div class="row">
+                                <div class="col-lg-3 col-xs-12 col-sm-3 col-md-3">
+                                    <div class="form_modal">
+                                        <label>Reference&nbsp;2</label>
+                                    </div>
+                                </div>
+                                <div class="col-lg-9 col-xs-12 col-sm-9 col-md-9">
+                                    <div class="form_modal">
+                                        @Html.TextBoxFor(m => m.expenseEntity.Reference2, htmlAttributes: new { @class = "form-control mrp_modalselect", @disabled = "disabled" })
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="col-lg-6">
+                            <div class="row">
+                                <div class="col-lg-3 col-xs-12 col-sm-3 col-md-3">
+                                    <div class="form_modal">
+                                        <label>Reference&nbsp;3</label>
+                                    </div>
+                                </div>
+                                <div class="col-lg-9 col-xs-12 col-sm-9 col-md-9">
+                                    <div class="form_modal">
+                                        @Html.TextBoxFor(m => m.expenseEntity.Reference3, htmlAttributes: new { @class = "form-control mrp_modalselect", @disabled = "disabled" })
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="col-lg-6">
+                            <div class="row">
+                                <div class="col-lg-3 col-xs-12 col-sm-3 col-md-3">
+                                    <div class="form_modal">
+                                        <label>Reference&nbsp;4</label>
+                                    </div>
+                                </div>
+                                <div class="col-lg-9 col-xs-12 col-sm-9 col-md-9">
+                                    <div class="form_modal">
+                                        @Html.TextBoxFor(m => m.expenseEntity.Reference4, htmlAttributes: new { @class = "form-control mrp_modalselect", @disabled = "disabled" })
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="col-lg-6">
+                            <div class="row">
+                                <div class="col-lg-3 col-xs-12 col-sm-3 col-md-3">
+                                    <div class="form_modal">
+                                        <label>Net&nbsp;Amount</label>
+                                    </div>
+                                </div>
+                                <div class="col-lg-9 col-xs-12 col-sm-9 col-md-9">
+                                    <div class="form_modal">
+                                        <input type="text" disabled="disabled" value="@String.Format("{0:$#,##0.00}", Model.expenseEntity.NetAmount)" class="form-control mrp_modalselect" />
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="col-lg-6">
+                            <div class="row">
+                                <div class="col-lg-3 col-xs-12 col-sm-3 col-md-3">
+                                    <div class="form_modal">
+                                        <label>Status</label>
+                                    </div>
+                                </div>
+                                <div class="col-lg-9 col-xs-12 col-sm-9 col-md-9">
+                                    <div class="form_modal">
+                                        @Html.DropDownList("StatusId", new SelectList(Model.statusEntities, "StatusId", "StatusName", Model.expenseEntity.StatusId), "", new { @id = "StatusId", @class = "form-control mrp_modalselect" })
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="col-xs-12">
+                            <div class="form_modal">
+                                <label><span class="red">Notes:</span></label>
+                                <textarea id="txtNotes" name="txtNotes" style="margin: 0px; width: 500px; height: 80px;">@Model.expenseEntity.Notes</textarea>
+                            </div>
+                        </div>
+
+                    </div>
+
+                    <!--<div class="row mrp_table-row">
+                        <div class="col-lg-12 col-xs-12">
+                            <div class="table-responsive">
+                                <div class="mrp_contentbody mrp_contenttable">
+                                    <div class="mrp_table">
+
+                                        <table class="table table-bordered table-striped">
+                                            <thead>
+                                                <tr>
+                                                    <td align="center" colspan="4"><h3 class="modal-title" id="exampleModalLabel">Transaction Details</h3></td>
+                                                    <td align="right"><input type="button" value="Add" onclick="CreateTransactionDetails('@Model.expenseEntity.ExpenseId')" /></td>
+                                                </tr>
+                                                <tr>
+                                                    <th style="margin-left:1px; margin-right:1px;">
+                                                        Action
+                                                    </th>
+                                                    <th nowrap>
+                                                        Transaction Date
+                                                    </th>
+                                                    <th nowrap>
+                                                        Transaction Amount
+                                                    </th>
+                                                    <th nowrap>
+                                                        Category 1
+                                                    </th>
+                                                    <th nowrap>
+                                                        Category 2
+                                                    </th>
+                                                </tr>
+                                            </thead>
+                                            <tbody>
+                                                @{foreach (var item in Model.transactionDetailEntities)
+                                                    {
+                                                        <tr>
+                                                            <td>
+                                                                @if (Model.rolePermissionEntity.ViewBit)
+                                                                {
+                                                                    <img src="~/images/view-icon.png" class="img-responsive" style="cursor:pointer;" alt="View Expense Information" onclick="ViewTransactionDetail('@item.TransactionDetailId')" />
+                                                                }
+                                                                else
+                                                                {
+                                                                    <a class="mrp_popup disableButton" data-toggle="modal">
+                                                                        <img src="~/images/view-icon.png" class="img-responsive disableButton" />
+                                                                    </a>
+                                                                }
+                                                            </td>
+                                                            <td>
+                                                                @item.TransactionDate
+                                                            </td>
+                                                            <td>
+                                                                @String.Format("{0:$#,##0.00}", item.TransactionAmount)
+                                                            </td>
+                                                            <td>
+                                                                @item.FGTCategoryName1
+                                                            </td>
+                                                            <td>
+                                                                @item.FGTCategoryName2
+                                                            </td>
+                                                        </tr>
+                                                    }
+                                                }
+                                            </tbody>
+                                        </table>-->
+
+                                        <!-- popup -->
+                                        <!--<div class="modal fade mrp_modalpopup" id="TransactionDetailModal">
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>-->
+                            <!-- /top tiles -->
+                        <!--</div>
+                    </div>-->
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<script language="JavaScript">
+    function CreateTransactionDetails(expenseId) {
+        var url = "/Expense/CreateTransactionDetail/" + expenseId;
+        location.href = url;
+    }
+
+
+
+    function SubmitValue() {
+        var expenseRequest = {
+            expenseEntity:
+            {
+                ExpenseId: document.getElementById("ExpenseId").value,
+                Notes: document.getElementById("txtNotes").value,
+                StatusId: document.getElementById("StatusId").value,
+            },
+        };
+
+        $.ajax({
+            url: "/Expense/SaveExpense",
+            type: "POST",
+            data: expenseRequest,
+            dataType: 'json',
+            success: function (result) {
+                location.href = "/Expense/ManageExpenses";
+            },
+            complete: function () {
+
+            }
+        });
+        return true;
+    }
+
+    function ViewTransactionDetail(paymentId) {
+        var options = { "backdrop": "static", keyboard: true };
+        $.ajax({
+            type: "GET",
+            url: "/Expense/ViewTransactionDetail/" + paymentId,
+            dataType: "html",
+            success: function (evt) {
+                $('#CostReportInvoiceModal').html(evt);
+                $('#CostReportInvoiceModal').modal(options);
+                $('#CostReportInvoiceModal').modal('show');
+            },
+            error: function (req, status, error) {
+                alert(error);
+                alert("Error!Occured");
+            }
+        });
+    }
+</script>

@@ -1,0 +1,132 @@
+﻿@using DHS.Reconcilation.Models;
+<span class="leftmenu_icon" id="menu-toggle">
+    <i class="fa fa-caret-left leftmenu_sbl" aria-hidden="true"></i>
+</span>
+<!-- Sidebar -->
+<div id="sidebar-wrapper">
+    <div class="leftmenulist">
+        <ul class="mtree transit sidebar-nav nav nav-tabs has-submenu mra_ullist" id="mra_menubar">
+            <li>
+                <a href="#">Expenses</a>
+                <ul>
+                    @if (Common.PageHasPermission("Expesnses"))
+                    {
+                        <li id="mra_subli1">@Html.ActionLink("Expenses", "ManageExpenses", "Expense")</li>
+                        @*<li id="mra_subli2">@Html.ActionLink("Create Expense", "CreateExpense", "Expense")</li>*@
+                    }
+                </ul>
+            </li>
+            <li>
+                <a href="#">Revenues</a>
+                <ul>
+                    @if (Common.PageHasPermission("Revenues"))
+                    {
+                        <li id="mra_subli3">@Html.ActionLink("Revenues", "ManageRevenues", "Revenue")</li>
+                        @*<li id="mra_subli4">@Html.ActionLink("Create Revenue", "CreateRevenue", "Revenue")</li>*@
+                    }
+                </ul>
+            </li>
+            <li>
+                <a href="#">Draws</a>
+                <ul>
+                    @if (Common.PageHasPermission("Draws"))
+                    {
+                        <li id="mra_subli5">@Html.ActionLink("Draws", "ManageDraws", "Draw")</li>
+                        <li id="mra_subli6">@Html.ActionLink("Create Draw", "CreateDraw", "Draw")</li>
+                    }
+                </ul>
+            </li>
+            <li>
+                <a href="#">CATEGORIES</a>
+                <ul>
+                    @if (Common.PageHasPermission("FGTCategories"))
+                    {
+                        <li id="mra_subli8">@Html.ActionLink("Manage FGT Categories", "ManageFGTCategories", "FGTCategory")</li>
+                        <li id="mra_subli9">@Html.ActionLink("Create FGT Category", "CreateFGTCategory", "FGTCategory")</li>
+                    }
+                </ul>
+            </li>
+            <li>
+                <a href="#">Journals</a>
+                <ul>
+                    @if (Common.PageHasPermission("Journals"))
+                    {
+                        <li id="mra_subli7">@Html.ActionLink("Journals", "ManageJournals", "Journal")</li>
+                        @*<li id="mra_subli8">@Html.ActionLink("Create Journal", "CreateJournal", "Journal")</li>*@
+                    }
+                </ul>
+            </li>
+            @if (Common.PageHasPermission("CRReports"))
+            {
+                <li>
+                    <a href="#">AUDIT REPORTS</a>
+                    <ul>
+                        <li id="mra_subli5">@Html.ActionLink("Payment Summary Report", "ManageCRSummaryReport", new { controller = "AuditReports" })</li>
+                        <li id="mra_subli6">@Html.ActionLink("Payment Analysis Report", "ManageCRPaymentAnalysis", new { controller = "AuditReports" })</li>
+                        <li id="mra_subli7">@Html.ActionLink("Settlement Payment Report", "ManageSettlementPaymentReport", new { controller = "AuditReports" })</li>
+                    </ul>
+                </li>
+            }
+
+
+            <li>
+                <a href="#">ADMINISTRATION</a>
+                <ul>
+                    @if (Common.PageHasPermission("Import"))
+                    {
+                        <li id="mra_subli10">@Html.ActionLink("Import Expense", "ImportExpense", "Tools")</li>
+                        <li id="mra_subli11">@Html.ActionLink("Import Revenue", "ImportRevenue", "Tools")</li>
+                    }
+
+
+                    @if (Common.AdminPageHasPermission("Expenses"))
+                    {
+                        <li id="mra_subli8">@Html.ActionLink("Categories", "ManageCategories", "Category")</li>
+                        <li id="mra_subli9">@Html.ActionLink("Create Category", "CreateCategory", "Category")</li>
+                    }
+                    @if (Common.AdminPageHasPermission("Roles"))
+                    {
+                        <li id="mra_subli10">@Html.ActionLink("Role List", "Roles", "Role")</li>
+                        <li id="mra_subli11">@Html.ActionLink("Create Role", "CreateRole", "Role")</li>
+                    }
+                    @if (Common.AdminPageHasPermission("FiscalYears"))
+                    {
+                        <li id="mra_subli12">@Html.ActionLink("Fiscal Year List", "FiscalYears", "FiscalYear")</li>
+                        <li id="mra_subli13">@Html.ActionLink("Create Fiscal Year", "CreateFiscalYear", "FiscalYear")</li>
+                    }
+                    @if (Common.AdminPageHasPermission("FiscalPeriods"))
+                    {
+                        <li id="mra_subli14">@Html.ActionLink("Fiscal Period List", "FiscalPeriods", "FiscalPeriod")</li>
+                        <li id="mra_subli15">@Html.ActionLink("Create Fiscal Period", "CreateFiscalPeriod", "FiscalPeriod")</li>
+                    }
+                    @if (Common.AdminPageHasPermission("MonthlyMatch"))
+                    {
+                        <li id="mra_subli16">@Html.ActionLink("Monthly Match List", "MonthlyMatches", "MonthlyMatch")</li>
+                        <li id="mra_subli17">@Html.ActionLink("Create Monthly Match", "CreateMonthlyMatch", "MonthlyMatch")</li>
+                    }
+                    @if (Common.AdminPageHasPermission("Reporting Facility"))
+                    {
+                        <li id="mra_subli18">@Html.ActionLink("Reporting Facility List", "ReportingFacilities", "ReportingFaciltiy")</li>
+                        <li id="mra_subli19">@Html.ActionLink("Create Reporting Facility", "CreateReportingFacility", "ReportingFaciltiy")</li>
+                    }
+                    @if (Common.AdminPageHasPermission("InvoiceTypes"))
+                    {
+                        <li id="mra_subli20">@Html.ActionLink("Invoice Type List", "InvoiceTypes", "InvoiceType")</li>
+                        <li id="mra_subli21">@Html.ActionLink("Create Invoice Type", "CreateInvoiceType", "InvoiceType")</li>
+                    }
+                    @if (Common.AdminPageHasPermission("Medicaid Charges"))
+                    {
+                        <li id="mra_subli22">@Html.ActionLink("Medicaid Charge List", "MedicaidCharges", "MedicaidCharges")</li>
+                        <li id="mra_subli23">@Html.ActionLink("Create Medicaid Charge", "CreateMedicaidCharge", "MedicaidCharges")</li>
+                    }
+                    @if (Common.AdminPageHasPermission("Users"))
+                    {
+                        <li id="mra_subli24">@Html.ActionLink("User List", "Users", "User")</li>
+                        <li id="mra_subli25">@Html.ActionLink("Create User", "CreateUser", "User")</li>
+                    }
+                </ul>
+            </li>
+
+        </ul>
+    </div>
+</div>

@@ -1,0 +1,514 @@
+﻿@font-face {
+    font-family: 'Helvetica Neue LT Std';
+    src: url('~/fonts/HelveticaNeueLTStd-Roman/HelveticaNeueLTStd-Roman.eot');
+    src: url('~/fonts/HelveticaNeueLTStd-Roman/HelveticaNeueLTStd-Roman.eot?#iefix') format('embedded-opentype'), url('~/fonts/HelveticaNeueLTStd-Roman/HelveticaNeueLTStd-Roman.woff2') format('woff2'), url('~/fonts/HelveticaNeueLTStd-Roman/HelveticaNeueLTStd-Roman.woff') format('woff'), url('~/fonts/HelveticaNeueLTStd-Roman/HelveticaNeueLTStd-Roman.ttf') format('truetype');
+    font-weight: normal;
+    font-style: normal;
+}
+
+html {
+    height: 100%;
+}
+
+body {
+    margin: 0px;
+    padding: 0px;
+    font-family: 'Helvetica Neue LT Std','Roboto',Arial,sans-serif;
+    background-color:#fff;
+    /* Permalink - use to edit and share this gradient: http://colorzilla.com/gradient-editor/#f4f4f4+0,f4f4f4+78,afaeaf+100 */
+  /* background: rgb(175,174,175); *//* Old browsers */
+    /*background: -moz-linear-gradient(top, rgba(244,244,244,1) 0%, rgba(244,244,244,1) 78%, rgba(175,174,175,1) 100%); *//* FF3.6-15 */
+    /*background: -webkit-linear-gradient(top, rgba(244,244,244,1) 0%,rgba(244,244,244,1) 78%,rgba(175,174,175,1) 100%);*/ /* Chrome10-25,Safari5.1-6 */
+   /* background: linear-gradient(to bottom, rgba(244,244,244,1) 0%,rgba(244,244,244,1) 78%,rgba(175,174,175,1) 100%); *//* W3C, IE10+, FF16+, Chrome26+, Opera12+, Safari7+ */
+   /* filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#f4f4f4', endColorstr='#afaeaf',GradientType=0 ); *//* IE6-9 */ 
+}
+
+h1, h2, h3, h4, h5, p {
+    font-family: 'Roboto',Arial,sans-serif,'Helvetica Neue LT Std';
+    font-weight: normal;
+    color: #595a5a;
+}
+
+input {
+    outline: none;
+    border: none;
+}
+
+textarea {
+    outline: none;
+    border: none;
+}
+
+    textarea:focus, input:focus {
+        border-color: transparent !important;
+    }
+
+        input:focus::-webkit-input-placeholder {
+            color: transparent;
+        }
+
+        input:focus:-moz-placeholder {
+            color: transparent;
+        }
+
+        input:focus::-moz-placeholder {
+            color: transparent;
+        }
+
+        input:focus:-ms-input-placeholder {
+            color: transparent;
+        }
+
+        textarea:focus::-webkit-input-placeholder {
+            color: transparent;
+        }
+
+        textarea:focus:-moz-placeholder {
+            color: transparent;
+        }
+
+        textarea:focus::-moz-placeholder {
+            color: transparent;
+        }
+
+        textarea:focus:-ms-input-placeholder {
+            color: transparent;
+        }
+
+input::-webkit-input-placeholder {
+    color: #555555;
+}
+
+input:-moz-placeholder {
+    color: #555555;
+}
+
+input::-moz-placeholder {
+    color: #555555;
+}
+
+input:-ms-input-placeholder {
+    color: #555555;
+}
+
+textarea::-webkit-input-placeholder {
+    color: #555555;
+}
+
+textarea:-moz-placeholder {
+    color: #555555;
+}
+
+textarea::-moz-placeholder {
+    color: #555555;
+}
+
+textarea:-ms-input-placeholder {
+    color: #555555;
+}
+
+label {
+    display: block;
+    margin: 0;
+}
+
+.btn.focus, .btn:focus {
+    outline: 0;
+    box-shadow: none;
+}
+
+.container {
+    width: 100%;
+    margin: 0 auto;
+    max-width: 1330px;
+}
+
+/*login page*/
+/*header*/
+header {
+    background-color: #fff;
+    box-shadow: 0px 1px 6px #f3f3f3;
+    border-bottom: 1px solid #d9d9d9;
+}
+
+.mrp_login .mrp_logo, section.mrp_login_form {
+    position: relative;
+}
+
+.mrp_login .mrp_logo .logo_1 {
+    margin-top: 0;
+    margin-bottom: 0;
+    max-width: 27%;
+}
+
+.mrp_login .mrp_logo .side_line {
+    margin-top: 0;
+    position: relative;
+    right: -19px;
+    display: inline-block;
+    max-width: 1%;
+}
+
+    .mrp_login .mrp_logo .logo_2 {
+        margin-top: 0;
+        position: relative;
+        right: -24px;
+        max-width: 8%;
+    }
+
+    .mrp_login .mrp_logo .logo_3 {
+        margin-top: 7px;
+        position: absolute;
+        right: 0px;
+        max-width: 24%;
+    }
+/*header end*/
+section {
+}
+input:-internal-autofill-previewed, 
+input:-internal-autofill-selected, 
+textarea:-internal-autofill-previewed, 
+textarea:-internal-autofill-selected, 
+select:-internal-autofill-previewed, 
+select:-internal-autofill-selected{
+    background-color:#fff !important;
+}
+input:-webkit-autofill,
+input:-webkit-autofill:hover,
+input:-webkit-autofill:focus
+textarea:-webkit-autofill,
+textarea:-webkit-autofill:hover
+textarea:-webkit-autofill:focus,
+select:-webkit-autofill,
+select:-webkit-autofill:hover,
+select:-webkit-autofill:focus {
+    -webkit-box-shadow: 0 0 0px 1000px #fff inset;
+    transition: background-color 5000s ease-in-out 0s;
+}
+
+section.mrp_login_form .mrp_formsection {
+    width: 800px;
+    margin: 0 auto;
+    background: rgba(236, 236, 236, 0.1);
+    border: 1px solid rgba(93,93,93,27%);
+    margin-top: 2.5rem;
+}
+
+/*form start*/
+.mrp_formsection h2 {
+    font-family: 'Roboto',Arial,sans-serif,'Helvetica Neue LT Std';
+    font-size: 36px;
+    font-weight: 600;
+    color: #242f3f;
+    padding-top: 28px;
+    margin-bottom: 0;
+}
+
+.mrp_formsection .card-body {
+    padding-bottom: 3rem;
+    position: relative;
+    left: 1.5rem;
+}
+
+.mrp_formsection .mrp_section_sideline {
+    background: url(~/images/login_middleline.png) no-repeat;
+    background-position: bottom 15px left 40px;
+    background-size: 1% 91%;
+}
+
+.mrp_formsection .card-body form#formLogin .form-group .form-control {
+    background-color: #f5f5f5;
+    font-size: 16px;
+    padding: 8px;
+    border-color: #acacac;
+    -moz-box-shadow: inset 0 0 10px #d4d4d4;
+    -webkit-box-shadow: inset 0 0 10px #d4d4d4;
+    box-shadow: inset 0 0 10px #d4d4d4;
+}
+
+    .mrp_formsection .card-body form#formLogin .form-group .form-control:focus, textarea:focus, input:focus {
+        box-shadow: none;
+        border: 1px solid #ced4da !important;
+    }
+
+.mrp_formsection .card-body form#formLogin .form-group label {
+    font-family: 'Roboto',Arial,sans-serif,'Helvetica Neue LT Std';
+    font-size: 20px;
+    font-weight: 500;
+    color: #242f3f;
+}
+
+.mrp_loginbtn.form-group {
+    margin-top: 18px;
+}
+/*checkbox css*/
+.mrp_remember_me .form-check.check_lists.check_box input[type="checkbox"]:checked + label::after {
+    content: '';
+    position: absolute;
+    width: 1.0ex;
+    height: 0.6ex;
+    background: rgba(0, 0, 0, 0);
+    top: 0.6ex;
+    left: 0.5ex;
+    border: 0.2ex solid rgb(255, 255, 255);
+    border-top: none;
+    border-right: none;
+    -webkit-transform: rotate(-45deg);
+    -moz-transform: rotate(-45deg);
+    -o-transform: rotate(-45deg);
+    -ms-transform: rotate(-45deg);
+    transform: rotate(-53deg);
+}
+
+.mrp_remember_me .form-check.check_lists.check_box input[type="checkbox"] + label {
+    position: relative;
+    overflow: hidden;
+    cursor: pointer;
+    top: 6px;
+    left: -12px;
+    display: inline-block;
+}
+
+    .mrp_remember_me .form-check.check_lists.check_box input[type="checkbox"] + label::before {
+        content: "";
+        display: inline-block;
+        vertical-align: 0;
+        height: 2ex;
+        width: 2ex;
+        background-color: #242f3f;
+        border: 1px solid #4c6a97;
+        border-radius: 4px;
+        box-shadow: inset 0 2px 5px rgba(0,0,0,0.0);
+        margin-right: 0em;
+    }
+
+.mrp_remember_me .form-check.check_lists.check_box input[type="checkbox"] {
+    line-height: 2.1ex;
+}
+
+.mrp_remember_me .form-check.check_lists.check_box input[type="radio"],
+.mrp_remember_me .form-check.check_lists.check_box input[type="checkbox"] {
+    position: absolute;
+    left: 25px;
+    top: 4px;
+}
+
+.mrp_remember_me .form-check.check_lists.check_box input[type="radio"] {
+    /*position: relative;*/
+    left: 0;
+    top: 4px;
+    width: 100%;
+    height: 18px;
+    z-index: 9;
+}
+
+.mrp_remember_me .custom-control {
+    display: inline-block;
+    padding: 0;
+    position: relative;
+    top: -3px;
+    left: -7px;
+    width: 91%;
+}
+
+.mrp_remember_me .form-check {
+    position: relative;
+    display: block;
+    padding-left: 0.9rem;
+}
+
+.mrp_remember_me .mrp_lostpwd {
+    position: relative;
+    right: 0;
+    color: #666666 !important;
+    font-weight: 500;
+    font-size: 12px;
+    float: right;
+    top: 5px;
+}
+
+.mrp_remember_me .rememberme {
+    color: #666666 !important;
+    font-weight: 500;
+    font-size: 12px;
+}
+
+.mrp_loginbtn .btn.btn-lg.btn_login {
+    /* Permalink - use to edit and share this gradient: http://colorzilla.com/gradient-editor/#5b6d86+0,242f3f+78 */
+    background: rgb(91,109,134); /* Old browsers */
+    background: -moz-linear-gradient(top, rgba(91,109,134,1) 0%, rgba(36,47,63,1) 78%); /* FF3.6-15 */
+    background: -webkit-linear-gradient(top, rgba(91,109,134,1) 0%,rgba(36,47,63,1) 78%); /* Chrome10-25,Safari5.1-6 */
+    background: linear-gradient(to bottom, rgba(91,109,134,1) 0%,rgba(36,47,63,1) 78%); /* W3C, IE10+, FF16+, Chrome26+, Opera12+, Safari7+ */
+    filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#5b6d86', endColorstr='#242f3f',GradientType=0 ); /* IE6-9 */
+    font-family: 'Roboto',Arial,sans-serif,'Helvetica Neue LT Std';
+    font-size: 24px;
+    font-weight: 400;
+    color: #fff;
+    padding: .3rem 1rem;
+    border: 1px solid #3b4958;
+}
+
+    .mrp_loginbtn .btn.btn-lg.btn_login:hover {
+        /* Permalink - use to edit and share this gradient: http://colorzilla.com/gradient-editor/#242f3f+22,5b6d86+100 */
+        background: rgb(36,47,63); /* Old browsers */
+        background: -moz-linear-gradient(top, rgba(36,47,63,1) 22%, rgba(91,109,134,1) 100%); /* FF3.6-15 */
+        background: -webkit-linear-gradient(top, rgba(36,47,63,1) 22%,rgba(91,109,134,1) 100%); /* Chrome10-25,Safari5.1-6 */
+        background: linear-gradient(to bottom, rgba(36,47,63,1) 22%,rgba(91,109,134,1) 100%); /* W3C, IE10+, FF16+, Chrome26+, Opera12+, Safari7+ */
+        filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#242f3f', endColorstr='#5b6d86',GradientType=0 ); /* IE6-9 */
+        font-family: 'Roboto',Arial,sans-serif,'Helvetica Neue LT Std';
+        font-size: 24px;
+        font-weight: 400;
+        color: #fff;
+        padding: .3rem 1rem;
+        border: 1px solid #3b4958;
+    }
+/*checkbox css end*/
+.mrp_logo_letters h2 {
+    padding-top: 8rem;
+    padding-left: 1.5rem;
+}
+
+    .mrp_logo_letters h2 p {
+        font-size: 48px;
+        color: #242f3f;
+        margin-bottom: 0px;
+        font-family: 'Helvetica Neue LT Std','Roboto',Arial,sans-serif;
+        font-weight: 500;
+        line-height: 59px;
+        padding-left: 0;
+        margin-left: -4.5rem;
+    }
+
+        .mrp_logo_letters h2 p::first-letter {
+            font-size: 75px;
+        }
+
+.mrp_logo_letters.d-xs_block {
+    display: none;
+}
+/*form end*/
+
+
+/*login page end*/
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+/*media query start*/
+
+@media screen and (min-width:1024px) and (max-width:1199px) {
+    html {
+        height: 100%;
+    }
+
+    section.mrp_login_form .mrp_formsection {
+        width: 100%;
+        margin-bottom: 40px;
+    }
+
+    .mrp_logo_letters h2 p {
+        font-size: 42px;
+        padding-left: 1.5rem;
+    }
+
+    .mrp_formsection .mrp_section_sideline {
+        background-position: bottom 15px left -1px;
+    }
+}
+
+@media screen and (min-width:768px) and (max-width:1023px) {
+    html {
+        height: 100%;
+    }
+
+    section.mrp_login_form .mrp_formsection {
+        width: 100%;
+        margin-bottom: 40px;
+    }
+
+    .mrp_logo_letters h2 p {
+        font-size: 32px;
+    }
+
+    .mrp_formsection .mrp_section_sideline {
+        background-position: bottom 15px left -1px;
+    }
+}
+
+@media screen and (max-width:767px) {
+    html {
+        height: auto;
+    }
+
+    .mrp_login .mrp_logo .logo_2 {
+        right: 0;
+    }
+
+    .mrp_login .mrp_logo .side_line {
+        display: none;
+    }
+
+    section.mrp_login_form .mrp_formsection {
+        width: 100%;
+        margin-bottom: 2rem;
+    }
+
+    .container {
+        width: 100%;
+        margin: 0 auto;
+        max-width: 100%;
+    }
+
+    .mrp_formsection .mrp_section_sideline {
+        background: none;
+    }
+
+    .mrp_logo_letters h2 p {
+        font-size: 26px;
+        line-height: 42px;
+    }
+
+        .mrp_logo_letters h2 p::first-letter {
+            font-size: 65px;
+        }
+
+    .mrp_remember_me .mrp_lostpwd {
+        right: auto;
+        float: right;
+        top: 5px;
+    }
+
+    .mrp_logo_letters.d-xs_block {
+        display: block;
+    }
+
+    .mrp_section_sideline.mrp_logo_letters h2 {
+        padding-top: 2.5rem;
+        padding-left: 1.5rem;
+    }
+
+    .mrp_formsection h2 {
+        padding-top: 0px;
+    }
+
+    .mrp_remember_me .custom-control {
+        width: 91%;
+    }
+
+    .mrp_formsection .card-body {
+        left: 0px;
+    }
+}

@@ -1,0 +1,123 @@
+﻿@using DHS.Reconcilation.Models
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    <!-- Meta, title, CSS, favicons, etc. -->
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="icon" href="~/images/favicon.ico" type="image/ico" />
+    <!-- Bootstrap -->
+    <link href="~/content/bootstrap.min.css" rel="stylesheet">
+    <!-- Font Awesome -->
+    <link href="~/content/font-awesome/css/font-awesome.min.css" rel="stylesheet">
+    <!-- Custom Theme Style -->
+    <link href="~/content/dashboard.css" rel="stylesheet">
+    <link href="~/Content/leftmenu.css" rel="stylesheet" />
+    <!-- Web Fonts  -->
+    <link href="https://fonts.googleapis.com/css?family=Roboto:100,100i,300,300i,400,400i,500,500i,700,700i,900,900i" rel="stylesheet">
+    <link href="http://fonts.googleapis.com/css?family=Open+Sans:300,400,600,700,800|Shadows+Into+Light" rel="stylesheet" type="text/css">
+</head>
+<body>
+    <header>
+        <div class="container">
+
+            <div class="row">
+                <div class="col-lg-9 col-xs-12 col-md-7 col-sm-7 mrp_rightlogo_pdg">
+                    <div class="mrp_header">
+                        <div class="logo mrp_logo1">
+                            <a href="#">
+                                <img src="~/images/logo.png" alt="Government of the u.s / virgin islands / Department of Human Services" class="img-responsive mrp_logo1" />
+                            </a>
+                            <span class="divideline">
+                                <img src="~/images/side_line.png" class="img-responsive img_divideline" />
+                            </span>
+                            <span class="logo mrp_logo2">
+                                <img src="~/images/logo_groupimg.png" alt="Government of the u.s / virgin islands / Department of Human Services" class="img-responsive mrp_headerlogo2" />
+                            </span>
+                            <span class="logo mrp_logo3 hidden-lg hidden-sm hidden-md">
+                                <img src="~/images/logo_3pmra.png" alt="Government of the u.s / virgin islands / Department of Human Services" class="img-responsive mrp_headerlogo3" />
+                            </span>
+                            <div class="mrp_h1 hidden-sm hidden-md">
+                                <h1 class="mrp_headerh1">DHS RECONCILIATION APPLICATION</h1>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="col-lg-3 col-xs-12 col-md-5 col-sm-5 mrp_leftlogo_pdg">
+                    <div class="mrp_headerright pull-right">
+                        <ul class="nav navbar-nav">
+                            <li class="">
+                                <a href="javascript:;" class="user-profile dropdown-toggle" data-toggle="dropdown" aria-expanded="false">
+                                    <img src="~/images/img.jpg" alt=""> <span class="mrp_name">Welcome @Common.GetSession("UserName")</span>
+                                    <i class="fa fa-user-circle-o mrp_user_icon" aria-hidden="true"></i>
+                                </a>
+                                <ul class="dropdown-menu dropdown-usermenu pull-right">
+                                    @*<li><a href="javascript:;"> Profile</a></li>
+                                    <li>
+                                        <a href="javascript:;">
+                                            <span>Settings</span>
+                                        </a>
+                                    </li>*@
+                                    <li><a href="/Home/Logout"><i class="fa fa-sign-out pull-right"></i> Log Out</a></li>
+                                </ul>
+
+                            </li>
+                            <li>
+                                <span class="divideline">
+                                    <img src="~/images/side-line.png" class="img-responsive img_divideline" />
+                                </span>
+                            </li>
+                            <li class="hidden-xs">
+                                <img src="~/images/logo_3pmra.png" alt="Government of the u.s / virgin islands / Department of Human Services" class="img-responsive mrp_headerlogo3" />
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+                <div class="col-xs-12 visible-sm visible-md text-center">
+                    <div class="mrp_h1">
+                        <h1 class="mrp_headerh1">MEDICAID RECONCILIATION APPLICATION</h1>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </header>
+    <div id="wrapper">
+        <!-- sidebar menu -->
+        @RenderSection("LeftMenuSection", required: false)
+        <!-- /sidebar menu -->
+        <div class="tab-content">
+            @RenderBody()
+        </div>
+    </div>
+    <!-- footer content -->
+    <footer>
+        <div class="">
+            <p>&copy; @DateTime.Now.Year  Government of the u.s. All Rights Reserved.</p>
+        </div>
+        <div class="clearfix"></div>
+    </footer>
+    <!-- /footer content -->
+    <!-- jQuery -->
+    <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
+    <!-- Bootstrap -->
+    <script src="~/js/bootstrap.min.js"></script>
+    <!-- Custom Theme Scripts -->
+    <script src="~/js/leftmenuanimation.min.js"></script>
+    <script src="~/js/leftmenujs.js"></script>
+    <script src="~/js/custom.min.js"></script>
+    <script>
+        $("#menu-toggle").click(function (e) {
+            e.preventDefault();
+            $("#wrapper").toggleClass("toggled");
+        });
+        $('#sidebar-nav a').click(function (e) {
+            e.preventDefault()
+            $(this).tab('show')
+        })
+      
+    </script>
+</body>
+</html>

@@ -1,0 +1,86 @@
+﻿@model DHSEntities.RoleResponse
+@{
+    ViewBag.Title = "Roles";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+<script src="~/js/jquery.min.js"></script>
+
+@section LeftMenuSection
+{
+    @Html.Partial("_menuCRPayments");
+}
+<script type="text/javascript">
+    $(document).ready(function () {
+        $('#mra_subli10').addClass('active');
+    });
+    function OpenCreateRole(roleId) {
+        document.getElementById("hdnRoleId").value = roleId;
+        document.forms[0].submit();
+    }
+</script>
+<form method="post" action="Roles" name="frmRole" id="frmRole">
+    <input type="hidden" id="hdnRoleId" name="hdnRoleId" />
+    <div class="tab-pane active" id="dashboard">
+        <div class="container-fluid">
+            <!-- top tiles -->
+            <div class="row ">
+                <div class="col-lg-12">
+                    <div class="mrp_content">
+                        <h2>View Roles</h2>
+                    </div>
+                </div>
+            </div>
+            <div class="row mrp_table-row">
+                <div class="col-lg-12 col-xs-12">
+                    <div class="table-responsive">
+                        <div class="mrp_contentbody mrp_contenttable">
+                            <div class="mrp_table">
+                                <table class="table table-bordered table-striped">
+                                    <thead>
+                                        <tr>
+                                            <th>Action</th>
+                                            <th>Role Name</th>
+                                            <th>Description</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        @{foreach (var item in Model.LstRoles)
+                                            {
+                                                <tr>
+                                                    <td>
+                                                        @if (Model.RolePermissionEntity.ViewBit)
+                                                        {
+                                                                <img src="~/images/view-icon.png" class="img-responsive" onclick="OpenCreateRole('@item.RoleId')" style="cursor:pointer;"/>
+                                                        }
+                                                        else
+                                                        {
+                                                            <a class="mrp_popup disableButton" data-toggle="modal">
+                                                                <img src="~/images/view-icon.png" class="img-responsive disableButton" />
+                                                            </a>
+                                                        }
+                                                    </td>
+                                                    <td>
+                                                        @item.RoleName
+                                                    </td>
+                                                    <td>
+                                                        @item.RoleDescription
+                                                    </td>
+                                                </tr>
+                                            }
+                                        }
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- /top tiles -->
+                </div>
+            </div>
+            <!-- /page content -->
+        </div>
+    </div>
+    </form>
+
+
+
+

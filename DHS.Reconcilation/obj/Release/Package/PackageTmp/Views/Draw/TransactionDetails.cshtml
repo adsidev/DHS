@@ -1,0 +1,243 @@
+﻿@model DHSEntities.DrawResponse
+@using PagedList.Mvc
+@using DHS.Reconcilation.Models
+
+@{
+    ViewBag.Title = "DHS Reconcilation Application :: View Draw Documents";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+<script src="~/js/jquery.min.js"></script>
+
+@section LeftMenuSection
+{
+    @Html.Partial("_menuCRPayments")
+}
+
+@using (Html.BeginForm("DrawDocuments", "Draw", FormMethod.Post, new { @id = "frmManageDrawDocuments" }))
+{
+    @Html.AntiForgeryToken()
+    <div class="tab-pane active" id="dashboard">
+        <div class="container-fluid mra_settlement_view">
+            <!-- top tiles -->
+            <div class="row ">
+                <div class="col-lg-12">
+                    <div class="mrp_modalcontent">
+                        <h2>View Draw Information</h2>
+                        <form class="mrp_selectdetails form-inline"></form>
+                    </div>
+                </div>
+            </div>
+            <input type="hidden" id="DrawId" value='@Model.drawEntity.DrawId' name="DrawId" />
+
+
+            <div class="row">
+
+                <div class="col-lg-6">
+                    <div class="row">
+                        <div class="col-lg-3 col-xs-12 col-sm-3 col-md-3">
+                            <div class="form_modal">
+                                <label>Draw&nbsp;Down&nbsp;Date</label>
+                            </div>
+                        </div>
+                        <div class="col-lg-9 col-xs-12 col-sm-9 col-md-9">
+                            <div class="form_modal">
+                                @Html.TextBoxFor(m => m.drawEntity.DrawDownDate, htmlAttributes: new { @class = "form-control mrp_modalselect", @disabled = "disabled" })
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="col-lg-6">
+                    <div class="row">
+                        <div class="col-lg-3 col-xs-12 col-sm-3 col-md-3">
+                            <div class="form_modal">
+                                <label>Draw&nbsp;Down&nbsp;Amount</label>
+                            </div>
+                        </div>
+                        <div class="col-lg-9 col-xs-12 col-sm-9 col-md-9">
+                            <div class="form_modal">
+                                <input type="text" disabled="disabled" value="@String.Format("{0:$#,##0.00}", Model.drawEntity.DarwDownAmount)" class="form-control mrp_modalselect" />
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="col-lg-6">
+                    <div class="row">
+                        <div class="col-lg-3 col-xs-12 col-sm-3 col-md-3">
+                            <div class="form_modal">
+                                <label>Date&nbsp;Posted</label>
+                            </div>
+                        </div>
+                        <div class="col-lg-9 col-xs-12 col-sm-9 col-md-9">
+                            <div class="form_modal">
+                                @Html.TextBoxFor(m => m.drawEntity.DatePosted, htmlAttributes: new { @class = "form-control mrp_modalselect", @disabled = "disabled" })
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="col-lg-6">
+                    <div class="row">
+                        <div class="col-lg-3 col-xs-12 col-sm-3 col-md-3">
+                            <div class="form_modal">
+                                <label>Batch&nbsp;Number </label>
+                            </div>
+                        </div>
+                        <div class="col-lg-9 col-xs-12 col-sm-9 col-md-9">
+                            <div class="form_modal">
+                                @Html.TextBoxFor(m => m.drawEntity.BatchNumber, htmlAttributes: new { @class = "form-control mrp_modalselect", @disabled = "disabled" })
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="col-lg-6">
+                    <div class="row">
+                        <div class="col-lg-3 col-xs-12 col-sm-3 col-md-3">
+                            <div class="form_modal">
+                                <label>Cash&nbsp;Receipt</label>
+                            </div>
+                        </div>
+                        <div class="col-lg-9 col-xs-12 col-sm-9 col-md-9">
+                            <div class="form_modal">
+                                @Html.TextBoxFor(m => m.drawEntity.CashReceipt, htmlAttributes: new { @class = "form-control mrp_modalselect", @disabled = "disabled" })
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+
+                <div class="col-lg-6">
+                    <div class="row">
+                        <div class="col-lg-3 col-xs-12 col-sm-3 col-md-3">
+                            <div class="form_modal">
+                                <label>Status</label>
+                            </div>
+                        </div>
+                        <div class="col-lg-9 col-xs-12 col-sm-9 col-md-9">
+                            <div class="form_modal">
+                                @Html.TextBoxFor(m => m.drawEntity.StatusName, htmlAttributes: new { @class = "form-control mrp_modalselect", @disabled = "disabled" })
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="col-lg-6">
+                    <div class="row">
+                        <div class="col-lg-3 col-xs-12 col-sm-3 col-md-3">
+                            <div class="form_modal">
+                                <label>Description:</label>
+                            </div>
+                        </div>
+                        <div class="col-lg-9 col-xs-12 col-sm-9 col-md-9">
+                            <div class="form_modal">
+                                <textarea id="TransactionDescription" name="TransactionDescription" disabled="disabled" style="margin: 0px; width: 500px; height: 40px;">@Model.drawEntity.DrawDescription</textarea>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+
+            <div class="row mrp_table-row">
+                <div class="col-lg-12 col-xs-12">
+                    <div class="table-responsive">
+                        <div class="mrp_contentbody mrp_contenttable">
+                            <div class="mrp_table">
+
+                                <table class="table table-bordered table-striped">
+                                    <thead>
+                                        <tr>
+                                            <th align="center" colspan="7"><b>Transaction Details</b></th>
+                                        </tr>
+                                        <tr>
+                                            <th style="margin-left:1px; margin-right:1px;">
+                                                Action
+                                            </th>
+                                            <th nowrap>
+                                                Transaction Number
+                                            </th>
+                                            <th nowrap>
+                                                Transaction Date
+                                            </th>
+                                            <th nowrap>
+                                                Transaction Amount
+                                            </th>
+                                            <th nowrap>
+                                                Category 1
+                                            </th>
+                                            <th nowrap>
+                                                Category 2
+                                            </th>
+                                            <th nowrap>
+                                                Vendor/Adjustments
+                                            </th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        @{foreach (var item in Model.transactionDetailEntities)
+                                            {
+                                            <tr>
+                                                <td>
+                                                    @if (Model.rolePermissionEntity.ViewBit)
+                                                        {
+                                                    <img src="~/images/view-icon.png" class="img-responsive" style="cursor:pointer;" alt="View Expense Information" onclick="ViewTransactionDetail('@item.TransactionDetailId')" />
+                                                        }
+                                                        else
+                                                        {
+                                                    <a class="mrp_popup disableButton" data-toggle="modal">
+                                                        <img src="~/images/view-icon.png" class="img-responsive disableButton" />
+                                                    </a>
+                                                        }
+                                                </td>
+                                                 <td>
+                                                        @item.TransactionNumber
+                                                    </td>
+                                                    <td>
+                                                        @item.TransactionDate
+                                                    </td>
+                                                    <td>
+                                                        @item.TransactionAmount
+                                                    </td>
+                                                    <td>
+                                                        @item.FGTCategoryName1
+                                                    </td>
+                                                    <td>
+                                                        @item.FGTCategoryName2
+                                                    </td>
+                                                    <td>
+                                                        @item.VendorAdjustments
+                                                    </td>
+                                            </tr>
+                                            }
+                                        }
+                                    </tbody>
+                                </table>
+
+                                <!-- popup -->
+                                <div class="modal fade mrp_modalpopup" id="TransactionDetailModal">
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- /top tiles -->
+                </div>
+            </div>
+
+        </div>
+    </div>
+    <script type="text/javascript">
+        function OpenDocument(FileName) {
+            window.open("/Documents/Draw/" + FileName);
+        }
+        function AddDocument() {
+            var id = document.getElementById("DrawId").value;
+            document.location.href = "/Draw/CreateDrawDocument/0?pid=" + id;
+        }
+
+        $(document).ready(function () {
+            $('#mra_subli5').addClass('active');
+        });
+    </script>
+}

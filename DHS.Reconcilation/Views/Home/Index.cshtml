@@ -1,0 +1,117 @@
+﻿@{
+    ViewBag.Title = "Medicaid Reconcilaion Application";
+    Layout = "";
+}
+<!doctype html>
+<html lang="en">
+<head>
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css">
+    <link rel="stylesheet" href="~/Content/Site.css">
+    <link href="https://fonts.googleapis.com/css?family=Roboto:100,100i,300,300i,400,400i,500,500i,700,700i,900,900i" rel="stylesheet">
+    <title>Login</title>
+</head>
+<body>
+    @using (@Html.BeginForm("Home", "Home", FormMethod.Post))
+    {
+        @Html.AntiForgeryToken()
+        <div class="wrapper">
+            <!-- header -->
+            <header>
+                <div class="container mrp_login">
+
+                    <div class="row">
+                        <div class="col-xl-9 col-12 col-md-9 col-lg-9">
+                            <div class="mrp_logo">
+                                <img src="~/images/logo-1.png" class="img-fluid logo_1" title="Government of the u.s virgin islands Department of Human Services" alt="Government of the u.s virgin islands Department of Human Services" />
+
+                                <img src="~/images/side-line.png" class="img-fluid side_line d-xs-none" title="Government of the u.s virgin islands Department of Human Services" alt="Government of the u.s virgin islands Department of Human Services" />
+
+                                <img src="~/images/logo-2.png" class="img-fluid logo_2" title="Government of the u.s virgin islands Department of Human Services" alt="Government of the u.s virgin islands Department of Human Services" />
+
+                                <img src="~/images/logo-3.png" class="img-fluid logo_3 d-sm-block d-md-none d-lg-none d-xl-none" title="Government of the u.s virgin islands Department of Human Services" alt="Government of the u.s virgin islands Department of Human Services" />
+                            </div>
+                        </div>
+                        <div class="col-xl-3 col-md-3 col-lg-3">
+                            <div class="mrp_logo">
+                                <img src="~/images/logo-3.png" class="img-fluid logo_3 d-none d-sm-none d-md-block d-lg-block d-xl-block" title="Government of the u.s virgin islands Department of Human Services" alt="Government of the u.s virgin islands Department of Human Services" />
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </header>
+            <!-- header end -->
+            <!-- login form section -->
+            <section class="mrp_login_form">
+                <div class="container">
+                    <div class="mrp_formsection">
+                        <div class="row">
+                            <div class="col-xl-6 mrp_section_sideline mrp_logo_letters d-xs_block">
+                                <h2>
+                                    <p>DHS</p>
+                                    <p>RECONCILIATION</p>
+                                    <p>APPLICATION</p>
+                                </h2>
+                            </div>
+                            <div class="col-xl-6 col-md-6">
+                                <div class="row">
+                                    <div class="col-xl-10 col-md-10">
+                                        <div class="card-body">
+                                            <h2>Login</h2>
+                                            <p>Please provide login details :</p>
+                                            <form class="form" role="form" autocomplete="off" id="formLogin" novalidate="" method="POST">
+                                                <div class="form-group">
+                                                    <label for="uname1">User Name :</label>
+                                                    <input type="text" class="form-control form-control-lg mra_user" name="txtUserName" id="txtUserName" required="">
+                                                    <div class="invalid-feedback">Oops, you missed this one.</div>
+                                                </div>
+                                                <div class="form-group">
+                                                    <label>Password :</label>
+                                                    <input type="password" class="form-control form-control-lg mra_pwd" id="txtPassword" name="txtPassword" required="" autocomplete="new-password">
+                                                    <div class="invalid-feedback">Enter your password too!</div>
+                                                </div>
+                                                <div class="mrp_loginbtn form-group">
+                                                    <button type="submit" class="btn btn-lg btn_login btn-block" id="btnLogin">Login</button>
+                                                </div>
+                                                <div class="mrp_remember_me">
+                                                    <div class="form-check check_lists check_box checked">
+                                                        <input class="form-check-input chcktbl" type="checkbox" value="" checked="" id="chkbox6">
+                                                        <label class="label_for_name_6" for="chkbox6"></label>
+                                                        <span class="custom-control custom-checkbox">
+                                                            <span class="custom-control-description small text-dark text-left rememberme">Remember Me</span>
+                                                            <span class="custom-control-description small text-dark text-right mrp_lostpwd">Lost your password?</span>
+                                                        </span>
+                                                    </div>
+                                                </div>
+                                            </form>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-xl-6 col-md-6 mrp_section_sideline mrp_logo_letters d-none d-sm-block ">
+                                <h2>
+                                    <p>DHS</p>
+                                    <p>RECONCILIATION</p>
+                                    <p>APPLICATION</p>
+                                </h2>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- login form section end -->
+        </div>
+
+
+        <!-- Optional JavaScript -->
+        <!-- jQuery first, then Popper.js, then Bootstrap JS -->
+        <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js"></script>
+        <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"></script>
+    }
+    </body>
+</html>

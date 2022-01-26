@@ -1,0 +1,48 @@
+﻿@model DHSEntities.AuditResponse
+@{
+    ViewBag.Title = "Cost Report Invoices";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+@section LeftMenuSection
+{    
+    @Html.Partial("_menuCRPayments");
+   }
+
+@using (Html.BeginForm("ManageCRReports", "Home", FormMethod.Post, new { @id = "frmManageCRReports" }))
+{
+    <div class="row ">
+        <!-- page content -->
+        <div class="right_col" role="main">
+            <div class="mrp_modalcontent">
+                <h2>View Cost Report Payments</h2>
+            </div>
+
+            @if (Model.rolePermissionEntity.ViewBit)
+            {
+                <table style="width: 100%; height: 200px; padding-left: 100px;">
+                    <tr>
+                        <td style="width: 20%; vertical-align:top;">
+                            <h3> <b><u>@Html.ActionLink("Payment Summary Report", "ManageCRSummaryReport", new { controller = "AuditReports" })</u></b></h3><br />
+                        </td>
+                        <td style="width: 40%;">
+                            <p>The Payment Summary Report displays both the DHS allowable amount and the amount paid toward invoices for a given fiscal year. Payments are being aggregated by fiscal year.</p>
+                        </td>
+                        <td style="width: 30%"></td>
+                    </tr>
+                    <tr>
+                        <td style="width: 20%; vertical-align:top;"><h3> <b><u>@Html.ActionLink("Payment Analysis Report", "ManageCRPaymentAnalysis", new { controller = "AuditReports" })</u></b></h3><br /></td>
+                        <td><p>The Payment Analysis Report provides detail on accrued payments, highlighting moneys paid for invoices incurring during prior fiscal years versus the fiscal year under observation. Payments are being aggregated by fiscal year.</p></td>
+                        <td>&nbsp;</td>
+                    </tr>
+                    <tr>
+                        <td style="width: 20%; vertical-align:top;"><h3> <b><u>@Html.ActionLink("Settlement Payment Report", "ManageSettlementPaymentReport", new { controller = "AuditReports" })</u></b></h3><br /></td>
+                        <td><p>The Settlement Payment Report gives a comparison between the total amount paid versus the settlement amount for any given fiscal year. Payments are being aggregated on a monthly basis.</p></td>
+                        <td>&nbsp;</td>
+                    </tr>
+                </table>
+            }
+
+        </div>
+    </div>
+}

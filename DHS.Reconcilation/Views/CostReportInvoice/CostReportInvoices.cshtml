@@ -1,0 +1,471 @@
+﻿@model DHSEntities.CostReportInvoiceResponse
+@using PagedList.Mvc
+@using DHS.Reconcilation.Models
+
+@{
+    ViewBag.Title = "Cost Report Invoices";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+<script src="~/Scripts/jquery-1.10.2.min.js"></script>
+@section LeftMenuSection
+{
+    @Html.Partial("_menuCRPayments");
+}
+@using (Html.BeginForm("CostReportInvoices", "CostReportInvoice", FormMethod.Post, new { @id = "frmManageCRPayment" }))
+{
+    <title>@ViewBag.Title</title>
+    <input type="hidden" id="hdnInvoiceId" name="hdnInvoiceId" />
+    <div class="tab-pane active" id="dashboard">
+        <div class="container-fluid">
+            <!-- top tiles -->
+            <div class="row ">
+                <div class="col-lg-12">
+                    <div class="mrp_content">
+                        <h2>View Cost Report Payments</h2>
+                        <form class="mrp_selectdetails form-inline">
+                            <div class="row">
+                                <div class="form-group col-lg-5 col-xs-12 col-sm-5">
+                                    <label for="exampleInputEmail2">Search&nbsp;On:</label>
+                                    @if (Common.GetSession("CRSearchOn") != "")
+                                    {
+                                        @Html.DropDownList("SearchOn", new SelectList(new string[] { "Invoice Number", "Vendor Name", "Check Number", "Reporting Facility" }, Common.GetSession("CRSearchOn")), "All", new { @class = "form-control mrp_modalselect" })
+                                    }
+                                    else
+                                    {
+                                        @Html.DropDownList("SearchOn", new SelectList(new string[] { "Invoice Number", "Vendor Name", "Check Number", "Reporting Facility" }), "All", new { @class = "form-control mrp_modalselect" })
+                                    }
+                                </div>
+                                <div class="form-group col-lg-7 col-xs-12 col-sm-7">
+                                    @if (Common.GetSession("CRSearchKey") != "")
+                                    {
+                                        @Html.TextBox("txtSearch", Common.GetSession("CRSearchKey").ToString(), new { @class = "form-control mrp_modalselect" })
+                                    }
+                                    else
+                                    {
+                                        @Html.TextBox("txtSearch", "", new { @class = "form-control mrp_modalselect" })
+                                    }
+
+                                    @if (Model.rolePermissionEntity.ViewBit)
+                                    {
+                                        <input type="button" class="btn btn-primary btn-updated" onclick="SelectedIndexChanged()" value=" Search " />
+                                    }
+                                    else
+                                    {
+                                        <input type="button" value=" Search " class="disableButton" disabled="disabled" />
+                                    }
+                                    @Html.Hidden("hdnSortOrder")
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="form-group col-lg-5 col-xs-12 col-sm-6">
+                                    <label for="exampleInputEmail2">Select&nbsp;Facility:</label>
+                                    @if (Common.GetSession("CRFacilityId") != "")
+                                    {
+                                        @Html.DropDownList("FacilityId", new SelectList(Model.reportingFacilityEntities, "FacilityId", "FacilityName", Convert.ToInt32(Common.GetSession("CRFacilityId"))), "", new { @class = "form-control mrp_modalselect" })
+                                    }
+                                    else
+                                    {
+                                        @Html.DropDownList("FacilityId", new SelectList(Model.reportingFacilityEntities, "FacilityId", "FacilityName", 0), "", new { @class = "form-control mrp_modalselect" })
+                                    }
+                                </div>
+                                <div class="form-group col-lg-7 col-xs-12 col-sm-6">
+                                    <label for="exampleInputEmail2">Select&nbsp;Payment Type:</label>
+                                    @if (Common.GetSession("CRPaymentId") != "")
+                                    {
+                                        @Html.DropDownList("PaymentTypeID", new SelectList(Model.paymentTypes, "PaymentTypeID", "PaymentTypeName", Convert.ToInt32(Common.GetSession("CRPaymentId"))), "", new { @class = "form-control mrp_modalselect" })
+                                    }
+                                    else
+                                    {
+                                        @Html.DropDownList("PaymentTypeID", new SelectList(Model.paymentTypes, "PaymentTypeID", "PaymentTypeName", 0), "", new { @class = "form-control mrp_modalselect" })
+                                    }
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="form-group col-lg-5 col-xs-12 col-sm-2">
+                                    <label for="exampleInputEmail2">Select&nbsp;Fiscal Year:</label>
+                                    @if (Common.GetSession("CRFiscalYearId") != "")
+                                    {
+                                        @Html.DropDownList("FiscalYearID", new SelectList(Model.fiscalYearEntities, "FiscalYearID", "FiscalYearName", Convert.ToInt32(Common.GetSession("CRFiscalYearId"))), "", new { @class = "form-control mrp_modalselect" })
+                                    }
+                                    else
+                                    {
+                                        @Html.DropDownList("FiscalYearID", new SelectList(Model.fiscalYearEntities, "FiscalYearID", "FiscalYearName", 0), "", new { @class = "form-control mrp_modalselect" })
+                                    }
+                                </div>
+                            </div>
+
+                        </form>
+                    </div>
+                </div>
+            </div>
+            <div class="row mrp_table-row">
+                <div class="col-lg-12 col-xs-12">
+                    <div class="table-responsive">
+                        <div class="mrp_contentbody mrp_contenttable">
+                            <div class="mrp_table">
+                                <table class="table table-bordered table-striped">
+                                    <thead>
+                                        <tr>
+                                            <th style="margin-left:1px; margin-right:1px;">
+                                                Action
+                                            </th>
+                                            <th nowrap>
+                                                Document Number
+                                            </th>
+                                            <th nowrap>
+                                                Issue Type
+                                            </th>
+                                            <th nowrap>
+                                                Payment Type
+                                            </th>
+                                            <th nowrap>
+                                                Invoice Type
+                                            </th>
+                                            <th nowrap>
+                                                Unique Invoice Number
+                                            </th>
+                                            <th nowrap>
+                                                Invoice Number
+                                            </th>
+                                            <th nowrap>
+                                                Vendor Total Charges
+                                            </th>
+                                            <th nowrap>
+                                                Vendor Deductible
+                                            </th>
+                                            <th nowrap>
+                                                DHS Approved Deductible
+                                            </th>
+                                            <th nowrap>
+                                                Vendor Days
+                                            </th>
+                                            <th nowrap>
+                                                DHS Approved Days
+                                            </th>
+                                            <th nowrap>
+                                                Vendor Billed Amount
+                                            </th>
+                                            <th nowrap>
+                                                DHS Approved Allowable Amount
+                                            </th>
+                                            <th nowrap>
+                                                DHS Federal Match
+                                            </th>
+                                            <th nowrap>
+                                                Calculated Share
+                                            </th>
+                                            <th nowrap>
+                                                DHS Approved Federal Match%
+                                            </th>
+                                            <th nowrap>
+                                                DHS Approved Local Match%
+                                            </th>
+                                            <th nowrap>
+                                                DHS Approved Federal Match$
+                                            </th>
+                                            <th nowrap>
+                                                DHS Approved Local Match$
+                                            </th>
+                                            <th nowrap>
+                                                Calculated Inpatient days
+                                            </th>
+                                            <th nowrap>
+                                                Calculated Outpatient Days
+                                            </th>
+                                            <th nowrap>
+                                                Per Diem Rate Used
+                                            </th>
+                                            <th nowrap>
+                                                Correct Per Diem rate
+                                            </th>
+                                            <th nowrap>
+                                                Facility Name
+                                            </th>
+                                            <th nowrap>
+                                                Fiscal Period Name
+                                            </th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        @{foreach (var item in Model.pagedCostReportInvoiceEntities)
+                                            {
+                                                <tr>
+                                                    <td>
+                                                        @if (Model.rolePermissionEntity.ViewBit)
+                                                        {
+                                                            <img src="~/images/view-icon.png" class="img-responsive" onclick="ViewCostReportInvoice('@item.InvoiceId')" style="cursor:pointer;" />
+                                                        }
+                                                        else
+                                                        {
+                                                            <a class="mrp_popup disableButton" data-toggle="modal">
+                                                                <img src="~/images/view-icon.png" class="img-responsive disableButton" />
+                                                            </a>
+                                                        }
+                                                    </td>
+                                                    <td>
+                                                        @item.DocumentNumber
+
+                                                    </td>
+                                                    <td nowrap>
+                                                        @item.IssueType.Split('-')[0]
+                                                    </td>
+                                                    <td nowrap>
+                                                        @item.PaymentTypes.Split('-')[0]
+                                                    </td>
+                                                    <td nowrap>
+                                                        @item.InvoiceType
+                                                    </td>
+                                                    <td nowrap>
+                                                        @item.UniqueInvoice
+                                                    </td>
+                                                    <td nowrap>
+                                                        @item.InvoiceNumber
+                                                    </td>
+                                                    <td>
+                                                        @string.Format("{0:C}", item.VendorTotalCharges)
+                                                    </td>
+                                                    <td>
+                                                        @string.Format("{0:C}", item.VendorDeductible)
+                                                    </td>
+                                                    <td>
+                                                        @item.DHSApprovedDeductible
+                                                    </td>
+                                                    <td>
+                                                        @item.VendorDays
+                                                    </td>
+                                                    <td>
+                                                        @item.DHSApprovedDays
+                                                    </td>
+                                                    <td>
+                                                        @string.Format("{0:C}", item.VendorAllowableAmount)
+                                                    </td>
+                                                    <td>
+                                                        @string.Format("{0:C}", item.DHSApprovedAllowableAmount)
+                                                    </td>
+                                                    <td>
+                                                        @item.RuleName
+                                                    </td>
+                                                    <td>
+                                                        @item.CalculatedShare
+                                                    </td>
+                                                    <td>
+                                                        @item.DHSApprovedFederalMatchPercentage
+                                                    </td>
+                                                    <td>
+                                                        @item.DHSApprovedLocalMatchPercentage
+                                                    </td>
+                                                    <td>
+                                                        @string.Format("{0:C}", item.DHSApprovedFederalMatch)
+                                                    </td>
+                                                    <td>
+                                                        @string.Format("{0:C}", item.DHSApprovedLocalMatch)
+                                                    </td>
+                                                    <td>
+                                                        @item.CalculatedInPatientDays
+                                                    </td>
+                                                    <td>
+                                                        @item.CalculatedOutPatientDays
+                                                    </td>
+                                                    <td>
+                                                        @item.PerdiemRateUsed
+                                                    </td>
+                                                    <td>
+                                                        @item.CorrectPerdiemRate
+                                                    </td>
+                                                    <td nowrap>
+                                                        @item.FacilityName
+                                                    </td>
+                                                    <td nowrap>
+                                                        @item.FiscalPeriodName
+                                                    </td>
+                                                </tr>
+                                            }
+                                        }
+                                    </tbody>
+                                </table>
+
+                                <!-- popup -->
+                                <div class="modal fade mrp_modalpopup" id="CostReportInvoiceModal">
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- /top tiles -->
+                </div>
+            </div>
+            <!-- /page content -->
+            <div id="container" class="mra_pagination">
+                <div class="pagination">
+                    @Html.PagedListPager(Model.pagedCostReportInvoiceEntities, page => Url.Action("CostReportInvoices", new { page }))
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+
+    <script type="text/javascript">
+
+        function ViewCostReportInvoice(paymentId) {
+            var options = { "backdrop": "static", keyboard: true };
+            $.ajax({
+                type: "GET",
+                url: "/CostReportInvoice/ViewCostReportInvoice/" + paymentId,
+                dataType: "html",
+                success: function (evt) {
+                    $('#CostReportInvoiceModal').html(evt);
+                    $('#CostReportInvoiceModal').modal(options);
+                    $('#CostReportInvoiceModal').modal('show');
+                },
+                error: function (req, status, error) {
+                    alert(error);
+                    alert("Error!Occured");
+                }
+            });
+        }
+
+        function EditCostReportInvoice() {
+            var options = { "backdrop": "static", keyboard: true };
+            $.ajax({
+                type: "GET",
+                url: "/CostReportInvoice/EditCostReportInvoice",
+                dataType: "html",
+                success: function (evt) {
+                    $('#CostReportInvoiceModal').html(evt);
+                    $('#CostReportInvoiceModal').modal(options);
+                    $('#CostReportInvoiceModal').modal('show');
+                },
+                error: function (req, status, error) {
+                    alert("Error!Occured");
+                }
+            });
+        }
+
+
+        function SubmitValue() {
+
+            var FiscalPeriodID = $('#FiscalYearsID option:selected').text();
+            if (FiscalPeriodID == "") {
+                alert("Please select fiscal period .");
+                $("#FiscalYearID").focus();
+                return false;
+            }
+
+            var FacilityId = $('#FacilitiesId option:selected').text();
+            if (FacilityId == "") {
+                alert("Please select facility .");
+                $("#FacilityId").focus();
+                return false;
+            }
+
+            var IssueTypeID = $('#IssueTypeId option:selected').text();
+
+            if (IssueTypeID == "") {
+                alert("Please select issue type .");
+                $("#IssueTypeId").focus();
+                return false;
+            }
+
+            var PaymentTypeID = $('#PaymentTypesID option:selected').text();
+            if (PaymentTypeID == "") {
+                alert("Please select payment type .");
+                $("#PaymentTypeID").focus();
+                return false;
+            }
+
+            var InvoiceTypeID = $('#InvoiceTypeID option:selected').text();
+
+            if (InvoiceTypeID == "") {
+                alert("Please select invoice type .");
+                $("#InvoiceTypeID").focus();
+                return false;
+            }
+
+            var DHSFederalMatch = $('#RuleId option:selected').text();
+
+            if (DHSFederalMatch == "") {
+                alert("Please select federal match.");
+                $("#RuleId").focus();
+                return false;
+            }
+
+
+            var costReportInvoiceRequest = {
+                InvoiceId: document.getElementById("InvoiceID").value,
+                CostReportInvoiceEntity:
+                {
+                    FacilityId: document.getElementById("FacilitiesId").value,
+                    FiscalPeriodId: document.getElementById("FiscalYearsID").value,
+                    IssueTypeId: document.getElementById("IssueTypeId").value,
+                    PaymentTypeId: document.getElementById("PaymentTypesID").value,
+                    InvoiceTypeId: document.getElementById("InvoiceTypeID").value,
+                    UniqueInvoice: document.getElementById("UniqueInvoice").value,
+                    InvoiceNumber: document.getElementById("InvoiceNumber").value,
+                    DocumentNumber: document.getElementById("DocumentNumber").value,
+                    InvoiceDate: document.getElementById("InvoiceDate").value,
+                    CalculatedShare: document.getElementById("CalculatedShare").value,
+                    VendorTotalCharges: parseFloat((document.getElementById("VendorTotalCharges").value).replace("$", "").replace(",", "")).toFixed(2),
+                    DHSApprovedFederalMatchPercentage: document.getElementById("DHSApprovedFederalMatchPercentage").value,
+                    VendorDeductible: parseFloat((document.getElementById("VendorDeductible").value).replace("$", "").replace(",", "")).toFixed(2),
+                    DHSApprovedFederalMatch: parseFloat((document.getElementById("DHSApprovedFederalMatch").value).replace("$", "").replace(",", "")).toFixed(2),
+                    DHSApprovedDeductible: parseFloat((document.getElementById("DHSApprovedDeductible").value).replace("$", "").replace(",", "")).toFixed(2),
+                    DHSApprovedLocalMatchPercentage: document.getElementById("DHSApprovedLocalMatchPercentage").value,
+                    VendorDays: document.getElementById("VendorDays").value,
+                    DHSApprovedLocalMatch: parseFloat((document.getElementById("DHSApprovedLocalMatch").value).replace("$", "").replace(",", "")).toFixed(2),
+                    DHSApprovedDays: document.getElementById("DHSApprovedDays").value,
+                    CalculatedInPatientDays: document.getElementById("CalculatedInPatientDays").value,
+                    VendorAllowableAmount: parseFloat((document.getElementById("VendorAllowableAmount").value).replace("$", "").replace(",", "")).toFixed(2),
+                    CalculatedOutPatientDays: document.getElementById("CalculatedOutPatientDays").value,
+                    DHSApprovedAllowableAmount: parseFloat((document.getElementById("DHSApprovedAllowableAmount").value).replace("$", "").replace(",", "")).toFixed(2),
+                    PerdiemRateUsed: document.getElementById("PerdiemRateUsed").value,
+                    DHSFederalMatch: document.getElementById("RuleId").value,
+                    CorrectPerdiemRate: document.getElementById("CorrectPerdiemRate").value,
+                    Notes: document.getElementById("txtNotes").value,
+                },
+            };
+            $.ajax({
+                url: "/CostReportInvoice/SaveCostReportInvoice",
+                type: "POST",
+                data: costReportInvoiceRequest,
+                dataType: 'json',
+                success: function (result) {
+                    location.href = "/CostReportInvoice/CostReportInvoices";
+                },
+                complete: function () {
+
+                }
+            });
+            return true;
+        }
+
+        function SelectedIndexChanged() {
+            if ($("#SearchOn").val() != "" & $("#txtSearch").val() == "") {
+                alert("Please enter value to search");
+                $("#txtSearch").focus();
+            }
+            else {
+                $('#frmManageCRPayment').submit();
+            }
+        }
+
+        function SortOrder(SortOrder) {
+            $("#hdnSortOrder").val(SortOrder)
+            $('#frmManageCRPayment').submit();
+        }
+
+        function Validate() {
+            alert("You don't have access to this activity. Please contact your administrator.");
+            return false;
+        }
+
+        $(document).ready(function () {
+            $('#mra_subli1').addClass('active');
+        });
+
+        function CreatePayment(InvoiceId) {
+            document.getElementById("hdnInvoiceId").value = InvoiceId;
+            document.forms[0].action = "CreateInvoicePayment";
+            document.forms[0].submit();
+        }
+    </script>
+}

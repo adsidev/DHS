@@ -1,0 +1,269 @@
+﻿@model DHSEntities.DrawResponse
+@using PagedList.Mvc
+@using DHS.Reconcilation.Models
+
+@{
+    ViewBag.Title = "DHS Reconcilation Application :: Manage Draws";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+<title>@ViewBag.Title</title>
+<script src="~/Scripts/jquery-1.10.2.min.js"></script>
+@section LeftMenuSection
+{
+    @Html.Partial("_menuCRPayments");
+}
+@using (Html.BeginForm("ManageDraws", "Draw", FormMethod.Post, new { @id = "frmDraws" }))
+{
+    <title>@ViewBag.Title</title>
+    <input type="hidden" id="hdnDrawId" name="hdnDrawId" />
+    <div class="tab-pane active" id="dashboard">
+        <div class="container-fluid">
+            <!-- top tiles -->
+            <div class="row ">
+                <div class="col-lg-12">
+                    <div class="mrp_content">
+                        <h2>View Draws</h2>
+                        <form class="mrp_selectdetails form-inline">
+                            <div class="row">
+                                <div class="form-group col-lg-3 col-xs-12 col-sm-6">
+                                    <label for="SearchOn">Fiscal Year:</label>
+                                    <div class="form_modal">
+                                        @Html.DropDownList("FiscalYearId", new SelectList(Model.fiscalYearEntities, "FiscalYearId", "FiscalYear", Model.drawEntity.FiscalYearId), "", new { @id = "FiscalYearId", @class = "form-control mrp_modalselect" })
+                                    </div>
+                                </div>
+                                <div class="form-group col-lg-3 col-xs-12 col-sm-5">
+                                    <label for="SearchOn">Assigned&nbsp;To:</label>
+                                    <div class="form_modal">
+                                        @Html.DropDownList("AssignedTo", new SelectList(Model.userEntities, "UserId", "UserName", Model.drawEntity.AssignedTo), "", new { @id = "AssignedTo", @class = "form-control mrp_modalselect" })
+                                    </div>
+                                </div>
+                                <div class="form-group col-lg-3 col-xs-12 col-sm-7">
+                                    <label for="SearchOn">Status:</label>
+                                    <div class="form_modal">
+                                        @Html.DropDownList("StatusId", new SelectList(Model.statusEntities, "StatusId", "StatusName", Model.drawEntity.StatusId), "", new { @id = "StatusId", @class = "form-control mrp_modalselect" })
+                                    </div>
+                                </div>
+                                <div class="form-group col-lg-3 col-xs-12 col-sm-7">
+                                    @if (Model.rolePermissionEntity.ViewBit)
+                                    {
+                                        <input type="button" class="btn btn-primary btn-updated" onclick="SelectedIndexChanged()" value=" Search " />
+                                    }
+                                    else
+                                    {
+                                        <input type="button" value=" Search " class="disableButton" disabled="disabled" />
+                                    }
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+            <div class="row mrp_table-row">
+                <div class="col-lg-12 col-xs-12">
+                    <div class="table-responsive">
+                        <div class="mrp_contentbody mrp_contenttable">
+                            <div class="mrp_table">
+                                <table class="table table-bordered table-striped">
+                                    <thead>
+                                        <tr>
+                                            <th style="margin-left:1px; margin-right:1px;">
+                                                Action
+                                            </th>
+                                            <th nowrap>
+                                                Fiscal Year
+                                            </th>
+                                            <th nowrap>
+                                                Draw No
+                                            </th>
+                                            <th nowrap>
+                                                Drawn Amount
+                                            </th>
+                                            <th nowrap>
+                                                Drawn Date
+                                            </th>
+                                            <th nowrap>
+                                                Date Posted
+                                            </th>
+                                            <th nowrap>
+                                                Batch Number
+                                            </th>
+                                            <th nowrap>
+                                                Cash Receipt
+                                            </th>
+                                            @*<th nowrap>
+                                                Org
+                                            </th>
+                                            <th nowrap>
+                                                Object
+                                            </th>
+                                            <th nowrap>
+                                                Project
+                                            </th>*@
+                                            <th nowrap>
+                                                Status
+                                            </th>
+                                            <th nowrap>
+                                                Assigned To
+                                            </th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        @{foreach (var item in Model.pagedDrawEntities)
+                                            {
+                                        <tr>
+                                            <td>
+                                                @if (Model.rolePermissionEntity.ViewBit)
+                                                {
+                                                    <img src="~/images/view-icon.png" class="img-responsive" onclick="OpenDrawInfo('@item.DrawId')" style="cursor:pointer;" alt="View Draw Information"/>
+                                                }
+                                                else
+                                                {
+                                                    <a class="mrp_popup disableButton" data-toggle="modal">
+                                                        <img src="~/images/view-icon.png" class="img-responsive disableButton" />
+                                                    </a>
+                                                }
+                                            </td>
+                                            <td nowrap>
+                                                @item.FiscalYear
+                                            </td>
+                                            <td nowrap>
+                                                @item.DrawNumber
+                                            </td>
+                                            <td nowrap>
+                                                @string.Format("{0:C}", item.DrawDownAmount)
+                                            </td>
+                                            <td nowrap>
+                                                @item.DrawDownDate
+                                            </td>
+                                            <td nowrap>
+                                                @item.DatePosted
+                                            </td>
+                                            <td nowrap>
+                                                @item.BatchNumber
+                                            </td>
+                                            <td nowrap>
+                                                @item.CashReceipt
+                                            </td>
+                                            @*<td nowrap>
+                                                @item.OrgName
+                                            </td>
+                                            <td nowrap>
+                                                @item.ObjectName
+                                            </td>
+                                            <td nowrap>
+                                                @item.ProjectName
+                                            </td>*@
+                                            <td nowrap>
+                                                @item.StatusName
+                                            </td>
+                                            <td nowrap>
+                                                @item.AssignedToUser
+                                            </td>
+                                        </tr>
+                                            }
+                                        }
+                                    </tbody>
+                                </table>
+
+                                <!-- popup -->
+                                <div class="modal fade mrp_modalpopup" id="DrawModal">
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- /top tiles -->
+                </div>
+            </div>
+            <!-- /page content -->
+            <div id="container" class="mra_pagination">
+                <div class="pagination">
+                    @Html.PagedListPager(Model.pagedDrawEntities, page => Url.Action("ManageDraws", new { page }))
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+
+    <script type="text/javascript">
+
+        function ViewDraw(paymentId) {
+            var options = { "backdrop": "static", keyboard: true };
+            $.ajax({
+                type: "GET",
+                url: "/Draw/ViewDraw/" + paymentId,
+                dataType: "html",
+                success: function (evt) {
+                    $('#DrawModal').html(evt);
+                    $('#DrawModal').modal(options);
+                    $('#DrawModal').modal('show');
+                },
+                error: function (req, status, error) {
+                    alert(error);
+                    alert("Error!Occured");
+                }
+            });
+        }
+
+        function EditDraw() {
+            var options = { "backdrop": "static", keyboard: true };
+            $.ajax({
+                type: "GET",
+                url: "/Draw/EditDraw",
+                dataType: "html",
+                success: function (evt) {
+                    $('#DrawModal').html(evt);
+                    $('#DrawModal').modal(options);
+                    $('#DrawModal').modal('show');
+                },
+                error: function (req, status, error) {
+                    alert("Error!Occured");
+                }
+            });
+        }
+
+
+        
+
+        function SelectedIndexChanged() {
+            if ($("#SearchOn").val() != "" & $("#txtSearch").val() == "") {
+                alert("Please enter value to search");
+                $("#txtSearch").focus();
+            }
+            else {
+                $('#frmDraws').submit();
+            }
+        }
+
+        function SortOrder(SortOrder) {
+            $("#hdnSortOrder").val(SortOrder)
+            $('#frmDraws').submit();
+        }
+
+        function Validate() {
+            alert("You don't have access to this activity. Please contact your administrator.");
+            return false;
+        }
+
+        $(document).ready(function () {
+            $('#mra_subli5').addClass('active');
+        });
+
+        function CreatePayment(InvoiceId) {
+            document.getElementById("hdnDrawId").value = InvoiceId;
+            document.forms[0].action = "CreateInvoicePayment";
+            document.forms[0].submit();
+        }
+
+
+        function OpenDrawInfo(DrawId) {
+            var url = "/Draw/DrawInfo/" + DrawId;
+            location.href = url;
+        }
+
+        function OpenTransaction(DrawId) {
+            var url = "/Draw/TransactionDetails/" + DrawId;
+            location.href = url;
+        }
+    </script>
+}
