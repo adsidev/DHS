@@ -26,3 +26,17 @@ F:\Projects\ADSI\Source\DHS.Reconcilation\DHSDAL\obj\Debug\DHSDAL.csproj.CoreCom
 F:\Projects\ADSI\Source\DHS.Reconcilation\DHSDAL\obj\Debug\DHSDAL.csproj.CopyComplete
 F:\Projects\ADSI\Source\DHS.Reconcilation\DHSDAL\obj\Debug\DHSDAL.dll
 F:\Projects\ADSI\Source\DHS.Reconcilation\DHSDAL\obj\Debug\DHSDAL.pdb
+F:\Projects\ADSI\Source\DHS\DHSDAL\bin\Debug\DHSDAL.dll.config
+F:\Projects\ADSI\Source\DHS\DHSDAL\bin\Debug\DHSDAL.dll
+F:\Projects\ADSI\Source\DHS\DHSDAL\bin\Debug\DHSDAL.pdb
+F:\Projects\ADSI\Source\DHS\DHSDAL\bin\Debug\DataAccessLayer.dll
+F:\Projects\ADSI\Source\DHS\DHSDAL\bin\Debug\DHSEntities.dll
+F:\Projects\ADSI\Source\DHS\DHSDAL\bin\Debug\PagedList.dll
+F:\Projects\ADSI\Source\DHS\DHSDAL\bin\Debug\DataAccessLayer.pdb
+F:\Projects\ADSI\Source\DHS\DHSDAL\bin\Debug\DHSEntities.pdb
+F:\Projects\ADSI\Source\DHS\DHSDAL\bin\Debug\PagedList.xml
+F:\Projects\ADSI\Source\DHS\DHSDAL\obj\Debug\DHSDAL.csproj.AssemblyReference.cache
+F:\Projects\ADSI\Source\DHS\DHSDAL\obj\Debug\DHSDAL.csproj.CoreCompileInputs.cache
+F:\Projects\ADSI\Source\DHS\DHSDAL\obj\Debug\DHSDAL.csproj.CopyComplete
+F:\Projects\ADSI\Source\DHS\DHSDAL\obj\Debug\DHSDAL.dll
+F:\Projects\ADSI\Source\DHS\DHSDAL\obj\Debug\DHSDAL.pdb

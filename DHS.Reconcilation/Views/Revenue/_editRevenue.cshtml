@@ -354,7 +354,7 @@
                         <div class="col-xs-12">
                             <div class="form_modal">
                                 <label>Notes</label>
-                                <textarea id="txtNotes" name="txtNotes" style="margin: 0px; width: 650px; height: 120px;">@Model.revenueEntity.Notes</textarea>
+                                <textarea id="Notes" name="Notes" style="margin: 0px; width: 650px; height: 120px;">@Model.revenueEntity.Notes</textarea>
                             </div>
                         </div>
 
@@ -379,12 +379,12 @@
             document.getElementById("RevenueTypeId").focus();
             return false;
         }
-
+        alert(document.getElementById("Notes").value)
         var revenueRequest = {
             RevenueEntity:
             {
                 RevenueId: document.getElementById("RevenueId").value,
-                Notes: document.getElementById("txtNotes").value,
+                Notes: document.getElementById("Notes").value,
                 StatusId: document.getElementById("StatusId").value,
                 RevenueTypeId: document.getElementById("RevenueTypeId").value,
                 ModifiedBy:@Common.GetSession("UserID"),

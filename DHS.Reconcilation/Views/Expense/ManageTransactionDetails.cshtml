@@ -432,6 +432,9 @@
                                             <th nowrap>
                                                 Draw No
                                             </th>
+                                            <th nowrap style="text-align:left">
+                                                Notes
+                                            </th>
                                         </tr>
                                     </thead>
                                     <tbody>
@@ -487,6 +490,9 @@
                                                         <a class="img-responsive" onclick="ViewDraw('@item.DrawId')" style="cursor:pointer;">
                                                             @item.DrawNumber
                                                         </a>
+                                                    </td>
+                                                    <td style="text-align:left;" nowrap>
+                                                        @item.TransactionDescription
                                                     </td>
                                                 </tr>
                                             }
