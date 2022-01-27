@@ -419,8 +419,8 @@
                                                 Fiscal Year
                                             </th>
                                             @*<th nowrap>
-                                            Expense Date
-                                        </th>*@
+            Expense Date
+        </th>*@
                                             <th nowrap>
                                                 Journal
                                             </th>
@@ -480,6 +480,12 @@
                                             </th>
                                             <th nowrap>
                                                 Status
+                                            </th>
+                                            <th nowrap>
+                                                Assigned To
+                                            </th>
+                                            <th nowrap style="text-align:left;">
+                                                Notes
                                             </th>
                                         </tr>
                                     </thead>
@@ -564,6 +570,12 @@
                                                     </td>
                                                     <td nowrap>
                                                         @item.StatusName
+                                                    </td>
+                                                    <td nowrap>
+                                                        @item.AssignedToUser
+                                                    </td>
+                                                    <td nowrap style="text-align:left">
+                                                        @item.Notes
                                                     </td>
                                                 </tr>
                                             }

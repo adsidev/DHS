@@ -303,6 +303,7 @@ namespace DHSDAL
                     revenueEntity.RevenueTypeName = revenueDataRow["RevenueTypeName"].ToString();
                     revenueEntity.CFDA = revenueDataRow["CFDA"].ToString();
                     revenueEntity.Fund = revenueDataRow["Fund"].ToString();
+                    revenueEntity.Notes = revenueDataRow["Notes"].ToString();
                     revenueEntity.Reference1 = revenueDataRow["Reference1"].ToString();
                     revenueEntity.Reference2 = revenueDataRow["Reference2"].ToString();
                     revenueEntity.Reference3 = revenueDataRow["Reference3"].ToString();
@@ -364,6 +365,7 @@ namespace DHSDAL
                     expenseEntity.ProjectDescription = expenseDataRow["ProjectDescription"].ToString();
                     expenseEntity.CFDA = expenseDataRow["CFDA"].ToString();
                     expenseEntity.Fund = expenseDataRow["Fund"].ToString();
+                    expenseEntity.Notes = expenseDataRow["Notes"].ToString();
                     expenseEntity.Reference1 = expenseDataRow["Reference1"].ToString();
                     expenseEntity.Reference2 = expenseDataRow["Reference2"].ToString();
                     expenseEntity.Reference3 = expenseDataRow["Reference3"].ToString();

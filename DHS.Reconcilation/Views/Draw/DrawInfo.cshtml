@@ -275,8 +275,8 @@
                                                 Fiscal Year
                                             </th>
                                             @*<th nowrap>
-                                            Revenue Date
-                                        </th>*@
+            Revenue Date
+        </th>*@
                                             <th nowrap>
                                                 Journal
                                             </th>
@@ -339,6 +339,9 @@
                                             </th>
                                             <th nowrap>
                                                 Revenue Type
+                                            </th>
+                                            <th nowrap style="text-align:left;">
+                                                Notes
                                             </th>
                                         </tr>
                                     </thead>
@@ -432,6 +435,9 @@
                                                     <td nowrap>
                                                         @item.RevenueTypeName
                                                     </td>
+                                                    <td nowrap style="text-align:left;">
+                                                        @item.Notes
+                                                    </td>
                                                 </tr>
                                             }
                                             if (Model.revenueEntities.Count > 0)
@@ -486,8 +492,8 @@
                                                 Fiscal Year
                                             </th>
                                             @*<th nowrap>
-                                            Expense Date
-                                        </th>*@
+            Expense Date
+        </th>*@
                                             <th nowrap>
                                                 Journal
                                             </th>
@@ -547,6 +553,9 @@
                                             </th>
                                             <th nowrap>
                                                 Status
+                                            </th>
+                                            <th nowrap style="text-align:left;">
+                                                Notes
                                             </th>
                                         </tr>
                                     </thead>
@@ -635,6 +644,9 @@
                                                     <td nowrap>
                                                         @item.StatusName
                                                     </td>
+                                                    <td nowrap style="text-align:left;">
+                                                        @item.Notes
+                                                    </td>
                                                 </tr>
                                             }
                                             if (Model.expenseEntities.Count >= 1)
@@ -704,7 +716,10 @@
                                                 Category 2
                                             </th>
                                             <th nowrap>
-                                                Vendor/Adjustments
+                                                Purpose
+                                            </th>
+                                            <th nowrap style="text-align:left;">
+                                                Notes
                                             </th>
                                         </tr>
                                     </thead>
@@ -743,6 +758,9 @@
                                                         @item.FGTCategoryName2
                                                     </td>
                                                     <td>
+                                                        @item.VendorAdjustments
+                                                    </td>
+                                                    <td nowrap style="text-align:left;">
                                                         @item.VendorAdjustments
                                                     </td>
                                                 </tr>

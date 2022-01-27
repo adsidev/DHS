@@ -363,8 +363,8 @@
                                                 Fiscal Year
                                             </th>
                                             @*<th nowrap>
-                                        Revenue Date
-                                                                            </th>*@
+        Revenue Date
+                                            </th>*@
                                             <th nowrap>
                                                 Journal
                                             </th>
@@ -430,6 +430,12 @@
                                             </th>
                                             <th nowrap>
                                                 Revenue Type
+                                            </th>
+                                            <th nowrap>
+                                                Assigned To
+                                            </th>
+                                            <th nowrap style="text-align:left;">
+                                                Notes
                                             </th>
                                         </tr>
                                     </thead>
@@ -528,6 +534,12 @@
                                                     </td>
                                                     <td nowrap>
                                                         @item.RevenueTypeName
+                                                    </td>
+                                                    <td nowrap>
+                                                        @item.AssignedToUser
+                                                    </td>
+                                                    <td nowrap style="text-align:left;">
+                                                        @item.Notes
                                                     </td>
                                                 </tr>
                                             }

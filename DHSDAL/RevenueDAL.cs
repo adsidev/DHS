@@ -225,6 +225,8 @@ namespace DHSDAL
                     revenueEntity.ProjectName = revenueDataRow["ProjectCode"].ToString();
                     revenueEntity.ProjectDescription = revenueDataRow["ProjectDescription"].ToString();
                     revenueEntity.CFDA = revenueDataRow["CFDA"].ToString();
+                    revenueEntity.AssignedToUser = revenueDataRow["AssignedToUser"].ToString();
+                    revenueEntity.Notes = revenueDataRow["Notes"].ToString();
                     revenueEntity.Fund = revenueDataRow["Fund"].ToString();
                     revenueEntity.Reference1 = revenueDataRow["Reference1"].ToString();
                     revenueEntity.Reference2 = revenueDataRow["Reference2"].ToString();
