@@ -32,7 +32,7 @@ namespace Medicaid.Reconcilation.Controllers
         {
             if (!Common.SessionExists())
                 return RedirectToAction("Index", "Home");
-            int pageSize = 25;
+            int pageSize = Common.pageNumbers;
             int pageIndex = 1;
             pageIndex = page.HasValue ? Convert.ToInt32(page) : 1;
             RevenueResponse revenueResponse = new RevenueResponse();
@@ -97,7 +97,7 @@ namespace Medicaid.Reconcilation.Controllers
         {
             if (!Common.SessionExists())
                 return RedirectToAction("Index", "Home");
-            int pageSize = 25;
+            int pageSize = Common.pageNumbers;
             int pageIndex = 1;
             pageIndex = page.HasValue ? Convert.ToInt32(page) : 1;
             RevenueResponse revenueResponse = new RevenueResponse();

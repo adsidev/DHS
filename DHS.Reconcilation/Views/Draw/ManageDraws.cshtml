@@ -46,11 +46,11 @@
                                 <div class="form-group col-lg-3 col-xs-12 col-sm-7">
                                     @if (Model.rolePermissionEntity.ViewBit)
                                     {
-                                        <input type="button" class="btn btn-primary btn-updated" onclick="SelectedIndexChanged()" value=" Search " />
+                                        <img src="~/images/search.png" class="img-responsive" height="40" width="40" onclick="SelectedIndexChanged()" style="cursor:pointer;" alt="Search Draw Information" />
                                     }
                                     else
                                     {
-                                        <input type="button" value=" Search " class="disableButton" disabled="disabled" />
+                                        <img src="~/images/search.png" class="disableButton" height="40" width="40" alt="Search Draw Information" />
                                     }
                                 </div>
                             </div>
@@ -95,10 +95,10 @@
                                             </th>
                                             <th nowrap>
                                                 Object
-                                            </th>
+                                            </th>*@
                                             <th nowrap>
                                                 Project
-                                            </th>*@
+                                            </th>
                                             <th nowrap>
                                                 Status
                                             </th>
@@ -152,10 +152,10 @@
                                             </td>
                                             <td nowrap>
                                                 @item.ObjectName
-                                            </td>
+                                            </td>*@
                                             <td nowrap>
                                                 @item.ProjectName
-                                            </td>*@
+                                            </td>
                                             <td nowrap>
                                                 @item.StatusName
                                             </td>

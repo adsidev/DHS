@@ -25,54 +25,52 @@
                         <h2>View Expenses</h2>
                         <form class="mrp_selectdetails form-inline">
                             <div class="row">
-                                <div class="form-group col-lg-3 col-xs-12 col-sm-6">
-                                    <label for="SearchOn">Fiscal Year:</label>
+                                <div class="form-group col-lg-2 col-xs-12 col-sm-6">
+                                    <label for="SearchOn">Fiscal&nbsp;Year:</label>
                                     <div class="form_modal">
                                         @Html.DropDownList("FiscalYearId", new SelectList(Model.fiscalYearEntities, "FiscalYearId", "FiscalYear", Model.expenseEntity.FiscalYearId), "", new { @id = "FiscalYearId", @class = "form-control mrp_modalselect" })
                                     </div>
                                 </div>
-                                <div class="form-group col-lg-3 col-xs-12 col-sm-5">
+                                <div class="form-group col-lg-2 col-xs-12 col-sm-5">
                                     <label for="SearchOn">Period:</label>
                                     <div class="form_modal">
                                         @Html.DropDownList("PeriodId", new SelectList(Model.periodEntities, "PeriodId", "PeriodName", Model.expenseEntity.PeriodId), "", new { @id = "PeriodId", @class = "form-control mrp_modalselect" })
                                     </div>
                                 </div>
-                                <div class="form-group col-lg-3 col-xs-12 col-sm-7">
+                                <div class="form-group col-lg-2 col-xs-12 col-sm-7">
                                     <label for="SearchOn">Source:</label>
                                     <div class="form_modal">
                                         @Html.DropDownList("SourceId", new SelectList(Model.sourceEntities, "SourceId", "SourceName", Model.expenseEntity.SourceId), "", new { @id = "SourceId", @class = "form-control mrp_modalselect" })
                                     </div>
                                 </div>
-                                <div class="form-group col-lg-3 col-xs-12 col-sm-6">
+                                <div class="form-group col-lg-2 col-xs-12 col-sm-6">
                                     <label for="SearchOn">Project:</label>
                                     <div class="form_modal">
                                         @Html.DropDownList("ProjectId", new SelectList(Model.projectEntities, "ProjectId", "ProjectName", Model.expenseEntity.ProjectId), "", new { @id = "ProjectId", @class = "form-control mrp_modalselect" })
                                     </div>
                                 </div>
 
-                            </div>
-                            <div class="row">
-                                <div class="form-group col-lg-3 col-xs-12 col-sm-5">
+                                <div class="form-group col-lg-2 col-xs-12 col-sm-5">
                                     <label for="SearchOn">Assigned&nbsp;To:</label>
                                     <div class="form_modal">
                                         @Html.DropDownList("AssignedTo", new SelectList(Model.userEntities, "UserId", "UserName", Model.expenseEntity.AssignedTo), "", new { @id = "AssignedTo", @class = "form-control mrp_modalselect" })
                                     </div>
                                 </div>
-                                <div class="form-group col-lg-3 col-xs-12 col-sm-7">
+                                <div class="form-group col-lg-2 col-xs-12 col-sm-7">
                                     <label for="SearchOn">Status:</label>
                                     <div class="form_modal">
                                         @Html.DropDownList("StatusId", new SelectList(Model.statusEntities, "StatusId", "StatusName", Model.expenseEntity.StatusId), "", new { @id = "StatusId", @class = "form-control mrp_modalselect" })
                                     </div>
-                                </div>
-                                <div class="form-group col-lg-6 col-xs-12 col-sm-6">
-                                    @if (Model.rolePermissionEntity.ViewBit)
-                                    {
-                                        <input type="button" class="btn btn-primary btn-updated" onclick="SelectedIndexChanged()" value=" Search " />
-                                    }
-                                    else
-                                    {
-                                        <input type="button" value=" Search " class="disableButton" disabled="disabled" />
-                                    }
+                                    <div class="form_modal">
+                                        @if (Model.rolePermissionEntity.ViewBit)
+                                        {
+                                            <img src="~/images/search.png" class="img-responsive" height="40" width="40" onclick="SelectedIndexChanged()" style="cursor:pointer;" alt="Search Expense Information" />
+                                        }
+                                        else
+                                        {
+                                            <img src="~/images/search.png" class="disableButton" height="40" width="40" alt="Search Expense Information" />
+                                        }
+                                    </div>
                                 </div>
                             </div>
                         </form>

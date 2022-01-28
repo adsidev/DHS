@@ -211,7 +211,7 @@
                             </div>
                         </div>
                     </div>
-                </div>
+                </div>*@
 
                 <div class="col-lg-6">
                     <div class="row">
@@ -226,7 +226,7 @@
                             </div>
                         </div>
                     </div>
-                </div>*@
+                </div>
 
             </div>
 
@@ -848,7 +848,7 @@
                 AssignedTo: document.getElementById("AssignedTo").value,
                 OrgName: '',
                 ObjectName: '',
-                ProjectName: '',
+                ProjectName: document.getElementById("ProjectName").value,
             };
             var drawRequest = {
                 DrawEntity: drawEntity
