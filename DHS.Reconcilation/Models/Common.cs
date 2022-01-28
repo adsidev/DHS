@@ -10,7 +10,7 @@ namespace DHS.Reconcilation.Models
     {
         public static readonly string strUserName = "UserName";
         public static readonly string UserID = "UserID";
-        public static readonly int pageNumbers = 17;
+        public static readonly int pageNumbers = 13;
 
         public static void AddSession(string SessionName, string SessionValue)
         {
