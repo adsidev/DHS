@@ -148,6 +148,7 @@ namespace DHSDAL
                     expenseEntity.RevenueNumber = expenseDataRow["RevenueNumber"].ToString();
                     expenseEntity.StatusName = expenseDataRow["StatusName"].ToString();
                     expenseEntity.FiscalYear = expenseDataRow["FiscalYear"].ToString();
+                    expenseEntity.Notes = expenseDataRow["Notes"].ToString();
                     expenseEntity.AssignedToUser = expenseDataRow["AssignedToUser"].ToString();
                     expenseEntity.NetAmount = Convert.ToDecimal(expenseDataRow["NetAmount"].ToString());
                     if (expenseDataRow["ExpenseDate"].ToString() != String.Empty)
