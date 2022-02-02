@@ -471,6 +471,22 @@
                         </div>
                     </div>
 
+                    <div class="col-lg-6">
+                        <div class="row">
+                            <div class="col-lg-4 col-xs-12 col-sm-4 col-md-4">
+                                <div class="form_modal">
+                                    <label>Draw</label>
+                                </div>
+                            </div>
+                            <div class="col-lg-8 col-xs-12 col-sm-8 col-md-8">
+                                <div class="form_modal">
+                                    <select id="DrawId" name="DrawId" class="form-control mrp_modalselect">
+                                    </select>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
                 </div>
 
                 <div class="row">
@@ -512,6 +528,10 @@
                 document.getElementById("RevenueTypeId").focus();
                 return false;
             }
+            var Draw = 0
+            if (document.getElementById("RevenueTypeId").value == 1) {
+                Draw = document.getElementById("DrawId").value;
+            }
             var revenueTransactionEntity = {
                 RevenueTransactionId:0,
                 RevenueTransactionDate: document.getElementById("RevenueTransactionDate").value,
@@ -522,6 +542,7 @@
                 RevenueTransactionAmount: parseFloat((document.getElementById("RevenueTransactionAmount").value).replace("$", "").replace(",", "")).toFixed(2),
                 ObjectName: document.getElementById("ObjectName").value,
                 ProjectName: document.getElementById("ProjectName").value,
+                DrawId : Draw
             };
             var revenueRequest = {
                 RevenueTransactionEntity: revenueTransactionEntity
@@ -548,5 +569,40 @@
         function OpenPreviosPage() {
             location.href = "/Revenue/RevenueInfo/" + document.getElementById("RevenueId").value;
         }
+
+        $("#RevenueTypeId").change(function () {
+            var x = $("#RevenueTypeId").val();
+            if (x == 1) {
+                fire_ajax(document.getElementById("RevenueId").value);
+            }
+            else {
+                var s = '';
+                $("#DrawId").html(s);
+            }
+        });
+
+        function fire_ajax(s) {
+            var revenueEntity = {
+                RevenueId: s
+            };
+            var revenueRequest = {
+                revenueEntity: revenueEntity
+            };
+            $.ajax({
+                url: "/Revenue/DrawRevenue",
+                type: "POST",
+                data: revenueRequest,
+                dataType: 'json',
+                success: function (data) {
+                    var s = '<option value="-1">Please Select Draw</option>';
+                    for (var i = 0; i < data.drawEntities.length; i++) {
+                        s += '<option value="' + data.drawEntities[i].DrawId + '">' + data.drawEntities[i].DrawNumber + '</option>';
+                    }
+                    $("#DrawId").html(s);
+                }
+
+            })
+        }
+
     </script>
 }

@@ -245,6 +245,7 @@
     <Content Include="images\logo-2.png" />
     <Content Include="images\logo-3.png" />
     <Content Include="images\report-payment.png" />
+    <Content Include="images\search.png" />
     <Content Include="images\settlement-payment.png" />
     <Content Include="images\side-line.png" />
     <Content Include="js\bootstrap-progressbar.min.js" />

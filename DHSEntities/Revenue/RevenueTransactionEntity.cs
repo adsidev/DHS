@@ -20,5 +20,7 @@ namespace DHSEntities
         public string ProjectName { get; set; }
         public string RevenueTranscationDescription { get; set; }
         public string SaveString { get; set; }
+        public long DrawId { get; set; }
+        public string DrawNumber { get; set; }
     }
 }

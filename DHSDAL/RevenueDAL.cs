@@ -532,6 +532,7 @@ namespace DHSDAL
                     revenueTransactionEntity.OrgName = revenueDataRow["OrgName"].ToString();
                     revenueTransactionEntity.ObjectName = revenueDataRow["ObjectName"].ToString();
                     revenueTransactionEntity.ProjectName = revenueDataRow["ProjectName"].ToString();
+                    revenueTransactionEntity.DrawNumber = revenueDataRow["DrawNumber"].ToString();
                 }
                 catch (Exception exception)
                 {
@@ -556,6 +557,11 @@ namespace DHSDAL
         {
             revenueResponse.ErrorMessage = string.Empty;
             revenueResponse.Message = string.Empty;
+            RevenueEntity revenueEntity = new RevenueEntity();
+            revenueEntity.RevenueId = revenueRequest.revenueTransactionEntity.RevenueId; 
+            revenueRequest.revenueEntity = revenueEntity;
+            revenueEntity = GetRevenue(revenueRequest).revenueEntity;
+                
             RevenueTransactionEntity revenueTransactionEntity = new RevenueTransactionEntity();
             if (revenueRequest.revenueTransactionEntity.RevenueTransactionId > 0)
             {
@@ -565,13 +571,14 @@ namespace DHSDAL
                 var revenueDataSet = SqlHelper.ExecuteDataset(_connectionString, StoredProcedures.Revenue.USPGETREVENUETRANSACTION, SqlObject.Parameters);
                 foreach (DataRow revenueDataRow in revenueDataSet.Tables[0].Rows)
                 {
-
                     try
                     {
                         revenueTransactionEntity.RevenueTransactionId = Convert.ToInt64(revenueDataRow["RevenueTransactionId"].ToString());
+                        revenueTransactionEntity.DrawId = Convert.ToInt64(revenueDataRow["DrawId"].ToString());
                         revenueTransactionEntity.RevenueTypeId = Convert.ToInt32(revenueDataRow["RevenueTypeId"].ToString());
                         revenueTransactionEntity.RevenueTransactionDate = Convert.ToDateTime(revenueDataRow["RevenueTransactionDate"].ToString()).ToShortDateString();
                         revenueTransactionEntity.RevenueTypeName = revenueDataRow["RevenueTypeName"].ToString();
+                        revenueTransactionEntity.DrawNumber = revenueDataRow["DrawNumber"].ToString();
                         revenueTransactionEntity.RevenueTranscationDescription = revenueDataRow["RevenueTranscationDescription"].ToString();
                         revenueTransactionEntity.RevenueTransactionAmount = Convert.ToDecimal(revenueDataRow["RevenueTransactionAmount"].ToString());
                         revenueTransactionEntity.RevenueTransactionNumber = revenueDataRow["RevenueTransactionNumber"].ToString();
@@ -592,10 +599,6 @@ namespace DHSDAL
             }
             else
             {
-                RevenueEntity revenueEntity = new RevenueEntity();
-                revenueEntity.RevenueId = revenueRequest.revenueTransactionEntity.RevenueId; 
-                revenueRequest.revenueEntity = revenueEntity;
-                revenueEntity = GetRevenue(revenueRequest).revenueEntity;
                 revenueTransactionEntity.OrgName = revenueEntity.OrgName;
                 revenueTransactionEntity.ObjectName = revenueEntity.ObjectName;
                 revenueTransactionEntity.ProjectName = revenueEntity.ProjectName;
@@ -603,7 +606,7 @@ namespace DHSDAL
             }
             
             revenueResponse.revenueTransactionEntity = revenueTransactionEntity;
-
+            revenueResponse.revenueEntity = revenueEntity;
             CommonDAL commonDAL = new CommonDAL();
             revenueResponse.orgEntities = commonDAL.GetOrgs();
             revenueResponse.objectEntities = commonDAL.GetObjects();
@@ -636,6 +639,7 @@ namespace DHSDAL
                 revenueRequest.revenueTransactionEntity.RevenueTranscationDescription,
                 revenueRequest.revenueTransactionEntity.ModifiedBy,
                 revenueRequest.revenueTransactionEntity.ProjectName,
+                revenueRequest.revenueTransactionEntity.DrawId
                 };
                 var intResult = SqlHelper.ExecuteScalar(_connectionString, StoredProcedures.Revenue.USPSAVEREVENEUTRANSACTION, SqlObject.Parameters);
                 revenueResponse.Message = string.Empty;
