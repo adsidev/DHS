@@ -30,7 +30,8 @@ namespace DHSDAL
             SqlObject.Parameters = new object[] {
                 drawRequest.drawEntity.StatusId,
                 drawRequest.drawEntity.AssignedTo,
-                drawRequest.drawEntity.FiscalYearId
+                drawRequest.drawEntity.FiscalYearId,
+                drawRequest.drawEntity.ProjectName
             };
             var drawDataSet= SqlHelper.ExecuteDataset(_connectionString, StoredProcedures.Draw.USPGETDRAWS, SqlObject.Parameters);
             foreach (DataRow drawDataRow in drawDataSet.Tables[0].Rows)

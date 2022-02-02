@@ -41,6 +41,7 @@ namespace Medicaid.Reconcilation.Controllers
             drawEntity.StatusId = 0;
             drawEntity.AssignedTo = 0;
             drawEntity.FiscalYearId = 0;
+            drawEntity.ProjectName = string.Empty;
             if (Request["AssignedTo"] != "")
                 drawEntity.AssignedTo = Convert.ToInt32(Request["AssignedTo"]);
 
@@ -49,6 +50,9 @@ namespace Medicaid.Reconcilation.Controllers
             
             if (Request["FiscalYearId"] != "")
                 drawEntity.FiscalYearId = Convert.ToInt32(Request["FiscalYearId"]);
+
+            if (Request["drawEntity.ProjectName"] != "")
+                drawEntity.ProjectName = Request["drawEntity.ProjectName"];
 
             drawRequest.drawEntity = drawEntity;
             string url = strBaseURL + "Draw/GetDraws";
@@ -94,6 +98,8 @@ namespace Medicaid.Reconcilation.Controllers
             drawEntity.StatusId = 0;
             drawEntity.AssignedTo = 0;
             drawEntity.FiscalYearId = 0;
+            drawEntity.ProjectName = string.Empty;
+
             if (Request["AssignedTo"] != "")
                 drawEntity.AssignedTo = Convert.ToInt32(Request["AssignedTo"]);
 
@@ -102,6 +108,9 @@ namespace Medicaid.Reconcilation.Controllers
 
             if (Request["FiscalYearId"] != "")
                 drawEntity.FiscalYearId = Convert.ToInt32(Request["FiscalYearId"]);
+            
+            if (Request["drawEntity.ProjectName"] != "")
+                drawEntity.ProjectName = Request["drawEntity.ProjectName"];
 
             drawRequest.drawEntity = drawEntity;
             string url = strBaseURL + "Draw/GetDraws";

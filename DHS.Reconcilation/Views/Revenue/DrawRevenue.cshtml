@@ -387,12 +387,6 @@
                                                 Revenue Amount
                                             </th>
                                             <th nowrap>
-                                                Org
-                                            </th>
-                                            <th nowrap>
-                                                Object
-                                            </th>
-                                            <th nowrap>
                                                 Project
                                             </th>
                                             <th nowrap>
@@ -408,8 +402,13 @@
                                     </thead>
                                     <tbody>
                                         @{
+                                            decimal DrawAmountTotal = 0;
+                                            decimal RevenueAmountTotal = 0;
+                                            decimal DifferenceTotal = 0;
                                             foreach (var item in Model.drawEntities)
                                             {
+                                                DrawAmountTotal = DrawAmountTotal + item.DrawDownAmount;
+                                                RevenueAmountTotal = RevenueAmountTotal + item.RevenueAmount;
                                                 <tr>
                                                     <td>
                                                         @if (Model.rolePermissionEntity.ViewBit)
@@ -448,12 +447,6 @@
                                                         @string.Format("{0:C}", item.RevenueAmount)
                                                     </td>
                                                     <td nowrap>
-                                                        @item.OrgName
-                                                    </td>
-                                                    <td nowrap>
-                                                        @item.ObjectName
-                                                    </td>
-                                                    <td nowrap>
                                                         @item.ProjectName
                                                     </td>
                                                     <td nowrap>
@@ -466,7 +459,14 @@
                                                         @item.DrawDescription
                                                     </td>
                                                 </tr>
-                                            }
+                                            }                                            
+                                    <tr>
+                                        <td colspan="3" style="text-align:right;"><b>Totals</b></td>
+                                        <td>@string.Format("{0:C}", DrawAmountTotal)</td>
+                                        <td colspan="4">&nbsp;</td>
+                                        <td>@string.Format("{0:C}", RevenueAmountTotal)</td>
+                                        <td colspan="4" style="text-align:left"><b>Difference Amount:&nbsp;</b>@string.Format("{0:C}", DrawAmountTotal + RevenueAmountTotal)</td>
+                                    </tr>
                                         }
                                     </tbody>
                                 </table>
@@ -544,12 +544,6 @@
                                                 Revenue Amount
                                             </th>
                                             <th nowrap>
-                                                Org
-                                            </th>
-                                            <th nowrap>
-                                                Object
-                                            </th>
-                                            <th nowrap>
                                                 Project
                                             </th>
                                             <th nowrap>
@@ -601,12 +595,6 @@
                                                     </td>
                                                     <td>
                                                         <input type="text" id="@itemId" name="@itemId" />
-                                                    </td>
-                                                    <td nowrap>
-                                                        @item.OrgName
-                                                    </td>
-                                                    <td nowrap>
-                                                        @item.ObjectName
                                                     </td>
                                                     <td nowrap>
                                                         @item.ProjectName
