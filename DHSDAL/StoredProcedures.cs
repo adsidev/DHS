@@ -37,6 +37,7 @@ namespace DHSDAL
         {
             public const string USPGETEXPENSES = "sp_GetExpenses";
             public const string USPGETDRAWSBYEXPENSEID = "sp_GetDrawsByExpenseId";
+            public const string USPGETREVENUETRANSACTIONBYEXPENSEID = "sp_GetRevenueTransactionByExpenseId";
             public const string USPGETEXPENSE = "sp_GetExpense";
             public const string USPSAVEEXPENSE = "sp_SaveExpense";
             public const string USPGETTRANSACTIONDETAILS = "sp_GetTransactionDetails";

@@ -448,12 +448,12 @@
                         <div class="row">
                             <div class="col-lg-4 col-xs-12 col-sm-4 col-md-4">
                                 <div class="form_modal">
-                                    <label>Draw</label>
+                                    <label>Revenue&nbsp;Transaction</label>
                                 </div>
                             </div>
                             <div class="col-lg-8 col-xs-12 col-sm-8 col-md-8">
                                 <div class="form_modal">
-                                    @Html.DropDownList("DrawId", new SelectList(Model.drawEntities, "DrawId", "DrawNumber", Model.transactionDetailEntity.DrawId), "", new { @id = "DrawId", @class = "form-control mrp_modalselect" })
+                                    @Html.DropDownList("DrawId", new SelectList(Model.revenueTransactionEntities, "RevenueTransactionId", "RevenueTransactionNumber", Model.transactionDetailEntity.DrawId), "", new { @id = "DrawId", @class = "form-control mrp_modalselect" })
                                 </div>
                             </div>
                         </div>

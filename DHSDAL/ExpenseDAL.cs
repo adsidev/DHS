@@ -367,6 +367,7 @@ namespace DHSDAL
             expenseResponse.fgtCategoryEntities2 = fGTCategoryResponse.fGTCategoryEntities;
             
             expenseResponse.drawEntities = GetDrawsByExpenseId(transactionDetailEntity.ExpenseId);
+            expenseResponse.revenueTransactionEntities = GetRevenueTransactionByExpenseId(transactionDetailEntity.ExpenseId);
             
             VendorDAL vendorDAL = new VendorDAL();
             expenseResponse.vendorEntities = vendorDAL.GetVendors().vendorEntities;
@@ -670,5 +671,39 @@ namespace DHSDAL
             }
             return drawEntities;
         }
+
+        private List<RevenueTransactionEntity> GetRevenueTransactionByExpenseId(long expenseId)
+        {
+            List<RevenueTransactionEntity> revenueTransactionEntities = new List<RevenueTransactionEntity>();
+            SqlObject.Parameters = new object[] {
+                expenseId
+            };
+            var drawDataSet = SqlHelper.ExecuteDataset(_connectionString, StoredProcedures.Expense.USPGETREVENUETRANSACTIONBYEXPENSEID, SqlObject.Parameters);
+            foreach (DataRow drawDataRow in drawDataSet.Tables[0].Rows)
+            {
+                RevenueTransactionEntity revenueTransactionEntity = new RevenueTransactionEntity();
+                try
+                {
+                    revenueTransactionEntity.RevenueTransactionId = Convert.ToInt64(drawDataRow["RevenueTransactionId"].ToString());
+                    revenueTransactionEntity.RevenueTransactionNumber = drawDataRow["RevenueTransactionNumber"].ToString();
+                }
+                catch (Exception exception)
+                {
+                    revenueTransactionEntity.ErrorMessage = exception.Message;
+                    revenueTransactionEntity.Exception = exception;
+                }
+                finally
+                {
+                    revenueTransactionEntities.Add(revenueTransactionEntity);
+                }
+            }
+            if (revenueTransactionEntities.Count >= 1 || revenueTransactionEntities.Count == 0)
+            {
+                expenseResponse.ErrorMessage = string.Empty;
+                expenseResponse.Message = string.Empty;
+            }
+            return revenueTransactionEntities;
+        }
+
     }
 }
