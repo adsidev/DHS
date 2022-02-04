@@ -1,0 +1,27 @@
+﻿@model DHSEntities.DrawResponse
+@using PagedList.Mvc
+@using DHS.Reconcilation.Models
+
+@{
+    ViewBag.Title = "DHS Reconcilation Application :: Grant Project Report";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+<title>@ViewBag.Title</title>
+<script src="~/Scripts/jquery-1.10.2.min.js"></script>
+@section LeftMenuSection
+{
+    @Html.Partial("_menuCRPayments");
+}
+@using (Html.BeginForm("ManageGrantProjectReport", "Report", FormMethod.Post, new { @id = "frmManageGrantProjectReport" }))
+{
+    <title>@ViewBag.Title</title>
+    
+
+    <script type="text/javascript">
+
+        $(document).ready(function () {
+            $('#mra_subliMGPR').addClass('active');
+        });
+
+    </script>
+}

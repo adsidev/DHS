@@ -196,6 +196,7 @@
     <Compile Include="Areas\UserController.cs" />
     <Compile Include="Controllers\AuditReportsController.cs" />
     <Compile Include="Controllers\FGTCategoryController.cs" />
+    <Compile Include="Controllers\ReportController.cs" />
     <Compile Include="Controllers\RevenueTypeController.cs" />
     <Compile Include="Controllers\JournalController.cs" />
     <Compile Include="Controllers\DrawController.cs" />
@@ -206,6 +207,7 @@
     <Compile Include="Controllers\ToolsController.cs" />
     <Compile Include="Controllers\UserController.cs" />
     <Compile Include="Controllers\ValuesController.cs" />
+    <Compile Include="Controllers\VendorController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
@@ -446,6 +448,9 @@
     <Content Include="Views\Revenue\CreateRevenueTransaction.cshtml" />
     <Content Include="Views\Revenue\_viewRevenueTransaction.cshtml" />
     <Content Include="Views\Revenue\_editRevenueTransaction.cshtml" />
+    <Content Include="Views\Vendor\ManageVendors.cshtml" />
+    <Content Include="Views\Vendor\CreateVendor.cshtml" />
+    <Content Include="Views\Report\ManageGrantProjectReport.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
