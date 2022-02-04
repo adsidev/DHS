@@ -341,6 +341,9 @@ namespace DHSDAL
             else
             {
                 transactionDetailEntity.ExpenseId = expenseRequest.transactionDetailEntity.ExpenseId;
+                expenseEntity.ExpenseId = expenseRequest.transactionDetailEntity.ExpenseId;
+                expenseRequest.expenseEntity = expenseEntity;
+                expenseEntity = GetExpense(expenseRequest).expenseEntity;
             }
             expenseResponse.expenseEntity = expenseEntity;
             expenseResponse.transactionDetailEntity = transactionDetailEntity;

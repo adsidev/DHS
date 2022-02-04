@@ -349,7 +349,7 @@
                                         @{decimal revenueTotal = 0;
                                             foreach (var item in Model.revenueEntities)
                                             {
-                                                revenueTotal = revenueTotal + item.NetAmount;
+                                                revenueTotal = revenueTotal + item.RevenueAmount;
                                                 <tr>
                                                     <td>
                                                         @item.DrawNumber
@@ -360,10 +360,10 @@
                                                     <td nowrap>
                                                         @item.PeriodName
                                                     </td>
-                                                    <td nowrap>
+                                                    <td nowrap style="text-align:right">
                                                         @string.Format("{0:C}", item.NetAmount)
                                                     </td>
-                                                    <td nowrap>
+                                                    <td nowrap style="text-align:right">
                                                         @string.Format("{0:C}", item.RevenueAmount)
                                                     </td>
                                                     <td nowrap>
@@ -443,8 +443,10 @@
                                             if (Model.revenueEntities.Count > 0)
                                             {
                                                 <tr>
-                                                    <td colspan="3" style="text-align:right"><b>Total: </b></td>
-                                                    <td><b>@String.Format("{0:$#,##0.00}", revenueTotal)</b></td>
+                                                    <td colspan="4" style="text-align:right"><b>Total: </b></td>
+                                                    <td style="text-align:right;"><b>@String.Format("{0:$#,##0.00}", revenueTotal)</b></td>
+                                                    <td><b>Difference</b></td>
+                                                    <td colspan="25" style="text-align:left;">&nbsp;<b>@String.Format("{0:$#,##0.00}", Model.drawEntity.DrawDownAmount + revenueTotal)</b></td>
                                                 </tr>
                                             }
                                         }
