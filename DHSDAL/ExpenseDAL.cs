@@ -316,6 +316,7 @@ namespace DHSDAL
                     {
                         transactionDetailEntity.TransactionDetailId = Convert.ToInt64(expenseDataRow["TransactionDetailId"].ToString());
                         transactionDetailEntity.DrawId = Convert.ToInt64(expenseDataRow["DrawId"].ToString());
+                        transactionDetailEntity.ExpenseId = Convert.ToInt64(expenseDataRow["ExpenseId"].ToString());
                         transactionDetailEntity.VendorId = Convert.ToInt64(expenseDataRow["VendorId"].ToString());
                         transactionDetailEntity.FGTCategoryId1 = Convert.ToInt64(expenseDataRow["FGTCategoryId1"].ToString());
                         transactionDetailEntity.FGTCategoryId2 = Convert.ToInt64(expenseDataRow["FGTCategoryId2"].ToString());
@@ -346,6 +347,7 @@ namespace DHSDAL
                 expenseEntity.ExpenseId = expenseRequest.transactionDetailEntity.ExpenseId;
                 expenseRequest.expenseEntity = expenseEntity;
                 expenseEntity = GetExpense(expenseRequest).expenseEntity;
+                expenseResponse.drawEntities = GetDrawsByExpenseId(expenseEntity.ExpenseId);
             }
             expenseResponse.expenseEntity = expenseEntity;
             expenseResponse.transactionDetailEntity = transactionDetailEntity;
@@ -363,10 +365,12 @@ namespace DHSDAL
             fGTCategoryRequest.fGTCategoryEntity = fGTCategoryEntity;
             fGTCategoryResponse = fGTCategoryDAL.GetFGTCategoriesById(fGTCategoryRequest);
             expenseResponse.fgtCategoryEntities2 = fGTCategoryResponse.fGTCategoryEntities;
-
+            
+            expenseResponse.drawEntities = GetDrawsByExpenseId(transactionDetailEntity.ExpenseId);
+            
             VendorDAL vendorDAL = new VendorDAL();
             expenseResponse.vendorEntities = vendorDAL.GetVendors().vendorEntities;
-            expenseResponse.drawEntities = GetDrawsByExpenseId(expenseEntity.ExpenseId);
+            
             return expenseResponse;
         }
 
