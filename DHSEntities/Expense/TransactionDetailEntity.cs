@@ -26,5 +26,7 @@ namespace DHSEntities
         public string CFDA { get; set; }
         public long DrawId { get; set; }
         public string DrawNumber { get; set; }
+        public long VendorId { get; set; }
+        public string VendorName { get; set; }
     }
 }

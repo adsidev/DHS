@@ -159,6 +159,7 @@
     <Compile Include="Areas\AuditReportController.cs" />
     <Compile Include="Areas\FGTCategoryController.cs" />
     <Compile Include="Areas\ImportController.cs" />
+    <Compile Include="Areas\VendorController.cs" />
     <Compile Include="Areas\RevenueTypeController.cs" />
     <Compile Include="Areas\JournalController.cs" />
     <Compile Include="Areas\ExpenseController.cs" />
@@ -451,6 +452,8 @@
     <Content Include="Views\Vendor\ManageVendors.cshtml" />
     <Content Include="Views\Vendor\CreateVendor.cshtml" />
     <Content Include="Views\Report\ManageGrantProjectReport.cshtml" />
+    <Content Include="Views\Vendor\_viewVendor.cshtml" />
+    <Content Include="Views\Vendor\_editVendor.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

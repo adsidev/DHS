@@ -1,20 +1,20 @@
-﻿@using PagedList.Mvc
+﻿@model DHSEntities.VendorResponse
+@using PagedList.Mvc
 @using DHS.Reconcilation.Models
 
 @{
-    ViewBag.Title = "DHS Reconcilation Application :: Manage Vendors";
+    ViewBag.Title = "DHS Reconcilation Application :: Manage Revenue Types";
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
-<title>@ViewBag.Title</title>
 <script src="~/Scripts/jquery-1.10.2.min.js"></script>
 @section LeftMenuSection
 {
     @Html.Partial("_menuCRPayments");
 }
-@using (Html.BeginForm("ManageVendors", "Vendor", FormMethod.Post, new { @id = "frmDraws" }))
+@using (Html.BeginForm("ManageVendors", "Vendor", FormMethod.Post, new { @id = "frmVendors" }))
 {
     <title>@ViewBag.Title</title>
-    <input type="hidden" id="hdnRevenueTypeId" name="hdnRevenueTypeId" />
+    <input type="hidden" id="hdnVendorId" name="hdnVendorId" />
     <div class="tab-pane active" id="dashboard">
         <div class="container-fluid">
             <!-- top tiles -->
@@ -39,7 +39,7 @@
                                                 Action
                                             </th>
                                             <th nowrap>
-                                                Vendor No
+                                                Vendor Code
                                             </th>
                                             <th nowrap>
                                                 Vendor Name
@@ -47,11 +47,35 @@
                                         </tr>
                                     </thead>
                                     <tbody>
+                                        @{foreach (var item in Model.pagedVendorEntities)
+                                            {
+                                                <tr>
+                                                    <td>
+                                                        @if (Model.rolePermissionEntity.ViewBit)
+                                                        {
+                                                            <img src="~/images/view-icon.png" class="img-responsive" onclick="ViewVendor('@item.VendorId')" style="cursor:pointer;" />
+                                                        }
+                                                        else
+                                                        {
+                                                            <a class="mrp_popup disableButton" data-toggle="modal">
+                                                                <img src="~/images/view-icon.png" class="img-responsive disableButton" />
+                                                            </a>
+                                                        }
+                                                    </td>
+                                                    <td nowrap>
+                                                        @item.VendorCode
+                                                    </td>
+                                                    <td>
+                                                        @item.VendorName
+                                                    </td>
+                                                </tr>
+                                            }
+                                        }
                                     </tbody>
                                 </table>
 
                                 <!-- popup -->
-                                <div class="modal fade mrp_modalpopup" id="RevenueTypeModal">
+                                <div class="modal fade mrp_modalpopup" id="VendorModal">
                                 </div>
                             </div>
                         </div>
@@ -62,13 +86,103 @@
             <!-- /page content -->
             <div id="container" class="mra_pagination">
                 <div class="pagination">
-                    
+                    @Html.PagedListPager(Model.pagedVendorEntities, page => Url.Action("ManageVendors", new { page }))
                 </div>
             </div>
         </div>
     </div>
 
+
+
     <script type="text/javascript">
+
+        function ViewVendor(paymentId) {
+            var options = { "backdrop": "static", keyboard: true };
+            $.ajax({
+                type: "GET",
+                url: "/Vendor/ViewVendor/" + paymentId,
+                dataType: "html",
+                success: function (evt) {
+                    $('#VendorModal').html(evt);
+                    $('#VendorModal').modal(options);
+                    $('#VendorModal').modal('show');
+                },
+                error: function (req, status, error) {
+                    alert(error);
+                    alert("Error!Occured");
+                }
+            });
+        }
+
+        function EditVendor() {
+            var options = { "backdrop": "static", keyboard: true };
+            $.ajax({
+                type: "GET",
+                url: "/Vendor/EditVendor/" + document.getElementById("VendorId").value,
+                dataType: "html",
+                success: function (evt) {
+                    $('#VendorModal').html(evt);
+                    $('#VendorModal').modal(options);
+                    $('#VendorModal').modal('show');
+                },
+                error: function (req, status, error) {
+                    alert("Error!Occured");
+                }
+            });
+        }
+
+
+        function SubmitValue() {
+            if (document.getElementById("VendorName").value == "") {
+                alert("Please enter vendor name.");
+                document.getElementById("VendorName").focus();
+                return false;
+            }
+
+            var vendorEntity = {
+                VendorId: document.getElementById("VendorId").value,
+                VendorName: document.getElementById("VendorName").value,
+                ModifiedBy:@Common.GetSession("UserID"),
+            };
+
+            var vendorRequest = {
+                    VendorEntity: vendorEntity
+                };
+
+            $.ajax({
+                url: "/Vendor/SaveVendor",
+                type: "POST",
+                data: vendorRequest,
+                dataType: 'json',
+                success: function (result) {
+                    location.href = "/Vendor/ManageVendors";
+                },
+                complete: function () {
+
+                }
+            });
+            return true;
+        }
+
+        function SelectedIndexChanged() {
+            if ($("#SearchOn").val() != "" & $("#txtSearch").val() == "") {
+                alert("Please enter value to search");
+                $("#txtSearch").focus();
+            }
+            else {
+                $('#frmVendors').submit();
+            }
+        }
+
+        function SortOrder(SortOrder) {
+            $("#hdnSortOrder").val(SortOrder)
+            $('#frmVendors').submit();
+        }
+
+        function Validate() {
+            alert("You don't have access to this activity. Please contact your administrator.");
+            return false;
+        }
 
         $(document).ready(function () {
             $('#mra_subliVen').addClass('active');

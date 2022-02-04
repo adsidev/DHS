@@ -1,4 +1,4 @@
-﻿@model DHSEntities.RevenueTypeResponse
+﻿@model DHSEntities.VendorResponse
 @using PagedList.Mvc
 @using DHS.Reconcilation.Models
 
@@ -12,7 +12,7 @@
     @Html.Partial("_menuCRPayments");
 }
 
-@using (Html.BeginForm("CreateVendor", "Vendor", FormMethod.Post, new { @id = "frmCreateVendor" }))
+@using (Html.BeginForm("CreateVendor", "Vendor", FormMethod.Post, new { @id = "frmVendor" }))
 {
 
     <title>@ViewBag.Title</title>
@@ -32,13 +32,13 @@
                             </div>
                             <div class="col-lg-8 col-xs-12 col-sm-8 col-md-8">
                                 <div class="form_modal">
+                                    @Html.TextBoxFor(m => m.vendorEntity.VendorName, htmlAttributes: new { @id = "VendorName", @class = "form-control mrp_modalselect" })
                                 </div>
                             </div>
                         </div>
                     </div>
                 </div>
 
-        
 
                 <div class="modal-footer">
                     <input type="submit" id="btnSubmit" class="btn btn-primary btn-updated" onclick="return SubmitValue()" value="Save Changes" />
@@ -52,29 +52,28 @@
 
     <script type="text/javascript">
         function SubmitValue() {
-            if (document.getElementById("RevenueTypeName").value == "") {
+            if (document.getElementById("VendorName").value == "") {
                 alert("Please enter revenue type name.");
-                document.getElementById("RevenueTypeName").focus();
+                document.getElementById("VendorName").focus();
                 return false;
             }
 
-            @*var revenueTypeEntity = {
-                RevenueTypeId: 0,
-                RevenueTypeName: document.getElementById("RevenueTypeName").value,
-                RevenueTypeDescription: document.getElementById("RevenueTypeDescription").value,
+            var vendorEntity = {
+                VendorId: 0,
+                VendorName: document.getElementById("VendorName").value,
                 ModifiedBy:@Common.GetSession("UserID"),
-            };*@
+            };
 
-            var revenueTypeRequest = {
-                RevenueTypeEntity: revenueTypeEntity
+            var vendorRequest = {
+                VendorEntity: vendorEntity
             };
             $.ajax({
-                url: "/RevenueType/SaveRevenueType",
+                url: "/Vendor/SaveVendor",
                 type: "POST",
-                data: revenueTypeRequest,
+                data: vendorRequest,
                 dataType: 'json',
                 success: function (result) {
-                    location.href = "/RevenueType/ManageRevenueTypes";
+                    location.href = "/Vendor/ManageVendors";
                 },
                 complete: function () {
 

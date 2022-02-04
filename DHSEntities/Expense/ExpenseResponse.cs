@@ -33,5 +33,6 @@ namespace DHSEntities
         public List<FiscalYearEntity> fiscalYearEntities { get; set; }
         public List<UserEntity> userEntities { get; set; }
         public List<DrawEntity> drawEntities { get; set; }
+        public List<VendorEntity> vendorEntities { get; set; }
     }
 }

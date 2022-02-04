@@ -407,7 +407,7 @@
                             </div>
                             <div class="col-lg-8 col-xs-12 col-sm-8 col-md-8">
                                 <div class="form_modal">
-                                    @Html.DropDownList("FGTCategoryId1", new SelectList(Model.fgtCategoryEntities, "FGTCategoryId", "FGTCategoryName", Model.expenseEntity.FGTCategoryId1), "", new { @id = "FGTCategoryId1", @class = "form-control mrp_modalselect" })
+                                    @Html.DropDownList("FGTCategoryId1", new SelectList(Model.fgtCategoryEntities, "FGTCategoryId", "FGTCategoryName", Model.transactionDetailEntity.FGTCategoryId1), "", new { @id = "FGTCategoryId1", @class = "form-control mrp_modalselect" })
                                 </div>
                             </div>
                         </div>
@@ -454,6 +454,20 @@
                             <div class="col-lg-8 col-xs-12 col-sm-8 col-md-8">
                                 <div class="form_modal">
                                     @Html.DropDownList("DrawId", new SelectList(Model.drawEntities, "DrawId", "DrawNumber", Model.transactionDetailEntity.DrawId), "", new { @id = "DrawId", @class = "form-control mrp_modalselect" })
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-lg-6">
+                        <div class="row">
+                            <div class="col-lg-4 col-xs-12 col-sm-4 col-md-4">
+                                <div class="form_modal">
+                                    <label>Vendor</label>
+                                </div>
+                            </div>
+                            <div class="col-lg-8 col-xs-12 col-sm-8 col-md-8">
+                                <div class="form_modal">
+                                    @Html.DropDownList("VendorId", new SelectList(Model.vendorEntities, "VendorId", "VendorName", Model.transactionDetailEntity.VendorId), "", new { @id = "VendorId", @class = "form-control mrp_modalselect" })
                                 </div>
                             </div>
                         </div>
@@ -514,6 +528,7 @@
                 TransactionAmount: parseFloat((document.getElementById("TransactionAmount").value).replace("$", "").replace(",", "")).toFixed(2),
                 VendorAdjustments: document.getElementById("VendorAdjustments").value,
                 DrawId: document.getElementById("DrawId").value,
+                VendorId: document.getElementById("VendorId").value,
             };
             var expenseRequest = {
                 TransactionDetailEntity: transactionDetailEntity

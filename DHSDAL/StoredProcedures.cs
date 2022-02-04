@@ -127,6 +127,12 @@ namespace DHSDAL
             public const string USPGETREVENUETYPE = "sp_GetRevenueType";
             public const string USPSAVEREVENUETYPE = "sp_SaveRevenueType";
         }
+        public class Vendor
+        {
+            public const string USPGETVENDORS = "sp_GetVendors";
+            public const string USPGETVENDOR = "sp_GetVendor";
+            public const string USPSAVEVENDOR = "sp_SaveVendor";
+        }
 
     }
 }

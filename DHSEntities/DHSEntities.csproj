@@ -96,6 +96,9 @@
     <Compile Include="User\UserRequest.cs" />
     <Compile Include="User\UserResponse.cs" />
     <Compile Include="Vendor.cs" />
+    <Compile Include="Vendor\VendorEntity.cs" />
+    <Compile Include="Vendor\VendorRequest.cs" />
+    <Compile Include="Vendor\VendorResponse.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />

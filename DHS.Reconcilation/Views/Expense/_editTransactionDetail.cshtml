@@ -116,6 +116,21 @@
                             <div class="row">
                                 <div class="col-lg-3 col-xs-12 col-sm-3 col-md-3">
                                     <div class="form_modal">
+                                        <label>Vendor&nbsp;Name</label>
+                                    </div>
+                                </div>
+                                <div class="col-lg-9 col-xs-12 col-sm-9 col-md-9">
+                                    <div class="form_modal">
+                                        @Html.DropDownList("VendorId", new SelectList(Model.vendorEntities, "VendorId", "VendorName", Model.transactionDetailEntity.VendorId), "", new { @id = "VendorId", @class = "form-control mrp_modalselect" })
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="col-lg-12">
+                            <div class="row">
+                                <div class="col-lg-3 col-xs-12 col-sm-3 col-md-3">
+                                    <div class="form_modal">
                                         <label>Notes</label>
                                     </div>
                                 </div>
@@ -186,6 +201,7 @@
             ExpenseId: document.getElementById("ExpenseId").value,
             TransactionDetailId: document.getElementById("TransactionDetailId").value,
             DrawId: document.getElementById("DrawId").value,
+            VendorId: document.getElementById("VendorId").value,
             FGTCategoryId1: document.getElementById("FGTCategoryId1").value,
             FGTCategoryId2: document.getElementById("FGTCategoryId2").value,
             TransactionDescription: document.getElementById("TransactionDescription").value,

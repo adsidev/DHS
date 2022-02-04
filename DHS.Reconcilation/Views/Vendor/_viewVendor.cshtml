@@ -1,0 +1,58 @@
+﻿@model DHSEntities.VendorResponse
+@{
+    ViewBag.Title = "View Vendors";
+}
+
+<div class="modal-dialog" role="document">
+    <div class="modal-content">
+        <div class="modal-header">
+            <h5 class="modal-title" id="VendorModalLabel">
+                View Revenue Type
+            </h5>
+
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+            </button>
+            <span class="mrp_modaledit"> <strong><a href="Javascript:void()" onclick="EditVendor()" title="Edit"><i class="fa fa-pencil" aria-hidden="true" onclick="EditVendor()"></i></a></strong></span>
+        </div>
+        <div class="modal-body">
+            <div class="mrp_modalcontent">
+                <h2>Vendor Information</h2>
+                <input type="hidden" id="VendorId" name="VendorId" value="@Model.vendorEntity.VendorId" />
+                <div class="row">
+
+                    <div class="col-lg-12">
+                        <div class="row">
+                            <div class="col-lg-3 col-xs-12 col-sm-3 col-md-3">
+                                <div class="form_modal">
+                                    <label>Vendor&nbsp;Name</label>
+                                </div>
+                            </div>
+                            <div class="col-lg-9 col-xs-12 col-sm-9 col-md-9">
+                                <div class="form_modal">
+                                    <p><lable id="lbFacilityCharges">@Model.vendorEntity.VendorName</lable></p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="col-lg-12">
+                        <div class="row">
+                            <div class="col-lg-3 col-xs-12 col-sm-3 col-md-3">
+                                <div class="form_modal">
+                                    <label>Vendor&nbsp;Code:</label>
+                                </div>
+                            </div>
+                            <div class="col-lg-9 col-xs-12 col-sm-9 col-md-9">
+                                <div class="form_modal">
+                                    <p>@Model.vendorEntity.VendorCode</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

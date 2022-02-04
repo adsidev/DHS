@@ -274,6 +274,7 @@ namespace DHSDAL
                     transactionDetailEntity.ObjectName = expenseDataRow["ObjectName"].ToString();
                     transactionDetailEntity.ProjectName = expenseDataRow["ProjectName"].ToString();
                     transactionDetailEntity.DrawNumber = expenseDataRow["DrawNumber"].ToString();
+                    transactionDetailEntity.VendorName = expenseDataRow["VendorName"].ToString();
                     transactionDetailEntity.CFDA = expenseDataRow["CFDA"].ToString();
                 }
                 catch (Exception exception)
@@ -310,12 +311,12 @@ namespace DHSDAL
                 };
                 var expenseDataSet = SqlHelper.ExecuteDataset(_connectionString, StoredProcedures.Expense.USPGETTRANSACTIONDETAIL, SqlObject.Parameters);
                 foreach (DataRow expenseDataRow in expenseDataSet.Tables[0].Rows)
-                {
-                    
+                {  
                     try
                     {
                         transactionDetailEntity.TransactionDetailId = Convert.ToInt64(expenseDataRow["TransactionDetailId"].ToString());
                         transactionDetailEntity.DrawId = Convert.ToInt64(expenseDataRow["DrawId"].ToString());
+                        transactionDetailEntity.VendorId = Convert.ToInt64(expenseDataRow["VendorId"].ToString());
                         transactionDetailEntity.FGTCategoryId1 = Convert.ToInt64(expenseDataRow["FGTCategoryId1"].ToString());
                         transactionDetailEntity.FGTCategoryId2 = Convert.ToInt64(expenseDataRow["FGTCategoryId2"].ToString());
                         transactionDetailEntity.TransactionDate = Convert.ToDateTime(expenseDataRow["TransactionDate"].ToString()).ToShortDateString();
@@ -326,6 +327,7 @@ namespace DHSDAL
                         transactionDetailEntity.VendorAdjustments = expenseDataRow["VendorAdjustments"].ToString();
                         transactionDetailEntity.TransactionNumber = expenseDataRow["TransactionNumber"].ToString();
                         transactionDetailEntity.DrawNumber = expenseDataRow["DrawNumber"].ToString();
+                        transactionDetailEntity.VendorName = expenseDataRow["VendorName"].ToString();
                     }
                     catch (Exception exception)
                     {
@@ -362,7 +364,8 @@ namespace DHSDAL
             fGTCategoryResponse = fGTCategoryDAL.GetFGTCategoriesById(fGTCategoryRequest);
             expenseResponse.fgtCategoryEntities2 = fGTCategoryResponse.fGTCategoryEntities;
 
-            
+            VendorDAL vendorDAL = new VendorDAL();
+            expenseResponse.vendorEntities = vendorDAL.GetVendors().vendorEntities;
             expenseResponse.drawEntities = GetDrawsByExpenseId(expenseEntity.ExpenseId);
             return expenseResponse;
         }
@@ -388,6 +391,7 @@ namespace DHSDAL
                 expenseRequest.transactionDetailEntity.TransactionAmount,
                 expenseRequest.transactionDetailEntity.VendorAdjustments,
                 expenseRequest.transactionDetailEntity.DrawId,
+                expenseRequest.transactionDetailEntity.VendorId,
                 };
                 var intResult = SqlHelper.ExecuteScalar(_connectionString, StoredProcedures.Expense.USPSAVETRANSACTIONDETAIL, SqlObject.Parameters);
                 expenseResponse.Message = string.Empty;
@@ -637,6 +641,7 @@ namespace DHSDAL
                     if (drawDataRow["DatePosted"].ToString() != "")
                         drawEntity.DatePosted = Convert.ToDateTime(drawDataRow["DatePosted"].ToString()).ToShortDateString();
                     drawEntity.BatchNumber = drawDataRow["BatchNumber"].ToString();
+                    drawEntity.DrawNumber = drawDataRow["DrawNumber"].ToString();
                     drawEntity.StatusName = drawDataRow["StatusName"].ToString();
                     drawEntity.FiscalYear = drawDataRow["FiscalYear"].ToString();
                     drawEntity.DrawNumber = drawDataRow["DrawNumber"].ToString();

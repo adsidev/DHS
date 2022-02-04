@@ -393,7 +393,7 @@
                                 <table class="table table-bordered table-striped">
                                     <thead>
                                         <tr>
-                                            <td colspan="13" align="right" ><input type="button" value="Add" class="btn btn-primary btn-updated" onclick="CreateTransactionDetails('@Model.expenseEntity.ExpenseId')" /></td>
+                                            <td colspan="14" align="right" ><input type="button" value="Add" class="btn btn-primary btn-updated" onclick="CreateTransactionDetails('@Model.expenseEntity.ExpenseId')" /></td>
                                         </tr>
                                         <tr>
                                             <th style="margin-left:1px; margin-right:1px;">
@@ -431,6 +431,9 @@
                                             </th>
                                             <th nowrap>
                                                 Draw No
+                                            </th>
+                                            <th nowrap>
+                                                Vendor Name
                                             </th>
                                             <th nowrap style="text-align:left">
                                                 Notes
@@ -490,6 +493,9 @@
                                                         <a class="img-responsive" onclick="ViewDraw('@item.DrawId')" style="cursor:pointer;">
                                                             @item.DrawNumber
                                                         </a>
+                                                    </td>
+                                                    <td>
+                                                        @item.VendorName
                                                     </td>
                                                     <td style="text-align:left;" nowrap>
                                                         @item.TransactionDescription
