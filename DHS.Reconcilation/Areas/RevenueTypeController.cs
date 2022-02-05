@@ -3,7 +3,7 @@ using DHSEntities;
 using System;
 using System.Web.Http;
 
-namespace Medicaid.Reconcilation.Areas
+namespace DHS.Reconcilation.Areas
 {
     [RoutePrefix("RevenueType")]
     public class RevenueTypeController : ApiController

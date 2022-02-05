@@ -1,18 +1,16 @@
 ﻿using DHS.Reconcilation.Models;
 using DHSEntities;
 using Newtonsoft.Json;
+using PagedList;
 using System;
-using System.Collections.Generic;
 using System.Configuration;
-using System.Globalization;
 using System.Net.Http;
 using System.Net.Http.Headers;
 using System.Threading.Tasks;
-using System.Web.Mvc;
-using PagedList;
 using System.Web;
+using System.Web.Mvc;
 
-namespace Medicaid.Reconcilation.Controllers
+namespace DHS.Reconcilation.Controllers
 {
     public class ExpenseController : Controller
     {
