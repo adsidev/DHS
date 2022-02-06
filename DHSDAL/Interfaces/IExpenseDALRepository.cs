@@ -17,5 +17,6 @@ namespace DHSDAL
         ExpenseResponse GetExpenseDocuments(ExpenseRequest expenseRequest);
         ExpenseResponse GetExpenseDocument(ExpenseRequest expenseRequest);
         ExpenseResponse SaveExpenseDocument(ExpenseRequest expenseRequest);
+        ExpenseResponse GetRevenueTransactionByExpenseId(ExpenseRequest expenseRequest);
     }
 }

@@ -110,7 +110,10 @@
                             </div>
                         </div>
                     </div>
-
+                    @{
+                        string RevenueInfo = string.Empty;
+                        RevenueInfo = Model.transactionDetailEntity.RevenueTransactionNumber + " - " + Model.transactionDetailEntity.RevenueTransactionDate + " - " + String.Format("{0:$#,##0.00}", Model.transactionDetailEntity.RevenueTransactionAmount) + " - " + Model.transactionDetailEntity.RevenueProjectName;
+                    }
                     <div class="col-lg-12">
                         <div class="row">
                             <div class="col-lg-3 col-xs-12 col-sm-3 col-md-3">
@@ -120,7 +123,7 @@
                             </div>
                             <div class="col-lg-9 col-xs-12 col-sm-9 col-md-9">
                                 <div class="form_modal">
-                                    <input type="text" disabled="disabled" value="@Model.transactionDetailEntity.DrawNumber" class="form-control mrp_modalselect" />
+                                    <input type="text" disabled="disabled" value="@RevenueInfo" class="form-control mrp_modalselect" />
                                 </div>
                             </div>
                         </div>

@@ -172,7 +172,6 @@ namespace DHSBAL
             return expenseResponse;
         }
 
-
         public ExpenseResponse GetExpenseDocument(ExpenseRequest expenseRequest)
         {
             try
@@ -187,7 +186,6 @@ namespace DHSBAL
             return expenseResponse;
         }
 
-
         public ExpenseResponse SaveExpenseDocument(ExpenseRequest expenseRequest)
         {
             try
@@ -201,5 +199,20 @@ namespace DHSBAL
             }
             return expenseResponse;
         }
+
+        public ExpenseResponse GetRevenueTransactionByExpenseId(ExpenseRequest expenseRequest)
+        {
+            try
+            {
+                expenseResponse = expenseDALRepository.GetRevenueTransactionByExpenseId(expenseRequest);
+            }
+            catch (Exception ex)
+            {
+                expenseResponse.ErrorMessage = ex.Message;
+                expenseResponse.Exception = ex;
+            }
+            return expenseResponse;
+        }
+
     }
 }

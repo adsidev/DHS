@@ -28,5 +28,9 @@ namespace DHSEntities
         public string DrawNumber { get; set; }
         public long VendorId { get; set; }
         public string VendorName { get; set; }
+        public string RevenueTransactionNumber { get; set; }
+        public string RevenueTransactionDate { get; set; }
+        public decimal RevenueTransactionAmount { get; set;}
+        public string RevenueProjectName { get; set; }
     }
 }

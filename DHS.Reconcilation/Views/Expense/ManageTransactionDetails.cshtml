@@ -443,11 +443,13 @@
                                     <tbody>
                                         @{
                                             decimal Total = 0;
+                                            string RevenueInfo = string.Empty;
                                             foreach (var item in Model.transactionDetailEntities)
                                             {
                                                 Total = Total + item.TransactionAmount;
+                                                RevenueInfo = item.RevenueTransactionNumber + " - " + item.RevenueTransactionDate + " - " + String.Format("{0:$#,##0.00}", item.RevenueTransactionAmount) + " - " + item.RevenueProjectName;
                                                 <tr>
-                                                    <td>
+                                                    <td nowrap>
                                                         @if (Model.rolePermissionEntity.ViewBit)
                                                         {
                                                             <img src="~/images/view-icon.png" class="img-responsive" style="cursor:pointer;" alt="View Expense Information" onclick="ViewTransactionDetail('@item.TransactionDetailId')" />
@@ -459,40 +461,45 @@
                                                             </a>
                                                         }
                                                     </td>
-                                                    <td>
+                                                    <td nowrap>
                                                         @item.TransactionNumber
                                                     </td>
-                                                    <td>
+                                                    <td nowrap>
                                                         @item.TransactionDate
                                                     </td>
-                                                    <td>
+                                                    <td nowrap>
                                                         @String.Format("{0:$#,##0.00}", item.TransactionAmount)
                                                     </td>
-                                                    <td>
+                                                    <td nowrap>
                                                         @item.OrgName
                                                     </td>
-                                                    <td>
+                                                    <td nowrap>
                                                         @item.ObjectName
                                                     </td>
-                                                    <td>
+                                                    <td nowrap>
                                                         @item.ProjectName
                                                     </td>
-                                                    <td>
+                                                    <td nowrap>
                                                         @item.CFDA
                                                     </td>
-                                                    <td>
+                                                    <td nowrap>
                                                         @item.FGTCategoryName1
                                                     </td>
-                                                    <td>
+                                                    <td nowrap>
                                                         @item.FGTCategoryName2
                                                     </td>
-                                                    <td>
+                                                    <td nowrap>
                                                         @item.VendorAdjustments
                                                     </td>
-                                                    <td>
-                                                        @item.DrawNumber
-                                                    </td>
-                                                    <td>
+                                                    @if (item.RevenueTransactionNumber != "")
+                                                    {
+                                                        <td nowrap>@RevenueInfo</td>
+                                                    }
+                                                    else
+                                                    {
+                                                        <td nowrap>&nbsp;</td>
+                                                    }
+                                                    <td nowrap>
                                                         @item.VendorName
                                                     </td>
                                                     <td style="text-align:left;" nowrap>

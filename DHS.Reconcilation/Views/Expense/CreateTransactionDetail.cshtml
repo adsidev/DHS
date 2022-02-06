@@ -26,10 +26,10 @@
                     </div>
                 </div>
                 <div class="col-lg-1">
-                   
+
                 </div>
                 <div class="col-lg-1">
-                    
+
                 </div>
             </div>
 
@@ -365,7 +365,7 @@
 
             <!-- top tiles -->
             <div class="mrp_content">
-                <h2>Transaction Detail Information</h2>
+                <h2>Adding Transaction Detail</h2>
                 <input type="hidden" id="ExpenseId" name="ExpenseId" value="@Model.transactionDetailEntity.ExpenseId" />
                 <div class="row mra_createcost_report_payment">
                     <div class="col-lg-6">
@@ -453,7 +453,9 @@
                             </div>
                             <div class="col-lg-8 col-xs-12 col-sm-8 col-md-8">
                                 <div class="form_modal">
-                                    @Html.DropDownList("DrawId", new SelectList(Model.revenueTransactionEntities, "RevenueTransactionId", "RevenueTransactionNumber", Model.transactionDetailEntity.DrawId), "", new { @id = "DrawId", @class = "form-control mrp_modalselect" })
+                                    <img src="~/images/linking.png" class="img-responsive" onclick="ViewRevenueTransaction('@Model.transactionDetailEntity.ExpenseId')" style="cursor:pointer;" alt="Linking to Revenue" height="20" width="20" />
+                                    <input type="hidden" id="hdnRevenueTransactionId" value="hdnRevenueTransactionId" />
+                                    <input type="text" readonly id="RevenueTransaction" class = "form-control mrp_modalselect"/>
                                 </div>
                             </div>
                         </div>
@@ -495,6 +497,165 @@
                     <button type="button" class="btn btn-secondary btn-close" data-dismiss="modal" onclick="OpenExpenseDocuments()">Cancel</button>
                 </div>
             </div>
+
+            <div class="row ">
+                <div class="col-lg-12">
+                    <div class="mrp_content">
+                        <h2>Transaction Detail Information</h2>
+                        <form class="mrp_selectdetails form-inline">
+                        </form>
+                    </div>
+                </div>
+            </div>
+
+            <div class="row mrp_table-row">
+                <div class="col-lg-12 col-xs-12">
+                    <div class="table-responsive">
+                        <div class="mrp_contentbody mrp_contenttable">
+                            <div class="mrp_table">
+
+                                <table class="table table-bordered table-striped">
+                                    <thead>
+                                        <tr>
+                                        </tr>
+                                        <tr>
+                                            <th style="margin-left:1px; margin-right:1px;">
+                                                Action
+                                            </th>
+                                            <th nowrap>
+                                                Transaction No
+                                            </th>
+                                            <th nowrap>
+                                                Transaction Date
+                                            </th>
+                                            <th nowrap>
+                                                Transaction Amount
+                                            </th>
+                                            <th nowrap>
+                                                Org
+                                            </th>
+                                            <th nowrap>
+                                                Object
+                                            </th>
+                                            <th nowrap>
+                                                Project
+                                            </th>
+                                            <th nowrap>
+                                                CFDA
+                                            </th>
+                                            <th nowrap>
+                                                Category 1
+                                            </th>
+                                            <th nowrap>
+                                                Category 2
+                                            </th>
+                                            <th nowrap>
+                                                Purpose
+                                            </th>
+                                            <th nowrap>
+                                                Revenue Transaction
+                                            </th>
+                                            <th nowrap>
+                                                Vendor Name
+                                            </th>
+                                            <th nowrap style="text-align:left">
+                                                Notes
+                                            </th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        @{
+                                            decimal Total = 0;
+                                            string RevenueInfo = string.Empty;
+                                            foreach (var item in Model.transactionDetailEntities)
+                                            {
+                                                Total = Total + item.TransactionAmount;
+                                                RevenueInfo = item.RevenueTransactionNumber + " - " + item.RevenueTransactionDate + " - " + String.Format("{0:$#,##0.00}", item.RevenueTransactionAmount) + " - " + item.RevenueProjectName;
+                                                <tr>
+                                                    <td nowrap>
+                                                        @if (Model.rolePermissionEntity.ViewBit)
+                                                        {
+                                                            <img src="~/images/view-icon.png" class="img-responsive" style="cursor:pointer;" alt="View Expense Information" onclick="ViewTransactionDetail('@item.TransactionDetailId')" />
+                                                        }
+                                                        else
+                                                        {
+                                                            <a class="mrp_popup disableButton" data-toggle="modal">
+                                                                <img src="~/images/view-icon.png" class="img-responsive disableButton" />
+                                                            </a>
+                                                        }
+                                                    </td>
+                                                    <td nowrap>
+                                                        @item.TransactionNumber
+                                                    </td>
+                                                    <td nowrap>
+                                                        @item.TransactionDate
+                                                    </td>
+                                                    <td nowrap>
+                                                        @String.Format("{0:$#,##0.00}", item.TransactionAmount)
+                                                    </td>
+                                                    <td nowrap>
+                                                        @item.OrgName
+                                                    </td>
+                                                    <td nowrap>
+                                                        @item.ObjectName
+                                                    </td>
+                                                    <td nowrap>
+                                                        @item.ProjectName
+                                                    </td>
+                                                    <td nowrap>
+                                                        @item.CFDA
+                                                    </td>
+                                                    <td nowrap>
+                                                        @item.FGTCategoryName1
+                                                    </td>
+                                                    <td nowrap>
+                                                        @item.FGTCategoryName2
+                                                    </td>
+                                                    <td nowrap>
+                                                        @item.VendorAdjustments
+                                                    </td>
+                                                    @if (item.RevenueTransactionNumber != "")
+                                                    {
+                                                        <td nowrap>@RevenueInfo</td>
+                                                    }
+                                                    else
+                                                    {
+                                                        <td nowrap>&nbsp;</td>
+                                                    }
+                                                    <td nowrap>
+                                                        @item.VendorName
+                                                    </td>
+                                                    <td style="text-align:left;" nowrap>
+                                                        @item.TransactionDescription
+                                                    </td>
+                                                </tr>
+                                            }
+                                            if (Model.transactionDetailEntities.Count > 0)
+                                            {
+                                                <tr>
+                                                    <td colspan="3" style="text-align:right"><b>Total: </b></td>
+                                                    <td><b>@String.Format("{0:$#,##0.00}", Total)</b></td>
+                                                    <td colspan="8" style="text-align:right"></td>
+                                                </tr>
+                                            }
+                                        }
+                                    </tbody>
+                                </table>
+
+                                <!-- popup -->
+                                <div class="modal fade mrp_modalpopup" id="TransactionDetailModal">
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- /top tiles -->
+                </div>
+            </div>
+
+            <!-- popup -->
+            <div class="modal fade mrp_modalpopup" id="TransactionDetailModal">
+            </div>
+
         </div>
     </div>
 
@@ -503,7 +664,6 @@
 
     <script type="text/javascript">
         function SubmitValue() {
-
             if (document.getElementById("TransactionDate").value == "") {
                 alert("Please enter transaction date.")
                 document.getElementById("TransactionDate").focus();
@@ -519,6 +679,7 @@
                 document.getElementById("FGTCategoryId2").focus();
                 return false;
             }
+            alert(document.getElementById("hdnRevenueTransactionId").value);
             var transactionDetailEntity = {
                 TransactionDate: document.getElementById("TransactionDate").value,
                 ExpenseId: document.getElementById("ExpenseId").value,
@@ -527,7 +688,7 @@
                 TransactionDescription: document.getElementById("TransactionDescription").value,
                 TransactionAmount: parseFloat((document.getElementById("TransactionAmount").value).replace("$", "").replace(",", "")).toFixed(2),
                 VendorAdjustments: document.getElementById("VendorAdjustments").value,
-                DrawId: document.getElementById("DrawId").value,
+                DrawId: document.getElementById("hdnRevenueTransactionId").value,
                 VendorId: document.getElementById("VendorId").value,
             };
             var expenseRequest = {
@@ -539,7 +700,7 @@
                 data: expenseRequest,
                 dataType: 'json',
                 success: function (result) {
-                    location.href = "/Expense/ManageTransactionDetails/" + document.getElementById("ExpenseId").value;
+                    location.href = "/Expense/CreateTransactionDetail/" + document.getElementById("ExpenseId").value;
                 },
                 complete: function () {
 
@@ -586,6 +747,77 @@
         function OpenExpenseDocuments() {
             document.forms[0].action = "/Expense/ManageTransactionDetails/" + document.getElementById("ExpenseId").value;
             document.forms[0].submit();
+        }
+
+        function ViewRevenueTransaction(expenseId) {
+            var options = { "backdrop": "static", keyboard: true };
+            $.ajax({
+                type: "GET",
+                url: "/Expense/RevenueTransaction/" + expenseId,
+                dataType: "html",
+                success: function (evt) {
+                    $('#TransactionDetailModal').html(evt);
+                    $('#TransactionDetailModal').modal(options);
+                    $('#TransactionDetailModal').modal('show');
+                },
+                error: function (req, status, error) {
+                    alert("Error!Occured");
+                }
+            });
+        }
+
+        function LinkToRevenueTransaction() {
+            var getSelectedValue = document.querySelector(
+                'input[name="RevenueTransaction"]:checked');
+            if (getSelectedValue != null) {
+                alert(getSelectedValue);
+                var RevenueTransactionNumber = document.getElementById("TN" + getSelectedValue.value).value;
+                var RevenueTransactionDate = document.getElementById("TD" + getSelectedValue.value).value;
+                var RevenueTransactionAmount = document.getElementById("TA" + getSelectedValue.value).value;
+                var ProjectName = document.getElementById("PN" + getSelectedValue.value).value;
+                var StringF = RevenueTransactionNumber + ' - ' + RevenueTransactionDate + ' - ' + RevenueTransactionAmount + ' - ' + ProjectName;
+                document.getElementById("hdnRevenueTransactionId").value = getSelectedValue.value;
+                document.getElementById("RevenueTransaction").value = StringF;
+                $('#TransactionDetailModal').modal('hide');
+            }
+            else {
+                alert("Please select record to link.")
+            }
+        }
+
+        function ViewTransactionDetail(expenseId) {
+            var options = { "backdrop": "static", keyboard: true };
+            $.ajax({
+                type: "GET",
+                url: "/Expense/ViewTransactionDetail/" + expenseId,
+                dataType: "html",
+                success: function (evt) {
+                    $('#TransactionDetailModal').html(evt);
+                    $('#TransactionDetailModal').modal(options);
+                    $('#TransactionDetailModal').modal('show');
+                },
+                error: function (req, status, error) {
+                    alert(error);
+                    alert("Error!Occured");
+                }
+            });
+        }
+
+        function EditTransactionDetail(expenseId) {
+            var options = { "backdrop": "static", keyboard: true };
+            $.ajax({
+                type: "GET",
+                url: "/Expense/EditTransactionDetail/" + expenseId,
+                dataType: "html",
+                success: function (evt) {
+                    $('#TransactionDetailModal').html(evt);
+                    $('#TransactionDetailModal').modal(options);
+                    $('#TransactionDetailModal').modal('show');
+                },
+                error: function (req, status, error) {
+                    alert("Error!Occured");
+                }
+            });
         }
     </script>
 }

@@ -229,5 +229,23 @@ namespace DHS.Reconcilation.Areas
             }
             return expenseResponse;
         }
+
+
+
+        [HttpPost]
+        [Route("GetRevenueTransactionByExpenseId")]
+        public ExpenseResponse GetRevenueTransactionByExpenseId(ExpenseRequest expenseRequest)
+        {
+            try
+            {
+                expenseResponse = expenseRepository.GetRevenueTransactionByExpenseId(expenseRequest);
+            }
+            catch (Exception ex)
+            {
+                expenseResponse.ErrorMessage = ex.Message;
+                expenseResponse.Exception = ex;
+            }
+            return expenseResponse;
+        }
     }
 }

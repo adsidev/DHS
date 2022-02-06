@@ -389,6 +389,130 @@
                 </div>
             </div>
 
+
+
+            <div class="row ">
+                <div class="col-lg-12">
+                    <div class="mrp_content">
+                        <h2>Revenue Transaction Details</h2>
+                    </div>
+                </div>
+            </div>
+
+            <div class="row mrp_table-row">
+                <div class="col-lg-12 col-xs-12">
+                    <div class="table-responsive">
+                        <div class="mrp_contentbody mrp_contenttable">
+                            <div class="mrp_table">
+
+                                <table class="table table-bordered table-striped">
+                                    <thead>
+                                        <tr>
+                                            <td colspan="9" align="right"><input type="button" value="Add" class="btn btn-primary btn-updated" onclick="CreateRevenueTransaction('@Model.revenueEntity.RevenueId')" /></td>
+                                        </tr>
+                                        <tr>
+                                            <th style="margin-left:1px; margin-right:1px;">
+                                                Action
+                                            </th>
+                                            <th nowrap>
+                                                Transaction No
+                                            </th>
+                                            <th nowrap>
+                                                Transaction Date
+                                            </th>
+                                            <th nowrap>
+                                                Transaction Amount
+                                            </th>
+                                            <th nowrap>
+                                                Org
+                                            </th>
+                                            <th nowrap>
+                                                Object
+                                            </th>
+                                            <th nowrap>
+                                                Project
+                                            </th>
+                                            <th nowrap>
+                                                Revenue Type
+                                            </th>
+                                            <th nowrap>
+                                                Draw
+                                            </th>
+                                            <th nowrap style="text-align:left;">
+                                                Notes
+                                            </th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        @{
+                                            decimal RevenueTotal = 0;
+                                            foreach (var item in Model.revenueTransactionEntities)
+                                            {
+                                                RevenueTotal = RevenueTotal + item.RevenueTransactionAmount;
+                                                <tr>
+                                                    <td>
+                                                        @if (Model.rolePermissionEntity.ViewBit)
+                                                        {
+                                                            <img src="~/images/view-icon.png" class="img-responsive" style="cursor:pointer;" alt="View Revenue Transaction Information" onclick="ViewRevenueTransaction('@item.RevenueTransactionId')" />
+                                                        }
+                                                        else
+                                                        {
+                                                            <a class="mrp_popup disableButton" data-toggle="modal">
+                                                                <img src="~/images/view-icon.png" alt="View Revenue Transaction Information" class="img-responsive disableButton" />
+                                                            </a>
+                                                        }
+                                                    </td>
+                                                    <td>
+                                                        @item.RevenueTransactionNumber
+                                                    </td>
+                                                    <td>
+                                                        @item.RevenueTransactionDate
+                                                    </td>
+                                                    <td>
+                                                        @String.Format("{0:$#,##0.00}", item.RevenueTransactionAmount)
+                                                    </td>
+                                                    <td>
+                                                        @item.OrgName
+                                                    </td>
+                                                    <td>
+                                                        @item.ObjectName
+                                                    </td>
+                                                    <td>
+                                                        @item.ProjectName
+                                                    </td>
+                                                    <td>
+                                                        @item.RevenueTypeName
+                                                    </td>
+                                                    <td>
+                                                        @item.DrawNumber
+                                                    </td>
+                                                    <td nowrap style="text-align:left;">
+                                                        @item.RevenueTranscationDescription
+                                                    </td>
+                                                </tr>
+                                            }
+                                            if (Model.revenueTransactionEntities.Count > 0)
+                                            {
+                                                <tr>
+                                                    <td colspan="3" style="text-align:right"><b>Total: </b></td>
+                                                    <td><b>@String.Format("{0:$#,##0.00}", RevenueTotal)</b></td>
+                                                    <td colspan="8" style="text-align:right"></td>
+                                                </tr>
+                                            }
+                                        }
+                                    </tbody>
+                                </table>
+
+                                <!-- popup -->
+                                <div class="modal fade mrp_modalpopup" id="RevenueTransactionModal">
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- /top tiles -->
+                </div>
+            </div>
+
             <div class="row ">
                 <div class="col-lg-12">
                     <div class="mrp_content">
@@ -419,8 +543,8 @@
                                                 Fiscal Year
                                             </th>
                                             @*<th nowrap>
-            Expense Date
-        </th>*@
+                                            Expense Date
+                                        </th>*@
                                             <th nowrap>
                                                 Journal
                                             </th>
@@ -598,128 +722,6 @@
                 </div>
             </div>
 
-
-            <div class="row ">
-                <div class="col-lg-12">
-                    <div class="mrp_content">
-                        <h2>Revenue Transaction Details</h2>
-                    </div>
-                </div>
-            </div>
-
-            <div class="row mrp_table-row">
-                <div class="col-lg-12 col-xs-12">
-                    <div class="table-responsive">
-                        <div class="mrp_contentbody mrp_contenttable">
-                            <div class="mrp_table">
-
-                                <table class="table table-bordered table-striped">
-                                    <thead>
-                                        <tr>
-                                            <td colspan="9" align="right"><input type="button" value="Add" class="btn btn-primary btn-updated" onclick="CreateRevenueTransaction('@Model.revenueEntity.RevenueId')" /></td>
-                                        </tr>
-                                        <tr>
-                                            <th style="margin-left:1px; margin-right:1px;">
-                                                Action
-                                            </th>
-                                            <th nowrap>
-                                                Transaction No
-                                            </th>
-                                            <th nowrap>
-                                                Transaction Date
-                                            </th>
-                                            <th nowrap>
-                                                Transaction Amount
-                                            </th>
-                                            <th nowrap>
-                                                Org
-                                            </th>
-                                            <th nowrap>
-                                                Object
-                                            </th>
-                                            <th nowrap>
-                                                Project
-                                            </th>
-                                            <th nowrap>
-                                                Revenue Type
-                                            </th>
-                                            <th nowrap>
-                                                Draw
-                                            </th>
-                                            <th nowrap style="text-align:left;">
-                                                Notes
-                                            </th>
-                                        </tr>
-                                    </thead>
-                                    <tbody>
-                                        @{
-                                            decimal RevenueTotal = 0;
-                                            foreach (var item in Model.revenueTransactionEntities)
-                                            {
-                                                RevenueTotal = RevenueTotal + item.RevenueTransactionAmount;
-                                                <tr>
-                                                    <td>
-                                                        @if (Model.rolePermissionEntity.ViewBit)
-                                                        {
-                                                            <img src="~/images/view-icon.png" class="img-responsive" style="cursor:pointer;" alt="View Revenue Transaction Information" onclick="ViewRevenueTransaction('@item.RevenueTransactionId')" />
-                                                        }
-                                                        else
-                                                        {
-                                                            <a class="mrp_popup disableButton" data-toggle="modal">
-                                                                <img src="~/images/view-icon.png" alt="View Revenue Transaction Information"  class="img-responsive disableButton" />
-                                                            </a>
-                                                        }
-                                                    </td>
-                                                    <td>
-                                                        @item.RevenueTransactionNumber
-                                                    </td>
-                                                    <td>
-                                                        @item.RevenueTransactionDate
-                                                    </td>
-                                                    <td>
-                                                        @String.Format("{0:$#,##0.00}", item.RevenueTransactionAmount)
-                                                    </td>
-                                                    <td>
-                                                        @item.OrgName
-                                                    </td>
-                                                    <td>
-                                                        @item.ObjectName
-                                                    </td>
-                                                    <td>
-                                                        @item.ProjectName
-                                                    </td>
-                                                    <td>
-                                                        @item.RevenueTypeName
-                                                    </td>
-                                                    <td>
-                                                        @item.DrawNumber
-                                                    </td>
-                                                    <td nowrap style="text-align:left;">
-                                                        @item.RevenueTranscationDescription
-                                                    </td>
-                                                </tr>
-                                            }
-                                            if (Model.revenueTransactionEntities.Count > 0)
-                                            {
-                                                <tr>
-                                                    <td colspan="3" style="text-align:right"><b>Total: </b></td>
-                                                    <td><b>@String.Format("{0:$#,##0.00}", RevenueTotal)</b></td>
-                                                    <td colspan="8" style="text-align:right"></td>
-                                                </tr>
-                                            }
-                                        }
-                                    </tbody>
-                                </table>
-
-                                <!-- popup -->
-                                <div class="modal fade mrp_modalpopup" id="RevenueTransactionModal">
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <!-- /top tiles -->
-                </div>
-            </div>
 
 
         </div>
