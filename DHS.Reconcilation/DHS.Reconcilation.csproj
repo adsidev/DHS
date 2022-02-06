@@ -240,6 +240,7 @@
     <Content Include="fonts\HelveticaNeueLTStd-Roman\stylesheet.css" />
     <Content Include="Global.asax" />
     <Content Include="images\audit-report.png" />
+    <Content Include="images\Delete.png" />
     <Content Include="images\inner-arrow-icon.png" />
     <Content Include="images\invoice.png" />
     <Content Include="images\linking.png" />

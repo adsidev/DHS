@@ -15,7 +15,7 @@
             </button>@if (Model.rolePermissionEntity.EditBit)
             {
 
-                <span class="mrp_modaledit"> <strong><a href="Javascript:void()" onclick="EditTransactionDetail('@Model.transactionDetailEntity.TransactionDetailId')" title="Edit"><i class="fa fa-pencil" aria-hidden="true" onclick="EditTransactionDetail('@Model.transactionDetailEntity.TransactionDetailId')"></i></a></strong></span>}
+                <span class="mrp_modaledit"> <strong><a href="Javascript:void()" onclick="EditTransaction('@Model.transactionDetailEntity.ExpenseId', '@Model.transactionDetailEntity.TransactionDetailId')" title="Edit"><i class="fa fa-pencil" aria-hidden="true" onclick="EditTransaction('@Model.transactionDetailEntity.ExpenseId','@Model.transactionDetailEntity.TransactionDetailId')"></i></a></strong></span>}
         </div>
         <div class="modal-body">
             <div class="mrp_modalcontent">

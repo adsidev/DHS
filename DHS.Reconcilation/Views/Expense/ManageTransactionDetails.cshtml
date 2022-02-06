@@ -539,7 +539,7 @@
         });
 
         function CreateTransactionDetails(expenseId) {
-            var url = "/Expense/CreateTransactionDetail/" + expenseId;
+            var url = "/Expense/CreateTransactionDetail/" + expenseId + "?pid=0" ;
             location.href = url;
         }
 
@@ -630,6 +630,13 @@
 
         function LinkToRevenue(expenseId) {
             var url = "/Expense/LinkToRevenue/" + expenseId;
+            location.href = url;
+        }
+
+
+        function EditTransaction(expenseId, TransactionDetailId) {
+            $('#TransactionDetailModal').modal('hide');
+            var url = "/Expense/CreateTransactionDetail/" + expenseId + "?pid=" + TransactionDetailId;
             location.href = url;
         }
 

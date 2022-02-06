@@ -322,23 +322,65 @@ namespace DHS.Reconcilation.Controllers
             }
         }
 
-        public async Task<ActionResult> CreateTransactionDetail(long? id=0)
+        //public async Task<ActionResult> CreateTransactionDetail(long? id=0)
+        //{
+        //    if (!Common.SessionExists())
+        //        return RedirectToAction("Index", "Home");
+        //    if (id == 0)
+        //        return RedirectToAction("Index", "Home");
+        //    ExpenseResponse expenseResponse = new ExpenseResponse();
+
+        //    ExpenseRequest expenseRequest = new ExpenseRequest();
+        //    TransactionDetailEntity transactionDetailEntity = new TransactionDetailEntity();
+        //    transactionDetailEntity.ExpenseId = Convert.ToInt64(id);
+        //    transactionDetailEntity.TransactionDetailId = 0;
+        //    expenseRequest.transactionDetailEntity = transactionDetailEntity;
+        //    string url = strBaseURL + "Expense/GetTransactionDetail";
+        //    client.BaseAddress = new Uri(url);
+        //    HttpResponseMessage responseMessage = await client.PostAsJsonAsync(url, expenseRequest);
+
+        //    if (responseMessage.IsSuccessStatusCode)
+        //    {
+        //        var responseData = responseMessage.Content.ReadAsStringAsync().Result;
+        //        expenseResponse = JsonConvert.DeserializeObject<ExpenseResponse>(responseData);
+        //        if (expenseResponse.Message == string.Empty && expenseResponse.ErrorMessage == string.Empty)
+        //        {
+        //            string PageName = "Expesnses";
+        //            expenseResponse.rolePermissionEntity = Common.PagePermissions(PageName);
+        //            return View(expenseResponse);
+        //        }
+        //        else
+        //        {
+        //            TempData["LoginFailure"] = expenseResponse.Message;
+        //            return RedirectToAction("Error", "Home");
+        //        }
+        //    }
+        //    else
+        //    {
+        //        TempData["LoginFailure"] = responseMessage.ToString();
+        //        return RedirectToAction("Error", "Home");
+        //    }
+        //}
+
+
+
+        public async Task<ActionResult> CreateTransactionDetail(long? id = 0, long? pid = 0)
         {
             if (!Common.SessionExists())
                 return RedirectToAction("Index", "Home");
             if (id == 0)
                 return RedirectToAction("Index", "Home");
-            ExpenseResponse expenseResponse = new ExpenseResponse();
 
+            ExpenseResponse expenseResponse = new ExpenseResponse();
             ExpenseRequest expenseRequest = new ExpenseRequest();
             TransactionDetailEntity transactionDetailEntity = new TransactionDetailEntity();
             transactionDetailEntity.ExpenseId = Convert.ToInt64(id);
-            transactionDetailEntity.TransactionDetailId = 0;
+            transactionDetailEntity.TransactionDetailId = Convert.ToInt64(pid);
             expenseRequest.transactionDetailEntity = transactionDetailEntity;
+
             string url = strBaseURL + "Expense/GetTransactionDetail";
             client.BaseAddress = new Uri(url);
             HttpResponseMessage responseMessage = await client.PostAsJsonAsync(url, expenseRequest);
-
             if (responseMessage.IsSuccessStatusCode)
             {
                 var responseData = responseMessage.Content.ReadAsStringAsync().Result;
@@ -361,7 +403,7 @@ namespace DHS.Reconcilation.Controllers
                 return RedirectToAction("Error", "Home");
             }
         }
-        
+
         public async Task<ActionResult> ViewTransactionDetail(long? id=0)
         {
             if (!Common.SessionExists())
