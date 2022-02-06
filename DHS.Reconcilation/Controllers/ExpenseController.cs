@@ -110,7 +110,7 @@ namespace DHS.Reconcilation.Controllers
                 expenseEntity.AssignedTo = Convert.ToInt32(Request["AssignedTo"]);
 
             if (Request["StatusId"] != "")
-                expenseEntity. = Convert.ToInt32(Request["StatusId"]);
+                expenseEntity.StatusId = Convert.ToInt32(Request["StatusId"]);
 
             if (Request["ProjectId"] != "")
                 expenseEntity.ProjectId = Convert.ToInt32(Request["ProjectId"]);
