@@ -42,23 +42,23 @@ namespace DHS.Reconcilation.Controllers
             expenseEntity.FiscalYearId = 0;
             expenseEntity.PeriodId = 0;
             expenseEntity.SourceId = 0;
-            if (Request["AssignedTo"] != "")
-                expenseEntity.AssignedTo = Convert.ToInt32(Request["AssignedTo"]);
+            if (Common.GetSession("EAssignedTo") != "")
+                expenseEntity.AssignedTo = Convert.ToInt32(Common.GetSession("EAssignedTo"));
 
-            if (Request["StatusId"] != "")
-                expenseEntity.StatusId = Convert.ToInt32(Request["StatusId"]);
+            if (Common.GetSession("EStatusId") != "")
+                expenseEntity.StatusId = Convert.ToInt32(Common.GetSession("EStatusId"));
 
-            if (Request["ProjectId"] != "")
-                expenseEntity.ProjectId = Convert.ToInt32(Request["ProjectId"]);
-            
-            if (Request["FiscalYearId"] != "")
-                expenseEntity.FiscalYearId = Convert.ToInt32(Request["FiscalYearId"]);
+            if (Common.GetSession("EProjectId") != "")
+                expenseEntity.ProjectId = Convert.ToInt32(Common.GetSession("EProjectId"));
 
-            if (Request["PeriodId"] != "")
-                expenseEntity.PeriodId = Convert.ToInt32(Request["PeriodId"]);
+            if (Common.GetSession("EFiscalYearId") != "")
+                expenseEntity.FiscalYearId = Convert.ToInt32(Common.GetSession("EFiscalYearId"));
 
-            if (Request["SourceId"] != "")
-                expenseEntity.SourceId = Convert.ToInt32(Request["SourceId"]);
+            if (Common.GetSession("EPeriodId") != "")
+                expenseEntity.PeriodId = Convert.ToInt32(Common.GetSession("EPeriodId"));
+
+            if (Common.GetSession("ESourceId") != "")
+                expenseEntity.SourceId = Convert.ToInt32(Common.GetSession("ESourceId"));
             expenseRequest.expenseEntity = expenseEntity;
             string url = strBaseURL + "Expense/GetExpenses";
             client.BaseAddress = new Uri(url);
@@ -110,7 +110,7 @@ namespace DHS.Reconcilation.Controllers
                 expenseEntity.AssignedTo = Convert.ToInt32(Request["AssignedTo"]);
 
             if (Request["StatusId"] != "")
-                expenseEntity.StatusId = Convert.ToInt32(Request["StatusId"]);
+                expenseEntity. = Convert.ToInt32(Request["StatusId"]);
 
             if (Request["ProjectId"] != "")
                 expenseEntity.ProjectId = Convert.ToInt32(Request["ProjectId"]);
@@ -123,6 +123,13 @@ namespace DHS.Reconcilation.Controllers
 
             if (Request["SourceId"] != "")
                 expenseEntity.SourceId = Convert.ToInt32(Request["SourceId"]);
+
+            Common.AddSession("EAssignedTo", expenseEntity.AssignedTo.ToString());
+            Common.AddSession("EStatusId", expenseEntity.StatusId.ToString());
+            Common.AddSession("EProjectId", expenseEntity.ProjectId.ToString());
+            Common.AddSession("EFiscalYearId", expenseEntity.FiscalYearId.ToString());
+            Common.AddSession("EPeriodId", expenseEntity.PeriodId.ToString());
+            Common.AddSession("ESourceId", expenseEntity.SourceId.ToString());
             expenseRequest.expenseEntity = expenseEntity;
             string url = strBaseURL + "Expense/GetExpenses";
             client.BaseAddress = new Uri(url);

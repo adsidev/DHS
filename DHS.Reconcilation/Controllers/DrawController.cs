@@ -40,17 +40,17 @@ namespace DHS.Reconcilation.Controllers
             drawEntity.AssignedTo = 0;
             drawEntity.FiscalYearId = 0;
             drawEntity.ProjectName = string.Empty;
-            if (Request["AssignedTo"] != "")
-                drawEntity.AssignedTo = Convert.ToInt32(Request["AssignedTo"]);
+            if (Common.GetSession("DAssignedTo") != "")
+                drawEntity.AssignedTo = Convert.ToInt32(Common.GetSession("DAssignedTo"));
 
-            if (Request["StatusId"] != "")
-                drawEntity.StatusId = Convert.ToInt32(Request["StatusId"]);
+            if (Common.GetSession("DStatusId") != "")
+                drawEntity.StatusId = Convert.ToInt32(Common.GetSession("DStatusId"));
             
-            if (Request["FiscalYearId"] != "")
-                drawEntity.FiscalYearId = Convert.ToInt32(Request["FiscalYearId"]);
+            if (Common.GetSession("DFiscalYearId") != "")
+                drawEntity.FiscalYearId = Convert.ToInt32(Common.GetSession("DFiscalYearId"));
 
-            if (Request["drawEntity.ProjectName"] != "")
-                drawEntity.ProjectName = Request["drawEntity.ProjectName"];
+            if (Common.GetSession("DProjectName") != "")
+                drawEntity.ProjectName = Common.GetSession("DProjectName");
 
             drawRequest.drawEntity = drawEntity;
             string url = strBaseURL + "Draw/GetDraws";
@@ -109,6 +109,11 @@ namespace DHS.Reconcilation.Controllers
             
             if (Request["drawEntity.ProjectName"] != "")
                 drawEntity.ProjectName = Request["drawEntity.ProjectName"];
+
+            Common.AddSession("DAssignedTo", drawEntity.AssignedTo.ToString());
+            Common.AddSession("DStatusId", drawEntity.StatusId.ToString());
+            Common.AddSession("DProjectName", drawEntity.ProjectName.ToString());
+            Common.AddSession("DFiscalYearId", drawEntity.FiscalYearId.ToString());
 
             drawRequest.drawEntity = drawEntity;
             string url = strBaseURL + "Draw/GetDraws";

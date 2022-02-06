@@ -42,23 +42,24 @@ namespace DHS.Reconcilation.Controllers
             revenueEntity.FiscalYearId = 0;
             revenueEntity.PeriodId = 0;
             revenueEntity.SourceId = 0;
-            if (Request["AssignedTo"] != "")
-                revenueEntity.AssignedTo = Convert.ToInt32(Request["AssignedTo"]);
+            if (Common.GetSession("RAssignedTo") != "")
+                revenueEntity.AssignedTo = Convert.ToInt32(Common.GetSession("RAssignedTo"));
 
-            if (Request["StatusId"] != "")
-                revenueEntity.StatusId = Convert.ToInt32(Request["StatusId"]);
+            if (Common.GetSession("RStatusId") != "")
+                revenueEntity.StatusId = Convert.ToInt32(Common.GetSession("RStatusId"));
 
-            if (Request["ProjectId"] != "")
-                revenueEntity.ProjectId = Convert.ToInt32(Request["ProjectId"]);
+            if (Common.GetSession("RProjectId") != "")
+                revenueEntity.ProjectId = Convert.ToInt32(Common.GetSession("RProjectId"));
 
-            if (Request["FiscalYearId"] != "")
-                revenueEntity.FiscalYearId = Convert.ToInt32(Request["FiscalYearId"]);
+            if (Common.GetSession("RFiscalYearId") != "")
+                revenueEntity.FiscalYearId = Convert.ToInt32(Common.GetSession("RFiscalYearId"));
 
-            if (Request["PeriodId"] != "")
-                revenueEntity.PeriodId = Convert.ToInt32(Request["PeriodId"]);
+            if (Common.GetSession("RPeriodId") != "")
+                revenueEntity.PeriodId = Convert.ToInt32(Common.GetSession("RPeriodId"));
 
-            if (Request["SourceId"] != "")
-                revenueEntity.SourceId = Convert.ToInt32(Request["SourceId"]);
+            if (Common.GetSession("RSourceId") != "")
+                revenueEntity.SourceId = Convert.ToInt32(Common.GetSession("RSourceId"));
+
             revenueRequest.revenueEntity= revenueEntity;
 
             string url = strBaseURL + "Revenue/GetRevenues";
@@ -124,6 +125,14 @@ namespace DHS.Reconcilation.Controllers
 
             if (Request["SourceId"] != "")
                 revenueEntity.SourceId = Convert.ToInt32(Request["SourceId"]);
+
+            Common.AddSession("RAssignedTo", revenueEntity.AssignedTo.ToString());
+            Common.AddSession("RStatusId", revenueEntity.StatusId.ToString());
+            Common.AddSession("RProjectId", revenueEntity.ProjectId.ToString());
+            Common.AddSession("RFiscalYearId", revenueEntity.FiscalYearId.ToString());
+            Common.AddSession("RPeriodId", revenueEntity.PeriodId.ToString());
+            Common.AddSession("RSourceId", revenueEntity.SourceId.ToString());
+
             revenueRequest.revenueEntity = revenueEntity;
             string url = strBaseURL + "Revenue/GetRevenues";
             client.BaseAddress = new Uri(url);
