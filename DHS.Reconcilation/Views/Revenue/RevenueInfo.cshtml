@@ -385,7 +385,7 @@
                     </label>
                 </div>
                 <div class="col-log-11">
-                    <textarea id="txtNotes" name="txtNotes" disabled="disabled" style="margin: 0px; width: 850px; height: 120px;">@Model.revenueEntity.Notes</textarea>
+                    <label>@Model.revenueEntity.Notes</label>
                 </div>
             </div>
 
@@ -408,7 +408,7 @@
                                 <table class="table table-bordered table-striped">
                                     <thead>
                                         <tr>
-                                            <td colspan="9" align="right"><input type="button" value="Add" class="btn btn-primary btn-updated" onclick="CreateRevenueTransaction('@Model.revenueEntity.RevenueId')" /></td>
+                                            <td colspan="10" align="left"><input type="button" value="Add" class="btn btn-primary btn-updated" onclick="CreateRevenueTransaction('@Model.revenueEntity.RevenueId')" /></td>
                                         </tr>
                                         <tr>
                                             <th style="margin-left:1px; margin-right:1px;">

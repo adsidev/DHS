@@ -339,7 +339,7 @@
                     </label>
                 </div>
                 <div class="col-log-11">
-                    <textarea id="txtNotes" name="txtNotes" disabled="disabled" style="margin: 0px; width: 850px; height: 120px;">@Model.revenueEntity.Notes</textarea>
+                    <label>@Model.revenueEntity.Notes</label>
                 </div>
             </div>
             <div class="row ">
@@ -697,7 +697,7 @@
                             data: revenueRequest,
                             dataType: 'json',
                             success: function (result) {
-                                location.href = "/Revenue/DrawRevenue/" + document.getElementById("RevenueId").value;
+                                location.href = "/Revenue/CreateRevenueTransaction/" + document.getElementById("RevenueId").value;
                             },
                             complete: function () {
 

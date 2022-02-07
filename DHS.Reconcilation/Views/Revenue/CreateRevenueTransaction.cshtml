@@ -372,7 +372,7 @@
                     </label>
                 </div>
                 <div class="col-log-11">
-                    <textarea id="txtNotes" name="txtNotes" disabled="disabled" style="margin: 0px; width: 850px; height: 120px;">@Model.revenueEntity.Notes</textarea>
+                    <label>@Model.revenueEntity.Notes</label>
                 </div>
             </div>
 
@@ -420,6 +420,7 @@
                             </div>
                             <div class="col-lg-8 col-xs-12 col-sm-8 col-md-8">
                                 <div class="form_modal">
+                                    <input type="hidden" id="hdnOrg" value="@Model.revenueTransactionEntity.OrgName" />
                                     @Html.TextBoxFor(m => m.revenueTransactionEntity.OrgName, htmlAttributes: new { @id = "OrgName", @class = "form-control mrp_modalselect" })
                                 </div>
                             </div>
@@ -435,6 +436,7 @@
                             </div>
                             <div class="col-lg-8 col-xs-12 col-sm-8 col-md-8">
                                 <div class="form_modal">
+                                    <input type="hidden" id="hdnObject" value="@Model.revenueTransactionEntity.ObjectName" />
                                     @Html.TextBoxFor(m => m.revenueTransactionEntity.ObjectName, htmlAttributes: new { @id = "ObjectName", @class = "form-control mrp_modalselect" })
                                 </div>
                             </div>
@@ -450,6 +452,7 @@
                             </div>
                             <div class="col-lg-8 col-xs-12 col-sm-8 col-md-8">
                                 <div class="form_modal">
+                                    <input type="hidden" id="hdnProject" value="@Model.revenueTransactionEntity.ProjectName" />
                                     @Html.TextBoxFor(m => m.revenueTransactionEntity.ProjectName, htmlAttributes: new { @id = "ProjectName", @class = "form-control mrp_modalselect" })
                                 </div>
                             </div>
@@ -528,6 +531,12 @@
                 document.getElementById("RevenueTypeId").focus();
                 return false;
             }
+
+            if (document.getElementById("RevenueTranscationDescription").value == "") {
+                if ((document.getElementById("OrgName").value != document.getElementById("hdnOrg").value) || (document.getElementById("ObjectName").value != document.getElementById("hdnObject").value) || (document.getElementById("ProjectName").value != document.getElementById("hdnProject").value)) {
+                    document.getElementById("RevenueTranscationDescription").value = "The Org, Object or Project entered does not match with the Org, Object or Project for the Revenue Journal Entry";
+                }
+            }
             var Draw = 0
             if (document.getElementById("RevenueTypeId").value == 1) {
                 Draw = document.getElementById("DrawId").value;
@@ -542,7 +551,7 @@
                 RevenueTransactionAmount: parseFloat((document.getElementById("RevenueTransactionAmount").value).replace("$", "").replace(",", "")).toFixed(2),
                 ObjectName: document.getElementById("ObjectName").value,
                 ProjectName: document.getElementById("ProjectName").value,
-                DrawId : Draw
+                DrawId : Draw,
             };
             var revenueRequest = {
                 RevenueTransactionEntity: revenueTransactionEntity
