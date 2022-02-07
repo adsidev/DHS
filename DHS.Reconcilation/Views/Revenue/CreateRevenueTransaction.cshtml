@@ -533,7 +533,7 @@
             }
 
             if (document.getElementById("RevenueTranscationDescription").value == "") {
-                if ((document.getElementById("OrgName").value != document.getElementById("hdnOrg").value) || (document.getElementById("ObjectName").value != document.getElementById("hdnObject").value) || (document.getElementById("ProjectName").value != document.getElementById("hdnProject").value)) {
+                if ((document.getElementById("OrgName").value != document.getElementById("hdnOrg").value) ) {
                     document.getElementById("RevenueTranscationDescription").value = "The Org, Object or Project entered does not match with the Org, Object or Project for the Revenue Journal Entry";
                 }
             }
