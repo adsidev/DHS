@@ -88,7 +88,7 @@
                                             <th style="margin-left:1px; margin-right:1px;">
                                                 Action
                                             </th>
-                                            <th nowrap>Rev No</th>
+                                            @*<th nowrap>Rev No</th>*@
                                             <th nowrap>
                                                 Exp No
                                             </th>
@@ -197,7 +197,7 @@
                                                         }
                                                         
                                                     </td>
-                                                    <td>
+                                                    @*<td>
                                                         @if(item.RevenueNumber=="")
                                                         {
                                                         <img src="~/images/linking.png" class="img-responsive" onclick="LinkToRevenue('@item.ExpenseId')" style="cursor:pointer;" alt="Linking to Revenue" height="20" width="20" />
@@ -207,7 +207,7 @@
                                                     <a class="img-responsive" onclick="LinkToRevenue('@item.ExpenseId')" style="cursor:pointer;">
                                                         @item.RevenueNumber</a>
                                                         }
-                                                    </td>
+                                                    </td>*@
                                                     <td nowrap>
                                                         @item.ExpenseNumber
                                                     </td>

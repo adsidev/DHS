@@ -251,7 +251,7 @@ namespace DHS.Reconcilation.Controllers
             ExpenseEntity expenseEntity = new ExpenseEntity();
             expenseEntity.ExpenseId = Convert.ToInt32(id);
             expenseRequest.expenseEntity = expenseEntity;
-            string url = strBaseURL + "Expense/GetTransactionDetails";
+            string url = strBaseURL + "Expense/GetExpense";
             client.BaseAddress = new Uri(url);
             HttpResponseMessage responseMessage = await client.PostAsJsonAsync(url, expenseRequest);
 
