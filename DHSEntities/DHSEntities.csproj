@@ -64,6 +64,8 @@
     <Compile Include="Journal\JournalEntity.cs" />
     <Compile Include="Journal\JournalRequest.cs" />
     <Compile Include="Journal\JournalResponse.cs" />
+    <Compile Include="ReportRequest.cs" />
+    <Compile Include="ReportResponse.cs" />
     <Compile Include="Revenue\RevenueTransactionEntity.cs" />
     <Compile Include="RevenueType\RevenueTypeEntity.cs" />
     <Compile Include="RevenueType\RevenueTypeRequest.cs" />

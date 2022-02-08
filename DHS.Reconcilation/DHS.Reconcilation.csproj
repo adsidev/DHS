@@ -159,6 +159,7 @@
     <Compile Include="Areas\AuditReportController.cs" />
     <Compile Include="Areas\FGTCategoryController.cs" />
     <Compile Include="Areas\ImportController.cs" />
+    <Compile Include="Areas\ReportController.cs" />
     <Compile Include="Areas\VendorController.cs" />
     <Compile Include="Areas\RevenueTypeController.cs" />
     <Compile Include="Areas\JournalController.cs" />
@@ -377,6 +378,7 @@
     <Content Include="Views\AuditReports\frmCRPaymentAnalysis.ascx" />
     <Content Include="Views\AuditReports\frmCRSettlementReport.ascx" />
     <Content Include="Views\AuditReports\frmCRSummaryReport.ascx" />
+    <Content Include="Views\Report\frmGrantProjectReport.ascx" />
     <Content Include="Web.config" />
     <Content Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>

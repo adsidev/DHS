@@ -1,5 +1,4 @@
-﻿@model DHSEntities.DrawResponse
-@using PagedList.Mvc
+﻿@model DHSEntities.ReportResponse
 @using DHS.Reconcilation.Models
 
 @{
@@ -12,16 +11,72 @@
 {
     @Html.Partial("_menuCRPayments");
 }
+
+<title>@ViewBag.Title</title>
+
+
+<script src="~/js/jquery.min.js"></script>
+<script type="text/javascript">
+    function ValidateFields() {
+        var FiscalYear = $('#FiscalYearId option:selected').text();
+
+        if (FiscalYear == "") {
+            alert("Please select Fiscal Year.");
+            $("#FiscalYear").focus();
+            return false;
+        }
+
+        var ProjectId = $('#ProjectId option:selected').text();
+        if (ProjectId == "") {
+            alert("Please select project.");
+            $("#ProjectId").focus();
+            return false;
+        }
+        return true;
+    }
+    $(document).ready(function () {
+        $('#mra_subliMGPR').addClass('active');
+    });
+</script>
 @using (Html.BeginForm("ManageGrantProjectReport", "Report", FormMethod.Post, new { @id = "frmManageGrantProjectReport" }))
 {
-    <title>@ViewBag.Title</title>
-    
 
-    <script type="text/javascript">
+    <div class="tab-pane active" id="dashboard">
+        <div class="container-fluid">
+            <div class="mrp_content">
+                <h2>View Grant Project Report</h2>
+            </div>
+            <div class="mra_manage_settlement_report">
+                <div class="form-group col-lg-6">
+                    <label for="Facility">Select&nbsp;Facility</label>
+                    @Html.DropDownList("FiscalYearId", new SelectList(Model.fiscalYearEntities, "FiscalYearId", "FiscalYear", @ViewData["FiscalYear"]), "", new { @class = "form-control mrp_modalselect" })&nbsp;&nbsp;
+                    <input type="hidden" id="hdnFiscalYear" />
+                </div>
+                <div class="col-md-6">
+                    <label for="FiscalYear">Select&nbsp;Project</label>
+                    @Html.DropDownList("ProjectId", new SelectList(Model.projectEntities, "ProjectId", "ProjectName", @ViewData["Project"]), "", new { @class = "form-control mrp_modalselect" })&nbsp;&nbsp;
+                    <input type="hidden" id="hdnProject" />
+                    @if (Model.rolePermissionEntity.ViewBit)
+                    {
+                        <input type="submit" value=" Get Report " class="btn btn-primary btn-updated" onclick="return ValidateFields();" />
+                    }
+                    else
+                    {
+                        <input type="button" value="Report " class="disableButton" disabled="disabled" />
+                    }
+                </div>
+            </div>
 
-        $(document).ready(function () {
-            $('#mra_subliMGPR').addClass('active');
-        });
 
-    </script>
+            <div class="row">&nbsp;</div>
+
+            <div class="row">
+                <div class="col-lg-12 mra_managecrsummary_report">
+                    @Html.Partial("frmGrantProjectReport")
+                </div>
+            </div>
+        </div>
+    </div>
+
+
 }
