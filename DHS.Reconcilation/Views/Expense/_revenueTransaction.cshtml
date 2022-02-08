@@ -24,7 +24,7 @@
 
                                     <table class="table table-bordered table-striped">
                                         <thead>
-                                            <tr><td colspan="9" style="text-align:right;"><input type="button" class="btn btn-primary btn-updated" onclick="LinkToRevenueTransaction()" value=" Link " /></td></tr>
+                                            <tr><td colspan="11" style="text-align:right;"><input type="button" class="btn btn-primary btn-updated" onclick="LinkToRevenueTransaction()" value=" Link " /></td></tr>
                                             <tr>
                                                 <th style="margin-left:1px; margin-right:1px;">
                                                     Link
@@ -36,7 +36,7 @@
                                                     Transaction Date
                                                 </th>
                                                 <th nowrap>
-                                                    Transaction Amount
+                                                    Revenue Trans Amount
                                                 </th>
                                                 <th nowrap>
                                                     Org
@@ -51,7 +51,13 @@
                                                     Revenue Type
                                                 </th>
                                                 <th nowrap>
-                                                    Draw
+                                                    Draw No
+                                                </th>
+                                                <th nowrap>
+                                                    Batch Number
+                                                </th>
+                                                <th nowrap>
+                                                    Draw Amount
                                                 </th>
                                             </tr>
                                         </thead>
@@ -94,6 +100,12 @@
                                                         </td>
                                                         <td>
                                                             @item.DrawNumber
+                                                        </td>
+                                                        <td>
+                                                            @item.BatchNumber
+                                                        </td>
+                                                        <td>
+                                                            @String.Format("{0:$#,##0.00}", item.DrawAmount)
                                                         </td>
                                                     </tr>
                                                 }

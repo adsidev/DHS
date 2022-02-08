@@ -22,5 +22,7 @@ namespace DHSEntities
         public string SaveString { get; set; }
         public long DrawId { get; set; }
         public string DrawNumber { get; set; }
+        public string BatchNumber { get; set; }
+        public decimal DrawAmount { get; set; }
     }
 }

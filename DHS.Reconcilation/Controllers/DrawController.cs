@@ -40,6 +40,7 @@ namespace DHS.Reconcilation.Controllers
             drawEntity.AssignedTo = 0;
             drawEntity.FiscalYearId = 0;
             drawEntity.ProjectName = string.Empty;
+            drawEntity.BatchNumber = string.Empty;
             if (Common.GetSession("DAssignedTo") != "")
                 drawEntity.AssignedTo = Convert.ToInt32(Common.GetSession("DAssignedTo"));
 
@@ -51,6 +52,9 @@ namespace DHS.Reconcilation.Controllers
 
             if (Common.GetSession("DProjectName") != "")
                 drawEntity.ProjectName = Common.GetSession("DProjectName");
+
+            if (Common.GetSession("DBatchNumber") != "")
+                drawEntity.BatchNumber = Common.GetSession("DBatchNumber");
 
             drawRequest.drawEntity = drawEntity;
             string url = strBaseURL + "Draw/GetDraws";
@@ -97,6 +101,7 @@ namespace DHS.Reconcilation.Controllers
             drawEntity.AssignedTo = 0;
             drawEntity.FiscalYearId = 0;
             drawEntity.ProjectName = string.Empty;
+            drawEntity.BatchNumber = string.Empty;
 
             if (Request["AssignedTo"] != "")
                 drawEntity.AssignedTo = Convert.ToInt32(Request["AssignedTo"]);
@@ -110,9 +115,13 @@ namespace DHS.Reconcilation.Controllers
             if (Request["drawEntity.ProjectName"] != "")
                 drawEntity.ProjectName = Request["drawEntity.ProjectName"];
 
+            if (Request["drawEntity.BatchNumber"] != "")
+                drawEntity.BatchNumber = Request["drawEntity.BatchNumber"];
+            
             Common.AddSession("DAssignedTo", drawEntity.AssignedTo.ToString());
             Common.AddSession("DStatusId", drawEntity.StatusId.ToString());
             Common.AddSession("DProjectName", drawEntity.ProjectName.ToString());
+            Common.AddSession("DBatchNumber", drawEntity.BatchNumber.ToString());
             Common.AddSession("DFiscalYearId", drawEntity.FiscalYearId.ToString());
 
             drawRequest.drawEntity = drawEntity;

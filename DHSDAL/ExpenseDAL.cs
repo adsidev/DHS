@@ -706,6 +706,8 @@ namespace DHSDAL
                     revenueTransactionEntity.ObjectName = revenueDataRow["ObjectName"].ToString();
                     revenueTransactionEntity.ProjectName = revenueDataRow["ProjectName"].ToString();
                     revenueTransactionEntity.DrawNumber = revenueDataRow["DrawNumber"].ToString();
+                    revenueTransactionEntity.DrawAmount = Convert.ToDecimal(revenueDataRow["DarwDownAmount"].ToString());
+                    revenueTransactionEntity.BatchNumber = revenueDataRow["BatchNumber"].ToString();
                 }
                 catch (Exception exception)
                 {

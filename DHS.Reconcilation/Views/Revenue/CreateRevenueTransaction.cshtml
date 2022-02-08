@@ -551,7 +551,8 @@
                 RevenueTransactionAmount: parseFloat((document.getElementById("RevenueTransactionAmount").value).replace("$", "").replace(",", "")).toFixed(2),
                 ObjectName: document.getElementById("ObjectName").value,
                 ProjectName: document.getElementById("ProjectName").value,
-                DrawId : Draw,
+                DrawId: Draw,
+                ModifiedBy: @Common.GetSession("UserID"),
             };
             var revenueRequest = {
                 RevenueTransactionEntity: revenueTransactionEntity
