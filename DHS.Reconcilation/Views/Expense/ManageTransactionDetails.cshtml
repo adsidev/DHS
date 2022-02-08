@@ -393,7 +393,7 @@
                                 <table class="table table-bordered table-striped">
                                     <thead>
                                         <tr>
-                                            <td colspan="14" align="right" ><input type="button" value="Add" class="btn btn-primary btn-updated" onclick="CreateTransactionDetails('@Model.expenseEntity.ExpenseId')" /></td>
+                                            <td colspan="14" align="left" ><input type="button" value="Add" class="btn btn-primary btn-updated" onclick="CreateTransactionDetails('@Model.expenseEntity.ExpenseId')" /></td>
                                         </tr>
                                         <tr>
                                             <th style="margin-left:1px; margin-right:1px;">
@@ -447,7 +447,7 @@
                                             foreach (var item in Model.transactionDetailEntities)
                                             {
                                                 Total = Total + item.TransactionAmount;
-                                                RevenueInfo = item.RevenueTransactionNumber + " - " + item.RevenueTransactionDate + " - " + String.Format("{0:$#,##0.00}", item.RevenueTransactionAmount) + " - " + item.RevenueProjectName;
+                                                RevenueInfo = item.RevenueTransactionNumber + " - " + item.RevenueTransactionDate + " - " + String.Format("{0:$#,##0.00}", item.RevenueTransactionAmount) + " - " + item.RevenueProjectName + " - " + item.BatchNumber + " - " + String.Format("{0:$#,##0.00}", item.DrawAmount) + " - " + item.DrawDate;
                                                 <tr>
                                                     <td nowrap>
                                                         @if (Model.rolePermissionEntity.ViewBit)

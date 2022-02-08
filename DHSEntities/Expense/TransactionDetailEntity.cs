@@ -32,5 +32,9 @@ namespace DHSEntities
         public string RevenueTransactionDate { get; set; }
         public decimal RevenueTransactionAmount { get; set;}
         public string RevenueProjectName { get; set; }
+        public string BatchNumber { get; set; }
+        public decimal DrawAmount { get; set; }
+        public string DrawDate { get; set; }
+
     }
 }

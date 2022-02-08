@@ -311,8 +311,8 @@ textarea.form-control.mrp_area {
 	color:red;
 }
 .modal-dialog {
-    width: 77%;
-    margin: 20px auto 60px 200px;
+    width: 85%;
+    margin: 20px auto 60px 150px;
     padding: 30px 6%;
 }
 .mrp_modalcontent h2 {

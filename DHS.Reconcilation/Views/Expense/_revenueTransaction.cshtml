@@ -24,7 +24,7 @@
 
                                     <table class="table table-bordered table-striped">
                                         <thead>
-                                            <tr><td colspan="11" style="text-align:right;"><input type="button" class="btn btn-primary btn-updated" onclick="LinkToRevenueTransaction()" value=" Link " /></td></tr>
+                                            <tr><td colspan="12" style="text-align:right;"><input type="button" class="btn btn-primary btn-updated" onclick="LinkToRevenueTransaction()" value=" Link " /></td></tr>
                                             <tr>
                                                 <th style="margin-left:1px; margin-right:1px;">
                                                     Link
@@ -58,6 +58,9 @@
                                                 </th>
                                                 <th nowrap>
                                                     Draw Amount
+                                                </th>
+                                                <th nowrap>
+                                                    Draw Date
                                                 </th>
                                             </tr>
                                         </thead>
@@ -107,6 +110,7 @@
                                                         <td>
                                                             @String.Format("{0:$#,##0.00}", item.DrawAmount)
                                                         </td>
+                                                        <td>@item.DrawDate</td>
                                                     </tr>
                                                 }
                                             }
