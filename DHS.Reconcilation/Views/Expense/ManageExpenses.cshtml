@@ -88,7 +88,9 @@
                                             <th style="margin-left:1px; margin-right:1px;">
                                                 Action
                                             </th>
-                                            @*<th nowrap>Rev No</th>*@
+                                            <th nowrap>
+                                                Status
+                                            </th>
                                             <th nowrap>
                                                 Exp No
                                             </th>
@@ -98,9 +100,6 @@
                                             <th nowrap>
                                                 Fiscal Year
                                             </th>
-                                            @*<th nowrap>
-            Expense Date
-        </th>*@
                                             <th nowrap>
                                                 Journal
                                             </th>
@@ -162,9 +161,6 @@
                                                 Net Amount
                                             </th>
                                             <th nowrap>
-                                                Status
-                                            </th>
-                                            <th nowrap>
                                                 Assigned To
                                             </th>
                                             <th nowrap style="text-align:left">
@@ -179,35 +175,18 @@
                                                     <td nowrap>
                                                         @if (Model.rolePermissionEntity.ViewBit)
                                                         {
-                                                            <img src="~/images/view-icon.png" class="img-responsive" onclick="ViewTransactionDetails('@item.ExpenseId')" style="cursor:pointer;" alt="View Expense Information" />@*<img src="~/images/document.png" class="img-responsive" height="16" width="20" onclick="OpenExpenseDocuments('@item.ExpenseId')" style="cursor:pointer;" alt="View Expense Document Information" />*@
+                                                            <img src="~/images/view-icon.png" class="img-responsive" onclick="ViewTransactionDetails('@item.ExpenseId')" style="cursor:pointer;" alt="View Expense Information" />
                                                         }
                                                         else
                                                         {
                                                             <a class="mrp_popup disableButton" data-toggle="modal">
                                                                 <img src="~/images/view-icon.png" class="img-responsive disableButton" />
-                                                            </a>
-                                                            
-                                                            @*<a class="mrp_popup disableButton" data-toggle="modal">
-                                                                <img src="~/images/document.png" class="img-responsive disableButton" />
-                                                            </a>
-
-                                                            <a class="mrp_popup disableButton" data-toggle="modal">
-                                                                <img src="~/images/linking.png" class="img-responsive disableButton" />
-                                                            </a>*@                                                                
-                                                        }
-                                                        
+                                                            </a>                                                          
+                                                        }                                                        
                                                     </td>
-                                                    @*<td>
-                                                        @if(item.RevenueNumber=="")
-                                                        {
-                                                        <img src="~/images/linking.png" class="img-responsive" onclick="LinkToRevenue('@item.ExpenseId')" style="cursor:pointer;" alt="Linking to Revenue" height="20" width="20" />
-                                                        }
-                                                        else
-                                                        { 
-                                                    <a class="img-responsive" onclick="LinkToRevenue('@item.ExpenseId')" style="cursor:pointer;">
-                                                        @item.RevenueNumber</a>
-                                                        }
-                                                    </td>*@
+                                                    <td nowrap>
+                                                        @item.StatusName
+                                                    </td>
                                                     <td nowrap>
                                                         @item.ExpenseNumber
                                                     </td>
@@ -217,9 +196,6 @@
                                                     <td nowrap>
                                                         @item.FiscalYear
                                                     </td>
-                                                    @*<td nowrap>
-                                                        @item.ExpenseDate
-                                                    </td>*@
                                                     <td nowrap>
                                                         @item.Journal
                                                     </td>
@@ -279,9 +255,6 @@
                                                     </td>
                                                     <td nowrap>
                                                         @string.Format("{0:C}", item.NetAmount)
-                                                    </td>
-                                                    <td nowrap>
-                                                        @item.StatusName
                                                     </td>
                                                     <td nowrap>
                                                         @item.AssignedToUser

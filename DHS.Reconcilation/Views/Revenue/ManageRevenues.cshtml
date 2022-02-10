@@ -87,6 +87,9 @@
                                             <th style="margin-left:1px; margin-right:1px;">
                                                 Action
                                             </th>
+                                            <th nowrap>
+                                                Status
+                                            </th>
                                             <th nowrap>Draw No</th>
                                             <th nowrap>
                                                 Rev No
@@ -158,9 +161,6 @@
                                                 Net Amount
                                             </th>
                                             <th nowrap>
-                                                Status
-                                            </th>
-                                            <th nowrap>
                                                 Revenue Type
                                             </th>
                                             <th nowrap>
@@ -187,6 +187,9 @@
                                                     </a>
                                                 }
                                             </td>
+                                            <td nowrap>
+                                                @item.StatusName
+                                            </td>
                                             <td>
                                                 @if (item.DrawNumber != "0")
                                                 {
@@ -205,8 +208,7 @@
                                             </td>
                                             <td nowrap>
                                                 @item.RevenueNumber
-                                            </td>
-                                            
+                                            </td>                                            
                                             <td nowrap>
                                                 @item.PeriodName
                                             </td>
@@ -272,9 +274,6 @@
                                             </td>
                                             <td nowrap>
                                                 @string.Format("{0:C}", item.NetAmount)
-                                            </td>
-                                            <td nowrap>
-                                                @item.StatusName
                                             </td>
                                             <td nowrap>
                                                 @item.RevenueTypeName
