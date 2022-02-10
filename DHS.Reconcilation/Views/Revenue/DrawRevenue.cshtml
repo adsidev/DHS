@@ -465,7 +465,7 @@
                                         <td>@string.Format("{0:C}", DrawAmountTotal)</td>
                                         <td colspan="4">&nbsp;</td>
                                         <td>@string.Format("{0:C}", RevenueAmountTotal)</td>
-                                        <td colspan="4" style="text-align:left"><b>Difference Amount:&nbsp;</b>@string.Format("{0:C}", DrawAmountTotal + RevenueAmountTotal)</td>
+                                        <td colspan="4" style="text-align:left"><b>Difference Amount:&nbsp;</b>@string.Format("{0:C}", (RevenueAmountTotal - Model.revenueEntity.NetAmount))</td>
                                     </tr>
                                         }
                                     </tbody>

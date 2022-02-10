@@ -12,7 +12,8 @@ html {
 body{
 	margin: 0px;
 	padding:0px;
-	font-family: 'Helvetica Neue LT Std','Roboto',Arial,sans-serif;
+	font-family: 'Verdana,Helvetica Neue LT Std','Roboto',Arial,sans-serif;
+    font-size:11px;
 	background:#fff;
 }
 .container {
@@ -173,7 +174,7 @@ form.mrp_selectdetails.form-inline select.form-control {
 .mrp_contenttableshort .mrp_table table.table.table-bordered thead tr th,
 .mrp_contenttable .mrp_table table.table.table-bordered thead tr th,
 .mrp_contenttable .mrp_table table.table.table-bordered tbody tr td {
-    font-family: 'Helvetica Neue LT Std','Roboto',Arial,sans-serif;
+    font-family: 'Verdana,Helvetica Neue LT Std','Roboto',Arial,sans-serif;
     font-size: 14px;
     font-weight: 400;
     text-align: center;
@@ -253,6 +254,11 @@ select.form-control.mrp_modalselect {
     overflow: auto;
 }
 
+.mrp_contentbody.mrp_contenttables {
+    height: 300px;
+    overflow: auto;
+}
+
 .mrp_contentbody.mrp_contenttableshort {
     height: 225px;
     overflow: auto;
@@ -325,18 +331,18 @@ textarea.form-control.mrp_area {
 }
 .mrp_modalcontent h4 {
     color: #36598c;
-    font-family: 'Helvetica Neue LT Std','Roboto',Arial,sans-serif;
+    font-family: 'Verdana, Helvetica Neue LT Std','Roboto',Arial,sans-serif;
     font-size: 18px;
     font-weight: 600;
     margin-top: 10px;
     margin-bottom: 10px;
 }
-.form_modal label{
-	color:#333333;
-	font-family: 'Helvetica Neue LT Std','Roboto',Arial,sans-serif;
-	font-size:14px;
-	font-weight:500;
-	margin-bottom:15px;
+.form_modal label {
+    color: #333333;
+    font-family: 'Verdana,Helvetica Neue LT Std','Roboto',Arial,sans-serif;
+    font-size: 12px;
+    font-weight: 500;
+    margin-bottom: 15px;
 }
 .form_modal p{
 	color:#333333;
