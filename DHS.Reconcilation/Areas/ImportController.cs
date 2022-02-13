@@ -84,5 +84,22 @@ namespace DHS.Reconcilation.Areas
             return errorMessages;
         }
 
+        [HttpPost]
+        [Route("ImportExpenseTransaction")]
+        public ErrorMessages ImportExpenseTransaction(ImportRequest ImportRequest)
+        {
+            ErrorMessages errorMessages = new ErrorMessages();
+            try
+            {
+                errorMessages = importRepository.ImportExpenseTransaction(ImportRequest);
+            }
+            catch (Exception ex)
+            {
+                errorMessages.ErrorMessage = ex.Message;
+                errorMessages.Exception = ex;
+            }
+            return errorMessages;
+        }
+
     }
 }

@@ -107,6 +107,37 @@ namespace DHSDAL
             return errorMessages;
         }
 
+        public ErrorMessages ImportExpenseTransaction(ImportRequest importRequest)
+        {
+            ErrorMessages errorMessages = new ErrorMessages();
+            errorMessages.Message = string.Empty;
+            var expenseDataSet = importRequest.dataset;
+            try
+            {
+                foreach (DataRow expenseDataRow in expenseDataSet.Tables[0].Rows)
+                {
+                    SqlObject.Parameters = new object[] {
+                        expenseDataRow["Effective Date"].ToString(),
+                        expenseDataRow["Amount"].ToString(),
+                        expenseDataRow["Vendor"].ToString(),
+                        expenseDataRow["Org"].ToString(),
+                        expenseDataRow["Category ID"].ToString(),
+                        expenseDataRow["Batch #"].ToString(),
+                        expenseDataRow["Org Amount from Draw"].ToString(),
+                        expenseDataRow["Notes"].ToString(),
+                        importRequest.FiscalYear,
+                        importRequest.CreatedBy
+                        };
+                    var intResult = SqlHelper.ExecuteScalar(_connectionString, StoredProcedures.Import.USPIMPORTEXPENSETRANSACTION, SqlObject.Parameters);
+                }
+            }
+            catch (System.Exception ex)
+            {
+                errorMessages.Message = ex.Message;
+                errorMessages.Exception = ex;
+            }
+            return errorMessages;
+        }
         public ErrorMessages CheckImportExpense(ImportRequest importRequest)
         {
             ErrorMessages errorMessages = new ErrorMessages();

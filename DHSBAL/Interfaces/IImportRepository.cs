@@ -8,5 +8,6 @@ namespace DHSBAL
         ErrorMessages ImportRevenue(ImportRequest importRequest);
         ErrorMessages CheckImportExpense(ImportRequest importRequest);
         ErrorMessages CheckImportRevenue(ImportRequest importRequest);
+        ErrorMessages ImportExpenseTransaction(ImportRequest importRequest);
     }
 }

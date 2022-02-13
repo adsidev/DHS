@@ -458,6 +458,7 @@
     <Content Include="Views\Vendor\_viewVendor.cshtml" />
     <Content Include="Views\Vendor\_editVendor.cshtml" />
     <Content Include="Views\Expense\_revenueTransaction.cshtml" />
+    <Content Include="Views\Tools\ImportExpenseTransaction.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
