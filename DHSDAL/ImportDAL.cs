@@ -1,5 +1,6 @@
 ﻿using DataAccessLayer;
 using DHSEntities;
+using System;
 using System.Data;
 
 namespace DHSDAL
@@ -114,6 +115,8 @@ namespace DHSDAL
             var expenseDataSet = importRequest.dataset;
             try
             {
+                decimal TotalPrice = Convert.ToDecimal(expenseDataSet.Tables[0].Compute("SUM(Amount)", string.Empty));
+                string ImportNumber = DateTime.Now.ToString();
                 foreach (DataRow expenseDataRow in expenseDataSet.Tables[0].Rows)
                 {
                     SqlObject.Parameters = new object[] {
@@ -126,7 +129,10 @@ namespace DHSDAL
                         expenseDataRow["Org Amount from Draw"].ToString(),
                         expenseDataRow["Notes"].ToString(),
                         importRequest.FiscalYear,
-                        importRequest.CreatedBy
+                        importRequest.CreatedBy,
+                        expenseDataRow["Project"].ToString(),
+                        TotalPrice,
+                        ImportNumber
                         };
                     var intResult = SqlHelper.ExecuteScalar(_connectionString, StoredProcedures.Import.USPIMPORTEXPENSETRANSACTION, SqlObject.Parameters);
                 }
