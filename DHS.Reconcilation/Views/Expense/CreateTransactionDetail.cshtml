@@ -437,20 +437,20 @@
                         </div>
                     </div>
 
-                    <div class="col-lg-6">
-                        <div class="row">
-                            <div class="col-lg-4 col-xs-12 col-sm-4 col-md-4">
-                                <div class="form_modal">
-                                    <label>Purpose</label>
-                                </div>
-                            </div>
-                            <div class="col-lg-8 col-xs-12 col-sm-8 col-md-8">
-                                <div class="form_modal">
-                                    @Html.TextBoxFor(m => m.transactionDetailEntity.VendorAdjustments, htmlAttributes: new { @id = "VendorAdjustments", @class = "form-control mrp_modalselect" })
-                                </div>
-                            </div>
-                        </div>
+                    @*<div class="col-lg-6">
+            <div class="row">
+                <div class="col-lg-4 col-xs-12 col-sm-4 col-md-4">
+                    <div class="form_modal">
+                        <label>Purpose</label>
                     </div>
+                </div>
+                <div class="col-lg-8 col-xs-12 col-sm-8 col-md-8">
+                    <div class="form_modal">
+                        @Html.TextBoxFor(m => m.transactionDetailEntity.VendorAdjustments, htmlAttributes: new { @id = "VendorAdjustments", @class = "form-control mrp_modalselect" })
+                    </div>
+                </div>
+            </div>
+        </div>*@
                     @{
                         string CRevenueInfo = string.Empty;
                         CRevenueInfo = Model.transactionDetailEntity.RevenueTransactionNumber + " - " + Model.transactionDetailEntity.RevenueTransactionDate + " - " + String.Format("{0:$#,##0.00}", Model.transactionDetailEntity.RevenueTransactionAmount) + " - " + Model.transactionDetailEntity.RevenueProjectName + " - " + Model.transactionDetailEntity.BatchNumber + " - " + String.Format("{0:$#,##0.00}", Model.transactionDetailEntity.DrawAmount) + " - " + Model.transactionDetailEntity.DrawDate;
@@ -491,7 +491,20 @@
                             </div>
                         </div>
                     </div>
-
+                    <div class="col-lg-6">
+                        <div class="row">
+                            <div class="col-lg-4 col-xs-12 col-sm-4 col-md-4">
+                                <div class="form_modal">
+                                    <label>Status</label>
+                                </div>
+                            </div>
+                            <div class="col-lg-8 col-xs-12 col-sm-8 col-md-8">
+                                <div class="form_modal">
+                                    @Html.DropDownList("StatusId", new SelectList(Model.statusEntities, "StatusId", "StatusName", Model.transactionDetailEntity.StatusId), "", new { @id = "StatusId", @class = "form-control mrp_modalselect" })
+                                </div>
+                            </div>
+                        </div>
+                    </div>
                 </div>
 
                 <div class="row">
@@ -567,13 +580,13 @@
                                                 Category 2
                                             </th>
                                             <th nowrap>
-                                                Purpose
-                                            </th>
-                                            <th nowrap>
-                                                Revenue Transaction
+                                                Status
                                             </th>
                                             <th nowrap>
                                                 Vendor Name
+                                            </th>
+                                            <th nowrap>
+                                                Revenue Transaction
                                             </th>
                                             <th nowrap style="text-align:left">
                                                 Notes
@@ -629,7 +642,10 @@
                                                         @item.FGTCategoryName2
                                                     </td>
                                                     <td nowrap>
-                                                        @item.VendorAdjustments
+                                                        @item.StatusName
+                                                    </td>
+                                                    <td nowrap>
+                                                        @item.VendorName
                                                     </td>
                                                     @if (item.RevenueTransactionNumber != "")
                                                     {
@@ -639,9 +655,6 @@
                                                     {
                                                         <td nowrap>&nbsp;</td>
                                                     }
-                                                    <td nowrap>
-                                                        @item.VendorName
-                                                    </td>
                                                     <td style="text-align:left;" nowrap>
                                                         @item.TransactionDescription
                                                     </td>
@@ -704,9 +717,10 @@
                 FGTCategoryId2: document.getElementById("FGTCategoryId2").value,
                 TransactionDescription: document.getElementById("TransactionDescription").value,
                 TransactionAmount: parseFloat((document.getElementById("TransactionAmount").value).replace("$", "").replace(",", "")).toFixed(2),
-                VendorAdjustments: document.getElementById("VendorAdjustments").value,
+                VendorAdjustments: '',
                 DrawId: document.getElementById("hdnRevenueTransactionId").value,
                 VendorId: document.getElementById("VendorId").value,
+                StatusId: document.getElementById("StatusId").value,
             };
             var expenseRequest = {
                 TransactionDetailEntity: transactionDetailEntity

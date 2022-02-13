@@ -35,6 +35,7 @@ namespace DHSEntities
         public string BatchNumber { get; set; }
         public decimal DrawAmount { get; set; }
         public string DrawDate { get; set; }
-
+        public string StatusName { get; set; }
+        public int StatusId { get; set; }
     }
 }

@@ -283,6 +283,7 @@ namespace DHSDAL
                     transactionDetailEntity.ProjectName = expenseDataRow["ProjectName"].ToString();
                     transactionDetailEntity.DrawNumber = expenseDataRow["DrawNumber"].ToString();
                     transactionDetailEntity.VendorName = expenseDataRow["VendorName"].ToString();
+                    transactionDetailEntity.StatusName = expenseDataRow["StatusName"].ToString();
                     transactionDetailEntity.CFDA = expenseDataRow["CFDA"].ToString();
                     transactionDetailEntity.RevenueTransactionAmount = Convert.ToDecimal(expenseDataRow["RevenueTransactionAmount"].ToString());
                     transactionDetailEntity.DrawAmount = Convert.ToDecimal(expenseDataRow["DrawAmount"].ToString());
@@ -332,6 +333,7 @@ namespace DHSDAL
                         transactionDetailEntity.DrawId = Convert.ToInt64(expenseDataRow["DrawId"].ToString());
                         transactionDetailEntity.ExpenseId = Convert.ToInt64(expenseDataRow["ExpenseId"].ToString());
                         transactionDetailEntity.VendorId = Convert.ToInt64(expenseDataRow["VendorId"].ToString());
+                        transactionDetailEntity.StatusId = Convert.ToInt32(expenseDataRow["StatusId"].ToString());
                         transactionDetailEntity.FGTCategoryId1 = Convert.ToInt64(expenseDataRow["FGTCategoryId1"].ToString());
                         transactionDetailEntity.FGTCategoryId2 = Convert.ToInt64(expenseDataRow["FGTCategoryId2"].ToString());
                         transactionDetailEntity.TransactionDate = Convert.ToDateTime(expenseDataRow["TransactionDate"].ToString()).ToShortDateString();
@@ -343,6 +345,7 @@ namespace DHSDAL
                         transactionDetailEntity.TransactionNumber = expenseDataRow["TransactionNumber"].ToString();
                         transactionDetailEntity.DrawNumber = expenseDataRow["DrawNumber"].ToString();
                         transactionDetailEntity.VendorName = expenseDataRow["VendorName"].ToString();
+                        transactionDetailEntity.StatusName = expenseDataRow["StatusName"].ToString();
                         transactionDetailEntity.RevenueTransactionAmount = Convert.ToDecimal(expenseDataRow["RevenueTransactionAmount"].ToString());
                         transactionDetailEntity.RevenueTransactionNumber = expenseDataRow["RevenueTransactionNumber"].ToString();
                         transactionDetailEntity.RevenueTransactionDate = Convert.ToDateTime(expenseDataRow["RevenueTransactionDate"].ToString()).ToShortDateString();
@@ -391,6 +394,9 @@ namespace DHSDAL
             VendorDAL vendorDAL = new VendorDAL();
             expenseResponse.vendorEntities = vendorDAL.GetVendors().vendorEntities;
             
+            CommonDAL commonDAL = new CommonDAL();
+            expenseResponse.statusEntities = commonDAL.GetStatuses();
+
             return expenseResponse;
         }
 
@@ -416,6 +422,7 @@ namespace DHSDAL
                 expenseRequest.transactionDetailEntity.VendorAdjustments,
                 expenseRequest.transactionDetailEntity.DrawId,
                 expenseRequest.transactionDetailEntity.VendorId,
+                expenseRequest.transactionDetailEntity.StatusId,
                 };
                 var intResult = SqlHelper.ExecuteScalar(_connectionString, StoredProcedures.Expense.USPSAVETRANSACTIONDETAIL, SqlObject.Parameters);
                 expenseResponse.Message = string.Empty;

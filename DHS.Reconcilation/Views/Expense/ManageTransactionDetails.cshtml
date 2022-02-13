@@ -392,7 +392,7 @@
                                 <table class="table table-bordered table-striped">
                                     <thead>
                                         <tr>
-                                            <td colspan="14" align="left" ><input type="button" value="Add" class="btn btn-primary btn-updated" onclick="CreateTransactionDetails('@Model.expenseEntity.ExpenseId')" /></td>
+                                            <td colspan="15" align="left" ><input type="button" value="Add" class="btn btn-primary btn-updated" onclick="CreateTransactionDetails('@Model.expenseEntity.ExpenseId')" /></td>
                                         </tr>
                                         <tr>
                                             <th style="margin-left:1px; margin-right:1px;">
@@ -426,13 +426,13 @@
                                                 Category 2
                                             </th>
                                             <th nowrap>
-                                                Purpose
-                                            </th>
-                                            <th nowrap>
-                                                Revenue Transaction
+                                                Status
                                             </th>
                                             <th nowrap>
                                                 Vendor Name
+                                            </th>
+                                            <th nowrap>
+                                                Revenue Transaction
                                             </th>
                                             <th nowrap style="text-align:left">
                                                 Notes
@@ -488,7 +488,10 @@
                                                         @item.FGTCategoryName2
                                                     </td>
                                                     <td nowrap>
-                                                        @item.VendorAdjustments
+                                                        @item.StatusName
+                                                    </td>
+                                                    <td nowrap>
+                                                        @item.VendorName
                                                     </td>
                                                     @if (item.RevenueTransactionNumber != "")
                                                     {
@@ -498,9 +501,6 @@
                                                     {
                                                         <td nowrap>&nbsp;</td>
                                                     }
-                                                    <td nowrap>
-                                                        @item.VendorName
-                                                    </td>
                                                     <td style="text-align:left;" nowrap>
                                                         @item.TransactionDescription
                                                     </td>
@@ -512,7 +512,7 @@
                                                     <td colspan="3" style="text-align:right"><b>Total: </b></td>
                                                     <td><b>@String.Format("{0:$#,##0.00}", Total)</b></td>
                                                     <td colspan="1" style="text-align:right"><b>Difference</b></td>
-                                                    <td colspan="7" style="text-align:left"><b>@String.Format("{0:$#,##0.00}", (Model.expenseEntity.NetAmount - Total))</b></td>
+                                                    <td colspan="9" style="text-align:left"><b>@String.Format("{0:$#,##0.00}", (Model.expenseEntity.NetAmount - Total))</b></td>
                                                 </tr>
                                             }
                                         }
