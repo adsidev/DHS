@@ -378,6 +378,7 @@
     <Content Include="Views\AuditReports\frmCRPaymentAnalysis.ascx" />
     <Content Include="Views\AuditReports\frmCRSettlementReport.ascx" />
     <Content Include="Views\AuditReports\frmCRSummaryReport.ascx" />
+    <Content Include="Views\Report\frmDHSSummaryReport.ascx" />
     <Content Include="Views\Report\frmGrantProjectReport.ascx" />
     <Content Include="Web.config" />
     <Content Include="Web.Debug.config">
@@ -459,6 +460,7 @@
     <Content Include="Views\Vendor\_editVendor.cshtml" />
     <Content Include="Views\Expense\_revenueTransaction.cshtml" />
     <Content Include="Views\Tools\ImportExpenseTransaction.cshtml" />
+    <Content Include="Views\Report\ManageDHSSummaryReport.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

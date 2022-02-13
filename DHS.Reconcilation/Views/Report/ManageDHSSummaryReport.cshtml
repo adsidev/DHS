@@ -2,7 +2,7 @@
 @using DHS.Reconcilation.Models
 
 @{
-    ViewBag.Title = "DHS Reconcilation Application :: Grant Project Report";
+    ViewBag.Title = "DHS Reconcilation Application :: DHS Summary Report";
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 <title>@ViewBag.Title</title>
@@ -26,25 +26,19 @@
             return false;
         }
 
-        var ProjectId = $('#ProjectId option:selected').text();
-        if (ProjectId == "") {
-            alert("Please select project.");
-            $("#ProjectId").focus();
-            return false;
-        }
         return true;
     }
     $(document).ready(function () {
-        $('#mra_subliMDSR').addClass('active');
+        $('#mra_subliMGPR').addClass('active');
     });
 </script>
-@using (Html.BeginForm("ManageGrantProjectReport", "Report", FormMethod.Post, new { @id = "frmManageGrantProjectReport" }))
+@using (Html.BeginForm("ManageDHSSummaryReport", "Report", FormMethod.Post, new { @id = "frmManageDHSSummaryReport" }))
 {
 
     <div class="tab-pane active" id="dashboard">
         <div class="container-fluid">
             <div class="mrp_content">
-                <h2>View Grant Project Report</h2>
+                <h2>View DHS Summary Report</h2>
             </div>
             <div class="mra_manage_settlement_report">
                 <div class="form-group col-lg-6">
@@ -53,8 +47,6 @@
                     <input type="hidden" id="hdnFiscalYear" />
                 </div>
                 <div class="col-md-6">
-                    <label for="FiscalYear">Select&nbsp;Project</label>
-                    @Html.DropDownList("ProjectId", new SelectList(Model.projectEntities, "ProjectId", "ProjectName", @ViewData["Project"]), "", new { @class = "form-control mrp_modalselect" })&nbsp;&nbsp;
                     <input type="hidden" id="hdnProject" />
                     @if (Model.rolePermissionEntity.ViewBit)
                     {
@@ -72,7 +64,7 @@
 
             <div class="row">
                 <div class="col-lg-12 mra_managecrsummary_report">
-                    @Html.Partial("frmGrantProjectReport")
+                    @Html.Partial("frmDHSSummaryReport")
                 </div>
             </div>
         </div>
