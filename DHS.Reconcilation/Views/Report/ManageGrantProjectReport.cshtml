@@ -6,7 +6,7 @@
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 <title>@ViewBag.Title</title>
-<script src="~/Scripts/jquery-1.10.2.min.js"></script>
+<script src="~/Scripts/jquery-1.10.2.min.js" type="text/javascript"></script>
 @section LeftMenuSection
 {
     @Html.Partial("_menuCRPayments");
@@ -35,7 +35,7 @@
         return true;
     }
     $(document).ready(function () {
-        $('#mra_subliMDSR').addClass('active');
+        $('#mra_subliMGPR').addClass('active');
     });
 </script>
 @using (Html.BeginForm("ManageGrantProjectReport", "Report", FormMethod.Post, new { @id = "frmManageGrantProjectReport" }))

@@ -29,7 +29,7 @@
         return true;
     }
     $(document).ready(function () {
-        $('#mra_subliMGPR').addClass('active');
+        $('#mra_subliMDSR').addClass('active');
     });
 </script>
 @using (Html.BeginForm("ManageDHSSummaryReport", "Report", FormMethod.Post, new { @id = "frmManageDHSSummaryReport" }))
@@ -43,11 +43,9 @@
             <div class="mra_manage_settlement_report">
                 <div class="form-group col-lg-6">
                     <label for="Facility">Select&nbsp;Fiscal Year</label>
-                    @Html.DropDownList("FiscalYearId", new SelectList(Model.fiscalYearEntities, "FiscalYearId", "FiscalYear", @ViewData["FiscalYear"]), "", new { @class = "form-control mrp_modalselect" })&nbsp;&nbsp;
-                    <input type="hidden" id="hdnFiscalYear" />
+                    @Html.DropDownList("FiscalYearId", new SelectList(Model.fiscalYearEntities, "FiscalYearId", "FiscalYear", @ViewData["FiscalYear"]), "", new { @class = "form-control mrp_modalselect" })
                 </div>
                 <div class="col-md-6">
-                    <input type="hidden" id="hdnProject" />
                     @if (Model.rolePermissionEntity.ViewBit)
                     {
                         <input type="submit" value=" Get Report " class="btn btn-primary btn-updated" onclick="return ValidateFields();" />

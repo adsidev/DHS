@@ -19,7 +19,7 @@
             }
         }
 </script>
-<form runat="server" id="form1">
+<form runat="server" id="frmDHSSummary">
 <asp:ScriptManager ID="ScriptManager1" runat="server">
 </asp:ScriptManager>
 <rsweb:ReportViewer ID="ReportViewer1" runat="server" Font-Names="Verdana" ProcessingMode="Remote"
