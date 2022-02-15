@@ -240,6 +240,7 @@
     </div>
 
     <script type="text/javascript">
+        var IsExists = false;
         function SubmitValue() {
             if (document.getElementById("FiscalYearId").value == "") {
                 alert("Please select fiscal year.")
@@ -259,6 +260,18 @@
                 document.getElementById("DrawDownDate").focus();
                 return false;
             }
+
+            if (document.getElementById("BatchNumber").value == "") {
+                alert("Please enter batch number.");
+                document.getElementById("BatchNumber").focus();
+                return false;
+            }
+            else {
+                fire_ajax(document.getElementById("BatchNumber").value);
+                if(IsExists)
+                    return false;
+            }
+
             if (document.getElementById("StatusId").value == "") {
                 alert("Please select status.")
                 document.getElementById("StatusId").focus();
@@ -301,5 +314,35 @@
         $(document).ready(function () {
             $('#mra_subli6').addClass('active');
         });
+
+        $("#BatchNumber").blur(function () {
+            var x = $("#BatchNumber").val();
+            fire_ajax(x);
+        });
+
+        function fire_ajax(s) {
+            var drawEntity = {
+                BatchNumber: s,
+                DrawId : 0
+            };
+            var drawRequest = {
+                drawEntity: drawEntity
+            };
+            $.ajax({
+                url: "/Draw/CheckDrawByBatchNumber",
+                type: "POST",
+                data: drawRequest,
+                dataType: 'json',
+                success: function (data) {
+                    if (data.IsExists) {
+                        IsExists = data.IsExists;
+                        alert("Please enter different Batch Number as this already exists.");
+                        return false;
+                    }
+                }
+
+            })
+        }
+
     </script>
 }

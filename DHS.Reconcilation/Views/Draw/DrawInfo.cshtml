@@ -809,67 +809,7 @@
             location.href = "/Draw/DrawDocuments/" + drawId;
         }
 
-        function SubmitValue() {
-
-
-            if (document.getElementById("FiscalYearId").value == "") {
-                alert("Please select fiscal year.")
-                document.getElementById("FiscalYearId").focus();
-                return false;
-            }
-
-            if (document.getElementById("DrawDownAmount").value == "$0.00" || document.getElementById("DrawDownAmount").value == "") {
-                alert("Please enter draw amount.");
-                document.getElementById("DrawDownAmount").focus();
-                return false;
-            }
-
-            if (document.getElementById("DrawDownDate").value == "") {
-                alert("Please enter draw date.");
-                document.getElementById("DrawDownDate").focus();
-                return false;
-            }
-
-            if (document.getElementById("StatusId").value == "") {
-                alert("Please select status.")
-                document.getElementById("StatusId").focus();
-                return false;
-            }
-
-            var drawEntity = {
-                DrawId: document.getElementById("DrawId").value,
-                DrawDownDate: document.getElementById("DrawDownDate").value,
-                DatePosted: document.getElementById("DatePosted").value,
-                BatchNumber: document.getElementById("BatchNumber").value,
-                CashReceipt: document.getElementById("CashReceipt").value,
-                DrawDownAmount: parseFloat((document.getElementById("DrawDownAmount").value).replace("$", "").replace(",", "")).toFixed(2),
-                DrawDescription: document.getElementById("DrawDescription").value,
-                StatusId: document.getElementById("StatusId").value,
-                FiscalYearId: document.getElementById("FiscalYearId").value,
-                ModifiedBy:@Common.GetSession("UserID"),
-                AssignedTo: document.getElementById("AssignedTo").value,
-                OrgName: '',
-                ObjectName: '',
-                ProjectName: document.getElementById("ProjectName").value,
-            };
-            var drawRequest = {
-                DrawEntity: drawEntity
-            };
-
-            $.ajax({
-                url: "/Draw/SaveDraw",
-                type: "POST",
-                data: drawRequest,
-                dataType: 'json',
-                success: function (result) {
-                    location.href = "/Draw/ManageDraws";
-                },
-                complete: function () {
-
-                }
-            });
-            return true;
-        }
+        
 
         function EditDraw(drawId) {
             var options = { "backdrop": "static", keyboard: true };

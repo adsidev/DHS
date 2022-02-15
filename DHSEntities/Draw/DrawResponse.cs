@@ -22,5 +22,6 @@ namespace DHSEntities
         public List<OrgEntity> orgEntities { get; set; }
         public List<ObjectEntity> objectEntities { get; set; }
         public List<ProjectEntity> projectEntities { get; set; }
+        public bool IsExists { get; set; }
     }
 }

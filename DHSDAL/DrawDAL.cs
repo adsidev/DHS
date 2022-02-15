@@ -397,5 +397,23 @@ namespace DHSDAL
             drawResponse.expenseEntities = expenseEntities;
             return drawResponse;
         }
+
+        public DrawResponse CheckDrawByBatchNumber(DrawRequest drawRequest)
+        {
+            bool IsExists = false;
+            SqlObject.Parameters = new object[] {
+                    drawRequest.drawEntity.BatchNumber,
+                    drawRequest.drawEntity.DrawId
+            };
+            var drawDataSet = SqlHelper.ExecuteDataset(_connectionString, StoredProcedures.Draw.USPCHECKDRAWBYBATCHNUMBER, SqlObject.Parameters);
+            foreach (DataRow drawDataRow in drawDataSet.Tables[0].Rows)
+            {
+                if(Convert.ToInt32(drawDataRow["BatchNumberCount"].ToString())>=1)
+                    IsExists = true;
+            }
+            drawResponse.IsExists = IsExists;
+            return drawResponse;
+        }
+
     }
 }

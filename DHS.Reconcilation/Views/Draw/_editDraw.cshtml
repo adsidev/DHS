@@ -1,4 +1,5 @@
 ﻿@model DHSEntities.DrawResponse
+@using DHS.Reconcilation.Models
 @{
     ViewBag.Title = "Edit Draws";
 }
@@ -156,35 +157,35 @@
                         </div>
 
                         @*<div class="col-lg-12">
-                            <div class="row">
-                                <div class="col-lg-3 col-xs-12 col-sm-3 col-md-3">
-                                    <div class="form_modal">
-                                        <label>Org</label>
+                                <div class="row">
+                                    <div class="col-lg-3 col-xs-12 col-sm-3 col-md-3">
+                                        <div class="form_modal">
+                                            <label>Org</label>
+                                        </div>
                                     </div>
-                                </div>
-                                <div class="col-lg-9 col-xs-12 col-sm-9 col-md-9">
-                                    <div class="form_modal">
-                                        @Html.TextBoxFor(m => m.drawEntity.OrgName, htmlAttributes: new { @id = "OrgName", @class = "form-control mrp_modalselect" })
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-
-
-                        <div class="col-lg-12">
-                            <div class="row">
-                                <div class="col-lg-3 col-xs-12 col-sm-3 col-md-3">
-                                    <div class="form_modal">
-                                        <label>Object</label>
-                                    </div>
-                                </div>
-                                <div class="col-lg-9 col-xs-12 col-sm-9 col-md-9">
-                                    <div class="form_modal">
-                                        @Html.TextBoxFor(m => m.drawEntity.ObjectName, htmlAttributes: new { @id = "ObjectName", @class = "form-control mrp_modalselect" })
+                                    <div class="col-lg-9 col-xs-12 col-sm-9 col-md-9">
+                                        <div class="form_modal">
+                                            @Html.TextBoxFor(m => m.drawEntity.OrgName, htmlAttributes: new { @id = "OrgName", @class = "form-control mrp_modalselect" })
+                                        </div>
                                     </div>
                                 </div>
                             </div>
-                        </div>*@
+
+
+                            <div class="col-lg-12">
+                                <div class="row">
+                                    <div class="col-lg-3 col-xs-12 col-sm-3 col-md-3">
+                                        <div class="form_modal">
+                                            <label>Object</label>
+                                        </div>
+                                    </div>
+                                    <div class="col-lg-9 col-xs-12 col-sm-9 col-md-9">
+                                        <div class="form_modal">
+                                            @Html.TextBoxFor(m => m.drawEntity.ObjectName, htmlAttributes: new { @id = "ObjectName", @class = "form-control mrp_modalselect" })
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>*@
 
 
                         <div class="col-lg-12">
@@ -221,3 +222,109 @@
             </div>
         </div>
     </div>
+    <script type="text/javascript">
+        var IsExists = false;
+function SubmitValue() {
+
+
+            if (document.getElementById("FiscalYearId").value == "") {
+                alert("Please select fiscal year.")
+                document.getElementById("FiscalYearId").focus();
+                return false;
+            }
+
+            if (document.getElementById("DrawDownAmount").value == "$0.00" || document.getElementById("DrawDownAmount").value == "") {
+                alert("Please enter draw amount.");
+                document.getElementById("DrawDownAmount").focus();
+                return false;
+            }
+
+            if (document.getElementById("DrawDownDate").value == "") {
+                alert("Please enter draw date.");
+                document.getElementById("DrawDownDate").focus();
+                return false;
+            }
+
+            if (document.getElementById("BatchNumber").value == "") {
+                alert("Please enter batch number.");
+                document.getElementById("BatchNumber").focus();
+                return false;
+            }
+            else {
+                fire_ajax(document.getElementById("BatchNumber").value);
+                if (IsExists)
+                    return false;
+            }
+
+            if (document.getElementById("StatusId").value == "") {
+                alert("Please select status.")
+                document.getElementById("StatusId").focus();
+                return false;
+            }
+
+            var drawEntity = {
+                DrawId: document.getElementById("DrawId").value,
+                DrawDownDate: document.getElementById("DrawDownDate").value,
+                DatePosted: document.getElementById("DatePosted").value,
+                BatchNumber: document.getElementById("BatchNumber").value,
+                CashReceipt: document.getElementById("CashReceipt").value,
+                DrawDownAmount: parseFloat((document.getElementById("DrawDownAmount").value).replace("$", "").replace(",", "")).toFixed(2),
+                DrawDescription: document.getElementById("DrawDescription").value,
+                StatusId: document.getElementById("StatusId").value,
+                FiscalYearId: document.getElementById("FiscalYearId").value,
+                ModifiedBy:@Common.GetSession("UserID"),
+                AssignedTo: document.getElementById("AssignedTo").value,
+                OrgName: '',
+                ObjectName: '',
+                ProjectName: document.getElementById("ProjectName").value,
+            };
+            var drawRequest = {
+                DrawEntity: drawEntity
+            };
+
+            $.ajax({
+                url: "/Draw/SaveDraw",
+                type: "POST",
+                data: drawRequest,
+                dataType: 'json',
+                success: function (result) {
+                    location.href = "/Draw/ManageDraws";
+                },
+                complete: function () {
+
+                }
+            });
+            return true;
+        }
+
+
+        $("#BatchNumber").blur(function () {
+            var x = $("#BatchNumber").val();
+            fire_ajax(x);
+        });
+
+        function fire_ajax(s) {
+            var drawEntity = {
+                BatchNumber: s,
+                DrawId: document.getElementById("DrawId").value
+            };
+            var drawRequest = {
+                drawEntity: drawEntity
+            };
+            $.ajax({
+                url: "/Draw/CheckDrawByBatchNumber",
+                type: "POST",
+                data: drawRequest,
+                dataType: 'json',
+                success: function (data) {
+                    if (data.IsExists) {
+                        IsExists = data.IsExists;
+                        alert("Please enter different Batch Number as this already exists.");
+                        return false;
+                    }
+                }
+
+            })
+        }
+
+    </script>

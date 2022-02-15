@@ -115,5 +115,19 @@ namespace DHSBAL
             }
             return drawResponse;
         }
+
+        public DrawResponse CheckDrawByBatchNumber(DrawRequest drawRequest)
+        {
+            try
+            {
+                drawResponse = drawDALRepository.CheckDrawByBatchNumber(drawRequest);
+            }
+            catch (Exception ex)
+            {
+                drawResponse.ErrorMessage = ex.Message;
+                drawResponse.Exception = ex;
+            }
+            return drawResponse;
+        }
     }
 }

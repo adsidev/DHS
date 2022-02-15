@@ -128,5 +128,22 @@ namespace DHS.Reconcilation.Areas
             }
             return drawResponse;
         }
+
+
+        [HttpPost]
+        [Route("CheckDrawByBatchNumber")]
+        public DrawResponse CheckDrawByBatchNumber(DrawRequest drawRequest)
+        {
+            try
+            {
+                drawResponse = drawRepository.CheckDrawByBatchNumber(drawRequest);
+            }
+            catch (Exception ex)
+            {
+                drawResponse.ErrorMessage = ex.Message;
+                drawResponse.Exception = ex;
+            }
+            return drawResponse;
+        }
     }
 }

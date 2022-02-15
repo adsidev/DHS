@@ -70,6 +70,7 @@ namespace DHSDAL
             public const string USPGETTRANSACTIONBYDRAWID = "sp_GetTransactionByDrawId";
             public const string USPGETREVENUESBYDRAWID = "sp_GetRevenuesByDrawId";
             public const string USPGETEXPENSESBYDRAWID = "sp_GetExpensesByDrawId";
+            public const string USPCHECKDRAWBYBATCHNUMBER = "sp_CheckDrawByBatchNumber";
             public const string USPSAVEDRAW = "sp_SaveDraw";
         }
 

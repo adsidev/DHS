@@ -11,5 +11,6 @@ namespace DHSDAL
         DrawResponse GetDrawDocument(DrawRequest drawRequest);
         DrawResponse SaveDrawDocument(DrawRequest drawRequest);
         DrawResponse GetTransactionByDrawId(DrawRequest drawRequest);
+        DrawResponse CheckDrawByBatchNumber(DrawRequest drawRequest);
     }
 }
