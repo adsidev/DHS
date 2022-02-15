@@ -558,12 +558,13 @@
                                         </tr>
                                     </thead>
                                     <tbody>
-                                        @{
-                                            foreach (var item in Model.drawRevenueEntities)
+                                        @foreach (var item in Model.drawRevenueEntities)
+                                        {
+                                            var itemId = "RevenuAmount" + item.DrawId;
+                                            var itemhdnId = "hdnRevenuAmount" + item.DrawId;
+                                            var AvailableAmount = (item.DrawDownAmount + item.RevenueAmount);
+                                            if (AvailableAmount != 0)
                                             {
-                                                var itemId = "RevenuAmount" + @item.DrawId;
-                                                var itemhdnId = "hdnRevenuAmount" + @item.DrawId;
-                                                var AvailableAmount = (item.DrawDownAmount + item.RevenueAmount);
                                                 <tr>
                                                     <td>
                                                         <input type="radio" id="DrawId" name="Draw" value="@item.DrawId" />
@@ -681,7 +682,7 @@
                         return false;
                     }
                     else {
-                        enteramount = -enteramount;
+                        enteramount = enteramount;
                         var revenueRequest = {
                             revenueEntity:
                             {
