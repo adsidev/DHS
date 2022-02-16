@@ -18,5 +18,7 @@ namespace DHSDAL
         RevenueResponse GetRevenueTransaction(RevenueRequest revenueRequest);
         RevenueResponse SaveRevenueTransaction(RevenueRequest revenueRequest);
         RevenueResponse GetRevenueInformation(RevenueRequest revenueRequest);
+        RevenueResponse GetRevenueTransactionDetails(RevenueRequest revenueRequest);
+        RevenueResponse DeleteRevenueTransaction(RevenueRequest revenueRequest);
     }
 }

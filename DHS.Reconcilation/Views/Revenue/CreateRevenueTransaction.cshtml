@@ -541,6 +541,12 @@
             if (document.getElementById("RevenueTypeId").value == 1) {
                 Draw = document.getElementById("DrawId").value;
             }
+            var revenueAmount = (document.getElementById("RevenueTransactionAmount").value).replace("$", "").replace(",", "");
+            if (document.getElementById("RevenueTypeId").value == 1) {
+                if (revenueAmount > 0)
+                    revenueAmount = -revenueAmount
+            }
+            revenueAmount = parseFloat(revenueAmount).toFixed(2);
             var revenueTransactionEntity = {
                 RevenueTransactionId:0,
                 RevenueTransactionDate: document.getElementById("RevenueTransactionDate").value,
@@ -548,7 +554,7 @@
                 RevenueTypeId: document.getElementById("RevenueTypeId").value,
                 OrgName: document.getElementById("OrgName").value,
                 RevenueTranscationDescription: document.getElementById("RevenueTranscationDescription").value,
-                RevenueTransactionAmount: parseFloat((document.getElementById("RevenueTransactionAmount").value).replace("$", "").replace(",", "")).toFixed(2),
+                RevenueTransactionAmount: revenueAmount,
                 ObjectName: document.getElementById("ObjectName").value,
                 ProjectName: document.getElementById("ProjectName").value,
                 DrawId: Draw,

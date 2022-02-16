@@ -653,5 +653,73 @@ namespace DHSDAL
             return revenueResponse;
 
         }
+        
+        public RevenueResponse GetRevenueTransactionDetails(RevenueRequest revenueRequest)
+        {
+            revenueResponse.ErrorMessage = string.Empty;
+            revenueResponse.Message = string.Empty;
+            List<RevenueTransactionEntity> revenueTransactionEntities = new List<RevenueTransactionEntity>();
+            SqlObject.Parameters = new object[] {
+                    revenueRequest.revenueTransactionEntity.ProjectName,
+                    revenueRequest.revenueTransactionEntity.RevenueTransactionNumber
+            };
+            var transactionDetailDataSet = SqlHelper.ExecuteDataset(_connectionString, StoredProcedures.Revenue.USPGETALLREVENUETRANSACTIONS, SqlObject.Parameters);
+            foreach (DataRow revenueDataRow in transactionDetailDataSet.Tables[0].Rows)
+            {
+                RevenueTransactionEntity revenueTransactionEntity = new RevenueTransactionEntity();
+                try
+                {
+                    revenueTransactionEntity.RevenueTransactionId = Convert.ToInt64(revenueDataRow["RevenueTransactionId"].ToString());
+                    revenueTransactionEntity.RevenueTypeName = revenueDataRow["RevenueTypeName"].ToString();
+                    revenueTransactionEntity.RevenueTranscationDescription = revenueDataRow["RevenueTranscationDescription"].ToString();
+                    revenueTransactionEntity.RevenueTransactionAmount = Convert.ToDecimal(revenueDataRow["RevenueTransactionAmount"].ToString());
+                    revenueTransactionEntity.RevenueTransactionNumber = revenueDataRow["RevenueTransactionNumber"].ToString();
+                    revenueTransactionEntity.OrgName = revenueDataRow["OrgName"].ToString();
+                    revenueTransactionEntity.ObjectName = revenueDataRow["ObjectName"].ToString();
+                    revenueTransactionEntity.ProjectName = revenueDataRow["ProjectName"].ToString();
+                    revenueTransactionEntity.DrawNumber = revenueDataRow["DrawNumber"].ToString();
+                    revenueTransactionEntity.ExpenseCount = Convert.ToInt32(revenueDataRow["ExpenseCount"].ToString());
+                    revenueTransactionEntity.RevenueTransactionDate = Convert.ToDateTime(revenueDataRow["RevenueTransactionDate"].ToString()).ToShortDateString();
+                }
+                catch (Exception exception)
+                {
+                    revenueTransactionEntity.ErrorMessage = exception.Message;
+                    revenueTransactionEntity.Exception = exception;
+                    revenueTransactionEntity.RevenueTransactionDate = revenueDataRow["RevenueTransactionDate"].ToString();
+                }
+                finally
+                {
+                    revenueTransactionEntities.Add(revenueTransactionEntity);
+                }
+            }
+            if (revenueTransactionEntities.Count >= 1 || revenueTransactionEntities.Count == 0)
+            {
+                revenueResponse.ErrorMessage = string.Empty;
+                revenueResponse.Message = string.Empty;
+            }
+            revenueResponse.revenueTransactionEntities = revenueTransactionEntities;
+            return revenueResponse;
+        }
+
+
+        public RevenueResponse DeleteRevenueTransaction(RevenueRequest revenueRequest)
+        {
+            revenueResponse.ErrorMessage = string.Empty;
+            revenueResponse.Message = string.Empty;
+            try
+            {
+                SqlObject.Parameters = new object[] {
+                    revenueRequest.revenueTransactionEntity.RevenueTransactionId
+                };
+                var transactionDetailDataSet = SqlHelper.ExecuteScalar(_connectionString, StoredProcedures.Revenue.USPDELETEREVENUETRANSACTION, SqlObject.Parameters);
+            }
+            catch (Exception ex)
+            {
+                revenueResponse.Exception = ex;
+                revenueResponse.ErrorMessage = ex.Message;
+            }
+            return revenueResponse;
+        }
+
     }
 }

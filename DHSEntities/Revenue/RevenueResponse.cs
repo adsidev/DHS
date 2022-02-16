@@ -10,6 +10,7 @@ namespace DHSEntities
         public List<RevenueEntity> revenueEntities { get; set; }
         public List<ExpenseEntity> expenseEntities { get; set; }
         public IPagedList<RevenueEntity> pagedRevenueEntities { get; set; }
+        public IPagedList<RevenueTransactionEntity> pagedrevenueTransactionEntities{ get; set; }
         public RolePermissionEntity rolePermissionEntity { get; set; }
         public List<PeriodEntity> periodEntities { get; set; }
         public List<SourceEntity> sourceEntities { get; set; }

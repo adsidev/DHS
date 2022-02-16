@@ -1,0 +1,280 @@
+﻿@model DHSEntities.RevenueResponse
+@using PagedList.Mvc
+@using DHS.Reconcilation.Models
+
+@{
+    ViewBag.Title = "DHS Reconcilation :: Manage Revenues";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+<title>@ViewBag.Title</title>
+<script src="~/Scripts/jquery-1.10.2.min.js"></script>
+@section LeftMenuSection
+{
+    @Html.Partial("_menuCRPayments");
+}
+@using (Html.BeginForm("ManageRevenueTransactions", "Revenue", FormMethod.Post, new { @id = "frmRevenues" }))
+{
+    <title>@ViewBag.Title</title>
+    <input type="hidden" id="hdnRevenueId" name="hdnRevenueId" />
+    <div class="tab-pane active" id="dashboard">
+        <div class="container-fluid">
+            <!-- top tiles -->
+            <div class="row ">
+                <div class="col-lg-12">
+                    <div class="mrp_content">
+                        <h2>View Revenues</h2>
+                        <form class="mrp_selectdetails form-inline">
+                            <div class="row">
+                                <div class="form-group col-lg-4 col-xs-12 col-sm-6">
+                                    <label for="SearchOn">Project:</label>
+                                    <div class="form_modal">
+                                        <div class="form_modal">
+                                            @Html.TextBoxFor(m => m.revenueTransactionEntity.ProjectName, htmlAttributes: new { @id = "ProjectName", @class = "form-control mrp_modalselect" })
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="form-group col-lg-4 col-xs-12 col-sm-7">
+                                    <label for="SearchOn">Revenue&nbsp;Transaction&nbsp;Number:</label>
+                                    <div class="form_modal">
+                                        @Html.TextBoxFor(m => m.revenueTransactionEntity.RevenueTransactionNumber, htmlAttributes: new { @id = "RevenueTransactionNumber", @class = "form-control mrp_modalselect" })
+                                    </div>
+                                </div>
+                                <div class="form-group col-lg-4 col-xs-12 col-sm-7">
+                                    <div class="form_modal">
+                                        @if (Model.rolePermissionEntity.ViewBit)
+                                        {
+                                            <img src="~/images/search.png" class="img-responsive" height="40" width="40" onclick="SelectedIndexChanged()" style="cursor:pointer;" alt="Search Revenue Transactions" />
+                                        }
+                                        else
+                                        {
+                                            <img src="~/images/search.png" class="disableButton" height="40" width="40" alt="Search Revenue Transactions" />
+                                        }
+                                    </div>
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+            <div class="row mrp_table-row">
+                <div class="col-lg-12 col-xs-12">
+                    <div class="table-responsive">
+                        <div class="mrp_contentbody mrp_contenttable">
+                            <div class="mrp_table">
+                                <table class="table table-bordered table-striped">
+                                    <thead>
+                                        
+                                        <tr>
+                                            <th style="margin-left:1px; margin-right:1px;">
+                                                Action
+                                            </th>
+                                            <th nowrap>
+                                                Transaction No
+                                            </th>
+                                            <th nowrap>
+                                                Revenue Trans Date
+                                            </th>
+                                            <th nowrap>
+                                                Revenue Trans Amount
+                                            </th>
+                                            <th nowrap>
+                                                Org
+                                            </th>
+                                            <th nowrap>
+                                                Object
+                                            </th>
+                                            <th nowrap>
+                                                Project
+                                            </th>
+                                            <th nowrap>
+                                                Revenue Type
+                                            </th>
+                                            <th nowrap>
+                                                Draw
+                                            </th>
+                                            <th nowrap style="text-align:left;">
+                                                Notes
+                                            </th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        @{
+                                            decimal RevenueTotal = 0;
+                                            foreach (var item in Model.pagedrevenueTransactionEntities)
+                                            {
+                                                RevenueTotal = RevenueTotal + item.RevenueTransactionAmount;
+                                                <tr>
+                                                    <td style="text-align:left;">
+                                                        @if (Model.rolePermissionEntity.ViewBit)
+                                                        {
+                                                            <img src="~/images/view-icon.png" class="img-responsive" style="cursor:pointer;" alt="View Revenue Transaction Information" onclick="ViewRevenueTransaction('@item.RevenueTransactionId')" />
+                                                            if(item.ExpenseCount==0)
+                                                            { 
+                                                                <img src="~/images/Delete.png" class="img-responsive" onclick="RemoveRevenueTransaction('@item.RevenueTransactionId')" style="cursor:pointer;" alt="Delete Revenue Transaction" height="20" width="20" />
+                                                            }                                                            
+                                                        }
+                                                        else
+                                                        {
+                                                            <a class="mrp_popup disableButton" data-toggle="modal">
+                                                                <img src="~/images/view-icon.png" alt="View Revenue Transaction Information" class="img-responsive disableButton" />
+                                                            </a>
+                                                        }
+                                                    </td>
+                                                    <td>
+                                                        @item.RevenueTransactionNumber
+                                                    </td>
+                                                    <td>
+                                                        @item.RevenueTransactionDate
+                                                    </td>
+                                                    <td>
+                                                        @String.Format("{0:$#,##0.00}", item.RevenueTransactionAmount)
+                                                    </td>
+                                                    <td>
+                                                        @item.OrgName
+                                                    </td>
+                                                    <td>
+                                                        @item.ObjectName
+                                                    </td>
+                                                    <td>
+                                                        @item.ProjectName
+                                                    </td>
+                                                    <td>
+                                                        @item.RevenueTypeName
+                                                    </td>
+                                                    <td>
+                                                        @item.DrawNumber
+                                                    </td>
+                                                    <td nowrap style="text-align:left;">
+                                                        @item.RevenueTranscationDescription
+                                                    </td>
+                                                </tr>
+                                            }
+                                        }
+                                    </tbody>
+                                </table>
+
+                                <!-- popup -->
+                                <div class="modal fade mrp_modalpopup" id="RevenueTransactionModal">
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- /top tiles -->
+                </div>
+            </div>
+            <!-- /page content -->
+            <div id="container" class="mra_pagination">
+                <div class="pagination">
+                    @Html.PagedListPager(Model.pagedrevenueTransactionEntities, page => Url.Action("ManageRevenueTransactions", new { page }))
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+
+    <script type="text/javascript">
+        function ViewRevenueTransaction(revenueId) {
+            var options = { "backdrop": "static", keyboard: true };
+            $.ajax({
+                type: "GET",
+                url: "/Revenue/ViewRevenueTransaction/" + revenueId,
+                dataType: "html",
+                success: function (evt) {
+                    $('#RevenueTransactionModal').html(evt);
+                    $('#RevenueTransactionModal').modal(options);
+                    $('#RevenueTransactionModal').modal('show');
+                },
+                error: function (req, status, error) {
+                    alert(error);
+                    alert("Error!Occured");
+                }
+            });
+        }
+
+        function EditRevenueTransaction(revenueId) {
+            var options = { "backdrop": "static", keyboard: true };
+            $.ajax({
+                type: "GET",
+                url: "/Revenue/EditRevenueTransaction/" + revenueId,
+                dataType: "html",
+                success: function (evt) {
+                    $('#RevenueTransactionModal').html(evt);
+                    $('#RevenueTransactionModal').modal(options);
+                    $('#RevenueTransactionModal').modal('show');
+                },
+                error: function (req, status, error) {
+                    alert("Error!Occured");
+                }
+            });
+        }
+
+
+        function SelectedIndexChanged() {
+            if ($("#SearchOn").val() != "" & $("#txtSearch").val() == "") {
+                alert("Please enter value to search");
+                $("#txtSearch").focus();
+            }
+            else {
+                $('#frmRevenues').submit();
+            }
+        }
+
+        function SortOrder(SortOrder) {
+            $("#hdnSortOrder").val(SortOrder)
+            $('#frmRevenues').submit();
+        }
+
+        function Validate() {
+            alert("You don't have access to this activity. Please contact your administrator.");
+            return false;
+        }
+
+        $(document).ready(function () {
+            $('#mra_subliMRT').addClass('active');
+        });
+
+
+        function RevenueExpense(expenseId) {
+            var url = "/Revenue/RevenueExpense/" + expenseId;
+            location.href = url;
+        }
+
+        function OpenRevenue(RevenueId) {
+            var url = "/Revenue/RevenueInfo/" + RevenueId;
+            location.href = url;
+        }
+
+        function LinkToDraw(revenueId) {
+            var url = "/Revenue/LinkToDraw/" + revenueId;
+            location.href = url;
+        }
+
+
+        function DrawRevenue(revenueId) {
+            var url = "/Revenue/DrawRevenue/" + revenueId;
+            location.href = url;
+        }
+
+        function RemoveRevenueTransaction(RevenueTransactionId) {
+            if (window.confirm("Are you sure want delete Revenue Transaction?")) {
+                var revenueTransactionEntity = {
+                    RevenueTransactionId: RevenueTransactionId,
+                    ModifiedBy:@Common.GetSession("UserID"),
+                };
+                var revenueRequest = {
+                    revenueTransactionEntity: revenueTransactionEntity
+                };
+                $.ajax({
+                    url: "/Revenue/DeleteRevenueTransaction",
+                    type: "POST",
+                    data: revenueRequest,
+                    dataType: 'json',
+                    success: function (data) {
+                        location.href = "/Revenue/ManageRevenueTransactions";
+                    }
+                })
+            }
+        }
+    </script>
+}

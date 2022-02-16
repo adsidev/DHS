@@ -749,6 +749,109 @@ namespace DHS.Reconcilation.Controllers
                 return RedirectToAction("Error", "Home");
             }
         }
-    
+
+
+        public async Task<ActionResult> ManageRevenueTransactions(int? page)
+        {
+            if (!Common.SessionExists())
+                return RedirectToAction("Index", "Home");
+            int pageSize = Common.pageNumbers;
+            int pageIndex = 1;
+            pageIndex = page.HasValue ? Convert.ToInt32(page) : 1;
+            RevenueResponse revenueResponse = new RevenueResponse();
+            RevenueRequest revenueRequest = new RevenueRequest();
+
+            RevenueTransactionEntity revenueTransactionEntity = new RevenueTransactionEntity();
+            revenueTransactionEntity.ProjectName = string.Empty;
+            revenueTransactionEntity.RevenueTransactionNumber = string.Empty;
+            if (Common.GetSession("RTProjectName") != "")
+                revenueTransactionEntity.ProjectName = Common.GetSession("RTProjectName");
+
+            if (Common.GetSession("RTRevenueTransactionNumber") != "")
+                revenueTransactionEntity.RevenueTransactionNumber = Common.GetSession("RTRevenueTransactionNumber");
+
+            revenueRequest.revenueTransactionEntity = revenueTransactionEntity;
+
+            string url = strBaseURL + "Revenue/GetRevenueTransactionDetails";
+            client.BaseAddress = new Uri(url);
+            HttpResponseMessage responseMessage = await client.PostAsJsonAsync(url, revenueRequest);
+
+            if (responseMessage.IsSuccessStatusCode)
+            {
+                var responseData = responseMessage.Content.ReadAsStringAsync().Result;
+                revenueResponse = JsonConvert.DeserializeObject<RevenueResponse>(responseData);
+                if (revenueResponse.Message == string.Empty && revenueResponse.ErrorMessage == string.Empty)
+                {
+                    string PageName = "Revenues";
+                    revenueResponse.rolePermissionEntity = Common.PagePermissions(PageName);
+                    revenueResponse.revenueTransactionEntity = revenueTransactionEntity;
+                    revenueResponse.pagedrevenueTransactionEntities = revenueResponse.revenueTransactionEntities.ToPagedList(pageIndex, pageSize);
+                    return View(revenueResponse);
+                }
+                else
+                {
+                    TempData["LoginFailure"] = revenueResponse.Message;
+                    return RedirectToAction("Error", "Home");
+                }
+            }
+            else
+            {
+                TempData["LoginFailure"] = responseMessage.ToString();
+                return RedirectToAction("Error", "Home");
+            }
+        }
+
+        [HttpPost]
+        public async Task<ActionResult> ManageRevenueTransactions(int? page, int? id = 0)
+        {
+            if (!Common.SessionExists())
+                return RedirectToAction("Index", "Home");
+            int pageSize = Common.pageNumbers;
+            int pageIndex = 1;
+            pageIndex = page.HasValue ? Convert.ToInt32(page) : 1;
+            RevenueResponse revenueResponse = new RevenueResponse();
+            RevenueRequest revenueRequest = new RevenueRequest();
+            RevenueTransactionEntity revenueTransactionEntity = new RevenueTransactionEntity();
+            revenueTransactionEntity.ProjectName = string.Empty;
+            revenueTransactionEntity.RevenueTransactionNumber = string.Empty;
+            if (Request["revenueTransactionEntity.ProjectName"] != "")
+                revenueTransactionEntity.ProjectName = Request["revenueTransactionEntity.ProjectName"];
+
+            if (Request["revenueTransactionEntity.RevenueTransactionNumber"] != "")
+                revenueTransactionEntity.RevenueTransactionNumber = Request["revenueTransactionEntity.RevenueTransactionNumber"];
+
+            Common.AddSession("RTProjectName", revenueTransactionEntity.ProjectName);
+            Common.AddSession("RTRevenueTransactionNumber", revenueTransactionEntity.RevenueTransactionNumber.ToString());
+
+            revenueRequest.revenueTransactionEntity = revenueTransactionEntity;
+            string url = strBaseURL + "Revenue/GetRevenueTransactionDetails";
+            client.BaseAddress = new Uri(url);
+            HttpResponseMessage responseMessage = await client.PostAsJsonAsync(url, revenueRequest);
+
+            if (responseMessage.IsSuccessStatusCode)
+            {
+                var responseData = responseMessage.Content.ReadAsStringAsync().Result;
+                revenueResponse = JsonConvert.DeserializeObject<RevenueResponse>(responseData);
+                if (revenueResponse.Message == string.Empty && revenueResponse.ErrorMessage == string.Empty)
+                {
+                    string PageName = "Revenues";
+                    revenueResponse.revenueTransactionEntity = revenueTransactionEntity;
+                    revenueResponse.rolePermissionEntity = Common.PagePermissions(PageName);
+                    revenueResponse.pagedrevenueTransactionEntities = revenueResponse.revenueTransactionEntities.ToPagedList(pageIndex, pageSize);
+                    return View(revenueResponse);
+                }
+                else
+                {
+                    TempData["LoginFailure"] = revenueResponse.Message;
+                    return RedirectToAction("Error", "Home");
+                }
+            }
+            else
+            {
+                TempData["LoginFailure"] = responseMessage.ToString();
+                return RedirectToAction("Error", "Home");
+            }
+        }
+
     }
 }

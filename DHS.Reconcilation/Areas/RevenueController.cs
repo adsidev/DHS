@@ -247,5 +247,38 @@ namespace DHS.Reconcilation.Areas
             return expenseResponse;
         }
 
+        [HttpPost]
+        [Route("GetRevenueTransactionDetails")]
+        public RevenueResponse GetRevenueTransactionDetails(RevenueRequest expenseRequest)
+        {
+            try
+            {
+                expenseResponse = expenseRepository.GetRevenueTransactionDetails(expenseRequest);
+            }
+            catch (Exception ex)
+            {
+                expenseResponse.ErrorMessage = ex.Message;
+                expenseResponse.Exception = ex;
+            }
+            return expenseResponse;
+        }
+
+        [HttpPost]
+        [Route("DeleteRevenueTransaction")]
+        public RevenueResponse DeleteRevenueTransaction(RevenueRequest expenseRequest)
+        {
+            try
+            {
+                expenseResponse = expenseRepository.DeleteRevenueTransaction(expenseRequest);
+            }
+            catch (Exception ex)
+            {
+                expenseResponse.ErrorMessage = ex.Message;
+                expenseResponse.Exception = ex;
+            }
+            return expenseResponse;
+        }
+
+        
     }
 }
