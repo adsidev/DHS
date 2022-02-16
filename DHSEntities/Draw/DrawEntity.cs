@@ -29,6 +29,7 @@ namespace DHSEntities
         public string OrgName { get; set; }
         public string ObjectName { get; set; }
         public string ProjectName { get; set; }
+        public decimal AllocatedAmount { get; set; }
 
     }
 }
