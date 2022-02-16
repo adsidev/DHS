@@ -42,7 +42,6 @@ namespace DHSDAL
                 {
                     drawEntity.DrawId = Convert.ToInt64(drawDataRow["DrawId"].ToString());
                     drawEntity.DrawDownAmount = Convert.ToDecimal(drawDataRow["DarwDownAmount"].ToString()); 
-                    drawEntity.AllocatedAmount = Convert.ToDecimal(drawDataRow["AllocatedAmount"].ToString()); 
                     drawEntity.DrawDownDate = Convert.ToDateTime(drawDataRow["DrawDownDate"].ToString()).ToShortDateString();
                     if(drawDataRow["DatePosted"].ToString()!="")
                         drawEntity.DatePosted = Convert.ToDateTime(drawDataRow["DatePosted"].ToString()).ToShortDateString();
