@@ -109,6 +109,12 @@
                                                 Project
                                             </th>
                                             <th nowrap>
+                                                Allocated Amount
+                                            </th>
+                                            <th nowrap>
+                                                Difference
+                                            </th>
+                                            <th nowrap>
                                                 Assigned To
                                             </th>
                                             <th nowrap style="text-align:left">
@@ -119,6 +125,15 @@
                                     <tbody>
                                         @{foreach (var item in Model.pagedDrawEntities)
                                             {
+                                                decimal difference = 0;
+                                                if(item.AllocatedAmount<0)
+                                                {
+                                                    difference = item.DrawDownAmount + item.AllocatedAmount;
+                                                }
+                                                else
+                                                {
+                                                    difference = item.DrawDownAmount - item.AllocatedAmount;
+                                                }
                                         <tr>
                                             <td>
                                                 @if (Model.rolePermissionEntity.ViewBit)
@@ -158,6 +173,12 @@
                                             </td>
                                             <td nowrap>
                                                 @item.ProjectName
+                                            </td>
+                                            <td nowrap>
+                                                @string.Format("{0:C}", item.AllocatedAmount)
+                                            </td>
+                                            <td nowrap>
+                                                @string.Format("{0:C}", difference)
                                             </td>
                                             <td nowrap>
                                                 @item.AssignedToUser
