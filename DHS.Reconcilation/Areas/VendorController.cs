@@ -65,5 +65,22 @@ namespace DHS.Reconcilation.Areas
             return vendorResponse;
         }
 
+
+        [HttpPost]
+        [Route("CheckVendorName")]
+        public VendorResponse CheckVendorName(VendorRequest vendorRequest)
+        {
+            try
+            {
+                vendorResponse = vendorRepository.CheckVendorName(vendorRequest);
+            }
+            catch (Exception ex)
+            {
+                vendorResponse.ErrorMessage = ex.Message;
+                vendorResponse.Exception = ex;
+            }
+            return vendorResponse;
+        }
+
     }
 }

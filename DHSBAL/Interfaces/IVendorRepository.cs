@@ -7,5 +7,6 @@ namespace DHSBAL
         VendorResponse GetVendors(VendorRequest vendorRequest);
         VendorResponse GetVendor(VendorRequest vendorRequest);
         VendorResponse SaveVendor(VendorRequest vendorRequest);
+        VendorResponse CheckVendorName(VendorRequest vendorRequest);
     }
 }

@@ -20,10 +20,11 @@ namespace DHSDAL
             vendorResponse = new VendorResponse();
         }
 
-        public VendorResponse GetVendors()
+        public VendorResponse GetVendors(VendorRequest vendorRequest)
         {
             List<VendorEntity> vendorEntities = new List<VendorEntity>();
             SqlObject.Parameters = new object[] {
+                vendorRequest.vendorEntity.VendorName
             };
             var vendorDataSet = SqlHelper.ExecuteDataset(_connectionString, StoredProcedures.Vendor.USPGETVENDORS, SqlObject.Parameters);
             foreach (DataRow vendorDataRow in vendorDataSet.Tables[0].Rows)
@@ -117,6 +118,23 @@ namespace DHSDAL
                 vendorResponse.ErrorMessage = ex.Message;
                 vendorResponse.Exception = ex;
             }
+            return vendorResponse;
+        }
+
+        public VendorResponse CheckVendorName(VendorRequest vendorRequest)
+        {
+            bool IsExists = false;
+            SqlObject.Parameters = new object[] {
+                   vendorRequest.vendorEntity.VendorName,
+                   vendorRequest.vendorEntity.VendorId
+            };
+            var drawDataSet = SqlHelper.ExecuteDataset(_connectionString, StoredProcedures.Vendor.USPCHECKVENDORBYVENDORNAME, SqlObject.Parameters);
+            foreach (DataRow drawDataRow in drawDataSet.Tables[0].Rows)
+            {
+                if (Convert.ToInt32(drawDataRow["VendorCount"].ToString()) >= 1)
+                    IsExists = true;
+            }
+            vendorResponse.IsExists = IsExists;
             return vendorResponse;
         }
 

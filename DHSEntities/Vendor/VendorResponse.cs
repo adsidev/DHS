@@ -9,5 +9,6 @@ namespace DHSEntities
         public VendorEntity vendorEntity { get; set; }
         public IPagedList<VendorEntity> pagedVendorEntities { get; set; }
         public RolePermissionEntity rolePermissionEntity { get; set; }
+        public bool IsExists { get; set; }
     }
 }

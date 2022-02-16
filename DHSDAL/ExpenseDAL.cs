@@ -392,7 +392,11 @@ namespace DHSDAL
            // expenseResponse.revenueTransactionEntities = GetRevenueTransactionByExpenseId(transactionDetailEntity.ExpenseId);
             expenseResponse.transactionDetailEntities = GetTransactionDetails(transactionDetailEntity.ExpenseId);
             VendorDAL vendorDAL = new VendorDAL();
-            expenseResponse.vendorEntities = vendorDAL.GetVendors().vendorEntities;
+            VendorRequest vendorRequest = new VendorRequest();
+            VendorEntity vendorEntity = new VendorEntity();
+            vendorEntity.VendorName = string.Empty;
+            vendorRequest.vendorEntity = vendorEntity;
+            expenseResponse.vendorEntities = vendorDAL.GetVendors(vendorRequest).vendorEntities;
             
             CommonDAL commonDAL = new CommonDAL();
             expenseResponse.statusEntities = commonDAL.GetStatuses();

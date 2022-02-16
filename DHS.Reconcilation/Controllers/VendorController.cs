@@ -25,6 +25,7 @@ namespace DHS.Reconcilation.Controllers
             client.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
         }
 
+        [HttpGet]
         public async Task<ActionResult> ManageVendors(int? page)
         {
             if (!Common.SessionExists())
@@ -34,12 +35,19 @@ namespace DHS.Reconcilation.Controllers
             pageIndex = page.HasValue ? Convert.ToInt32(page) : 1;
             VendorResponse vendorResponse = new VendorResponse();
             VendorRequest vendorRequest = new VendorRequest();
+            VendorEntity vendorEntity = new VendorEntity();
+            vendorEntity.VendorName = string.Empty;
+            if (Common.GetSession("VVendorName") != "")
+                vendorEntity.VendorName = Common.GetSession("VVendorName");
+
+            vendorRequest.vendorEntity = vendorEntity;
             string url = strBaseURL + "Vendor/GetVendors";
             client.BaseAddress = new Uri(url);
             HttpResponseMessage responseMessage = await client.PostAsJsonAsync(url, vendorRequest);
 
             if (responseMessage.IsSuccessStatusCode)
             {
+                vendorResponse.vendorEntity = vendorEntity;
                 var responseData = responseMessage.Content.ReadAsStringAsync().Result;
                 vendorResponse = JsonConvert.DeserializeObject<VendorResponse>(responseData);
                 if (vendorResponse.Message == string.Empty && vendorResponse.ErrorMessage == string.Empty)
@@ -62,6 +70,52 @@ namespace DHS.Reconcilation.Controllers
             }
         }
 
+        [HttpPost]
+        public async Task<ActionResult> ManageVendors(int? page, int? id = 0)
+        {
+            if (!Common.SessionExists())
+                return RedirectToAction("Index", "Home");
+            int pageSize = Common.pageNumbers;
+            int pageIndex = 1;
+            pageIndex = page.HasValue ? Convert.ToInt32(page) : 1;
+            VendorResponse vendorResponse = new VendorResponse();
+            VendorRequest vendorRequest = new VendorRequest();
+            VendorEntity vendorEntity = new VendorEntity();
+            vendorEntity.VendorName = string.Empty;
+            if (Request["vendorEntity.VendorName"] != "")
+                vendorEntity.VendorName = Request["vendorEntity.VendorName"];
+            
+            Common.AddSession("VVendorName", vendorEntity.VendorName.ToString());
+
+            vendorRequest.vendorEntity = vendorEntity;
+            string url = strBaseURL + "Vendor/GetVendors";
+            client.BaseAddress = new Uri(url);
+            HttpResponseMessage responseMessage = await client.PostAsJsonAsync(url, vendorRequest);
+
+            if (responseMessage.IsSuccessStatusCode)
+            {
+                var responseData = responseMessage.Content.ReadAsStringAsync().Result;
+                vendorResponse = JsonConvert.DeserializeObject<VendorResponse>(responseData);
+                if (vendorResponse.Message == string.Empty && vendorResponse.ErrorMessage == string.Empty)
+                {
+                    string PageName = "Vendor";
+                    vendorResponse.vendorEntity = vendorEntity;
+                    vendorResponse.rolePermissionEntity = Common.PagePermissions(PageName);
+                    vendorResponse.pagedVendorEntities = vendorResponse.vendorEntities.ToPagedList(pageIndex, pageSize);
+                    return View(vendorResponse);
+                }
+                else
+                {
+                    TempData["LoginFailure"] = vendorResponse.Message;
+                    return RedirectToAction("Error", "Home");
+                }
+            }
+            else
+            {
+                TempData["LoginFailure"] = responseMessage.ToString();
+                return RedirectToAction("Error", "Home");
+            }
+        }
         public async Task<ActionResult> CreateVendor()
         {
             if (!Common.SessionExists())

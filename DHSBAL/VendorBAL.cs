@@ -22,7 +22,7 @@ namespace DHSBAL
         {
             try
             {
-                vendorResponse = vendorDALRepository.GetVendors();
+                vendorResponse = vendorDALRepository.GetVendors(vendorRequest);
             }
             catch (Exception ex)
             {
@@ -51,6 +51,20 @@ namespace DHSBAL
             try
             {
                 vendorResponse = vendorDALRepository.SaveVendor(vendorRequest);
+            }
+            catch (Exception ex)
+            {
+                vendorResponse.ErrorMessage = ex.Message;
+                vendorResponse.Exception = ex;
+            }
+            return vendorResponse;
+        }
+
+        public VendorResponse CheckVendorName(VendorRequest vendorRequest)
+        {
+            try
+            {
+                vendorResponse = vendorDALRepository.CheckVendorName(vendorRequest);
             }
             catch (Exception ex)
             {

@@ -134,6 +134,7 @@ namespace DHSDAL
         {
             public const string USPGETVENDORS = "sp_GetVendors";
             public const string USPGETVENDOR = "sp_GetVendor";
+            public const string USPCHECKVENDORBYVENDORNAME = "sp_CheckVendorByVendorName";
             public const string USPSAVEVENDOR = "sp_SaveVendor";
         }
 
