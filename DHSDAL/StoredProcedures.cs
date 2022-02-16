@@ -41,12 +41,14 @@ namespace DHSDAL
             public const string USPGETEXPENSE = "sp_GetExpense";
             public const string USPSAVEEXPENSE = "sp_SaveExpense";
             public const string USPGETTRANSACTIONDETAILS = "sp_GetTransactionDetails";
+            public const string USPGETALLTRANSACTIONDETAILS = "sp_GetAllTransactionDetails";
             public const string USPGETTRANSACTIONDETAIL = "sp_GetTransactionDetail";
             public const string USPSAVETRANSACTIONDETAIL = "sp_SaveTransactionDetail";
             public const string USPGETEXPENSEREVENUE = "sp_GetExpenseRevenue";
             public const string USPGETLINKTOREVENUE = "sp_GetLinkToRevenue";
             public const string USPSAVELINKTOREVENUE = "sp_SaveLinkToRevenue";
             public const string USPDLINKREVENUE = "sp_SaveDLinkRevenue";
+            public const string USPREMOVELINKEXPREV = "sp_RemoveLinkExpRev";
         }
 
         public class Revenue

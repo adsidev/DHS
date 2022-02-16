@@ -1,0 +1,284 @@
+﻿@model DHSEntities.ExpenseResponse
+@using PagedList.Mvc
+@using DHS.Reconcilation.Models
+
+@{
+    ViewBag.Title = "DHS Reconcilation :: Manage Expense Transaction Details";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+<title>@ViewBag.Title</title>
+<script src="~/Scripts/jquery-1.10.2.min.js"></script>
+@section LeftMenuSection
+{
+    @Html.Partial("_menuCRPayments");
+}
+@using (Html.BeginForm("ManageExpenseTransactions", "Expense", FormMethod.Post, new { @id = "frmExpenses" }))
+{
+    <title>@ViewBag.Title</title>
+    <input type="hidden" id="hdnExpenseId" name="hdnExpenseId" />
+    <div class="tab-pane active" id="dashboard">
+        <div class="container-fluid">
+            <!-- top tiles -->
+            <div class="row ">
+                <div class="col-lg-12">
+                    <div class="mrp_content">
+                        <h2>View Expense Transaction Details</h2>
+                        <form class="mrp_selectdetails form-inline">
+                            <div class="row">
+                                <div class="form-group col-lg-3 col-xs-12 col-sm-6">
+                                    <label for="SearchOn">Project:</label>
+                                    <div class="form_modal">
+                                        @Html.DropDownList("ProjectId", new SelectList(Model.projectEntities, "ProjectId", "ProjectName", Model.transactionDetailEntity.ProjectId), "", new { @id = "ProjectId", @class = "form-control mrp_modalselect" })
+                                    </div>
+                                </div>
+                                <div class="form-group col-lg-4 col-xs-12 col-sm-5">
+                                    <label for="SearchOn">Exp&nbsp;Transaction&nbsp;Number:</label>
+                                    <div class="form_modal">
+                                        @Html.TextBoxFor(m => m.transactionDetailEntity.TransactionNumber, htmlAttributes: new { @id = "TransactionNumber", @class = "form-control mrp_modalselect" })
+                                    </div>
+                                </div>
+                                <div class="form-group col-lg-4 col-xs-12 col-sm-7">
+                                    <label for="SearchOn">Revenue&nbsp;Transaction&nbsp;Number:</label>
+                                    <div class="form_modal">
+                                        @Html.TextBoxFor(m => m.transactionDetailEntity.RevenueTransactionNumber, htmlAttributes: new { @id = "RevenueTransactionNumber", @class = "form-control mrp_modalselect" })
+                                    </div>
+                                </div>
+                                <div class="form-group col-lg-1 col-xs-12 col-sm-7">
+                                    <div class="form_modal">
+                                        @if (Model.rolePermissionEntity.ViewBit)
+                                        {
+                                            <img src="~/images/search.png" class="img-responsive" height="40" width="40" onclick="SelectedIndexChanged()" style="cursor:pointer;" alt="Search Expense Information" />
+                                        }
+                                        else
+                                        {
+                                            <img src="~/images/search.png" class="disableButton" height="40" width="40" alt="Search Expense Information" />
+                                        }
+                                    </div>
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+            <div class="row mrp_table-row">
+                <div class="col-lg-12 col-xs-12">
+                    <div class="table-responsive">
+                        <div class="mrp_contentbody mrp_contenttable">
+                            <div class="mrp_table">
+                                <table class="table table-bordered table-striped">
+                                    <thead>
+                                        <tr>
+                                            <th style="margin-left:1px; margin-right:1px;">
+                                                Action
+                                            </th>
+                                            <th nowrap>
+                                                Transaction No
+                                            </th>
+                                            <th nowrap>
+                                                Transaction Date
+                                            </th>
+                                            <th nowrap>
+                                                Transaction Amount
+                                            </th>
+                                            <th nowrap>
+                                                Expense No
+                                            </th>
+                                            <th nowrap>
+                                                Org
+                                            </th>
+                                            <th nowrap>
+                                                Object
+                                            </th>
+                                            <th nowrap>
+                                                Project
+                                            </th>
+                                            <th nowrap>
+                                                CFDA
+                                            </th>
+                                            <th nowrap>
+                                                Category 1
+                                            </th>
+                                            <th nowrap>
+                                                Category 2
+                                            </th>
+                                            <th nowrap>
+                                                Status
+                                            </th>
+                                            <th nowrap>
+                                                Vendor Name
+                                            </th>
+                                            <th nowrap>
+                                                Revenue Transaction
+                                            </th>
+                                            <th nowrap style="text-align:left">
+                                                Notes
+                                            </th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        @{
+                                            decimal Total = 0;
+                                            string RevenueInfo = string.Empty;
+                                            foreach (var item in Model.pagedTransactionDetailEntity)
+                                            {
+                                                Total = Total + item.TransactionAmount;
+                                                RevenueInfo = item.RevenueTransactionNumber + " - " + item.RevenueTransactionDate + " - " + String.Format("{0:$#,##0.00}", item.RevenueTransactionAmount) + " - " + item.RevenueProjectName + " - " + item.BatchNumber + " - " + String.Format("{0:$#,##0.00}", item.DrawAmount) + " - " + item.DrawDate;
+                                                <tr>
+                                                    <td nowrap>
+                                                        @if (Model.rolePermissionEntity.ViewBit)
+                                                        {
+                                                            <img src="~/images/view-icon.png" class="img-responsive" style="cursor:pointer;" alt="View Expense Information" onclick="ViewTransactionDetail('@item.TransactionDetailId')" />
+                                                            <img src="~/images/Delete.png" class="img-responsive" onclick="RemoveRevenueTransaction('@item.TransactionDetailId')" style="cursor:pointer;" alt="Remove Link between Expense Transaction to Revenue Transaction" height="20" width="20" />
+                                                        }
+                                                        else
+                                                        {
+                                                            <a class="mrp_popup disableButton" data-toggle="modal">
+                                                                <img src="~/images/view-icon.png" class="img-responsive disableButton" />
+                                                            </a>
+                                                        }
+                                                    </td>
+                                                    <td nowrap>
+                                                        @item.TransactionNumber
+                                                    </td>
+                                                    <td nowrap>
+                                                        @item.TransactionDate
+                                                    </td>
+                                                    <td nowrap>
+                                                        @String.Format("{0:$#,##0.00}", item.TransactionAmount)
+                                                    </td>
+                                                    <td nowrap>
+                                                        @item.ExpenseNumber
+                                                    </td>
+                                                    <td nowrap>
+                                                        @item.OrgName
+                                                    </td>
+                                                    <td nowrap>
+                                                        @item.ObjectName
+                                                    </td>
+                                                    <td nowrap>
+                                                        @item.ProjectName
+                                                    </td>
+                                                    <td nowrap>
+                                                        @item.CFDA
+                                                    </td>
+                                                    <td nowrap>
+                                                        @item.FGTCategoryName1
+                                                    </td>
+                                                    <td nowrap>
+                                                        @item.FGTCategoryName2
+                                                    </td>
+                                                    <td nowrap>
+                                                        @item.StatusName
+                                                    </td>
+                                                    <td nowrap>
+                                                        @item.VendorName
+                                                    </td>
+                                                    @if (item.RevenueTransactionNumber != "")
+                                                    {
+                                                        <td nowrap>@RevenueInfo</td>
+                                                    }
+                                                    else
+                                                    {
+                                                        <td nowrap>&nbsp;</td>
+                                                    }
+                                                    <td style="text-align:left;" nowrap>
+                                                        @item.TransactionDescription
+                                                    </td>
+                                                </tr>
+                                            }
+                                        }
+                                    </tbody>
+                                </table>
+
+                                <!-- popup -->
+                                <div class="modal fade mrp_modalpopup" id="TransactionDetailModal">
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- /top tiles -->
+                </div>
+            </div>
+            <!-- /page content -->
+            <div id="container" class="mra_pagination">
+                <div class="pagination">
+                    @Html.PagedListPager(Model.pagedTransactionDetailEntity, page => Url.Action("ManageExpenseTransactions", new { page }))
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+
+    <script type="text/javascript">
+
+        function SelectedIndexChanged() {
+            if ($("#SearchOn").val() != "" & $("#txtSearch").val() == "") {
+                alert("Please enter value to search");
+                $("#txtSearch").focus();
+            }
+            else {
+                $('#frmExpenses').submit();
+            }
+        }
+
+        function SortOrder(SortOrder) {
+            $("#hdnSortOrder").val(SortOrder)
+            $('#frmExpenses').submit();
+        }
+
+        function Validate() {
+            alert("You don't have access to this activity. Please contact your administrator.");
+            return false;
+        }
+
+        $(document).ready(function () {
+            $('#mra_subliMET').addClass('active');
+        });
+
+        function ViewTransactionDetail(expenseId) {
+            var options = { "backdrop": "static", keyboard: true };
+            $.ajax({
+                type: "GET",
+                url: "/Expense/ViewTransactionDetail/" + expenseId,
+                dataType: "html",
+                success: function (evt) {
+                    $('#TransactionDetailModal').html(evt);
+                    $('#TransactionDetailModal').modal(options);
+                    $('#TransactionDetailModal').modal('show');
+                },
+                error: function (req, status, error) {
+                    alert(error);
+                    alert("Error!Occured");
+                }
+            });
+        }
+
+        function EditTransaction(expenseId, TransactionDetailId) {
+            $('#TransactionDetailModal').modal('hide');
+            var url = "/Expense/CreateTransactionDetail/" + expenseId + "?pid=" + TransactionDetailId;
+            location.href = url;
+        }
+
+        function RemoveRevenueTransaction(TransactionDetailId) {
+            if (window.confirm("Are you sure want to unlink Revenue Transaction?")) {
+                var transactionDetailEntity = {
+                    TransactionDetailId: TransactionDetailId,
+                    ModifiedBy:@Common.GetSession("UserID"),
+                };
+                var expenseRequest = {
+                    transactionDetailEntity: transactionDetailEntity
+                };
+                $.ajax({
+                    url: "/Expense/RemoveLinkExpRev",
+                    type: "POST",
+                    data: expenseRequest,
+                    dataType: 'json',
+                    success: function (data) {
+                        location.href = "/Expense/ManageExpenseTransactions";
+                    }
+                })
+            }
+        }
+    </script>
+}

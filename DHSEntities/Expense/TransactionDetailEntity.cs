@@ -37,5 +37,7 @@ namespace DHSEntities
         public string DrawDate { get; set; }
         public string StatusName { get; set; }
         public int StatusId { get; set; }
+        public int ProjectId { get; set; }
+        public string ExpenseNumber { get; set; }
     }
 }

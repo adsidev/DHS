@@ -461,6 +461,7 @@
     <Content Include="Views\Expense\_revenueTransaction.cshtml" />
     <Content Include="Views\Tools\ImportExpenseTransaction.cshtml" />
     <Content Include="Views\Report\ManageDHSSummaryReport.cshtml" />
+    <Content Include="Views\Expense\ManageExpenseTransactions.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

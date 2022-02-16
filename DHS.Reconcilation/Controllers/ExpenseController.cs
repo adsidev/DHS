@@ -825,6 +825,116 @@ namespace DHS.Reconcilation.Controllers
             }
         }
 
+        public async Task<ActionResult> ManageExpenseTransactions(int? page)
+        {
+            if (!Common.SessionExists())
+                return RedirectToAction("Index", "Home");
+            int pageSize = Common.pageNumbers;
+            int pageIndex = 1;
+            pageIndex = page.HasValue ? Convert.ToInt32(page) : 1;
+            ExpenseResponse expenseResponse = new ExpenseResponse();
+            ExpenseRequest expenseRequest = new ExpenseRequest();
+            TransactionDetailEntity transactionDetailEntity = new TransactionDetailEntity();
+            transactionDetailEntity.TransactionNumber = String.Empty;
+            transactionDetailEntity.ProjectId = 0;
+            transactionDetailEntity.RevenueTransactionNumber = String.Empty;
 
+            if (Common.GetSession("ETProjectId") != "")
+                transactionDetailEntity.ProjectId = Convert.ToInt32(Common.GetSession("ETProjectId"));
+
+            if (Common.GetSession("ETTransactionNumber") != "")
+                transactionDetailEntity.TransactionNumber = Common.GetSession("ETTransactionNumber");
+
+            if (Common.GetSession("ETRevenueTransactionNumber") != "")
+                transactionDetailEntity.RevenueTransactionNumber = Common.GetSession("ETRevenueTransactionNumber");
+
+            expenseRequest.transactionDetailEntity = transactionDetailEntity;
+            string url = strBaseURL + "Expense/GetAllTransactionDetails";
+            client.BaseAddress = new Uri(url);
+            HttpResponseMessage responseMessage = await client.PostAsJsonAsync(url, expenseRequest);
+
+            if (responseMessage.IsSuccessStatusCode)
+            {
+                var responseData = responseMessage.Content.ReadAsStringAsync().Result;
+                expenseResponse = JsonConvert.DeserializeObject<ExpenseResponse>(responseData);
+                if (expenseResponse.Message == string.Empty && expenseResponse.ErrorMessage == string.Empty)
+                {
+                    string PageName = "Expesnses";
+                    expenseResponse.transactionDetailEntity = transactionDetailEntity;
+                    expenseResponse.rolePermissionEntity = Common.PagePermissions(PageName);
+                    expenseResponse.pagedTransactionDetailEntity = expenseResponse.transactionDetailEntities.ToPagedList(pageIndex, pageSize);
+                    return View(expenseResponse);
+                }
+                else
+                {
+                    TempData["LoginFailure"] = expenseResponse.Message;
+                    return RedirectToAction("Error", "Home");
+                }
+            }
+            else
+            {
+                TempData["LoginFailure"] = responseMessage.ToString();
+                return RedirectToAction("Error", "Home");
+            }
+        }
+
+        [HttpPost]
+        public async Task<ActionResult> ManageExpenseTransactions(int? page, int? id = 0)
+        {
+            if (!Common.SessionExists())
+                return RedirectToAction("Index", "Home");
+            int pageSize = Common.pageNumbers;
+            int pageIndex = 1;
+            pageIndex = page.HasValue ? Convert.ToInt32(page) : 1;
+            ExpenseResponse expenseResponse = new ExpenseResponse();
+            ExpenseRequest expenseRequest = new ExpenseRequest();
+            TransactionDetailEntity transactionDetailEntity = new TransactionDetailEntity();
+            transactionDetailEntity.TransactionNumber = String.Empty;
+            transactionDetailEntity.ProjectId = 0;
+            transactionDetailEntity.RevenueTransactionNumber = String.Empty;
+
+            if (Request["ProjectId"] != "")
+                transactionDetailEntity.ProjectId = Convert.ToInt32(Request["ProjectId"]);
+
+
+            if (Request["transactionDetailEntity.TransactionNumber"] != "")
+                transactionDetailEntity.TransactionNumber = Request["transactionDetailEntity.TransactionNumber"];
+
+            if (Request["transactionDetailEntity.RevenueTransactionNumber"] != "")
+                transactionDetailEntity.RevenueTransactionNumber = Request["transactionDetailEntity.RevenueTransactionNumber"];
+
+            Common.AddSession("ETProjectId", transactionDetailEntity.ProjectId.ToString());
+            Common.AddSession("ETRevenueTransactionNumber", transactionDetailEntity.RevenueTransactionNumber.ToString());
+            Common.AddSession("ETTransactionNumber", transactionDetailEntity.TransactionNumber.ToString());
+
+            expenseRequest.transactionDetailEntity = transactionDetailEntity;
+            string url = strBaseURL + "Expense/GetAllTransactionDetails";
+            client.BaseAddress = new Uri(url);
+            HttpResponseMessage responseMessage = await client.PostAsJsonAsync(url, expenseRequest);
+
+            if (responseMessage.IsSuccessStatusCode)
+            {
+                var responseData = responseMessage.Content.ReadAsStringAsync().Result;
+                expenseResponse = JsonConvert.DeserializeObject<ExpenseResponse>(responseData);
+                if (expenseResponse.Message == string.Empty && expenseResponse.ErrorMessage == string.Empty)
+                {
+                    string PageName = "Expesnses";
+                    expenseResponse.transactionDetailEntity = transactionDetailEntity;
+                    expenseResponse.rolePermissionEntity = Common.PagePermissions(PageName);
+                    expenseResponse.pagedTransactionDetailEntity = expenseResponse.transactionDetailEntities.ToPagedList(pageIndex, pageSize);
+                    return View(expenseResponse);
+                }
+                else
+                {
+                    TempData["LoginFailure"] = expenseResponse.Message;
+                    return RedirectToAction("Error", "Home");
+                }
+            }
+            else
+            {
+                TempData["LoginFailure"] = responseMessage.ToString();
+                return RedirectToAction("Error", "Home");
+            }
+        }
     }
 }
