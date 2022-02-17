@@ -257,7 +257,8 @@
         function EditTransaction(expenseId, TransactionDetailId) {
             $('#TransactionDetailModal').modal('hide');
             var url = "/Expense/CreateTransactionDetail/" + expenseId + "?pid=" + TransactionDetailId;
-            location.href = url;
+            window.open(url, '');
+            //location.href = url;
         }
 
         function RemoveRevenueTransaction(TransactionDetailId) {
