@@ -675,6 +675,7 @@ namespace DHSDAL
                     revenueTransactionEntity.RevenueTranscationDescription = revenueDataRow["RevenueTranscationDescription"].ToString();
                     revenueTransactionEntity.RevenueTransactionAmount = Convert.ToDecimal(revenueDataRow["RevenueTransactionAmount"].ToString());
                     revenueTransactionEntity.RevenueTransactionNumber = revenueDataRow["RevenueTransactionNumber"].ToString();
+                    revenueTransactionEntity.RevenueNumber = revenueDataRow["RevenueNumber"].ToString();
                     revenueTransactionEntity.OrgName = revenueDataRow["OrgName"].ToString();
                     revenueTransactionEntity.ObjectName = revenueDataRow["ObjectName"].ToString();
                     revenueTransactionEntity.BatchNumber = revenueDataRow["BatchNumber"].ToString();

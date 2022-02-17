@@ -26,5 +26,6 @@ namespace DHSEntities
         public decimal DrawAmount { get; set; }
         public string DrawDate { get; set; }
         public int ExpenseCount { get; set; }
+        public string RevenueNumber { get; set; }
     }
 }
