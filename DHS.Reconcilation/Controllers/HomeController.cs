@@ -136,5 +136,10 @@ namespace DHS.Reconcilation.Controllers
             string result = new String(decoded_char);
             return result;
         }
+
+        public ActionResult Error()
+        {
+            return View();
+        }
     }
 }
