@@ -12,5 +12,6 @@ namespace DHSBAL
         DrawResponse SaveDrawDocument(DrawRequest drawRequest);
         DrawResponse GetTransactionByDrawId(DrawRequest drawRequest);
         DrawResponse CheckDrawByBatchNumber(DrawRequest drawRequest);
+        DrawResponse DeleteDraw(DrawRequest drawRequest);
     }
 }

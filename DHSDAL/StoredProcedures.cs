@@ -76,6 +76,7 @@ namespace DHSDAL
             public const string USPGETEXPENSESBYDRAWID = "sp_GetExpensesByDrawId";
             public const string USPCHECKDRAWBYBATCHNUMBER = "sp_CheckDrawByBatchNumber";
             public const string USPSAVEDRAW = "sp_SaveDraw";
+            public const string USPDELETEDRAW = "sp_DeleteDraw";
         }
 
 

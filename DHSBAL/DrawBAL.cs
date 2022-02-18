@@ -129,5 +129,19 @@ namespace DHSBAL
             }
             return drawResponse;
         }
+
+        public DrawResponse DeleteDraw(DrawRequest drawRequest)
+        {
+            try
+            {
+                drawResponse = drawDALRepository.DeleteDraw(drawRequest);
+            }
+            catch (Exception ex)
+            {
+                drawResponse.ErrorMessage = ex.Message;
+                drawResponse.Exception = ex;
+            }
+            return drawResponse;
+        }
     }
 }

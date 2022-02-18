@@ -41,6 +41,8 @@ namespace DHSDAL
                 try
                 {
                     drawEntity.DrawId = Convert.ToInt64(drawDataRow["DrawId"].ToString());
+                    drawEntity.RevenueTransactionCount = Convert.ToInt32(drawDataRow["RevenueTransactionCount"].ToString());
+                    drawEntity.RevenueCount = Convert.ToInt32(drawDataRow["RevenueCount"].ToString());
                     drawEntity.DrawDownAmount = Convert.ToDecimal(drawDataRow["DarwDownAmount"].ToString()); 
                     drawEntity.AllocatedAmount = Convert.ToDecimal(drawDataRow["AllocatedAmount"].ToString()); 
                     drawEntity.DrawDownDate = Convert.ToDateTime(drawDataRow["DrawDownDate"].ToString()).ToShortDateString();
@@ -413,6 +415,25 @@ namespace DHSDAL
                     IsExists = true;
             }
             drawResponse.IsExists = IsExists;
+            return drawResponse;
+        }
+
+        public DrawResponse DeleteDraw(DrawRequest drawRequest)
+        {
+            try
+            {
+                SqlObject.Parameters = new object[] {
+                drawRequest.drawEntity.DrawId
+                };
+                var intResult = SqlHelper.ExecuteScalar(_connectionString, StoredProcedures.Draw.USPDELETEDRAW, SqlObject.Parameters);
+                drawResponse.Message = string.Empty;
+                drawResponse.ErrorMessage = string.Empty;
+            }
+            catch (Exception ex)
+            {
+                drawResponse.ErrorMessage = ex.Message;
+                drawResponse.Exception = ex;
+            }
             return drawResponse;
         }
 

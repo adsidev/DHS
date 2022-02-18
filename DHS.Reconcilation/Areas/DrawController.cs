@@ -145,5 +145,21 @@ namespace DHS.Reconcilation.Areas
             }
             return drawResponse;
         }
+
+        [HttpPost]
+        [Route("DeleteDraw")]
+        public DrawResponse DeleteDraw(DrawRequest drawRequest)
+        {
+            try
+            {
+                drawResponse = drawRepository.DeleteDraw(drawRequest);
+            }
+            catch (Exception ex)
+            {
+                drawResponse.ErrorMessage = ex.Message;
+                drawResponse.Exception = ex;
+            }
+            return drawResponse;
+        }
     }
 }

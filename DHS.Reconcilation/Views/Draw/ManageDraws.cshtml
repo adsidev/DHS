@@ -135,10 +135,17 @@
                                                     difference = item.DrawDownAmount - item.AllocatedAmount;
                                                 }
                                         <tr>
-                                            <td>
+                                            <td style="text-align:left;">
                                                 @if (Model.rolePermissionEntity.ViewBit)
                                                 {
                                                     <img src="~/images/view-icon.png" class="img-responsive" onclick="OpenDrawInfo('@item.DrawId')" style="cursor:pointer;" alt="View Draw Information"/>
+                                                    if (item.RevenueCount == 0)
+                                                    {
+                                                        if(item.RevenueTransactionCount == 0)
+                                                        { 
+                                                            <img src="~/images/Delete.png" class="img-responsive" onclick="DeleteDraw('@item.DrawId')" style="cursor:pointer;" alt="Delete Draw" height="20" width="20" />
+                                                        }                                                        
+                                                    }
                                                 }
                                                 else
                                                 {
@@ -250,7 +257,7 @@
         }
 
 
-        
+
 
         function SelectedIndexChanged() {
             if ($("#SearchOn").val() != "" & $("#txtSearch").val() == "") {
@@ -291,6 +298,26 @@
         function OpenTransaction(DrawId) {
             var url = "/Draw/TransactionDetails/" + DrawId;
             location.href = url;
+        }
+
+        function DeleteDraw(DrawId) {
+            if (window.confirm("Are you sure want to delete draw?")) {
+                var drawEntity = {
+                    DrawId: DrawId
+                };
+                var drawRequest = {
+                    drawEntity: drawEntity
+                };
+                $.ajax({
+                    url: "/Draw/DeleteDraw",
+                    type: "POST",
+                    data: drawRequest,
+                    dataType: 'json',
+                    success: function (data) {
+                        window.location.reload();
+                    }
+                })
+            }
         }
     </script>
 }

@@ -30,6 +30,8 @@ namespace DHSEntities
         public string ObjectName { get; set; }
         public string ProjectName { get; set; }
         public decimal AllocatedAmount { get; set; }
+        public int RevenueCount { get; set; }
+        public int RevenueTransactionCount { get; set; }
 
     }
 }
