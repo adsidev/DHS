@@ -375,9 +375,6 @@
     <Content Include="Scripts\modernizr-2.6.2.js" />
     <Content Include="Scripts\respond.js" />
     <Content Include="Scripts\respond.min.js" />
-    <Content Include="Views\AuditReports\frmCRPaymentAnalysis.ascx" />
-    <Content Include="Views\AuditReports\frmCRSettlementReport.ascx" />
-    <Content Include="Views\AuditReports\frmCRSummaryReport.ascx" />
     <Content Include="Views\Report\frmDHSSummaryReport.ascx" />
     <Content Include="Views\Report\frmGrantProjectReport.ascx" />
     <Content Include="Web.config" />
@@ -399,10 +396,6 @@
     <Content Include="Views\Shared\_menu.cshtml" />
     <Content Include="Views\User\CreateUser.cshtml" />
     <Content Include="Views\Shared\_menuCRPayments.cshtml" />
-    <Content Include="Views\AuditReports\ManageCRReports.cshtml" />
-    <Content Include="Views\AuditReports\ManageCRSummaryReport.cshtml" />
-    <Content Include="Views\AuditReports\ManageCRPaymentAnalysis.cshtml" />
-    <Content Include="Views\AuditReports\ManageSettlementPaymentReport.cshtml" />
     <Content Include="Views\Role\CreateRole.cshtml" />
     <Content Include="Views\Expense\ManageExpenses.cshtml" />
     <Content Include="Views\Expense\CreateExpense.cshtml" />
