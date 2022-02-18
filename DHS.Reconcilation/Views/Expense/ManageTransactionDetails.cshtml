@@ -452,6 +452,10 @@
                                                         @if (Model.rolePermissionEntity.ViewBit)
                                                         {
                                                             <img src="~/images/view-icon.png" class="img-responsive" style="cursor:pointer;" alt="View Expense Information" onclick="ViewTransactionDetail('@item.TransactionDetailId')" />
+                                                             if (item.ExpenseCount == 0)
+                                                            {
+                                                                <img src="~/images/Delete.png" class="img-responsive" onclick="RemoveRevenueTransaction('@item.TransactionDetailId')" style="cursor:pointer;" alt="Remove Link between Expense Transaction to Revenue Transaction" height="20" width="20" />
+                                                            }
                                                         }
                                                         else
                                                         {
@@ -640,6 +644,26 @@
             location.href = url;
         }
 
+        function RemoveRevenueTransaction(TransactionDetailId) {
+            if (window.confirm("Are you sure want to unlink Revenue Transaction?")) {
+                var transactionDetailEntity = {
+                    TransactionDetailId: TransactionDetailId,
+                    ModifiedBy:@Common.GetSession("UserID"),
+                };
+                var expenseRequest = {
+                    transactionDetailEntity: transactionDetailEntity
+                };
+                $.ajax({
+                    url: "/Expense/RemoveLinkExpRev",
+                    type: "POST",
+                    data: expenseRequest,
+                    dataType: 'json',
+                    success: function (data) {
+                        window.location.reload();
+                    }
+                })
+            }
+        }
 
         function ViewDraw(drawId) {
             window.open('/Draw/DrawInfo/' + drawId, '')

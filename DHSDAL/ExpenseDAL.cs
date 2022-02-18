@@ -271,7 +271,7 @@ namespace DHSDAL
                 try
                 {
                     transactionDetailEntity.TransactionDetailId = Convert.ToInt64(expenseDataRow["TransactionDetailId"].ToString());
-                    transactionDetailEntity.TransactionDate = Convert.ToDateTime(expenseDataRow["TransactionDate"].ToString()).ToShortDateString();
+                    transactionDetailEntity.ExpenseCount = Convert.ToInt32(expenseDataRow["ExpenseCount"].ToString());
                     transactionDetailEntity.FGTCategoryName1 = expenseDataRow["FGTCategoryName1"].ToString();
                     transactionDetailEntity.FGTCategoryName2 = expenseDataRow["FGTCategoryName2"].ToString();
                     transactionDetailEntity.TransactionDescription = expenseDataRow["TransactionDescription"].ToString();
@@ -290,13 +290,16 @@ namespace DHSDAL
                     transactionDetailEntity.BatchNumber = expenseDataRow["BatchNumber"].ToString();
                     transactionDetailEntity.DrawDate = Convert.ToDateTime(expenseDataRow["DrawDate"].ToString()).ToShortDateString();
                     transactionDetailEntity.RevenueTransactionNumber = expenseDataRow["RevenueTransactionNumber"].ToString();
-                    transactionDetailEntity.RevenueTransactionDate = Convert.ToDateTime(expenseDataRow["RevenueTransactionDate"].ToString()).ToShortDateString();
                     transactionDetailEntity.RevenueProjectName = expenseDataRow["RevenueProjectName"].ToString();
+                    transactionDetailEntity.RevenueTransactionDate = Convert.ToDateTime(expenseDataRow["RevenueTransactionDate"].ToString()).ToShortDateString();
+                    transactionDetailEntity.TransactionDate = Convert.ToDateTime(expenseDataRow["TransactionDate"].ToString()).ToShortDateString();
                 }
                 catch (Exception exception)
                 {
                     transactionDetailEntity.ErrorMessage = exception.Message;
-                    transactionDetailEntity.Exception = exception;
+                    transactionDetailEntity.Exception = exception; 
+                    transactionDetailEntity.RevenueTransactionDate = expenseDataRow["RevenueTransactionDate"].ToString();
+                    transactionDetailEntity.TransactionDate = expenseDataRow["TransactionDate"].ToString();
                 }
                 finally
                 {
