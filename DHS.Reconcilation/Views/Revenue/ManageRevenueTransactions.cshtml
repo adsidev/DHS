@@ -114,10 +114,13 @@
                                                         @if (Model.rolePermissionEntity.ViewBit)
                                                         {
                                                             <img src="~/images/view-icon.png" class="img-responsive" style="cursor:pointer;" alt="View Revenue Transaction Information" onclick="ViewRevenueTransaction('@item.RevenueTransactionId')" />
-                                                            if(item.ExpenseCount==0)
+                                                            if(item.CompleteCount==0)
                                                             { 
-                                                                <img src="~/images/Delete.png" class="img-responsive" onclick="RemoveRevenueTransaction('@item.RevenueTransactionId')" style="cursor:pointer;" alt="Delete Revenue Transaction" height="20" width="20" />
-                                                            }                                                            
+                                                                if(item.ExpenseCount==0)
+                                                                {
+                                                                    <img src="~/images/Delete.png" class="img-responsive" onclick="RemoveRevenueTransaction('@item.RevenueTransactionId')" style="cursor:pointer;" alt="Delete Revenue Transaction" height="20" width="20" />
+                                                                }
+                                                            }     
                                                         }
                                                         else
                                                         {
