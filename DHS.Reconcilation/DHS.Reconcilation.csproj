@@ -375,6 +375,7 @@
     <Content Include="Scripts\modernizr-2.6.2.js" />
     <Content Include="Scripts\respond.js" />
     <Content Include="Scripts\respond.min.js" />
+    <Content Include="Views\Report\frmDERSummaryReport.ascx" />
     <Content Include="Views\Report\frmDHSSummaryReport.ascx" />
     <Content Include="Views\Report\frmGrantProjectReport.ascx" />
     <Content Include="Web.config" />
@@ -457,6 +458,7 @@
     <Content Include="Views\Expense\ManageExpenseTransactions.cshtml" />
     <Content Include="Views\Revenue\ManageRevenueTransactions.cshtml" />
     <Content Include="Views\Home\Error.cshtml" />
+    <Content Include="Views\Report\ManageDERSummaryReport.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
