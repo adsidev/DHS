@@ -34,5 +34,7 @@ namespace DHSEntities
         public List<UserEntity> userEntities { get; set; }
         public List<RevenueTransactionEntity> revenueTransactionEntities { get; set; }
         public RevenueTransactionEntity revenueTransactionEntity { get; set; }
+
+        public List<TransactionDetailEntity> transactionDetailEntities { get; set; }
     }
 }

@@ -285,6 +285,7 @@ namespace DHSDAL
             revenueResponse.revenueEntity = GetRevenue(revenueRequest).revenueEntity;
             revenueResponse.expenseEntities = GetRevenueExpense(revenueRequest).expenseEntities;
             revenueResponse.revenueTransactionEntities = GetRevenueTransactions(revenueRequest).revenueTransactionEntities;
+            revenueResponse.transactionDetailEntities = GetTransactionByRevenueId(revenueRequest).transactionDetailEntities;
             return revenueResponse;
         }
 
@@ -707,7 +708,6 @@ namespace DHSDAL
             return revenueResponse;
         }
 
-
         public RevenueResponse DeleteRevenueTransaction(RevenueRequest revenueRequest)
         {
             revenueResponse.ErrorMessage = string.Empty;
@@ -727,5 +727,67 @@ namespace DHSDAL
             return revenueResponse;
         }
 
+
+        private RevenueResponse GetTransactionByRevenueId(RevenueRequest revenueRequest)
+        {
+            List<TransactionDetailEntity> transactionDetailEntities = new List<TransactionDetailEntity>();
+            revenueResponse.ErrorMessage = string.Empty;
+            revenueResponse.Message = string.Empty;
+            if (revenueRequest.revenueEntity.RevenueId> 0)
+            {
+                SqlObject.Parameters = new object[] {
+                    revenueRequest.revenueEntity.RevenueId
+            };
+                var drawDataSet = SqlHelper.ExecuteDataset(_connectionString, StoredProcedures.Revenue.USPGETTRANSACTIONSBYREVENUEID, SqlObject.Parameters);
+                foreach (DataRow expenseDataRow in drawDataSet.Tables[0].Rows)
+                {
+                    TransactionDetailEntity transactionDetailEntity = new TransactionDetailEntity();
+                    try
+                    {
+                        transactionDetailEntity.TransactionDetailId = Convert.ToInt64(expenseDataRow["TransactionDetailId"].ToString());
+                        transactionDetailEntity.ExpenseCount = Convert.ToInt32(expenseDataRow["ExpenseCount"].ToString());
+                        transactionDetailEntity.FGTCategoryName1 = expenseDataRow["FGTCategoryName1"].ToString();
+                        transactionDetailEntity.FGTCategoryName2 = expenseDataRow["FGTCategoryName2"].ToString();
+                        transactionDetailEntity.TransactionDescription = expenseDataRow["TransactionDescription"].ToString();
+                        transactionDetailEntity.TransactionAmount = Convert.ToDecimal(expenseDataRow["TransactionAmount"].ToString());
+                        transactionDetailEntity.VendorAdjustments = expenseDataRow["VendorAdjustments"].ToString();
+                        transactionDetailEntity.TransactionNumber = expenseDataRow["TransactionNumber"].ToString();
+                        transactionDetailEntity.OrgName = expenseDataRow["OrgName"].ToString();
+                        transactionDetailEntity.ObjectName = expenseDataRow["ObjectName"].ToString();
+                        transactionDetailEntity.ProjectName = expenseDataRow["ProjectName"].ToString();
+                        transactionDetailEntity.DrawNumber = expenseDataRow["DrawNumber"].ToString();
+                        transactionDetailEntity.VendorName = expenseDataRow["VendorName"].ToString();
+                        transactionDetailEntity.StatusName = expenseDataRow["StatusName"].ToString();
+                        transactionDetailEntity.CFDA = expenseDataRow["CFDA"].ToString();
+                        transactionDetailEntity.RevenueTransactionAmount = Convert.ToDecimal(expenseDataRow["RevenueTransactionAmount"].ToString());
+                        transactionDetailEntity.DrawAmount = Convert.ToDecimal(expenseDataRow["DrawAmount"].ToString());
+                        transactionDetailEntity.BatchNumber = expenseDataRow["BatchNumber"].ToString();
+                        transactionDetailEntity.DrawDate = Convert.ToDateTime(expenseDataRow["DrawDate"].ToString()).ToShortDateString();
+                        transactionDetailEntity.RevenueTransactionNumber = expenseDataRow["RevenueTransactionNumber"].ToString();
+                        transactionDetailEntity.RevenueProjectName = expenseDataRow["RevenueProjectName"].ToString();
+                        transactionDetailEntity.RevenueTransactionDate = Convert.ToDateTime(expenseDataRow["RevenueTransactionDate"].ToString()).ToShortDateString();
+                        transactionDetailEntity.TransactionDate = Convert.ToDateTime(expenseDataRow["TransactionDate"].ToString()).ToShortDateString();
+                    }
+                    catch (Exception exception)
+                    {
+                        revenueResponse.ErrorMessage = exception.Message;
+                        revenueResponse.Exception = exception;
+                        transactionDetailEntity.RevenueTransactionDate = expenseDataRow["RevenueTransactionDate"].ToString();
+                        transactionDetailEntity.TransactionDate = expenseDataRow["TransactionDate"].ToString();
+                    }
+                    finally
+                    {
+                        transactionDetailEntities.Add(transactionDetailEntity);
+                    }
+                }
+            }
+            if(transactionDetailEntities.Count > 0)
+            {
+                revenueResponse.ErrorMessage = String.Empty;
+                revenueResponse.Message = String.Empty;
+            }
+            revenueResponse.transactionDetailEntities = transactionDetailEntities;
+            return revenueResponse;
+        }
     }
 }
