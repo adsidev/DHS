@@ -23,5 +23,6 @@ namespace DHSEntities
         public List<ObjectEntity> objectEntities { get; set; }
         public List<ProjectEntity> projectEntities { get; set; }
         public bool IsExists { get; set; }
+        public List<RevenueTransactionEntity> revenueTransactionEntities { get; set; }
     }
 }
