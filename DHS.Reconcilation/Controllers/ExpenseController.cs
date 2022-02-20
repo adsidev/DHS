@@ -33,6 +33,14 @@ namespace DHS.Reconcilation.Controllers
             int pageSize = Common.pageNumbers;
             int pageIndex = 1;
             pageIndex = page.HasValue ? Convert.ToInt32(page) : 1;
+            if(pageIndex == 1)
+            {
+                if (Common.GetSession("EPageIndex") != "")
+                    pageIndex = Convert.ToInt32(Common.GetSession("EPageIndex"));
+            }
+            if (pageIndex > 1)
+                Common.AddSession("EPageIndex", pageIndex.ToString());
+            
             ExpenseResponse expenseResponse = new ExpenseResponse();
             ExpenseRequest expenseRequest = new ExpenseRequest();
             ExpenseEntity expenseEntity = new ExpenseEntity();
@@ -108,7 +116,6 @@ namespace DHS.Reconcilation.Controllers
             expenseEntity.SourceId = 0;
             if (Request["AssignedTo"] != "")
                 expenseEntity.AssignedTo = Convert.ToInt32(Request["AssignedTo"]);
-
             if (Request["StatusId"] != "")
                 expenseEntity.StatusId = Convert.ToInt32(Request["StatusId"]);
 
@@ -130,6 +137,7 @@ namespace DHS.Reconcilation.Controllers
             Common.AddSession("EFiscalYearId", expenseEntity.FiscalYearId.ToString());
             Common.AddSession("EPeriodId", expenseEntity.PeriodId.ToString());
             Common.AddSession("ESourceId", expenseEntity.SourceId.ToString());
+            Common.AddSession("EPageIndex", pageIndex.ToString());
             expenseRequest.expenseEntity = expenseEntity;
             string url = strBaseURL + "Expense/GetExpenses";
             client.BaseAddress = new Uri(url);
