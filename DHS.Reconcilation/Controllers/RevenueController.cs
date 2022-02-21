@@ -33,13 +33,13 @@ namespace DHS.Reconcilation.Controllers
             int pageSize = Common.pageNumbers;
             int pageIndex = 1;
             pageIndex = page.HasValue ? Convert.ToInt32(page) : 1;
-            if (pageIndex == 1)
-            {
-                if (Common.GetSession("RPageIndex") != "")
-                    pageIndex = Convert.ToInt32(Common.GetSession("RPageIndex"));
-            }
-            if (pageIndex > 1)
-                Common.AddSession("RPageIndex", pageIndex.ToString());
+            //if (pageIndex == 1)
+            //{
+            //    if (Common.GetSession("RPageIndex") != "")
+            //        pageIndex = Convert.ToInt32(Common.GetSession("RPageIndex"));
+            //}
+            //if (pageIndex > 1)
+            //    Common.AddSession("RPageIndex", pageIndex.ToString());
             RevenueResponse revenueResponse = new RevenueResponse();
             RevenueRequest revenueRequest = new RevenueRequest();
             RevenueEntity revenueEntity = new RevenueEntity();
@@ -139,13 +139,13 @@ namespace DHS.Reconcilation.Controllers
             Common.AddSession("RFiscalYearId", revenueEntity.FiscalYearId.ToString());
             Common.AddSession("RPeriodId", revenueEntity.PeriodId.ToString());
             Common.AddSession("RSourceId", revenueEntity.SourceId.ToString());
-            if (pageIndex == 1)
-            {
-                if (Common.GetSession("RPageIndex") != "")
-                    pageIndex = Convert.ToInt32(Common.GetSession("RPageIndex"));
-            }
-            if (pageIndex > 1)
-                Common.AddSession("RPageIndex", pageIndex.ToString());
+            //if (pageIndex == 1)
+            //{
+            //    if (Common.GetSession("RPageIndex") != "")
+            //        pageIndex = Convert.ToInt32(Common.GetSession("RPageIndex"));
+            //}
+            //if (pageIndex > 1)
+            //    Common.AddSession("RPageIndex", pageIndex.ToString());
 
             revenueRequest.revenueEntity = revenueEntity;
             string url = strBaseURL + "Revenue/GetRevenues";
