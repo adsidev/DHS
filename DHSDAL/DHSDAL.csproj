@@ -46,8 +46,10 @@
     <Compile Include="Constant.cs" />
     <Compile Include="DocumentDAL.cs" />
     <Compile Include="Interfaces\IReportDALRepository.cs" />
+    <Compile Include="Interfaces\IProjectDALRepository.cs" />
     <Compile Include="Interfaces\IVendorDALRepository.cs" />
     <Compile Include="Interfaces\IRevenueTypeDALRepository.cs" />
+    <Compile Include="ProjectDAL.cs" />
     <Compile Include="ReportDAL.cs" />
     <Compile Include="VendorDAL.cs" />
     <Compile Include="RevenueTypeDAL.cs" />

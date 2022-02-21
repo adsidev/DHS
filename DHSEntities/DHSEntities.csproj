@@ -64,6 +64,8 @@
     <Compile Include="Journal\JournalEntity.cs" />
     <Compile Include="Journal\JournalRequest.cs" />
     <Compile Include="Journal\JournalResponse.cs" />
+    <Compile Include="Project\ProjectRequest.cs" />
+    <Compile Include="Project\ProjectResponse.cs" />
     <Compile Include="ReportRequest.cs" />
     <Compile Include="ReportResponse.cs" />
     <Compile Include="Revenue\RevenueTransactionEntity.cs" />
@@ -84,7 +86,7 @@
     <Compile Include="Common\OrgEntity.cs" />
     <Compile Include="PaymentType.cs" />
     <Compile Include="Common\PeriodEntity.cs" />
-    <Compile Include="Common\ProjectEntity.cs" />
+    <Compile Include="Project\ProjectEntity.cs" />
     <Compile Include="Roles\Roles.cs" />
     <Compile Include="Roles\RolePermissionEntity.cs" />
     <Compile Include="Roles\RoleRequest.cs" />

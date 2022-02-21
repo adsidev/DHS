@@ -145,5 +145,14 @@ namespace DHSDAL
             public const string USPSAVEVENDOR = "sp_SaveVendor";
         }
 
+        public class Project
+        {
+            public const string USPGETEXPENSESBYPROJECTID = "sp_GetExpensesByProjectId";
+            public const string USPGETPROJECTSUMMARY = "sp_GetProjectSummary";
+            public const string USPGETREVENUESBYPROJECTID = "sp_GetRevenuesByProjectId";
+            public const string USPGETTRANSACTIONSBYPROJECTID = "sp_GetTransactionsByProjectId";
+            public const string USPGETREVENUETRANSACTIONSBYPROJECTID = "sp_GetRevenueTransactionByProjectId";
+        }
+
     }
 }

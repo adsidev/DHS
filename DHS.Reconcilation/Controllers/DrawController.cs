@@ -130,7 +130,14 @@ namespace DHS.Reconcilation.Controllers
             Common.AddSession("DProjectName", drawEntity.ProjectName.ToString());
             Common.AddSession("DBatchNumber", drawEntity.BatchNumber.ToString());
             Common.AddSession("DFiscalYearId", drawEntity.FiscalYearId.ToString());
-            Common.AddSession("DPageIndex", pageIndex.ToString());
+            pageIndex = page.HasValue ? Convert.ToInt32(page) : 1;
+            if (pageIndex == 1)
+            {
+                if (Common.GetSession("DPageIndex") != "")
+                    pageIndex = Convert.ToInt32(Common.GetSession("DPageIndex"));
+            }
+            if (pageIndex > 1)
+                Common.AddSession("DPageIndex", pageIndex.ToString());
 
             drawRequest.drawEntity = drawEntity;
             string url = strBaseURL + "Draw/GetDraws";

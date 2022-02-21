@@ -25,6 +25,12 @@ namespace DHS.Reconcilation.Controllers
             client.DefaultRequestHeaders.Accept.Clear();
             client.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
         }
+        
+        public ActionResult ManageReports()
+        {
+            return View();
+        }
+
         [HttpGet]
         public async Task<ActionResult> ManageGrantProjectReport()
         {

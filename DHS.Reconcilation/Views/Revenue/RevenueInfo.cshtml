@@ -690,9 +690,9 @@
                 url: "/Revenue/EditRevenue/" + revenueId,
                 dataType: "html",
                 success: function (evt) {
-                    $('#RevenueModal').html(evt);
-                    $('#RevenueModal').modal(options);
-                    $('#RevenueModal').modal('show');
+                    $('#RevenueTransactionModal').html(evt);
+                    $('#RevenueTransactionModal').modal(options);
+                    $('#RevenueTransactionModal').modal('show');
                 },
                 error: function (req, status, error) {
                     alert("Error!Occured");

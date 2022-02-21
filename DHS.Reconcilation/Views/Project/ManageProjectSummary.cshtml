@@ -1,0 +1,142 @@
+﻿@model DHSEntities.ProjectResponse
+@using DHS.Reconcilation.Models
+
+@{
+    ViewBag.Title = "DHS Reconcilation Application :: Project Summary";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+<title>@ViewBag.Title</title>
+<script src="~/Scripts/jquery-1.10.2.min.js"></script>
+@section LeftMenuSection
+{
+    @Html.Partial("_menuCRPayments");
+}
+
+<title>@ViewBag.Title</title>
+
+
+<script src="~/js/jquery.min.js"></script>
+<script type="text/javascript">
+    function ValidateFields() {
+        var FiscalYear = $('#FiscalYearId option:selected').text();
+
+        if (FiscalYear == "") {
+            alert("Please select Fiscal Year.");
+            $("#FiscalYear").focus();
+            return false;
+        }
+
+        return true;
+    }
+    $(document).ready(function () {
+        $('#mra_subliPRS').addClass('active');
+    });
+
+    function ViewProjectDetails(projectId) {
+        var url = "/Project/ManageProjectDetails/" + projectId;
+        location.href = url;
+    }
+</script>
+@using (Html.BeginForm("ManageProjectSummary", "Project", FormMethod.Post, new { @id = "frmManageProjectSummary" }))
+{
+
+    <div class="tab-pane active" id="dashboard">
+        <div class="container-fluid">
+            <div class="mrp_content">
+                <h2>View Project Summary</h2>
+            </div>
+            <div class="mra_manage_settlement_report">
+                <div class="form-group col-lg-6">
+                    <label for="Facility">Select&nbsp;Fiscal Year</label>
+                    @Html.DropDownList("FiscalYearId", new SelectList(Model.fiscalYearEntities, "FiscalYearId", "FiscalYear", @ViewData["FiscalYear"]), "", new { @class = "form-control mrp_modalselect" })
+                </div>
+                <div class="col-md-6">
+                    @if (Model.rolePermissionEntity.ViewBit)
+                    {
+                        <input type="submit" value=" Get Summary " class="btn btn-primary btn-updated" onclick="return ValidateFields();" />
+                    }
+                    else
+                    {
+                        <input type="button" value="Report " class="disableButton" disabled="disabled" />
+                    }
+                </div>
+            </div>
+            <div class="row mrp_table-row">
+                <div class="col-lg-12 col-xs-12">
+                    <div class="table-responsive">
+                        <div class="mrp_contentbody mrp_contenttable">
+                            <div class="mrp_table">
+                                <table class="table table-bordered table-striped">
+                                    <thead>
+                                        <tr>
+                                            <th nowrap>
+                                                Project Name
+                                            </th>
+                                            <th nowrap>
+                                                Expense Amount
+                                            </th>
+                                            <th nowrap>
+                                                Expense Transaction Amount
+                                            </th>
+                                            <th nowrap>
+                                                Difference
+                                            </th>
+                                            <th nowrap>
+                                                Revenue Amount
+                                            </th>
+                                            <th nowrap>
+                                                Revenue Transaction Amount
+                                            </th>
+                                            <th nowrap>
+                                                Difference
+                                            </th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        @{foreach (var item in Model.projectEntities)
+                                            {
+                                                <tr>
+                                                    <td nowrap>
+                                                       <a class="img-responsive" onclick="ViewProjectDetails('@item.ProjectId')" style="cursor:pointer;">
+                                                 @item.ProjectName
+                                            </a>
+                                                    </td>
+                                                    <td>
+                                                        @string.Format("{0:C}", item.ExpenseAmount)
+                                                    </td>
+                                                    <td>
+                                                        @string.Format("{0:C}", item.ExpenseTransactionAmount)
+                                                    </td>
+                                                    <td>
+                                                        @string.Format("{0:C}", (item.ExpenseAmount - item.ExpenseTransactionAmount))
+                                                    </td>
+                                                    <td>
+                                                        @string.Format("{0:C}", item.RevenueAmount)
+                                                    </td>
+                                                    <td>
+                                                        @string.Format("{0:C}", item.RevenueTransactionAmount)
+                                                    </td>
+                                                    <td>
+                                                        @string.Format("{0:C}", (item.RevenueAmount - item.RevenueTransactionAmount))
+                                                    </td>
+                                                </tr>
+                                            }
+                                        }
+                                    </tbody>
+                                </table>
+
+                                <!-- popup -->
+                                <div class="modal fade mrp_modalpopup" id="ProjectModal">
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- /top tiles -->
+                </div>
+            </div>
+
+        </div>
+    </div>
+
+
+}

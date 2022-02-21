@@ -45,11 +45,13 @@
     <Compile Include="Interfaces\IFGTCategoryRepository.cs" />
     <Compile Include="Interfaces\IImportRepository.cs" />
     <Compile Include="Interfaces\IReportRepository.cs" />
+    <Compile Include="Interfaces\IProjectRepository.cs" />
     <Compile Include="Interfaces\IVendorRepository.cs" />
     <Compile Include="Interfaces\IRevenueTypeRepository.cs" />
     <Compile Include="Interfaces\IJournalRepository.cs" />
     <Compile Include="ImportBAL.cs" />
     <Compile Include="ReportBAL.cs" />
+    <Compile Include="ProjectBAL.cs" />
     <Compile Include="VendorBAL.cs" />
     <Compile Include="RevenueTypeBAL.cs" />
     <Compile Include="JounralBAL.cs" />

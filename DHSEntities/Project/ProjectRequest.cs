@@ -6,9 +6,8 @@ using System.Threading.Tasks;
 
 namespace DHSEntities
 {
-    public class ProjectEntity :Audit
+    public class ProjectRequest
     {
-        public long ProjectId { get; set; }
-        public string ProjectName { get; set; }
+        public ProjectEntity projectEntity { get; set; }
     }
 }

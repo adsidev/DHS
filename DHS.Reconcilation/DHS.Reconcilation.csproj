@@ -160,6 +160,7 @@
     <Compile Include="Areas\FGTCategoryController.cs" />
     <Compile Include="Areas\ImportController.cs" />
     <Compile Include="Areas\ReportController.cs" />
+    <Compile Include="Areas\ProjectController.cs" />
     <Compile Include="Areas\VendorController.cs" />
     <Compile Include="Areas\RevenueTypeController.cs" />
     <Compile Include="Areas\JournalController.cs" />
@@ -199,6 +200,7 @@
     <Compile Include="Controllers\AuditReportsController.cs" />
     <Compile Include="Controllers\FGTCategoryController.cs" />
     <Compile Include="Controllers\ReportController.cs" />
+    <Compile Include="Controllers\ProjectController.cs" />
     <Compile Include="Controllers\RevenueTypeController.cs" />
     <Compile Include="Controllers\JournalController.cs" />
     <Compile Include="Controllers\DrawController.cs" />
@@ -459,6 +461,10 @@
     <Content Include="Views\Revenue\ManageRevenueTransactions.cshtml" />
     <Content Include="Views\Home\Error.cshtml" />
     <Content Include="Views\Report\ManageDERSummaryReport.cshtml" />
+    <Content Include="Views\Project\ManageProjects.cshtml" />
+    <Content Include="Views\Project\ManageProjectSummary.cshtml" />
+    <Content Include="Views\Project\ManageProjectDetails.cshtml" />
+    <Content Include="Views\Report\ManageReports.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

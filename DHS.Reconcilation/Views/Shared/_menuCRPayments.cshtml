@@ -66,9 +66,7 @@
                 <li>
                     <a href="#">REPORTS</a>
                     <ul>
-                        <li id="mra_subliMGPR">@Html.ActionLink("Grant Project Report", "ManageGrantProjectReport", new { controller = "Report" })</li>
-                        <li id="mra_subliMDSR">@Html.ActionLink("DHS Summary Report", "ManageDHSSummaryReport", new { controller = "Report" })</li>
-                        <li id="mra_subliMDER">@Html.ActionLink("DER Summary Report", "ManageDERSummaryReport", new { controller = "Report" })</li>
+                        <li id="mra_subliRe">@Html.ActionLink("Manage Reports", "ManageReports", new { controller = "Report" })</li>
                     </ul>
                 </li>
             }
@@ -91,6 +89,16 @@
                     <ul>
                         <li id="mra_subliRT">@Html.ActionLink("Revenue Types", "ManageRevenueTypes", "RevenueType")</li>
                         <li id="mra_subliRTC">@Html.ActionLink("Create Revenue Type", "CreateRevenueType", "RevenueType")</li>
+                    </ul>
+                </li>
+            }
+            @if (Common.AdminPageHasPermission("Project"))
+            {
+                <li>
+                    <a href="#">PROJECT</a>
+                    <ul>
+                        <li id="mra_subliPR">@Html.ActionLink("Manage Projects", "ManageProjects", "Project")</li>
+                        <li id="mra_subliPRS">@Html.ActionLink("Project Summary", "ManageProjectSummary", "Project")</li>
                     </ul>
                 </li>
             }

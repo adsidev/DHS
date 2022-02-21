@@ -139,7 +139,13 @@ namespace DHS.Reconcilation.Controllers
             Common.AddSession("RFiscalYearId", revenueEntity.FiscalYearId.ToString());
             Common.AddSession("RPeriodId", revenueEntity.PeriodId.ToString());
             Common.AddSession("RSourceId", revenueEntity.SourceId.ToString());
-            Common.AddSession("RPageIndex", pageIndex.ToString());
+            if (pageIndex == 1)
+            {
+                if (Common.GetSession("RPageIndex") != "")
+                    pageIndex = Convert.ToInt32(Common.GetSession("RPageIndex"));
+            }
+            if (pageIndex > 1)
+                Common.AddSession("RPageIndex", pageIndex.ToString());
 
             revenueRequest.revenueEntity = revenueEntity;
             string url = strBaseURL + "Revenue/GetRevenues";

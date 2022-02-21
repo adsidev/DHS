@@ -1,0 +1,95 @@
+﻿@model DHSEntities.ProjectResponse
+@using PagedList.Mvc
+@using DHS.Reconcilation.Models
+
+@{
+    ViewBag.Title = "DHS Reconcilation Application :: Manage Projects";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+<script src="~/Scripts/jquery-1.10.2.min.js"></script>
+@section LeftMenuSection
+{
+    @Html.Partial("_menuCRPayments");
+}
+@using (Html.BeginForm("ManageProjects", "Project", FormMethod.Post, new { @id = "frmProjects" }))
+{
+    <title>@ViewBag.Title</title>
+    <input type="hidden" id="hdnProjectId" name="hdnProjectId" />
+    <div class="tab-pane active" id="dashboard">
+        <div class="container-fluid">
+            <!-- top tiles -->
+            <div class="row ">
+                <div class="col-lg-12">
+                    <div class="mrp_content">
+                        <h2>View Projects</h2>
+                        <form class="mrp_selectdetails form-inline">
+                        </form>
+                    </div>
+                </div>
+            </div>
+            <div class="row mrp_table-row">
+                <div class="col-lg-12 col-xs-12">
+                    <div class="table-responsive">
+                        <div class="mrp_contentbody mrp_contenttable">
+                            <div class="mrp_table">
+                                <table class="table table-bordered table-striped">
+                                    <thead>
+                                        <tr>
+                                            <th nowrap>
+                                                Project Name
+                                            </th>
+                                            <th nowrap>
+                                                CFDA
+                                            </th>
+                                            <th nowrap>
+                                                Description
+                                            </th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        @{foreach (var item in Model.pagedProjectEntities)
+                                            {
+                                                <tr>
+                                                    <td nowrap>
+                                                        @item.ProjectName
+                                                    </td>
+                                                    <td>
+                                                        @item.CFDA
+                                                    </td>
+                                                    <td>
+                                                        @item.ProjectDescription
+                                                    </td>
+                                                </tr>
+                                            }
+                                        }
+                                    </tbody>
+                                </table>
+
+                                <!-- popup -->
+                                <div class="modal fade mrp_modalpopup" id="ProjectModal">
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- /top tiles -->
+                </div>
+            </div>
+            <!-- /page content -->
+            <div id="container" class="mra_pagination">
+                <div class="pagination">
+                    @Html.PagedListPager(Model.pagedProjectEntities, page => Url.Action("ManageProjects", new { page }))
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+
+    <script type="text/javascript">
+
+        $(document).ready(function () {
+            $('#mra_subliPR').addClass('active');
+        });
+
+    </script>
+}

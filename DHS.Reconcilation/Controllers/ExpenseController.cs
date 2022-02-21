@@ -137,7 +137,13 @@ namespace DHS.Reconcilation.Controllers
             Common.AddSession("EFiscalYearId", expenseEntity.FiscalYearId.ToString());
             Common.AddSession("EPeriodId", expenseEntity.PeriodId.ToString());
             Common.AddSession("ESourceId", expenseEntity.SourceId.ToString());
-            Common.AddSession("EPageIndex", pageIndex.ToString());
+            if (pageIndex == 1)
+            {
+                if (Common.GetSession("EPageIndex") != "")
+                    pageIndex = Convert.ToInt32(Common.GetSession("EPageIndex"));
+            }
+            if (pageIndex > 1)
+                Common.AddSession("EPageIndex", pageIndex.ToString());
             expenseRequest.expenseEntity = expenseEntity;
             string url = strBaseURL + "Expense/GetExpenses";
             client.BaseAddress = new Uri(url);
