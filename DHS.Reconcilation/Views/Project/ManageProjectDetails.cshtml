@@ -61,7 +61,7 @@
                                                 Expense Amount
                                             </th>
                                             <th nowrap>
-                                                Expense Transaction Amount
+                                                Reconciled Expense Amount
                                             </th>
                                             <th nowrap>
                                                 Difference
@@ -70,7 +70,7 @@
                                                 Revenue Amount
                                             </th>
                                             <th nowrap>
-                                                Revenue Transaction Amount
+                                                Reconciled Revenue Amount
                                             </th>
                                             <th nowrap>
                                                 Difference
@@ -554,7 +554,7 @@
                                         @{decimal revenueTotal = 0;
                                             foreach (var item in Model.revenueEntities)
                                             {
-                                                revenueTotal = revenueTotal + item.RevenueAmount;
+                                                revenueTotal = revenueTotal + item.NetAmount;
                                                 <tr>
                                                     <td>
                                                         @item.DrawNumber
@@ -648,8 +648,8 @@
                                             if (Model.revenueEntities.Count > 0)
                                             {
                                                 <tr>
-                                                    <td colspan="4" style="text-align:right"><b>Total: </b></td>
-                                                    <td colspan="27" style="text-align:left;"><b>@String.Format("{0:$#,##0.00}", revenueTotal)</b></td>
+                                                    <td colspan="3" style="text-align:right"><b>Total: </b></td>
+                                                    <td colspan="28" style="text-align:left;"><b>@String.Format("{0:$#,##0.00}", revenueTotal)</b></td>
                                                 </tr>
                                             }
                                         }
