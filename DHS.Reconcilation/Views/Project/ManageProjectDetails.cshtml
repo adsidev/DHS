@@ -46,6 +46,70 @@
                 </div>
             </div>
 
+            <div class="row mrp_table-row">
+                <div class="col-lg-12 col-xs-12">
+                    <div class="table-responsive">
+                        <div class="mrp_contentbody mrp_contenttable">
+                            <div class="mrp_table">
+                                <table class="table table-bordered table-striped">
+                                    <thead>
+                                        <tr>
+                                            <th nowrap>
+                                                Project Name
+                                            </th>
+                                            <th nowrap>
+                                                Expense Amount
+                                            </th>
+                                            <th nowrap>
+                                                Expense Transaction Amount
+                                            </th>
+                                            <th nowrap>
+                                                Difference
+                                            </th>
+                                            <th nowrap>
+                                                Revenue Amount
+                                            </th>
+                                            <th nowrap>
+                                                Revenue Transaction Amount
+                                            </th>
+                                            <th nowrap>
+                                                Difference
+                                            </th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr>
+                                            <td nowrap>
+                                                    @Model.projectEntity.ProjectName
+                                            </td>
+                                            <td>
+                                                @string.Format("{0:C}", Model.projectEntity.ExpenseAmount)
+                                            </td>
+                                            <td>
+                                                @string.Format("{0:C}", Model.projectEntity.ExpenseTransactionAmount)
+                                            </td>
+                                            <td>
+                                                @string.Format("{0:C}", (Model.projectEntity.ExpenseAmount - Model.projectEntity.ExpenseTransactionAmount))
+                                            </td>
+                                            <td>
+                                                @string.Format("{0:C}", Model.projectEntity.RevenueAmount)
+                                            </td>
+                                            <td>
+                                                @string.Format("{0:C}", Model.projectEntity.RevenueTransactionAmount)
+                                            </td>
+                                            <td>
+                                                @string.Format("{0:C}", (Model.projectEntity.RevenueAmount - Model.projectEntity.RevenueTransactionAmount))
+                                            </td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+
+                            </div>
+                        </div>
+                    </div>
+                    <!-- /top tiles -->
+                </div>
+            </div>
 
             <div class="row ">
                 <div class="col-lg-12">

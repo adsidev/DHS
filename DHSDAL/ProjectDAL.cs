@@ -90,10 +90,11 @@ namespace DHSDAL
         {
             try
             {
-                projectResponse.expenseEntities = GetExpenseEntities(projectRequest.projectEntity.ProjectId);
-                projectResponse.revenueEntities = GetRevenueEntities(projectRequest.projectEntity.ProjectId);
-                projectResponse.transactionDetailEntities = GetTransactionDetailEntities(projectRequest.projectEntity.ProjectId);
-                projectResponse.revenueTransactionEntities = GetRevenueTransactionEntities(projectRequest.projectEntity.ProjectId);
+                projectResponse.expenseEntities = GetExpenseEntities(projectRequest.projectEntity.ProjectId, projectRequest.projectEntity.FiscalYearId);
+                projectResponse.revenueEntities = GetRevenueEntities(projectRequest.projectEntity.ProjectId, projectRequest.projectEntity.FiscalYearId);
+                projectResponse.transactionDetailEntities = GetTransactionDetailEntities(projectRequest.projectEntity.ProjectId, projectRequest.projectEntity.FiscalYearId);
+                projectResponse.revenueTransactionEntities = GetRevenueTransactionEntities(projectRequest.projectEntity.ProjectId, projectRequest.projectEntity.FiscalYearId);
+                projectResponse.projectEntity = GetProjectEntity(projectRequest.projectEntity.ProjectId, projectRequest.projectEntity.FiscalYearId);
             }
             catch (Exception ex)
             {
@@ -104,11 +105,12 @@ namespace DHSDAL
             return projectResponse;
         }
 
-        private List<ExpenseEntity> GetExpenseEntities(long projectId)
+        private List<ExpenseEntity> GetExpenseEntities(long projectId, long FiscalYearId)
         {
             List<ExpenseEntity> expenseEntities = new List<ExpenseEntity>();
             SqlObject.Parameters = new object[] {
-                projectId
+                projectId,
+                FiscalYearId
             };
             var expenseDataSet = SqlHelper.ExecuteDataset(_connectionString, StoredProcedures.Project.USPGETEXPENSESBYPROJECTID, SqlObject.Parameters);
             foreach (DataRow expenseDataRow in expenseDataSet.Tables[0].Rows)
@@ -162,11 +164,12 @@ namespace DHSDAL
             return expenseEntities;
         }
 
-        private List<RevenueEntity> GetRevenueEntities(long projectId)
+        private List<RevenueEntity> GetRevenueEntities(long projectId, long FiscalYearId)
         {
             List<RevenueEntity> revenueEntities = new List<RevenueEntity>();
             SqlObject.Parameters = new object[] {
-                projectId
+                projectId,
+                FiscalYearId
             };
             var revenueDataSet = SqlHelper.ExecuteDataset(_connectionString, StoredProcedures.Project.USPGETREVENUESBYPROJECTID, SqlObject.Parameters);
             foreach (DataRow revenueDataRow in revenueDataSet.Tables[0].Rows)
@@ -222,11 +225,12 @@ namespace DHSDAL
             return revenueEntities;
         }
 
-        private List<TransactionDetailEntity> GetTransactionDetailEntities(long projectId)
+        private List<TransactionDetailEntity> GetTransactionDetailEntities(long projectId, long FiscalYearId)
         {
             List<TransactionDetailEntity> transactionDetailEntities = new List<TransactionDetailEntity>();
             SqlObject.Parameters = new object[] {
-                projectId
+                projectId,
+                FiscalYearId
             };
             var transactionDataSet = SqlHelper.ExecuteDataset(_connectionString, StoredProcedures.Project.USPGETTRANSACTIONSBYPROJECTID, SqlObject.Parameters);
             foreach (DataRow expenseDataRow in transactionDataSet.Tables[0].Rows)
@@ -271,11 +275,12 @@ namespace DHSDAL
             return transactionDetailEntities;
         }
 
-        private List<RevenueTransactionEntity> GetRevenueTransactionEntities(long projectId)
+        private List<RevenueTransactionEntity> GetRevenueTransactionEntities(long projectId, long FiscalYearId)
         {
             List<RevenueTransactionEntity> revenueTransactionEntities = new List<RevenueTransactionEntity>();
             SqlObject.Parameters = new object[] {
-                projectId
+                projectId,
+                FiscalYearId
             };
             var transactionDataSet = SqlHelper.ExecuteDataset(_connectionString, StoredProcedures.Project.USPGETREVENUETRANSACTIONSBYPROJECTID, SqlObject.Parameters);
             foreach (DataRow revenueDataRow in transactionDataSet.Tables[0].Rows)
@@ -309,6 +314,39 @@ namespace DHSDAL
                 }
             }
             return revenueTransactionEntities;
+        }
+
+        private ProjectEntity GetProjectEntity(long projectId, long FiscalYearId)
+        {
+            ProjectEntity projectEntity = new ProjectEntity();
+            SqlObject.Parameters = new object[] {
+                projectId,
+                FiscalYearId
+            };
+            var expenseDataSet = SqlHelper.ExecuteDataset(_connectionString, StoredProcedures.Project.USPGETPROJECTSUM, SqlObject.Parameters);
+            foreach (DataRow expenseDataRow in expenseDataSet.Tables[0].Rows)
+            {
+                
+                try
+                {
+                    projectEntity.ProjectId = Convert.ToInt64(expenseDataRow["ProjectId"].ToString());
+                    projectEntity.ProjectName = expenseDataRow["ProjectCode"].ToString();
+                    projectEntity.ExpenseAmount = Convert.ToDecimal(expenseDataRow["ExpenseTotal"].ToString());
+                    projectEntity.RevenueAmount = Convert.ToDecimal(expenseDataRow["RevenueTotal"].ToString());
+                    projectEntity.ExpenseTransactionAmount = Convert.ToDecimal(expenseDataRow["ExpenseTransactionTotal"].ToString());
+                    projectEntity.RevenueTransactionAmount = Convert.ToDecimal(expenseDataRow["RevenueTransactionTotal"].ToString());
+                }
+                catch (Exception exception)
+                {
+                    projectResponse.ErrorMessage = exception.Message;
+                    projectResponse.Exception = exception;
+                }
+                finally
+                {
+                    
+                }
+            }
+            return projectEntity;
         }
     }
 }

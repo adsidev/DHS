@@ -13,30 +13,6 @@
 }
 
 <title>@ViewBag.Title</title>
-
-
-<script src="~/js/jquery.min.js"></script>
-<script type="text/javascript">
-    function ValidateFields() {
-        var FiscalYear = $('#FiscalYearId option:selected').text();
-
-        if (FiscalYear == "") {
-            alert("Please select Fiscal Year.");
-            $("#FiscalYear").focus();
-            return false;
-        }
-
-        return true;
-    }
-    $(document).ready(function () {
-        $('#mra_subliPRS').addClass('active');
-    });
-
-    function ViewProjectDetails(projectId) {
-        var url = "/Project/ManageProjectDetails/" + projectId;
-        location.href = url;
-    }
-</script>
 @using (Html.BeginForm("ManageProjectSummary", "Project", FormMethod.Post, new { @id = "frmManageProjectSummary" }))
 {
 
@@ -48,7 +24,7 @@
             <div class="mra_manage_settlement_report">
                 <div class="form-group col-lg-6">
                     <label for="Facility">Select&nbsp;Fiscal Year</label>
-                    @Html.DropDownList("FiscalYearId", new SelectList(Model.fiscalYearEntities, "FiscalYearId", "FiscalYear", @ViewData["FiscalYear"]), "", new { @class = "form-control mrp_modalselect" })
+                    @Html.DropDownList("FiscalYearId", new SelectList(Model.fiscalYearEntities, "FiscalYearId", "FiscalYear", Model.projectEntity.FiscalYearId), "", new { @id = "FiscalYearId", @class = "form-control mrp_modalselect" })
                 </div>
                 <div class="col-md-6">
                     @if (Model.rolePermissionEntity.ViewBit)
@@ -97,9 +73,9 @@
                                             {
                                                 <tr>
                                                     <td nowrap>
-                                                       <a class="img-responsive" onclick="ViewProjectDetails('@item.ProjectId')" style="cursor:pointer;">
-                                                 @item.ProjectName
-                                            </a>
+                                                        <a class="img-responsive" onclick="ViewProjectDetails('@item.ProjectId')" style="cursor:pointer;">
+                                                            @item.ProjectName
+                                                        </a>
                                                     </td>
                                                     <td>
                                                         @string.Format("{0:C}", item.ExpenseAmount)
@@ -139,4 +115,26 @@
     </div>
 
 
+    <script src="~/js/jquery.min.js"></script>
+    <script type="text/javascript">
+        function ValidateFields() {
+            var FiscalYear = $('#FiscalYearId option:selected').text();
+            if (FiscalYear == "") {
+                alert("Please select Fiscal Year.");
+                $("#FiscalYear").focus();
+                return false;
+            }
+            return true;
+        }
+
+        $(document).ready(function () {
+            $('#mra_subliPRS').addClass('active');
+        });
+
+        function ViewProjectDetails(projectId) {
+            var FiscalYearId = $("#FiscalYearId").val()
+            var url = "/Project/ManageProjectDetails/" + projectId + "?pid=" + FiscalYearId;
+            location.href = url;
+        }
+    </script>
 }

@@ -152,6 +152,7 @@ namespace DHSDAL
             public const string USPGETREVENUESBYPROJECTID = "sp_GetRevenuesByProjectId";
             public const string USPGETTRANSACTIONSBYPROJECTID = "sp_GetTransactionsByProjectId";
             public const string USPGETREVENUETRANSACTIONSBYPROJECTID = "sp_GetRevenueTransactionByProjectId";
+            public const string USPGETPROJECTSUM = "sp_GetProjectSum";
         }
 
     }

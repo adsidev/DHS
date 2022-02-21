@@ -84,6 +84,7 @@ namespace DHS.Reconcilation.Controllers
                 {
                     string PageName = "Project";
                     projectResponse.rolePermissionEntity = Common.PagePermissions(PageName);
+                    projectResponse.projectEntity = projectEntity;
                     return View(projectResponse);
                 }
                 else
@@ -121,6 +122,7 @@ namespace DHS.Reconcilation.Controllers
                 {
                     string PageName = "Project";
                     projectResponse.rolePermissionEntity = Common.PagePermissions(PageName);
+                    projectResponse.projectEntity = projectEntity;
                     return View(projectResponse);
                 }
                 else
@@ -136,7 +138,7 @@ namespace DHS.Reconcilation.Controllers
             }
         }
 
-        public async Task<ActionResult> ManageProjectDetails(long? id=0)
+        public async Task<ActionResult> ManageProjectDetails(long? id=0, long? pid=0)
         {
             if (!Common.SessionExists())
                 return RedirectToAction("Index", "Home");
@@ -146,6 +148,7 @@ namespace DHS.Reconcilation.Controllers
 
             ProjectEntity projectEntity = new ProjectEntity();
             projectEntity.ProjectId = Convert.ToInt64(id);
+            projectEntity.FiscalYearId = Convert.ToInt64(pid);
             ProjectRequest projectRequest = new ProjectRequest();
             projectRequest.projectEntity = projectEntity;
             string url = strBaseURL + "Project/GetProjectDetails";
