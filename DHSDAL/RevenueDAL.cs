@@ -536,6 +536,7 @@ namespace DHSDAL
                     revenueTransactionEntity.ProjectName = revenueDataRow["ProjectName"].ToString();
                     revenueTransactionEntity.CompleteCount = Convert.ToInt32(revenueDataRow["CompleteCount"].ToString());
                     revenueTransactionEntity.ExpenseCount = Convert.ToInt32(revenueDataRow["ExpenseCount"].ToString());
+                    revenueTransactionEntity.DocumentFile = revenueDataRow["DocumentFile"].ToString();
                     revenueTransactionEntity.DrawNumber = revenueDataRow["DrawNumber"].ToString();
                 }
                 catch (Exception exception)
@@ -769,6 +770,7 @@ namespace DHSDAL
                         transactionDetailEntity.DrawDate = Convert.ToDateTime(expenseDataRow["DrawDate"].ToString()).ToShortDateString();
                         transactionDetailEntity.RevenueTransactionNumber = expenseDataRow["RevenueTransactionNumber"].ToString();
                         transactionDetailEntity.RevenueProjectName = expenseDataRow["RevenueProjectName"].ToString();
+                        transactionDetailEntity.DocumentFile = expenseDataRow["DocumentFile"].ToString();
                         transactionDetailEntity.RevenueTransactionDate = Convert.ToDateTime(expenseDataRow["RevenueTransactionDate"].ToString()).ToShortDateString();
                         transactionDetailEntity.TransactionDate = Convert.ToDateTime(expenseDataRow["TransactionDate"].ToString()).ToShortDateString();
                     }

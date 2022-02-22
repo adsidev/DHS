@@ -39,6 +39,7 @@ namespace DHSEntities
         public int StatusId { get; set; }
         public int ProjectId { get; set; }
         public string ExpenseNumber { get; set; }
+        public string DocumentFile { get; set; }
         public int ExpenseCount { get; set; }
     }
 }

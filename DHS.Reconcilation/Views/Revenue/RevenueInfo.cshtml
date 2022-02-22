@@ -498,7 +498,14 @@
                                                         @item.RevenueTypeName
                                                     </td>
                                                     <td>
-                                                        @item.DrawNumber
+                                                        @if (item.DocumentFile.Trim() != "")
+                                                        {
+                                                            <a href="javascript:void()" onclick="OpenDocument('@item.DocumentFile')" style="cursor:pointer;">@item.DrawNumber</a>
+                                                        }
+                                                        else
+                                                        {
+                                                            @item.DrawNumber
+                                                        }
                                                     </td>
                                                     <td>
                                                         @item.BatchNumber
@@ -634,12 +641,22 @@
                                                     </td>
                                                     @if (item.RevenueTransactionNumber != "")
                                                     {
-                                                        <td nowrap>@RevenueInfo</td>
+                                                        <td nowrap>
+                                                            @if (item.DocumentFile != "")
+                                                            {
+                                                    <a href="javascript:void()" onclick="OpenDocument('@item.DocumentFile')" style="cursor:pointer;">@RevenueInfo</a>
+                                                            }
+                                                            else
+                                                            {
+                                                                @RevenueInfo
+                                                            }
+                                                        </td>
                                                     }
                                                     else
                                                     {
                                                         <td nowrap>&nbsp;</td>
                                                     }
+                                                    
                                                     <td style="text-align:left;" nowrap>
                                                         @item.TransactionDescription
                                                     </td>
@@ -779,6 +796,10 @@
                     }
                 })
             }
+        }
+
+        function OpenDocument(FileName) {
+            window.open("/Documents/Draw/" + FileName);
         }
     </script>
 }

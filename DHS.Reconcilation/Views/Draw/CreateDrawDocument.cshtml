@@ -111,7 +111,7 @@
     $(function () {
         $('input[type=file]').change(function () {
             var val = $(this).val().toLowerCase(),
-                regex = new RegExp("(.*?)\.(docx|doc|pdf|jpg|jpeg|pdf|bmp|ppt|png|xls)$");
+                regex = new RegExp("(.*?)\.(docx|doc|pdf|jpg|jpeg|pdf|bmp|ppt|png|xls|xlsx)$");
 
             if (!(regex.test(val))) {
                 $(this).val('');

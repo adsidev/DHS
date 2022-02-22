@@ -178,7 +178,16 @@
                                                     </td>
                                                     @if (item.RevenueTransactionNumber != "")
                                                     {
-                                                        <td nowrap>@RevenueInfo</td>
+                                                        <td nowrap>
+                                                            @if (item.DocumentFile != "")
+                                                            {
+                                                    <a href="javascript:void()" onclick="OpenDocument('@item.DocumentFile')" style="cursor:pointer;">@RevenueInfo</a>
+                                                            }
+                                                            else
+                                                            {
+                                                                @RevenueInfo
+                                                            }
+                                                        </td>
                                                     }
                                                     else
                                                     {
@@ -283,6 +292,10 @@
                     }
                 })
             }
+        }
+
+        function OpenDocument(FileName) {
+            window.open("/Documents/Draw/" + FileName);
         }
     </script>
 }
