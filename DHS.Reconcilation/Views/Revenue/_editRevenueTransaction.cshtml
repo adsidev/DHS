@@ -232,6 +232,7 @@
             data: revenueRequest,
             dataType: 'json',
             success: function (data) {
+                $("#DrawId").html('');
                 var s = '<option value="-1">Please Select Draw</option>';
                 for (var i = 0; i < data.drawEntities.length; i++) {
                     s += '<option value="' + data.drawEntities[i].DrawId + '">' + data.drawEntities[i].DrawNumber + '</option>';

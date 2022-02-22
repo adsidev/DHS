@@ -578,6 +578,7 @@ namespace DHSDAL
                     try
                     {
                         revenueTransactionEntity.RevenueTransactionId = Convert.ToInt64(revenueDataRow["RevenueTransactionId"].ToString());
+                        revenueTransactionEntity.RevenueId = Convert.ToInt64(revenueDataRow["RevenueId"].ToString());
                         revenueTransactionEntity.DrawId = Convert.ToInt64(revenueDataRow["DrawId"].ToString());
                         revenueTransactionEntity.RevenueTypeId = Convert.ToInt32(revenueDataRow["RevenueTypeId"].ToString());
                         revenueTransactionEntity.RevenueTransactionDate = Convert.ToDateTime(revenueDataRow["RevenueTransactionDate"].ToString()).ToShortDateString();
@@ -608,7 +609,9 @@ namespace DHSDAL
                 revenueTransactionEntity.ProjectName = revenueEntity.ProjectName;
                 revenueTransactionEntity.RevenueId = revenueRequest.revenueTransactionEntity.RevenueId;
             }
-            
+            revenueEntity.RevenueId = revenueTransactionEntity.RevenueId;
+            revenueRequest.revenueEntity = revenueEntity;
+            revenueResponse.drawEntities = DrawRevenues(revenueRequest).drawEntities;
             revenueResponse.revenueTransactionEntity = revenueTransactionEntity;
             revenueResponse.revenueEntity = revenueEntity;
             CommonDAL commonDAL = new CommonDAL();
@@ -684,6 +687,7 @@ namespace DHSDAL
                     revenueTransactionEntity.BatchNumber = revenueDataRow["BatchNumber"].ToString();
                     revenueTransactionEntity.ProjectName = revenueDataRow["ProjectName"].ToString();
                     revenueTransactionEntity.DrawNumber = revenueDataRow["DrawNumber"].ToString();
+                    revenueTransactionEntity.DocumentFile = revenueDataRow["DocumentFile"].ToString();
                     revenueTransactionEntity.ExpenseCount = Convert.ToInt32(revenueDataRow["ExpenseCount"].ToString());
                     revenueTransactionEntity.CompleteCount = Convert.ToInt32(revenueDataRow["CompleteCount"].ToString());
                     revenueTransactionEntity.RevenueTransactionDate = Convert.ToDateTime(revenueDataRow["RevenueTransactionDate"].ToString()).ToShortDateString();

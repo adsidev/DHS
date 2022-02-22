@@ -80,7 +80,7 @@
                                     <tbody>
                                         <tr>
                                             <td nowrap>
-                                                    @Model.projectEntity.ProjectName
+                                                    @Model.projectEntity.ProjectName.ToUpper()
                                             </td>
                                             <td>
                                                 @string.Format("{0:C}", Model.projectEntity.ExpenseAmount)

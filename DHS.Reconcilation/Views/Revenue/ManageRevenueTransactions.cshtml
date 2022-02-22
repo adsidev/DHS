@@ -154,7 +154,14 @@
                                                         @item.RevenueTypeName
                                                     </td>
                                                     <td>
-                                                        @item.DrawNumber
+                                                        @if (item.DocumentFile != "")
+                                                        {
+                                                            <a href="javascript:void()" onclick="OpenDocument('@item.DocumentFile')" style="cursor:pointer;">@item.DrawNumber</a>
+                                                        }
+                                                        else
+                                                        {
+                                                            @item.DrawNumber
+                                                        }
                                                     </td>
                                                     <td>
                                                         @item.BatchNumber
@@ -290,6 +297,10 @@
                     }
                 })
             }
+        }
+
+        function OpenDocument(FileName) {
+            window.open("/Documents/Draw/" + FileName);
         }
     </script>
 }
