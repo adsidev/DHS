@@ -719,8 +719,6 @@ namespace DHSDAL
                 try
                 {
                     revenueTransactionEntity.RevenueTransactionId = Convert.ToInt64(revenueDataRow["RevenueTransactionId"].ToString());
-                    revenueTransactionEntity.RevenueTransactionDate = Convert.ToDateTime(revenueDataRow["RevenueTransactionDate"].ToString()).ToShortDateString();
-                    revenueTransactionEntity.DrawDate = Convert.ToDateTime(revenueDataRow["DrawDate"].ToString()).ToShortDateString();
                     revenueTransactionEntity.RevenueTypeName = revenueDataRow["RevenueTypeName"].ToString();
                     revenueTransactionEntity.RevenueTranscationDescription = revenueDataRow["RevenueTranscationDescription"].ToString();
                     revenueTransactionEntity.RevenueTransactionAmount = Convert.ToDecimal(revenueDataRow["RevenueTransactionAmount"].ToString());
@@ -731,11 +729,15 @@ namespace DHSDAL
                     revenueTransactionEntity.DrawNumber = revenueDataRow["DrawNumber"].ToString();
                     revenueTransactionEntity.DrawAmount = Convert.ToDecimal(revenueDataRow["DarwDownAmount"].ToString());
                     revenueTransactionEntity.BatchNumber = revenueDataRow["BatchNumber"].ToString();
+                    revenueTransactionEntity.RevenueTransactionDate = Convert.ToDateTime(revenueDataRow["RevenueTransactionDate"].ToString()).ToShortDateString();
+                    revenueTransactionEntity.DrawDate = Convert.ToDateTime(revenueDataRow["DrawDate"].ToString()).ToShortDateString();
                 }
                 catch (Exception exception)
                 {
                     revenueTransactionEntity.ErrorMessage = exception.Message;
                     revenueTransactionEntity.Exception = exception;
+                    revenueTransactionEntity.RevenueTransactionDate = revenueDataRow["RevenueTransactionDate"].ToString();
+                    revenueTransactionEntity.DrawDate = revenueDataRow["DrawDate"].ToString()   ;
                 }
                 finally
                 {
