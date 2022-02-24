@@ -74,7 +74,10 @@
                                                     var itemPN = "PN" + @item.RevenueTransactionId;
                                                     <tr>
                                                         <td>
+                                                            @if(item.RevenueTypeName=="Draw Deposit")
+                                                            {
                                                             <input type="radio" id="RevenueTransactionId" name="RevenueTransaction" value="@item.RevenueTransactionId" />
+                                                            }
                                                         </td>
                                                         <td>
                                                             @item.RevenueTransactionNumber
