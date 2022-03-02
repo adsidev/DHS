@@ -88,5 +88,21 @@ namespace DHSBAL
             return errorMessages;
         }
 
+
+        public ErrorMessages ImportDrawRevenueTransaction(ImportRequest importRequest)
+        {
+            ErrorMessages errorMessages = new ErrorMessages();
+            try
+            {
+                errorMessages = importDALRepository.ImportDrawRevenueTransaction(importRequest);
+            }
+            catch (Exception ex)
+            {
+                errorMessages.ErrorMessage = ex.Message;
+                errorMessages.Exception = ex;
+            }
+            return errorMessages;
+        }
+        
     }
 }

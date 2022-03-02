@@ -107,6 +107,36 @@ namespace DHSDAL
             }
             return errorMessages;
         }
+                
+        public ErrorMessages CheckImportExpense(ImportRequest importRequest)
+        {
+            ErrorMessages errorMessages = new ErrorMessages();
+            errorMessages.Message = string.Empty;
+            SqlObject.Parameters = new object[] {
+                    importRequest.FiscalYear
+            };
+            var drawDataSet = SqlHelper.ExecuteDataset(_connectionString, StoredProcedures.Import.USPCHECKIMPORTEXPENSE, SqlObject.Parameters);
+            if(drawDataSet.Tables[0].Rows.Count > 0)
+            {
+                errorMessages.Message = "Records already exists.";
+            }
+            return errorMessages;
+        }
+
+        public ErrorMessages CheckImportRevenue(ImportRequest importRequest)
+        {
+            ErrorMessages errorMessages = new ErrorMessages();
+            errorMessages.Message = string.Empty;
+            SqlObject.Parameters = new object[] {
+                    importRequest.FiscalYear
+            };
+            var drawDataSet = SqlHelper.ExecuteDataset(_connectionString, StoredProcedures.Import.USPCHECKIMPORTREVENUE, SqlObject.Parameters);
+            if (drawDataSet.Tables[0].Rows.Count > 0)
+            {
+                errorMessages.Message = "Records already exists.";
+            }
+            return errorMessages;
+        }
 
         public ErrorMessages ImportExpenseTransaction(ImportRequest importRequest)
         {
@@ -144,34 +174,62 @@ namespace DHSDAL
             }
             return errorMessages;
         }
-        public ErrorMessages CheckImportExpense(ImportRequest importRequest)
-        {
-            ErrorMessages errorMessages = new ErrorMessages();
-            errorMessages.Message = string.Empty;
-            SqlObject.Parameters = new object[] {
-                    importRequest.FiscalYear
-            };
-            var drawDataSet = SqlHelper.ExecuteDataset(_connectionString, StoredProcedures.Import.USPCHECKIMPORTEXPENSE, SqlObject.Parameters);
-            if(drawDataSet.Tables[0].Rows.Count > 0)
-            {
-                errorMessages.Message = "Records already exists.";
-            }
-            return errorMessages;
-        }
 
-        public ErrorMessages CheckImportRevenue(ImportRequest importRequest)
+        public ErrorMessages ImportDrawRevenueTransaction(ImportRequest importRequest)
         {
             ErrorMessages errorMessages = new ErrorMessages();
             errorMessages.Message = string.Empty;
-            SqlObject.Parameters = new object[] {
-                    importRequest.FiscalYear
-            };
-            var drawDataSet = SqlHelper.ExecuteDataset(_connectionString, StoredProcedures.Import.USPCHECKIMPORTREVENUE, SqlObject.Parameters);
-            if (drawDataSet.Tables[0].Rows.Count > 0)
+            var expenseDataSet = importRequest.dataset;
+            try
             {
-                errorMessages.Message = "Records already exists.";
+                foreach (DataRow expenseDataRow in expenseDataSet.Tables[0].Rows)
+                {
+                    var PostDate = expenseDataRow["POST DATE"].ToString();
+                    string[] PostD = PostDate.Split(' ')[0].Split('-');
+                    PostDate = PostD[1] + "/" + PostD[0] + "/" + PostD[2];
+                    var EntryDate = expenseDataRow["ENTRY DATE"].ToString();
+                    string[] EntD = EntryDate.Split(' ')[0].Split('-');
+                    EntryDate = EntD[1] + "/" + EntD[0] + "/" + EntD[2];
+                    var BatchTotal = expenseDataRow["BATCH TOTAL"].ToString();
+                    if (BatchTotal == "")
+                        BatchTotal = "0";
+                    SqlObject.Parameters = new object[] {
+                        expenseDataRow["YEAR"].ToString(),
+                        expenseDataRow["PERIOD"].ToString(),
+                        expenseDataRow["JOURNAL"].ToString(),
+                        expenseDataRow["LINE"].ToString(),
+                        expenseDataRow["FUND"].ToString(),
+                        expenseDataRow["ORG"].ToString(),
+                        expenseDataRow["OBJECT"].ToString(),
+                        expenseDataRow["PROJECT"].ToString(),
+                        expenseDataRow["CLERK"].ToString(),
+                        expenseDataRow["REF 1"].ToString(),
+                        expenseDataRow["REF 2"].ToString(),
+                        expenseDataRow["REF 3"].ToString(),
+                        expenseDataRow["REF 4"].ToString(),
+                        expenseDataRow["SOURCE"].ToString(),
+                        expenseDataRow["COMMENT"].ToString(),
+                        expenseDataRow["D/c"].ToString(),
+                        expenseDataRow["EFFECTIVE DATE"].ToString(),
+                        EntryDate,
+                        expenseDataRow["POST CLERK"].ToString(),
+                        PostDate,
+                        expenseDataRow["GROSS AMOUNT"].ToString(),
+                        expenseDataRow["RECEIPT"].ToString(),
+                        expenseDataRow["BATCH"].ToString().Trim(),
+                        BatchTotal,
+                        importRequest.CreatedBy,
+                        };
+                    var intResult = SqlHelper.ExecuteScalar(_connectionString, StoredProcedures.Import.USPIMPORTDRAWREVENUETRANSACTION, SqlObject.Parameters);
+                }
+            }
+            catch (System.Exception ex)
+            {
+                errorMessages.Message = ex.Message;
+                errorMessages.Exception = ex;
             }
             return errorMessages;
         }
+        
     }
 }

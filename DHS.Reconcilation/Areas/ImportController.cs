@@ -101,5 +101,22 @@ namespace DHS.Reconcilation.Areas
             return errorMessages;
         }
 
+        [HttpPost]
+        [Route("ImportDrawRevenueTransaction")]
+        public ErrorMessages ImportDrawRevenueTransaction(ImportRequest ImportRequest)
+        {
+            ErrorMessages errorMessages = new ErrorMessages();
+            try
+            {
+                errorMessages = importRepository.ImportDrawRevenueTransaction(ImportRequest);
+            }
+            catch (Exception ex)
+            {
+                errorMessages.ErrorMessage = ex.Message;
+                errorMessages.Exception = ex;
+            }
+            return errorMessages;
+        }
+
     }
 }

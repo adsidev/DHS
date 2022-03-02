@@ -465,6 +465,7 @@
     <Content Include="Views\Project\ManageProjectSummary.cshtml" />
     <Content Include="Views\Project\ManageProjectDetails.cshtml" />
     <Content Include="Views\Report\ManageReports.cshtml" />
+    <Content Include="Views\Tools\ImportDrawRevenueTransaction.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
