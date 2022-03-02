@@ -303,49 +303,46 @@ namespace DHS.Reconcilation.Controllers
                 {
                     ConnectionString = @"Provider=Microsoft.ACE.OLEDB.12.0;Data Source=" + read + ";Extended Properties='Excel 12.0;HDR=YES;IMEX=1;'";
                 }
-                string[] SheetName = GetExcelSheetNames(ConnectionString);
+                //string[] SheetName = GetExcelSheetNames(ConnectionString);
 
-                foreach (var item in SheetName)
+                oleDbConnection = new OleDbConnection(ConnectionString);
+                oleDbConnection.Open();
+                OleDbCommand y = new OleDbCommand();
+                OleDbDataAdapter z = new OleDbDataAdapter();
+                DataSet dset = new DataSet();
+                y.Connection = oleDbConnection;
+                y.CommandType = CommandType.Text;
+                y.CommandText = "SELECT * FROM [Sheet1$]";
+                z = new OleDbDataAdapter(y);
+                z.Fill(dset);
+
+                ImportRequest importRequest = new ImportRequest();
+                importRequest.dataset = dset;
+                importRequest.CreatedBy = Convert.ToInt32(Common.GetSession("UserID"));
+                oleDbConnection.Close();
+
+                string url = strBaseURL + "Import/ImportDrawRevenueTransaction";
+                HttpClient client = new HttpClient();
+                client.DefaultRequestHeaders.Accept.Clear();
+                client.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
+                client.BaseAddress = new Uri(url);
+                HttpResponseMessage responseMessage = await client.PostAsJsonAsync(url, importRequest);
+                if (responseMessage.IsSuccessStatusCode)
                 {
-                    oleDbConnection = new OleDbConnection(ConnectionString);
-                    oleDbConnection.Open();
-                    OleDbCommand y = new OleDbCommand();
-                    OleDbDataAdapter z = new OleDbDataAdapter();
-                    DataSet dset = new DataSet();
-                    y.Connection = oleDbConnection;
-                    y.CommandType = CommandType.Text;
-                    y.CommandText = "SELECT * FROM [" + item + "]";
-                    z = new OleDbDataAdapter(y);
-                    z.Fill(dset);
-
-                    ImportRequest importRequest = new ImportRequest();
-                    importRequest.dataset = dset;
-                    importRequest.CreatedBy = Convert.ToInt32(Common.GetSession("UserID"));
-                    oleDbConnection.Close();
-
-                    string url = strBaseURL + "Import/ImportDrawRevenueTransaction";
-                    HttpClient client = new HttpClient();
-                    client.DefaultRequestHeaders.Accept.Clear();
-                    client.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
-                    client.BaseAddress = new Uri(url);
-                    HttpResponseMessage responseMessage = await client.PostAsJsonAsync(url, importRequest);
-                    if (responseMessage.IsSuccessStatusCode)
+                    var responseData = responseMessage.Content.ReadAsStringAsync().Result;
+                    ErrorMessages errorMessages = JsonConvert.DeserializeObject<ErrorMessages>(responseData);
+                    if (errorMessages.Message == string.Empty)
                     {
-                        var responseData = responseMessage.Content.ReadAsStringAsync().Result;
-                        ErrorMessages errorMessages = JsonConvert.DeserializeObject<ErrorMessages>(responseData);
-                        if (errorMessages.Message == string.Empty)
-                        {
 
-                        }
-                        else
-                        {
-
-                        }
                     }
                     else
                     {
 
                     }
+                }
+                else
+                {
+
                 }
                 return View();
             }
