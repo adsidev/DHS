@@ -186,10 +186,16 @@ namespace DHSDAL
                 {
                     var PostDate = expenseDataRow["POST DATE"].ToString();
                     string[] PostD = PostDate.Split(' ')[0].Split('-');
-                    PostDate = PostD[1] + "/" + PostD[0] + "/" + PostD[2];
+                    if (PostD.Length > 1)
+                        PostDate = PostD[1] + "/" + PostD[0] + "/" + PostD[2];
+                    else
+                        PostDate = PostD[0];
                     var EntryDate = expenseDataRow["ENTRY DATE"].ToString();
                     string[] EntD = EntryDate.Split(' ')[0].Split('-');
+                    if(EntD.Length > 1)
                     EntryDate = EntD[1] + "/" + EntD[0] + "/" + EntD[2];
+                    else
+                        EntryDate = EntD[0];
                     var BatchTotal = expenseDataRow["BATCH TOTAL"].ToString();
                     if (BatchTotal == "")
                         BatchTotal = "0";
