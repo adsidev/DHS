@@ -28,6 +28,8 @@ namespace DHSEntities
         public int ExpenseCount { get; set; }
         public int CompleteCount { get; set; }
         public string RevenueNumber { get; set; }
+        public string ObjectDescription { get; set; }
+        public string ActivityDescription { get; set; }
         public string DocumentFile { get; set; }
     }
 }

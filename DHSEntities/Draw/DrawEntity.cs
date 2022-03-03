@@ -32,6 +32,7 @@ namespace DHSEntities
         public decimal AllocatedAmount { get; set; }
         public int RevenueCount { get; set; }
         public int RevenueTransactionCount { get; set; }
+        public decimal AdjustedAmount { get; set; }
 
     }
 }

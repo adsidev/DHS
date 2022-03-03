@@ -530,6 +530,8 @@ namespace DHSDAL
                     revenueTransactionEntity.RevenueTranscationDescription = revenueDataRow["RevenueTranscationDescription"].ToString();
                     revenueTransactionEntity.RevenueTransactionAmount = Convert.ToDecimal(revenueDataRow["RevenueTransactionAmount"].ToString());
                     revenueTransactionEntity.RevenueTransactionNumber = revenueDataRow["RevenueTransactionNumber"].ToString();
+                    revenueTransactionEntity.ActivityDescription = revenueDataRow["ActivityDescription"].ToString();
+                    revenueTransactionEntity.ObjectDescription = revenueDataRow["ObjectDescription"].ToString();
                     revenueTransactionEntity.OrgName = revenueDataRow["OrgName"].ToString();
                     revenueTransactionEntity.ObjectName = revenueDataRow["ObjectName"].ToString();
                     revenueTransactionEntity.BatchNumber = revenueDataRow["BatchNumber"].ToString();
@@ -683,6 +685,8 @@ namespace DHSDAL
                     revenueTransactionEntity.RevenueTransactionAmount = Convert.ToDecimal(revenueDataRow["RevenueTransactionAmount"].ToString());
                     revenueTransactionEntity.RevenueTransactionNumber = revenueDataRow["RevenueTransactionNumber"].ToString();
                     revenueTransactionEntity.RevenueNumber = revenueDataRow["RevenueNumber"].ToString();
+                    revenueTransactionEntity.ActivityDescription = revenueDataRow["ActivityDescription"].ToString();
+                    revenueTransactionEntity.ObjectDescription = revenueDataRow["ObjectDescription"].ToString();
                     revenueTransactionEntity.OrgName = revenueDataRow["OrgName"].ToString();
                     revenueTransactionEntity.ObjectName = revenueDataRow["ObjectName"].ToString();
                     revenueTransactionEntity.BatchNumber = revenueDataRow["BatchNumber"].ToString();
@@ -760,6 +764,8 @@ namespace DHSDAL
                         transactionDetailEntity.OrgName = expenseDataRow["OrgName"].ToString();
                         transactionDetailEntity.ObjectName = expenseDataRow["ObjectName"].ToString();
                         transactionDetailEntity.ProjectName = expenseDataRow["ProjectName"].ToString();
+                        transactionDetailEntity.ObjectDescription = expenseDataRow["ObjectDescription"].ToString();
+                        transactionDetailEntity.ActivityDescription = expenseDataRow["ActivityDescription"].ToString();
                         transactionDetailEntity.DrawNumber = expenseDataRow["DrawNumber"].ToString();
                         transactionDetailEntity.VendorName = expenseDataRow["VendorName"].ToString();
                         transactionDetailEntity.StatusName = expenseDataRow["StatusName"].ToString();

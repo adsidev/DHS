@@ -94,6 +94,9 @@
                                                 Drawn Amount
                                             </th>
                                             <th nowrap>
+                                                Adjusted Amount
+                                            </th>
+                                            <th nowrap>
                                                 Drawn Date
                                             </th>
                                             <th nowrap>
@@ -165,6 +168,9 @@
                                             </td>
                                             <td nowrap>
                                                 @string.Format("{0:C}", item.DrawDownAmount)
+                                            </td>
+                                            <td nowrap>
+                                                @string.Format("{0:C}", item.AdjustedAmount)
                                             </td>
                                             <td nowrap>
                                                 @item.DrawDownDate

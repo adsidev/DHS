@@ -137,7 +137,7 @@
                             </div>
                             <div class="col-lg-8 col-xs-12 col-sm-8 col-md-8">
                                 <div class="form_modal">
-                                    @Html.DropDownList("StatusId", new SelectList(Model.statusEntities, "StatusId", "StatusName", Model.drawEntity.StatusId), "", new {@id= "StatusId", @class = "form-control mrp_modalselect" })
+                                    @Html.DropDownList("StatusId", new SelectList(Model.statusEntities, "StatusId", "StatusName", Model.drawEntity.StatusId), "", new { @id = "StatusId", @class = "form-control mrp_modalselect" })
                                 </div>
                             </div>
                         </div>
@@ -155,7 +155,7 @@
                             </div>
                             <div class="col-lg-8 col-xs-12 col-sm-8 col-md-8">
                                 <div class="form_modal">
-                                    @Html.DropDownList("AssignedTo", new SelectList(Model.userEntities, "UserId", "UserName", Model.drawEntity.AssignedTo), "", new { @id="AssignedTo", @class = "form-control mrp_modalselect" })
+                                    @Html.DropDownList("AssignedTo", new SelectList(Model.userEntities, "UserId", "UserName", Model.drawEntity.AssignedTo), "", new { @id = "AssignedTo", @class = "form-control mrp_modalselect" })
                                 </div>
                             </div>
                         </div>
@@ -165,38 +165,38 @@
 
                     @*<div class="col-lg-6">
 
-                        <div class="row">
-                            <div class="col-lg-4 col-xs-12 col-sm-4 col-md-4">
-                                <div class="form_modal">
-                                    <label>Org</label>
-                                </div>
-                            </div>
-                            <div class="col-lg-8 col-xs-12 col-sm-8 col-md-8">
-                                <div class="form_modal">
-                                    @Html.TextBoxFor(m => m.drawEntity.OrgName, htmlAttributes: new { @id = "OrgName", @class = "form-control mrp_modalselect" })
-                                </div>
-                            </div>
-                        </div>
-
+            <div class="row">
+                <div class="col-lg-4 col-xs-12 col-sm-4 col-md-4">
+                    <div class="form_modal">
+                        <label>Org</label>
                     </div>
+                </div>
+                <div class="col-lg-8 col-xs-12 col-sm-8 col-md-8">
+                    <div class="form_modal">
+                        @Html.TextBoxFor(m => m.drawEntity.OrgName, htmlAttributes: new { @id = "OrgName", @class = "form-control mrp_modalselect" })
+                    </div>
+                </div>
+            </div>
+
+        </div>
 
 
-                    <div class="col-lg-6">
+        <div class="col-lg-6">
 
-                        <div class="row">
-                            <div class="col-lg-4 col-xs-12 col-sm-4 col-md-4">
-                                <div class="form_modal">
-                                    <label>Object</label>
-                                </div>
-                            </div>
-                            <div class="col-lg-8 col-xs-12 col-sm-8 col-md-8">
-                                <div class="form_modal">
-                                    @Html.TextBoxFor(m => m.drawEntity.ObjectName, htmlAttributes: new { @id = "ObjectName", @class = "form-control mrp_modalselect" })
-                                </div>
-                            </div>
-                        </div>
+            <div class="row">
+                <div class="col-lg-4 col-xs-12 col-sm-4 col-md-4">
+                    <div class="form_modal">
+                        <label>Object</label>
+                    </div>
+                </div>
+                <div class="col-lg-8 col-xs-12 col-sm-8 col-md-8">
+                    <div class="form_modal">
+                        @Html.TextBoxFor(m => m.drawEntity.ObjectName, htmlAttributes: new { @id = "ObjectName", @class = "form-control mrp_modalselect" })
+                    </div>
+                </div>
+            </div>
 
-                    </div>*@
+        </div>*@
 
 
                     <div class="col-lg-6">
@@ -214,6 +214,21 @@
                             </div>
                         </div>
 
+                    </div>
+
+                    <div class="col-lg-6">
+                        <div class="row">
+                            <div class="col-lg-4 col-xs-12 col-sm-4 col-md-4">
+                                <div class="form_modal">
+                                    <label>Adjusted Amount</label>
+                                </div>
+                            </div>
+                            <div class="col-lg-8 col-xs-12 col-sm-8 col-md-8">
+                                <div class="form_modal">
+                                    @Html.TextBoxFor(m => m.drawEntity.AdjustedAmount, htmlAttributes: new { @id = "AdjustedAmount", Value = String.Format("{0:$#,##0.00}", Model.drawEntity.AdjustedAmount), @class = "form-control mrp_modalselect" })
+                                </div>
+                            </div>
+                        </div>
                     </div>
 
                 </div>
@@ -291,6 +306,7 @@
                 OrgName: '',
                 ObjectName: '',
                 ProjectName: document.getElementById("ProjectName").value,
+                AdjustedAmount: document.getElementById("AdjustedAmount").value,
             };
 
             var drawRequest = {

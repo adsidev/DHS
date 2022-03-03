@@ -45,6 +45,7 @@ namespace DHSDAL
                     drawEntity.RevenueCount = Convert.ToInt32(drawDataRow["RevenueCount"].ToString());
                     drawEntity.DrawDownAmount = Convert.ToDecimal(drawDataRow["DarwDownAmount"].ToString()); 
                     drawEntity.AllocatedAmount = Convert.ToDecimal(drawDataRow["AllocatedAmount"].ToString()); 
+                    drawEntity.AdjustedAmount = Convert.ToDecimal(drawDataRow["AdjustedAmount"].ToString()); 
                     drawEntity.DrawDownDate = Convert.ToDateTime(drawDataRow["DrawDownDate"].ToString()).ToShortDateString();
                     if(drawDataRow["DatePosted"].ToString()!="")
                         drawEntity.DatePosted = Convert.ToDateTime(drawDataRow["DatePosted"].ToString()).ToShortDateString();
@@ -109,6 +110,7 @@ namespace DHSDAL
                         if (drawDataRow["DatePosted"].ToString() != "")
                             drawEntity.DatePosted = Convert.ToDateTime(drawDataRow["DatePosted"].ToString()).ToShortDateString();
                         drawEntity.DrawDownAmount = Convert.ToDecimal(drawDataRow["DarwDownAmount"].ToString());
+                        drawEntity.AdjustedAmount = Convert.ToDecimal(drawDataRow["AdjustedAmount"].ToString());
                         drawEntity.BatchNumber = drawDataRow["BatchNumber"].ToString();
                         drawEntity.DrawNumber = drawDataRow["DrawNumber"].ToString();
                         drawEntity.StatusName = drawDataRow["StatusName"].ToString();
@@ -172,6 +174,7 @@ namespace DHSDAL
                 drawRequest.drawEntity.OrgName,
                 drawRequest.drawEntity.ObjectName,
                 drawRequest.drawEntity.ProjectName,
+                drawRequest.drawEntity.AdjustedAmount,
                 };
                 var intResult = SqlHelper.ExecuteScalar(_connectionString, StoredProcedures.Draw.USPSAVEDRAW, SqlObject.Parameters);
                 drawResponse.Message = string.Empty;
