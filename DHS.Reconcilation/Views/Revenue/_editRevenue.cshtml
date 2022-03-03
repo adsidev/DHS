@@ -158,6 +158,21 @@
                             <div class="row">
                                 <div class="col-lg-3 col-xs-12 col-sm-3 col-md-3">
                                     <div class="form_modal">
+                                        <label>Activity&nbsp;Description</label>
+                                    </div>
+                                </div>
+                                <div class="col-lg-9 col-xs-12 col-sm-9 col-md-9">
+                                    <div class="form_modal">
+                                        @Html.TextBoxFor(m => m.revenueEntity.ActivityDescription, htmlAttributes: new { @class = "form-control mrp_modalselect", @disabled = "disabled" })
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="col-lg-6">
+                            <div class="row">
+                                <div class="col-lg-3 col-xs-12 col-sm-3 col-md-3">
+                                    <div class="form_modal">
                                         <label>Org</label>
                                     </div>
                                 </div>
@@ -179,6 +194,21 @@
                                 <div class="col-lg-9 col-xs-12 col-sm-9 col-md-9">
                                     <div class="form_modal">
                                         @Html.TextBoxFor(m => m.revenueEntity.ObjectName, htmlAttributes: new { @class = "form-control mrp_modalselect", @disabled = "disabled" })
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="col-lg-6">
+                            <div class="row">
+                                <div class="col-lg-3 col-xs-12 col-sm-3 col-md-3">
+                                    <div class="form_modal">
+                                        <label>Object&nbsp;Description</label>
+                                    </div>
+                                </div>
+                                <div class="col-lg-9 col-xs-12 col-sm-9 col-md-9">
+                                    <div class="form_modal">
+                                        @Html.TextBoxFor(m => m.revenueEntity.ObjectDescription, htmlAttributes: new { @class = "form-control mrp_modalselect", @disabled = "disabled" })
                                     </div>
                                 </div>
                             </div>
