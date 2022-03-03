@@ -157,6 +157,21 @@
                     <div class="row">
                         <div class="col-lg-3 col-xs-12 col-sm-3 col-md-3">
                             <div class="form_modal">
+                                <label>Activity Description</label>
+                            </div>
+                        </div>
+                        <div class="col-lg-9 col-xs-12 col-sm-9 col-md-9">
+                            <div class="form_modal">
+                                @Html.TextBoxFor(m => m.expenseEntity.ActivityDescription, htmlAttributes: new { @class = "form-control mrp_modalselect", @disabled = "disabled" })
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="col-lg-4">
+                    <div class="row">
+                        <div class="col-lg-3 col-xs-12 col-sm-3 col-md-3">
+                            <div class="form_modal">
                                 <label>Org</label>
                             </div>
                         </div>
@@ -178,6 +193,21 @@
                         <div class="col-lg-9 col-xs-12 col-sm-9 col-md-9">
                             <div class="form_modal">
                                 @Html.TextBoxFor(m => m.expenseEntity.ObjectName, htmlAttributes: new { @class = "form-control mrp_modalselect", @disabled = "disabled" })
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="col-lg-4">
+                    <div class="row">
+                        <div class="col-lg-3 col-xs-12 col-sm-3 col-md-3">
+                            <div class="form_modal">
+                                <label>Object Description</label>
+                            </div>
+                        </div>
+                        <div class="col-lg-9 col-xs-12 col-sm-9 col-md-9">
+                            <div class="form_modal">
+                                @Html.TextBoxFor(m => m.expenseEntity.ObjectDescription, htmlAttributes: new { @class = "form-control mrp_modalselect", @disabled = "disabled" })
                             </div>
                         </div>
                     </div>
@@ -319,32 +349,32 @@
                 </div>
 
                 @*<div class="col-lg-4">
-                    <div class="row">
-                        <div class="col-lg-3 col-xs-12 col-sm-3 col-md-3">
-                            <div class="form_modal">
-                                <label>Revenue&nbsp;No</label>
-                            </div>
-                        </div>
-                        <div class="col-lg-9 col-xs-12 col-sm-9 col-md-9">
-                            <div class="form_modal">
-                                @if (Model.expenseEntity.RevenueNumber != String.Empty)
-                                {
-                                    <label>
-                                        <a class="img-responsive" onclick="ViewRevenue('@Model.expenseEntity.RevenueId')" style="cursor:pointer;">
-                                            @Model.expenseEntity.RevenueNumber
-                                        </a>
-                                    </label>
-                                }
-                                else
-                                {
-                                    <label>
-                                        <img src="~/images/linking.png" class="img-responsive" onclick="LinkToRevenue('@Model.expenseEntity.ExpenseId')" style="cursor:pointer;" alt="Linking to Revenue" width="30" height="30" />
-                                    </label>
-                                }
-                            </div>
-                        </div>
+            <div class="row">
+                <div class="col-lg-3 col-xs-12 col-sm-3 col-md-3">
+                    <div class="form_modal">
+                        <label>Revenue&nbsp;No</label>
                     </div>
-                </div>*@
+                </div>
+                <div class="col-lg-9 col-xs-12 col-sm-9 col-md-9">
+                    <div class="form_modal">
+                        @if (Model.expenseEntity.RevenueNumber != String.Empty)
+                        {
+                            <label>
+                                <a class="img-responsive" onclick="ViewRevenue('@Model.expenseEntity.RevenueId')" style="cursor:pointer;">
+                                    @Model.expenseEntity.RevenueNumber
+                                </a>
+                            </label>
+                        }
+                        else
+                        {
+                            <label>
+                                <img src="~/images/linking.png" class="img-responsive" onclick="LinkToRevenue('@Model.expenseEntity.ExpenseId')" style="cursor:pointer;" alt="Linking to Revenue" width="30" height="30" />
+                            </label>
+                        }
+                    </div>
+                </div>
+            </div>
+        </div>*@
 
                 <div class="col-lg-12">
                     <div class="row">
