@@ -554,7 +554,7 @@
                                         @{decimal revenueTotal = 0;
                                             foreach (var item in Model.revenueEntities)
                                             {
-                                                revenueTotal = revenueTotal + item.RevenueAmount;
+                                                revenueTotal = revenueTotal + item.NetAmount;
                                                 <tr>
                                                     <td>
                                                         @item.DrawNumber
