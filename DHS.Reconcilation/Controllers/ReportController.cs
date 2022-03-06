@@ -28,6 +28,8 @@ namespace DHS.Reconcilation.Controllers
         
         public ActionResult ManageReports()
         {
+            if (!Common.SessionExists())
+                return RedirectToAction("Index", "Home");
             return View();
         }
 
@@ -36,7 +38,7 @@ namespace DHS.Reconcilation.Controllers
         {
             if (!Common.SessionExists())
                 return RedirectToAction("Index", "Home");
-
+            Session["FGReport"] = "0";
             ReportResponse reportResponse = new ReportResponse();
             string url = strBaseURL + "Report/GetGrantProjectReport";
             // string url = strBaseURL + "AuditReport/GetCRSummaryReport";
@@ -87,7 +89,7 @@ namespace DHS.Reconcilation.Controllers
                 ViewData["FiscalYear"] = "0";
             else
                 ViewData["FiscalYear"] = Convert.ToInt32(Request.Form["FiscalYearId"]);
-
+            Session["FGReport"] = "0";
            ReportRequest reportRequest = new ReportRequest();
             reportRequest.ProjectId = Convert.ToInt32(ViewData["Project"]);
             reportRequest.FiscalYearId = Convert.ToInt32(ViewData["FiscalYear"]);
