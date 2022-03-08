@@ -463,7 +463,6 @@
                                 <table class="table table-bordered table-striped">
                                     <thead>
                                         <tr>
-                                            <th nowrap>Draw No</th>
                                             <th nowrap>
                                                 Rev No
                                             </th>
@@ -472,9 +471,6 @@
                                             </th>
                                             <th nowrap>
                                                 Net Amount
-                                            </th>
-                                            <th nowrap>
-                                                Revenue Amount
                                             </th>
                                             <th nowrap>
                                                 Fiscal Year
@@ -556,9 +552,6 @@
                                             {
                                                 revenueTotal = revenueTotal + item.NetAmount;
                                                 <tr>
-                                                    <td>
-                                                        @item.DrawNumber
-                                                    </td>
                                                     <td nowrap>
                                                         <a class="img-responsive" onclick="ViewRevenue('@item.RevenueId')" style="cursor:pointer;"> @item.RevenueNumber</a>
                                                     </td>
@@ -567,9 +560,6 @@
                                                     </td>
                                                     <td nowrap style="text-align:right">
                                                         @string.Format("{0:C}", item.NetAmount)
-                                                    </td>
-                                                    <td nowrap style="text-align:right">
-                                                        @string.Format("{0:C}", item.RevenueAmount)
                                                     </td>
                                                     <td nowrap>
                                                         @item.FiscalYear
@@ -648,7 +638,7 @@
                                             if (Model.revenueEntities.Count > 0)
                                             {
                                                 <tr>
-                                                    <td colspan="3" style="text-align:right"><b>Total: </b></td>
+                                                    <td colspan="2" style="text-align:right"><b>Total: </b></td>
                                                     <td colspan="28" style="text-align:left;"><b>@String.Format("{0:$#,##0.00}", revenueTotal)</b></td>
                                                 </tr>
                                             }
