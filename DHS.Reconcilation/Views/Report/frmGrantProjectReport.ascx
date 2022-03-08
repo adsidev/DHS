@@ -5,7 +5,7 @@
     <script runat="server">
         protected void Page_Load(object sender, EventArgs e)
         {
-            if (ViewData["FiscalYear"].ToString() != "0" && Session["FGReport"] == "0")
+            if (ViewData["FiscalYear"].ToString() != "0" && Session["FGReport"].ToString() == "0")
             {
                 ReportViewer1.ServerReport.ReportPath = "/" + ConfigurationManager.AppSettings["SSRSFolder"].ToString() + "/FGTReport";
                 Uri uri = new Uri(ConfigurationManager.AppSettings["SSRSURL"].ToString());

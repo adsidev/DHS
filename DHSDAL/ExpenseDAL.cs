@@ -376,6 +376,15 @@ namespace DHSDAL
             {
                 transactionDetailEntity.ExpenseId = expenseRequest.transactionDetailEntity.ExpenseId;
                 expenseResponse.drawEntities = GetDrawsByExpenseId(expenseEntity.ExpenseId);
+                SqlObject.Parameters = new object[] {
+                    expenseRequest.transactionDetailEntity.ExpenseId,
+                };
+                var revenueDataSet = SqlHelper.ExecuteDataset(_connectionString, StoredProcedures.Expense.USPGETCATEGORYBYOBJECT, SqlObject.Parameters);
+                foreach (DataRow revenueDataRow in revenueDataSet.Tables[0].Rows)
+                {
+                    transactionDetailEntity.FGTCategoryId1= Convert.ToInt64(revenueDataRow["FgtParentCategoryId"].ToString()) ;
+                    transactionDetailEntity.FGTCategoryId2= Convert.ToInt64(revenueDataRow["FGTCategoryId"].ToString()) ;
+                }
             }
             expenseResponse.expenseEntity = expenseEntity;
             expenseResponse.transactionDetailEntity = transactionDetailEntity;

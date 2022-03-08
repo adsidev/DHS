@@ -49,6 +49,7 @@ namespace DHSDAL
             public const string USPSAVELINKTOREVENUE = "sp_SaveLinkToRevenue";
             public const string USPDLINKREVENUE = "sp_SaveDLinkRevenue";
             public const string USPREMOVELINKEXPREV = "sp_RemoveLinkExpRev";
+            public const string USPGETCATEGORYBYOBJECT = "sp_GetCategoryByObject";
         }
 
         public class Revenue
