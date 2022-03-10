@@ -10,5 +10,6 @@ namespace DHSDAL
         ErrorMessages CheckImportRevenue(ImportRequest importRequest);
         ErrorMessages ImportExpenseTransaction(ImportRequest importRequest);
         ErrorMessages ImportDrawRevenueTransaction(ImportRequest importRequest);
+        ErrorMessages ImportExpensesTransaction(ImportRequest importRequest);
     }
 }

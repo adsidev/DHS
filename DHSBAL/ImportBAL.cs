@@ -103,6 +103,20 @@ namespace DHSBAL
             }
             return errorMessages;
         }
-        
+
+        public ErrorMessages ImportExpensesTransaction(ImportRequest importRequest)
+        {
+            ErrorMessages errorMessages = new ErrorMessages();
+            try
+            {
+                errorMessages = importDALRepository.ImportExpensesTransaction(importRequest);
+            }
+            catch (Exception ex)
+            {
+                errorMessages.ErrorMessage = ex.Message;
+                errorMessages.Exception = ex;
+            }
+            return errorMessages;
+        }
     }
 }

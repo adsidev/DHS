@@ -128,6 +128,7 @@ namespace DHSDAL
             public const string USPIMPORTEXPENSE = "sp_ImportExpense";
             public const string USPIMPORTREVENUE = "sp_ImportRevenue";
             public const string USPIMPORTEXPENSETRANSACTION = "sp_ImportExpenseTransaction";
+            public const string USPIMPORTEXPENSESTRANSACTION = "sp_ImportExpensesTransaction";
             public const string USPIMPORTDRAWREVENUETRANSACTION = "sp_ImportDrawRevenueTransaction";
             public const string USPCHECKIMPORTEXPENSE = "sp_CheckImportExpense";
             public const string USPCHECKIMPORTREVENUE = "sp_CheckImportRevenue";
