@@ -784,6 +784,9 @@ namespace DHS.Reconcilation.Controllers
             if (Common.GetSession("RTRevenueTransactionNumber") != "")
                 revenueTransactionEntity.RevenueTransactionNumber = Common.GetSession("RTRevenueTransactionNumber");
 
+            if (Common.GetSession("RTRevenueTypeId") != "")
+                revenueTransactionEntity.RevenueTypeId = Convert.ToInt32(Common.GetSession("RTRevenueTypeId"));
+
             revenueRequest.revenueTransactionEntity = revenueTransactionEntity;
 
             string url = strBaseURL + "Revenue/GetRevenueTransactionDetails";
@@ -834,8 +837,12 @@ namespace DHS.Reconcilation.Controllers
             if (Request["revenueTransactionEntity.RevenueTransactionNumber"] != "")
                 revenueTransactionEntity.RevenueTransactionNumber = Request["revenueTransactionEntity.RevenueTransactionNumber"];
 
+            if (Request["RevenueTypeId"] != "")
+                revenueTransactionEntity.RevenueTypeId = Convert.ToInt32(Request["RevenueTypeId"]);
+
             Common.AddSession("RTProjectName", revenueTransactionEntity.ProjectName);
             Common.AddSession("RTRevenueTransactionNumber", revenueTransactionEntity.RevenueTransactionNumber.ToString());
+            Common.AddSession("RTRevenueTypeId", revenueTransactionEntity.RevenueTypeId.ToString());
 
             revenueRequest.revenueTransactionEntity = revenueTransactionEntity;
             string url = strBaseURL + "Revenue/GetRevenueTransactionDetails";

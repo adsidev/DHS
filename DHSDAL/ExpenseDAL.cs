@@ -847,5 +847,60 @@ namespace DHSDAL
             }
             return expenseResponse;
         }
+
+        public ExpenseResponse GetExpenseTransactions(ExpenseRequest expenseRequest)
+        {
+            List<ExpenseEntity> expenseEntities = new List<ExpenseEntity>();
+            SqlObject.Parameters = new object[] {
+                    expenseRequest.expenseEntity.ExpenseId,
+                    expenseRequest.expenseEntity.ProjectId,
+                    expenseRequest.expenseEntity.PeriodId,
+                    expenseRequest.expenseEntity.OrgId,
+                    expenseRequest.expenseEntity.ObjectId,
+                    expenseRequest.expenseEntity.StartDate,
+                    expenseRequest.expenseEntity.EndDate,
+            };
+            var transactionDetailDataSet = SqlHelper.ExecuteDataset(_connectionString, StoredProcedures.Expense.USPGETEXPENSETRANSACTIONS, SqlObject.Parameters);
+            foreach (DataRow expenseDataRow in transactionDetailDataSet.Tables[0].Rows)
+            {
+               ExpenseEntity expenseEntity = new ExpenseEntity();
+                try
+                {
+                    expenseEntity.ExpenseTransactionDetailId = Convert.ToInt64(expenseDataRow["ExpenseTransactionDetailId"].ToString());
+                    expenseEntity.ExpenseId = expenseRequest.expenseEntity.ExpenseId;
+                    expenseEntity.Journal = expenseDataRow["Journal"].ToString();
+                    expenseEntity.PeriodName = expenseDataRow["Period"].ToString();
+                    expenseEntity.SourceName = expenseDataRow["Source"].ToString();
+                    expenseEntity.OrgName = expenseDataRow["Org"].ToString();
+                    expenseEntity.ObjectName = expenseDataRow["Object"].ToString();
+                    expenseEntity.ProjectName = expenseDataRow["Project"].ToString();
+                    expenseEntity.Fund = expenseDataRow["Fund"].ToString();
+                    expenseEntity.Reference1 = expenseDataRow["Ref1"].ToString();
+                    expenseEntity.Reference2 = expenseDataRow["Ref2"].ToString();
+                    expenseEntity.Reference3 = expenseDataRow["Ref3"].ToString();
+                    expenseEntity.Reference4 = expenseDataRow["Ref4"].ToString();
+                    expenseEntity.NetAmount = Convert.ToDecimal(expenseDataRow["GrossAmount"].ToString());
+                    expenseEntity.FiscalYear = expenseDataRow["Year"].ToString();
+                    expenseEntity.Notes = expenseDataRow["Comment"].ToString();
+                    expenseEntity.ExpenseDate = Convert.ToDateTime(expenseDataRow["EffectiveDate"].ToString()).ToShortDateString();
+                }
+                catch (Exception exception)
+                {
+                    expenseEntity.ErrorMessage = exception.Message;
+                    expenseEntity.Exception = exception;
+                }
+                finally
+                {
+                    expenseEntities.Add(expenseEntity);
+                }
+            }
+            if (expenseEntities.Count >= 1 || expenseEntities.Count == 0)
+            {
+                expenseResponse.ErrorMessage = string.Empty;
+                expenseResponse.Message = string.Empty;
+            }
+            expenseResponse.expenseEntities = expenseEntities;
+            return expenseResponse;
+        }
     }
 }

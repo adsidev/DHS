@@ -20,5 +20,6 @@ namespace DHSBAL
         ExpenseResponse GetRevenueTransactionByExpenseId(ExpenseRequest expenseRequest);
         ExpenseResponse GetAllTransactionDetails(ExpenseRequest expenseRequest);
         ExpenseResponse RemoveLinkExpRev(ExpenseRequest expenseRequest);
+        ExpenseResponse GetExpenseTransactions(ExpenseRequest expenseRequest);
     }
 }

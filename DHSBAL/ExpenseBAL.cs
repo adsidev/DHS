@@ -242,5 +242,19 @@ namespace DHSBAL
             }
             return expenseResponse;
         }
+
+        public ExpenseResponse GetExpenseTransactions(ExpenseRequest expenseRequest)
+        {
+            try
+            {
+                expenseResponse = expenseDALRepository.GetExpenseTransactions(expenseRequest);
+            }
+            catch (Exception ex)
+            {
+                expenseResponse.ErrorMessage = ex.Message;
+                expenseResponse.Exception = ex;
+            }
+            return expenseResponse;
+        }
     }
 }

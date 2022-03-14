@@ -57,6 +57,9 @@ namespace DHSEntities
         public int FiscalYearId { get; set; }
         public string FiscalYear { get; set; }
         public long AssignedTo { get; set; }
+        public string StartDate { get; set; }
+        public string EndDate { get; set; }
         public string AssignedToUser { get; set; }
+        public long ExpenseTransactionDetailId { get; set; }
     }
 }

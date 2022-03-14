@@ -284,5 +284,21 @@ namespace DHS.Reconcilation.Areas
         }
 
 
+        [HttpPost]
+        [Route("GetExpenseTransactions")]
+        public ExpenseResponse GetExpenseTransactions(ExpenseRequest expenseRequest)
+        {
+            try
+            {
+                expenseResponse = expenseRepository.GetExpenseTransactions(expenseRequest);
+            }
+            catch (Exception ex)
+            {
+                expenseResponse.ErrorMessage = ex.Message;
+                expenseResponse.Exception = ex;
+            }
+            return expenseResponse;
+        }
+        
     }
 }

@@ -1,0 +1,147 @@
+﻿@model DHSEntities.ExpenseResponse
+@{
+    ViewBag.Title = "View Transaction Details";
+}
+
+<div class="modal-dialog" role="document">
+    <div class="modal-content">
+        <div class="modal-header">
+            <h5 class="modal-title" id="ExpenseModalLabel">
+                View Transaction Detail Information
+            </h5>
+
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+            </button>
+        </div>
+        <div class="modal-body">
+            <div class="mrp_modalcontent">
+                <div class="row">
+                    <div class="row mrp_table-row">
+                        <div class="col-lg-12 col-xs-12">
+                            <div class="table-responsive">
+                                <div class="mrp_contentbody mrp_contenttable">
+                                    <div class="mrp_table">
+                                        <table class="table table-bordered table-striped">
+                                            <thead>
+                                                <tr>
+                                                    <th style="margin-left:1px; margin-right:1px;">
+                                                        Action
+                                                    </th>
+                                                    <th nowrap>
+                                                        Period
+                                                    </th>
+                                                    <th nowrap>
+                                                        Fiscal Year
+                                                    </th>
+                                                    <th nowrap>
+                                                        Journal
+                                                    </th>
+                                                    <th nowrap>
+                                                        Source
+                                                    </th>
+                                                    <th nowrap>
+                                                        Fund
+                                                    </th>
+                                                    <th nowrap>
+                                                        Org
+                                                    </th>
+                                                    <th nowrap>
+                                                        Object
+                                                    </th>
+                                                    <th nowrap>
+                                                        Project
+                                                    </th>
+                                                    <th nowrap>
+                                                        Reference 1
+                                                    </th>
+                                                    <th nowrap>
+                                                        Reference 2
+                                                    </th>
+                                                    <th nowrap>
+                                                        Reference 3
+                                                    </th>
+                                                    <th nowrap>
+                                                        Reference 4
+                                                    </th>
+                                                    <th nowrap>
+                                                        Net Amount
+                                                    </th>
+                                                    <th nowrap>
+                                                        Effective Date
+                                                    </th>
+                                                    <th nowrap style="text-align:left">
+                                                        Notes
+                                                    </th>
+                                                </tr>
+                                            </thead>
+                                            <tbody>
+                                                @{foreach (var item in Model.expenseEntities)
+                                                    {
+                                                        <tr>
+                                                            <td nowrap>
+                                                                
+                                                            </td>
+                                                            <td nowrap>
+                                                                @item.PeriodName
+                                                            </td>
+                                                            <td nowrap>
+                                                                @item.FiscalYear
+                                                            </td>
+                                                            <td nowrap>
+                                                                @item.Journal
+                                                            </td>
+                                                            <td nowrap>
+                                                                @item.SourceName
+                                                            </td>
+                                                            <td>
+                                                                @item.Fund
+                                                            </td>
+                                                            <td>
+                                                                @item.OrgName
+                                                            </td>
+                                                            <td nowrap>
+                                                                @item.ObjectName
+                                                            </td>
+                                                            <td nowrap>
+                                                                @item.ProjectName
+                                                            </td>
+                                                            <td nowrap>
+                                                                @item.Reference1
+                                                            </td>
+                                                            <td nowrap>
+                                                                @item.Reference2
+                                                            </td>
+                                                            <td nowrap>
+                                                                @item.Reference3
+                                                            </td>
+                                                            <td nowrap>
+                                                                @item.Reference4
+                                                            </td>
+                                                            <td nowrap>
+                                                                @string.Format("{0:C}", item.NetAmount)
+                                                            </td>
+                                                            <td nowrap>
+                                                                @item.ExpenseDate
+                                                            </td>
+                                                            <td nowrap style="text-align:left">
+                                                                @item.Notes
+                                                            </td>
+                                                        </tr>
+                                                    }
+                                                }
+                                            </tbody>
+                                        </table>
+
+                                    </div>
+                                </div>
+                            </div>
+                            <!-- /top tiles -->
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

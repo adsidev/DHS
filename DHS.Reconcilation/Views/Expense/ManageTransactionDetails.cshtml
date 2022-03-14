@@ -422,7 +422,10 @@
                                 <table class="table table-bordered table-striped">
                                     <thead>
                                         <tr>
-                                            <td colspan="15" align="left" ><input type="button" value="Add" class="btn btn-primary btn-updated" onclick="CreateTransactionDetails('@Model.expenseEntity.ExpenseId')" /></td>
+                                            <td colspan="15" align="left">
+                                                <input type="button" value="Add" class="btn btn-primary btn-updated" onclick="CreateTransactionDetails('@Model.expenseEntity.ExpenseId')" />
+                                                @*<input type="button" value="Link" class="btn btn-primary btn-updated" onclick="ViewExpenseTransactionDetail('@Model.expenseEntity.ExpenseId')" />*@
+                                            </td>
                                         </tr>
                                         <tr>
                                             <th style="margin-left:1px; margin-right:1px;">
@@ -706,6 +709,24 @@
 
         function ViewDraw(drawId) {
             window.open('/Draw/DrawInfo/' + drawId, '')
+        }
+
+        function ViewExpenseTransactionDetail(expenseId) {
+            var options = { "backdrop": "static", keyboard: true };
+            $.ajax({
+                type: "GET",
+                url: "/Expense/ViewExpenseTransactionDetail/" + expenseId,
+                dataType: "html",
+                success: function (evt) {
+                    $('#TransactionDetailModal').html(evt);
+                    $('#TransactionDetailModal').modal(options);
+                    $('#TransactionDetailModal').modal('show');
+                },
+                error: function (req, status, error) {
+                    alert(error);
+                    alert("Error!Occured");
+                }
+            });
         }
     </script>
 }
