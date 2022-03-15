@@ -21,5 +21,6 @@ namespace DHSBAL
         ExpenseResponse GetAllTransactionDetails(ExpenseRequest expenseRequest);
         ExpenseResponse RemoveLinkExpRev(ExpenseRequest expenseRequest);
         ExpenseResponse GetExpenseTransactions(ExpenseRequest expenseRequest);
+        ExpenseResponse SaveLinkToExpenseTransaction(ExpenseRequest expenseRequest);
     }
 }

@@ -299,6 +299,24 @@ namespace DHS.Reconcilation.Areas
             }
             return expenseResponse;
         }
+
+
+        [HttpPost]
+        [Route("SaveLinkToExpenseTransaction")]
+        public ExpenseResponse SaveLinkToExpenseTransaction(ExpenseRequest expenseRequest)
+        {
+            try
+            {
+                expenseResponse = expenseRepository.SaveLinkToExpenseTransaction(expenseRequest);
+            }
+            catch (Exception ex)
+            {
+                expenseResponse.ErrorMessage = ex.Message;
+                expenseResponse.Exception = ex;
+            }
+            return expenseResponse;
+        }
+
         
     }
 }

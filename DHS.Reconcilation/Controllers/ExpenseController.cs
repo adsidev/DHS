@@ -971,7 +971,7 @@ namespace DHS.Reconcilation.Controllers
                 {
                     string PageName = "Expesnses";
                     expenseResponse.rolePermissionEntity = Common.PagePermissions(PageName);
-
+                    expenseResponse.expenseEntity = expenseEntity;
                     return PartialView("_viewExpenseTransactionDetail", expenseResponse);
                 }
                 else

@@ -900,6 +900,32 @@ namespace DHSDAL
                 expenseResponse.Message = string.Empty;
             }
             expenseResponse.expenseEntities = expenseEntities;
+            CommonDAL commonDAL = new CommonDAL();
+            expenseResponse.periodEntities = commonDAL.GetPeriods();
+            expenseResponse.orgEntities = commonDAL.GetOrgs();
+            expenseResponse.objectEntities = commonDAL.GetObjects();
+            expenseResponse.projectEntities = commonDAL.GetProjects();
+            return expenseResponse;
+        }
+
+        public ExpenseResponse SaveLinkToExpenseTransaction(ExpenseRequest expenseRequest)
+        {
+            List<ExpenseEntity> expenseEntities = new List<ExpenseEntity>();
+            try { 
+            SqlObject.Parameters = new object[] {
+                    expenseRequest.expenseEntity.ExpenseId,
+                    expenseRequest.expenseEntity.ExpenseTransactionDetailId,
+                    expenseRequest.expenseEntity.CreatedBy,
+                }; 
+                var intResult = SqlHelper.ExecuteScalar(_connectionString, StoredProcedures.Expense.USPSAVELINKTOEXPENSETRANSACTION, SqlObject.Parameters);
+                expenseResponse.Message = string.Empty;
+                expenseResponse.ErrorMessage = string.Empty;
+            }
+            catch (Exception ex)
+            {
+                expenseResponse.ErrorMessage = ex.Message;
+                expenseResponse.Exception = ex;
+            }
             return expenseResponse;
         }
     }
