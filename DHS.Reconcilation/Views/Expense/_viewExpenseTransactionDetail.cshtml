@@ -22,7 +22,7 @@
         </div>
         <div class="modal-body">
             <div class="mrp_modalcontent">
-                <form class="mrp_selectdetails form-inline">
+                <form class="mrp_selectdetails form-inline" id="frmExpensesTransaction" method="post">
                     <div class="row">
                         <div class="form-group col-lg-2 col-xs-12 col-sm-6">
                             <label for="SearchOn">Start&nbsp;Date:</label>
@@ -131,7 +131,7 @@
                                                     </th>
                                                 </tr>
                                             </thead>
-                                            <tbody>
+                                            <tbody id="transcontent">
                                                 @{foreach (var item in Model.expenseEntities)
                                                     {
                                                         <tr>
@@ -233,6 +233,60 @@
         else {
             alert("Please select expense transaction record to link.")
         }
+    }
+
+    function SelectedIndexChanged() {
+        var expenseRequest = {
+                expenseEntity:
+                {
+                ExpenseId: 0,
+                ProjectId: document.getElementById("ProjectId").value,
+                PeriodId: document.getElementById("PeriodId").value,
+                OrgId: document.getElementById("OrgId").value,
+                ObjectId: document.getElementById("ObjectId").value,
+                StartDate: document.getElementById("StartDate").value,
+                EndDate: document.getElementById("EndDate").value,
+                },
+            };
+
+            $.ajax({
+                url: "/Expense/GetExpenseTransactions",
+                type: "POST",
+                data: expenseRequest,
+                dataType: 'json',
+                success: function (data) {
+                    var s = '';
+                    let dollarUS = Intl.NumberFormat("en-US", {
+                        style: "currency",
+                        currency: "USD",
+                    });
+                    $("#transcontent").html(s)
+                    //write code to display the html content
+                    for (var i = 0; i < data.expenseEntities.length; i++) {                        
+                        s += '<tr><td nowrap><input type="radio" id="ExpenseTransactionDetailId" name="ExpenseTransactionDetail" value="' + data.expenseEntities[i].ExpenseTransactionDetailId + '" /></td>';
+                        s += '<td nowrap>' + data.expenseEntities[i].PeriodName + '</td>';
+                        s += '<td nowrap>' + data.expenseEntities[i].FiscalYear + '</td>';
+                        s += '<td nowrap>' + data.expenseEntities[i].Journal + '</td>';
+                        s += '<td nowrap>' + data.expenseEntities[i].SourceName + '</td>';
+                        s += '<td nowrap>' + data.expenseEntities[i].Fund + '</td>';
+                        s += '<td nowrap>' + data.expenseEntities[i].OrgName + '</td>';
+                        s += '<td nowrap>' + data.expenseEntities[i].ObjectName + '</td>';
+                        s += '<td nowrap>' + data.expenseEntities[i].ProjectName + '</td>';
+                        s += '<td nowrap>' + data.expenseEntities[i].Reference1 + '</td>';
+                        s += '<td nowrap>' + data.expenseEntities[i].Reference2 + '</td>';
+                        s += '<td nowrap>' + data.expenseEntities[i].Reference3 + '</td>';
+                        s += '<td nowrap>' + data.expenseEntities[i].Reference4 + '</td>';
+                        s += '<td nowrap>' + dollarUS.format(data.expenseEntities[i].NetAmount) + '</td>';
+                        s += '<td nowrap>' + data.expenseEntities[i].ExpenseDate + '</td>';
+                        s += '<td nowrap>' + data.expenseEntities[i].Notes + '</td>';
+                        s += '</tr > ';
+                    }
+                    $("#transcontent").html(s)
+                },
+                complete: function () {
+
+                }
+            });
     }
 
 </script>
