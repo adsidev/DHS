@@ -106,7 +106,7 @@
                             </div>
                             <div class="col-lg-9 col-xs-12 col-sm-9 col-md-9">
                                 <div class="form_modal">
-                                    @Html.DropDownList("RevenueTypeId", new SelectList(Model.revenueTypeEntities, "RevenueTypeId", "RevenueTypeName", Model.revenueTransactionEntity.RevenueTypeId), "", new { @id = "RevenueTypeId", @class = "form-control mrp_modalselect" })
+                                    @Html.DropDownList("RevenueTTypeId", new SelectList(Model.revenueTypeEntities, "RevenueTypeId", "RevenueTypeName", Model.revenueTransactionEntity.RevenueTypeId), "", new { @id = "RevenueTTypeId", @class = "form-control mrp_modalselect" })
                                 </div>
                             </div>
                         </div>
@@ -157,18 +157,18 @@
             return false;
         }
 
-        if (document.getElementById("RevenueTypeId").value == "") {
+        if (document.getElementById("RevenueTTypeId").value == "") {
             alert("Please select revenue type.")
-            document.getElementById("RevenueTypeId").focus();
+            document.getElementById("RevenueTTypeId").focus();
             return false;
         }
 
         var Draw = 0
-        if (document.getElementById("RevenueTypeId").value == 1) {
+        if (document.getElementById("RevenueTTypeId").value == 1) {
             Draw = document.getElementById("DrawId").value;
         }
         var revenueAmount = (document.getElementById("RevenueTransactionAmount").value).replace("$", "").replace(",", "");
-        if (document.getElementById("RevenueTypeId").value == 1) {
+        if (document.getElementById("RevenueTTypeId").value == 1) {
             if (revenueAmount > 0)
                 revenueAmount = -revenueAmount
         }
@@ -177,7 +177,7 @@
             RevenueTransactionDate: document.getElementById("RevenueTransactionDate").value,
             RevenueTransactionId: document.getElementById("RevenueTransactionId").value,
             RevenueId: document.getElementById("RevenueId").value,
-            RevenueTypeId: document.getElementById("RevenueTypeId").value,
+            RevenueTypeId: document.getElementById("RevenueTTypeId").value,
             OrgName: document.getElementById("OrgName").value,
             RevenueTranscationDescription: document.getElementById("RevenueTranscationDescription").value,
             RevenueTransactionAmount: revenueAmount,
@@ -206,8 +206,8 @@
     }
 
 
-    $("#RevenueTypeId").change(function () {
-        var x = $("#RevenueTypeId").val();
+    $("#RevenueTTypeId").change(function () {
+        var x = $("#RevenueTTypeId").val();
         document.getElementById("DrawId").disabled = false;
         if (x == 1) {
             fire_ajax(document.getElementById("RevenueId").value);
