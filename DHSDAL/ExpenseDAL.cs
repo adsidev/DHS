@@ -859,6 +859,7 @@ namespace DHSDAL
                     expenseRequest.expenseEntity.ObjectId,
                     expenseRequest.expenseEntity.StartDate,
                     expenseRequest.expenseEntity.EndDate,
+                    expenseRequest.expenseEntity.NetAmount,
             };
             var transactionDetailDataSet = SqlHelper.ExecuteDataset(_connectionString, StoredProcedures.Expense.USPGETEXPENSETRANSACTIONS, SqlObject.Parameters);
             foreach (DataRow expenseDataRow in transactionDetailDataSet.Tables[0].Rows)

@@ -26,11 +26,15 @@
                     <div class="row">
                         <div class="form-group col-lg-2 col-xs-12 col-sm-6">
                             <label for="SearchOn">Start&nbsp;Date:</label>
-                            <input type="date" id="StartDate" name="StartDate" class = "form-control mrp_modalselect"/>
+                            <input type="date" id="StartDate" name="StartDate" class="form-control mrp_modalselect" />
                         </div>
                         <div class="form-group col-lg-2 col-xs-12 col-sm-5">
                             <label for="SearchOn">End&nbsp;Date:</label>
-                            <input type="date" id="EndDate" name="EndDate" class = "form-control mrp_modalselect"/>
+                            <input type="date" id="EndDate" name="EndDate" class="form-control mrp_modalselect" />
+                        </div>
+                        <div class="form-group col-lg-2 col-xs-12 col-sm-5">
+                            <label for="SearchOn">Amount:</label>
+                            <input type="number" id="GrossAmount" name="GrossAmount" class="form-control mrp_modalselect" />
                         </div>
                         <div class="form-group col-lg-2 col-xs-12 col-sm-7">
                             <label for="SearchOn">Period:</label>
@@ -246,6 +250,8 @@
                 ObjectId: document.getElementById("ObjectId").value,
                 StartDate: document.getElementById("StartDate").value,
                 EndDate: document.getElementById("EndDate").value,
+                NetAmount: document.getElementById("GrossAmount").value,
+               
                 },
             };
 
