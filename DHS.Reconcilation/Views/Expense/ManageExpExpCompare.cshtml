@@ -24,7 +24,33 @@
                     <div class="mrp_content">
                         <h2>View Expenses</h2>
                         <form class="mrp_selectdetails form-inline">
-                           
+                            <div class="row">
+                                <div class="form-group col-lg-2 col-xs-12 col-sm-6">
+                                    <label for="SearchOn">Fiscal&nbsp;Year:</label>
+                                    <div class="form_modal">
+                                        @Html.DropDownList("FiscalYearId", new SelectList(Model.fiscalYearEntities, "FiscalYearId", "FiscalYear", Model.expenseEntity.FiscalYearId), "", new { @id = "FiscalYearId", @class = "form-control mrp_modalselect" })
+                                    </div>
+                                </div>
+                                <div class="form-group col-lg-2 col-xs-12 col-sm-6">
+                                    <label for="SearchOn">Project:</label>
+                                    <div class="form_modal">
+                                        @Html.DropDownList("ProjectId", new SelectList(Model.projectEntities, "ProjectId", "ProjectName", Model.expenseEntity.ProjectId), "", new { @id = "ProjectId", @class = "form-control mrp_modalselect" })
+                                    </div>
+                                </div>
+
+                                <div class="form-group col-lg-2 col-xs-12 col-sm-7">
+                                    <div class="form_modal">
+                                        @if (Model.rolePermissionEntity.ViewBit)
+                                        {
+                                            <img src="~/images/search.png" class="img-responsive" height="40" width="40" onclick="SelectedIndexChanged()" style="cursor:pointer;" alt="Search Expense Information" />
+                                        }
+                                        else
+                                        {
+                                            <img src="~/images/search.png" class="disableButton" height="40" width="40" alt="Search Expense Information" />
+                                        }
+                                    </div>
+                                </div>
+                            </div>
                         </form>
                     </div>
                 </div>
@@ -156,7 +182,15 @@
             $('#mra_subliEEC').addClass('active');
         });
 
-
+        function SelectedIndexChanged() {
+            if ($("#SearchOn").val() != "" & $("#txtSearch").val() == "") {
+                alert("Please enter value to search");
+                $("#txtSearch").focus();
+            }
+            else {
+                $('#frmExpenses').submit();
+            }
+        }
        
     </script>
 }

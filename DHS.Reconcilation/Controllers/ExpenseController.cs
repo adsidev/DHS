@@ -995,17 +995,69 @@ namespace DHS.Reconcilation.Controllers
             int pageSize = Common.pageNumbers;
             int pageIndex = 1;
             pageIndex = page.HasValue ? Convert.ToInt32(page) : 1;
-            //if(pageIndex == 1)
-            //{
-            //    if (Common.GetSession("EPageIndex") != "")
-            //        pageIndex = Convert.ToInt32(Common.GetSession("EPageIndex"));
-            //}
-            //if (pageIndex > 1)
-            //    Common.AddSession("EPageIndex", pageIndex.ToString());
-
             ExpenseResponse expenseResponse = new ExpenseResponse();
             ExpenseRequest expenseRequest = new ExpenseRequest();
             ExpenseEntity expenseEntity = new ExpenseEntity();
+            expenseEntity.ProjectId = 0;
+            expenseEntity.FiscalYearId = 0;
+            if (Common.GetSession("ETProjectId") != "")
+                expenseEntity.ProjectId = Convert.ToInt32(Common.GetSession("ETProjectId"));
+
+            if (Common.GetSession("ETFiscalYearId") != "")
+                expenseEntity.FiscalYearId = Convert.ToInt32(Common.GetSession("ETFiscalYearId"));
+            expenseRequest.expenseEntity = expenseEntity;
+            string url = strBaseURL + "Expense/GetExpExpTransCompare";
+            client.BaseAddress = new Uri(url);
+            HttpResponseMessage responseMessage = await client.PostAsJsonAsync(url, expenseRequest);
+
+            if (responseMessage.IsSuccessStatusCode)
+            {
+                var responseData = responseMessage.Content.ReadAsStringAsync().Result;
+                expenseResponse = JsonConvert.DeserializeObject<ExpenseResponse>(responseData);
+                if (expenseResponse.Message == string.Empty && expenseResponse.ErrorMessage == string.Empty)
+                {
+                    string PageName = "Expesnses";
+                    expenseResponse.expenseEntity = expenseEntity;
+                    expenseResponse.rolePermissionEntity = Common.PagePermissions(PageName);
+                    expenseResponse.pagedExpenseEntities = expenseResponse.expenseEntities.ToPagedList(pageIndex, pageSize);
+                    return View(expenseResponse);
+                }
+                else
+                {
+                    TempData["LoginFailure"] = expenseResponse.Message;
+                    return RedirectToAction("Error", "Home");
+                }
+            }
+            else
+            {
+                TempData["LoginFailure"] = responseMessage.ToString();
+                return RedirectToAction("Error", "Home");
+            }
+        }
+
+
+        [HttpPost]
+        public async Task<ActionResult> ManageExpExpCompare(int? page, int? id = 0)
+        {
+            if (!Common.SessionExists())
+                return RedirectToAction("Index", "Home");
+            int pageSize = Common.pageNumbers;
+            int pageIndex = 1;
+            pageIndex = page.HasValue ? Convert.ToInt32(page) : 1;
+            ExpenseResponse expenseResponse = new ExpenseResponse();
+            ExpenseRequest expenseRequest = new ExpenseRequest();
+            ExpenseEntity expenseEntity = new ExpenseEntity();
+            expenseEntity.ProjectId = 0;
+            expenseEntity.FiscalYearId = 0;
+
+            if (Request["ProjectId"] != "")
+                expenseEntity.ProjectId = Convert.ToInt32(Request["ProjectId"]);
+
+            if (Request["FiscalYearId"] != "")
+                expenseEntity.FiscalYearId = Convert.ToInt32(Request["FiscalYearId"]);
+
+            Common.AddSession("ETProjectId", expenseEntity.ProjectId.ToString());
+            Common.AddSession("ETFiscalYearId", expenseEntity.FiscalYearId.ToString());
             
             expenseRequest.expenseEntity = expenseEntity;
             string url = strBaseURL + "Expense/GetExpExpTransCompare";
@@ -1036,5 +1088,7 @@ namespace DHS.Reconcilation.Controllers
                 return RedirectToAction("Error", "Home");
             }
         }
+
+
     }
 }

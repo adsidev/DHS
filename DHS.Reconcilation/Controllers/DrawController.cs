@@ -392,7 +392,10 @@ namespace DHS.Reconcilation.Controllers
             DocumentEntity documentEntity = new DocumentEntity();
             documentEntity.DocumentId = Convert.ToInt32(Request["DocumentEntity.DocumentId"]);
             documentEntity.DocumentReferenceId = Convert.ToInt32(Request["DrawId"]);
+            if(Request["DocumentCategoryId"]!="")
             documentEntity.DocumentCategoryId = Convert.ToInt32(Request["DocumentCategoryId"]);
+            else
+                documentEntity.DocumentCategoryId = 0;
             documentEntity.DisplayOrder = Convert.ToInt32(Request["DocumentEntity.DisplayOrder"]);
             documentEntity.DocumentDescription = Request["Description"];
             documentEntity.DocumentFile = fileName;

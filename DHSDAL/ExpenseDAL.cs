@@ -933,6 +933,8 @@ namespace DHSDAL
         {
             var expenseEntities = new List<ExpenseEntity>();
             SqlObject.Parameters = new object[] {
+                expenseRequest.expenseEntity.ProjectId,
+                expenseRequest.expenseEntity.FiscalYearId,
             };
             var expenseDataSet = SqlHelper.ExecuteDataset(_connectionString, StoredProcedures.Expense.USPGETEXPEXPTRANSCOMPARE, SqlObject.Parameters);
             foreach (DataRow expenseDataRow in expenseDataSet.Tables[0].Rows)
@@ -990,13 +992,8 @@ namespace DHSDAL
                 expenseResponse.Message = string.Empty;
             }
             CommonDAL commonDAL = new CommonDAL();
-            expenseResponse.statusEntities = commonDAL.GetStatuses();
             expenseResponse.projectEntities = commonDAL.GetProjects();
             expenseResponse.fiscalYearEntities = commonDAL.GetFiscalYears();
-            expenseResponse.periodEntities = commonDAL.GetPeriods();
-            expenseResponse.sourceEntities = commonDAL.GetSources();
-            UserDAL userDAL = new UserDAL();
-            expenseResponse.userEntities = userDAL.GetAssignedTo().userEntities;
             expenseResponse.expenseEntities = expenseEntities;
             return expenseResponse;
         }
