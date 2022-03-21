@@ -46,6 +46,7 @@ namespace DHSEntities
         public string FGTCategoryName1 { get; set;}
         public string FGTCategoryName2 { get; set; }
         public decimal NetAmount { get; set; }
+        public decimal ReconciledAmount { get; set; }
         public string Notes { get; set; }
         public string SaveString { get; set; }
         public string ExpenseDate { get; set; }

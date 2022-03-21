@@ -52,6 +52,7 @@ namespace DHSDAL
             public const string USPREMOVELINKEXPREV = "sp_RemoveLinkExpRev";
             public const string USPGETCATEGORYBYOBJECT = "sp_GetCategoryByObject";
             public const string USPGETEXPENSETRANSACTIONS = "sp_GetExpenseTransactions";
+            public const string USPGETEXPEXPTRANSCOMPARE = "sp_GetExpExpTransCompare";
         }
 
         public class Revenue

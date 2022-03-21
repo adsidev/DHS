@@ -317,6 +317,22 @@ namespace DHS.Reconcilation.Areas
             return expenseResponse;
         }
 
+
+        [HttpPost]
+        [Route("GetExpExpTransCompare")]
+        public ExpenseResponse GetExpExpTransCompare(ExpenseRequest expenseRequest)
+        {
+            try
+            {
+                expenseResponse = expenseRepository.GetExpExpTransCompare(expenseRequest);
+            }
+            catch (Exception ex)
+            {
+                expenseResponse.ErrorMessage = ex.Message;
+                expenseResponse.Exception = ex;
+            }
+            return expenseResponse;
+        }
         
     }
 }

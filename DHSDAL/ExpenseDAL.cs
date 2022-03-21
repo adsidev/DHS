@@ -131,7 +131,6 @@ namespace DHSDAL
             return expenseResponse;
         }
 
-
         private ExpenseEntity GetExpenseEntity(long ExpenseId)
         {
 
@@ -929,5 +928,78 @@ namespace DHSDAL
             }
             return expenseResponse;
         }
+
+        public ExpenseResponse GetExpExpTransCompare(ExpenseRequest expenseRequest)
+        {
+            var expenseEntities = new List<ExpenseEntity>();
+            SqlObject.Parameters = new object[] {
+            };
+            var expenseDataSet = SqlHelper.ExecuteDataset(_connectionString, StoredProcedures.Expense.USPGETEXPEXPTRANSCOMPARE, SqlObject.Parameters);
+            foreach (DataRow expenseDataRow in expenseDataSet.Tables[0].Rows)
+            {
+                ExpenseEntity expenseEntity = new ExpenseEntity();
+                try
+                {
+                    expenseEntity.ExpenseId = Convert.ToInt64(expenseDataRow["ExpenseId"].ToString());
+                    expenseEntity.Journal = expenseDataRow["Journal"].ToString();
+                    expenseEntity.JournalName = expenseDataRow["JournalName"].ToString();
+                    expenseEntity.PeriodName = expenseDataRow["PeriodName"].ToString();
+                    expenseEntity.SourceName = expenseDataRow["SourceCode"].ToString();
+                    expenseEntity.SourceDescription = expenseDataRow["SourceDescription"].ToString();
+                    expenseEntity.FunctionName = expenseDataRow["FunctionCode"].ToString();
+                    expenseEntity.FunctionDescription = expenseDataRow["FunctionDescription"].ToString();
+                    expenseEntity.DepartmentName = expenseDataRow["DepartmentCode"].ToString();
+                    expenseEntity.DepartmentDescription = expenseDataRow["DepartmentDescription"].ToString();
+                    expenseEntity.ActivityName = expenseDataRow["ActivityCode"].ToString();
+                    expenseEntity.ActivityDescription = expenseDataRow["ActivityDescription"].ToString();
+                    expenseEntity.OrgName = expenseDataRow["OrgCode"].ToString();
+                    expenseEntity.OrgDescription = expenseDataRow["OrgDescription"].ToString();
+                    expenseEntity.ObjectName = expenseDataRow["ObjectCode"].ToString();
+                    expenseEntity.ObjectDescription = expenseDataRow["ObjectDescription"].ToString();
+                    expenseEntity.ProjectName = expenseDataRow["ProjectCode"].ToString();
+                    expenseEntity.ProjectDescription = expenseDataRow["ProjectDescription"].ToString();
+                    expenseEntity.CFDA = expenseDataRow["CFDA"].ToString();
+                    expenseEntity.Fund = expenseDataRow["Fund"].ToString();
+                    expenseEntity.Reference1 = expenseDataRow["Reference1"].ToString();
+                    expenseEntity.Reference2 = expenseDataRow["Reference2"].ToString();
+                    expenseEntity.Reference3 = expenseDataRow["Reference3"].ToString();
+                    expenseEntity.Reference4 = expenseDataRow["Reference4"].ToString();
+                    expenseEntity.NetAmount = Convert.ToDecimal(expenseDataRow["NetAmount"].ToString());
+                    expenseEntity.ReconciledAmount = Convert.ToDecimal(expenseDataRow["ReconciledAmount"].ToString());
+                    expenseEntity.ExpenseNumber = expenseDataRow["ExpenseNumber"].ToString();
+                    expenseEntity.RevenueNumber = expenseDataRow["RevenueNumber"].ToString();
+                    expenseEntity.StatusName = expenseDataRow["StatusName"].ToString();
+                    expenseEntity.AssignedToUser = expenseDataRow["AssignedToUser"].ToString();
+                    expenseEntity.FiscalYear = expenseDataRow["FiscalYear"].ToString();
+                    expenseEntity.Notes = expenseDataRow["Notes"].ToString();
+                    expenseEntity.ExpenseDate = Convert.ToDateTime(expenseDataRow["ExpenseDate"].ToString()).ToShortDateString();
+                }
+                catch (Exception exception)
+                {
+                    expenseEntity.ErrorMessage = exception.Message;
+                    expenseEntity.Exception = exception;
+                }
+                finally
+                {
+                    expenseEntities.Add(expenseEntity);
+                }
+            }
+            if (expenseEntities.Count >= 1 || expenseEntities.Count == 0)
+            {
+                expenseResponse.ErrorMessage = string.Empty;
+                expenseResponse.Message = string.Empty;
+            }
+            CommonDAL commonDAL = new CommonDAL();
+            expenseResponse.statusEntities = commonDAL.GetStatuses();
+            expenseResponse.projectEntities = commonDAL.GetProjects();
+            expenseResponse.fiscalYearEntities = commonDAL.GetFiscalYears();
+            expenseResponse.periodEntities = commonDAL.GetPeriods();
+            expenseResponse.sourceEntities = commonDAL.GetSources();
+            UserDAL userDAL = new UserDAL();
+            expenseResponse.userEntities = userDAL.GetAssignedTo().userEntities;
+            expenseResponse.expenseEntities = expenseEntities;
+            return expenseResponse;
+        }
+
     }
 }

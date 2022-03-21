@@ -1,0 +1,162 @@
+﻿@model DHSEntities.ExpenseResponse
+@using PagedList.Mvc
+@using DHS.Reconcilation.Models
+
+@{
+    ViewBag.Title = "DHS Reconcilation :: Manage Exp-Exp Trans Compare";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+<title>@ViewBag.Title</title>
+<script src="~/Scripts/jquery-1.10.2.min.js"></script>
+@section LeftMenuSection
+{
+    @Html.Partial("_menuCRPayments");
+}
+@using (Html.BeginForm("ManageExpExpCompare", "Expense", FormMethod.Post, new { @id = "frmExpenses" }))
+{
+    <title>@ViewBag.Title</title>
+    <input type="hidden" id="hdnExpenseId" name="hdnExpenseId" />
+    <div class="tab-pane active" id="dashboard">
+        <div class="container-fluid">
+            <!-- top tiles -->
+            <div class="row ">
+                <div class="col-lg-12">
+                    <div class="mrp_content">
+                        <h2>View Expenses</h2>
+                        <form class="mrp_selectdetails form-inline">
+                           
+                        </form>
+                    </div>
+                </div>
+            </div>
+            <div class="row mrp_table-row">
+                <div class="col-lg-12 col-xs-12">
+                    <div class="table-responsive">
+                        <div class="mrp_contentbody mrp_contenttable">
+                            <div class="mrp_table">
+                                <table class="table table-bordered table-striped">
+                                    <thead>
+                                        <tr>
+                                            <th nowrap>
+                                                Status
+                                            </th>
+                                            <th nowrap>
+                                                Exp No
+                                            </th>
+                                            <th nowrap>
+                                                Period
+                                            </th>
+                                            <th nowrap>
+                                                Org
+                                            </th>
+                                            <th nowrap>
+                                                Object
+                                            </th>
+                                            <th nowrap>
+                                                Object Description
+                                            </th>
+                                            <th nowrap>
+                                                Project
+                                            </th>
+                                            <th nowrap>
+                                                Project Title
+                                            </th>
+                                            <th nowrap>
+                                                CFDA
+                                            </th>
+                                            <th nowrap>
+                                                Net Amount
+                                            </th>
+                                            <th nowrap>
+                                                Reconciled Amount
+                                            </th>
+                                            <th nowrap style="text-align:left">
+                                                Difference
+                                            </th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        @{
+                                            decimal Difference = 0;
+                                            foreach (var item in Model.pagedExpenseEntities)
+                                            {
+                                                Difference = (item.NetAmount - item.ReconciledAmount);
+                                                <tr>
+                                                    <td nowrap>
+                                                        @item.StatusName
+                                                    </td>
+                                                    <td nowrap>
+                                                        <a href="Javascript:void()" onclick="ViewTransactionDetails('@item.ExpenseId')"> @item.ExpenseNumber</a>
+                                                    </td>
+                                                    <td nowrap>
+                                                        @item.PeriodName
+                                                    </td>
+                                                    <td>
+                                                        @item.OrgName
+                                                    </td>
+                                                    <td nowrap>
+                                                        @item.ObjectName
+                                                    </td>
+                                                    <td nowrap>
+                                                        @item.ObjectDescription
+                                                    </td>
+                                                    <td nowrap>
+                                                        @item.ProjectName
+                                                    </td>
+                                                    <td nowrap>
+                                                        @item.ProjectDescription
+                                                    </td>
+                                                    <td nowrap>
+                                                        @item.CFDA
+                                                    </td>
+                                                    <td nowrap>
+                                                        @string.Format("{0:C}", item.NetAmount)
+                                                    </td>
+                                                    <td nowrap>
+                                                        @string.Format("{0:C}", item.ReconciledAmount)
+                                                    </td>
+                                                    <td nowrap style="text-align:left">
+                                                        @string.Format("{0:C}", Difference)
+                                                    </td>
+                                                </tr>
+                                            }
+                                        }
+                                    </tbody>
+                                </table>
+
+                                <!-- popup -->
+                                <div class="modal fade mrp_modalpopup" id="CostReportInvoiceModal">
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- /top tiles -->
+                </div>
+            </div>
+            <!-- /page content -->
+            <div id="container" class="mra_pagination">
+                <div class="pagination">
+                    @Html.PagedListPager(Model.pagedExpenseEntities, page => Url.Action("ManageExpExpCompare", new { page }))
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+
+    <script type="text/javascript">
+
+        function ViewTransactionDetails(expenseId) {
+            var url = "/Expense/ManageTransactionDetails/" + expenseId;
+            window.open(url, '');
+            //location.href = url;
+        }
+
+        $(document).ready(function () {
+            $('#mra_subliEEC').addClass('active');
+        });
+
+
+       
+    </script>
+}
