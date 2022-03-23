@@ -228,11 +228,11 @@ namespace DHSBAL
         }
 
 
-        public RevenueResponse DeleteRevenueTransaction(RevenueRequest expenseRequest)
+        public RevenueResponse DeleteRevenueTransaction(RevenueRequest revenueRequest)
         {
             try
             {
-                expenseResponse = expenseDALRepository.DeleteRevenueTransaction(expenseRequest);
+                expenseResponse = expenseDALRepository.DeleteRevenueTransaction(revenueRequest);
             }
             catch (Exception ex)
             {
@@ -242,5 +242,18 @@ namespace DHSBAL
             return expenseResponse;
         }
 
+        public RevenueResponse GetManageReceivables(RevenueRequest revenueRequest)
+        {
+            try
+            {
+                expenseResponse = expenseDALRepository.GetManageReceivables(revenueRequest);
+            }
+            catch (Exception ex)
+            {
+                expenseResponse.ErrorMessage = ex.Message;
+                expenseResponse.Exception = ex;
+            }
+            return expenseResponse;
+        }
     }
 }

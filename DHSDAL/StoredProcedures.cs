@@ -70,6 +70,7 @@ namespace DHSDAL
             public const string USPGETALLREVENUETRANSACTIONS = "sp_GetAllRevenueTransactions";
             public const string USPGETTRANSACTIONSBYREVENUEID = "sp_GetTransactionsByRevenueId";
             public const string USPDELETEREVENUETRANSACTION = "sp_DeleteRevenueTransaction";
+            public const string USPGETALLMANAGERECEIVABLES = "sp_GetAllManageReceivables";
         }
 
         public class Draw

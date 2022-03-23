@@ -13,5 +13,6 @@ namespace DHSEntities
         public string SearchOn { get; set; }
         public string SearchKey { get; set; }
         public RevenueTransactionEntity revenueTransactionEntity { get; set; }
+        public TransactionDetailEntity transactionDetailEntity { get; set; }
     }
 }

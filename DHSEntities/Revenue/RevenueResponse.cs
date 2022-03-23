@@ -36,5 +36,7 @@ namespace DHSEntities
         public RevenueTransactionEntity revenueTransactionEntity { get; set; }
 
         public List<TransactionDetailEntity> transactionDetailEntities { get; set; }
+        public TransactionDetailEntity transactionDetailEntity { get; set; }
+        public IPagedList<TransactionDetailEntity> pagedTransactionDetailEntities { get; set; }
     }
 }

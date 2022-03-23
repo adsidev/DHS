@@ -25,6 +25,6 @@
 <asp:ScriptManager ID="ScriptManager1" runat="server">
 </asp:ScriptManager>
     <rsweb:ReportViewer ID="ReportViewer1" runat="server" Font-Names="Verdana" ProcessingMode="Remote"
-    Height="1100px" Width="1000px" AsyncRendering="false" Visible="false" AsyncPostBackTrigger="false"  InteractivityPostBackMode="AlwaysSynchronous">
+    Height="1500px" Width="1000px" AsyncRendering="false" Visible="false" AsyncPostBackTrigger="false"  InteractivityPostBackMode="AlwaysSynchronous">
 </rsweb:ReportViewer>
 </form>

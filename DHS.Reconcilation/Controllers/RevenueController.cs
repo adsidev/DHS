@@ -874,5 +874,100 @@ namespace DHS.Reconcilation.Controllers
             }
         }
 
+        public async Task<ActionResult> ManageReceivables(int? page)
+        {
+            if (!Common.SessionExists())
+                return RedirectToAction("Index", "Home");
+            int pageSize = Common.pageNumbers;
+            int pageIndex = 1;
+            pageIndex = page.HasValue ? Convert.ToInt32(page) : 1;
+            RevenueResponse revenueResponse = new RevenueResponse();
+            RevenueRequest revenueRequest = new RevenueRequest();
+            TransactionDetailEntity transactionDetailEntity = new TransactionDetailEntity();
+            transactionDetailEntity.TransactionNumber = String.Empty;
+            transactionDetailEntity.ProjectId = 0;
+            transactionDetailEntity.RevenueTransactionNumber = String.Empty;
+
+            if (Common.GetSession("RMRProjectId") != "")
+                transactionDetailEntity.ProjectId = Convert.ToInt32(Common.GetSession("RMRProjectId"));
+
+            revenueRequest.transactionDetailEntity = transactionDetailEntity;
+            string url = strBaseURL + "Revenue/GetManageReceivables";
+            client.BaseAddress = new Uri(url);
+            HttpResponseMessage responseMessage = await client.PostAsJsonAsync(url, revenueRequest);
+
+            if (responseMessage.IsSuccessStatusCode)
+            {
+                var responseData = responseMessage.Content.ReadAsStringAsync().Result;
+                revenueResponse = JsonConvert.DeserializeObject<RevenueResponse>(responseData);
+                if (revenueResponse.Message == string.Empty && revenueResponse.ErrorMessage == string.Empty)
+                {
+                    string PageName = "Expesnses";
+                    revenueResponse.transactionDetailEntity = transactionDetailEntity;
+                    revenueResponse.rolePermissionEntity = Common.PagePermissions(PageName);
+                    revenueResponse.pagedTransactionDetailEntities = revenueResponse.transactionDetailEntities.ToPagedList(pageIndex, pageSize);
+                    return View(revenueResponse);
+                }
+                else
+                {
+                    TempData["LoginFailure"] = revenueResponse.Message;
+                    return RedirectToAction("Error", "Home");
+                }
+            }
+            else
+            {
+                TempData["LoginFailure"] = responseMessage.ToString();
+                return RedirectToAction("Error", "Home");
+            }
+        }
+
+        [HttpPost]
+        public async Task<ActionResult> ManageReceivables(int? page, int? id = 0)
+        {
+            if (!Common.SessionExists())
+                return RedirectToAction("Index", "Home");
+            int pageSize = Common.pageNumbers;
+            int pageIndex = 1;
+            pageIndex = page.HasValue ? Convert.ToInt32(page) : 1;
+            RevenueResponse revenueResponse = new RevenueResponse();
+            RevenueRequest revenueRequest = new RevenueRequest();
+            TransactionDetailEntity transactionDetailEntity = new TransactionDetailEntity();
+            transactionDetailEntity.ProjectId = 0;
+            
+            if (Request["ProjectId"] != "")
+                transactionDetailEntity.ProjectId = Convert.ToInt32(Request["ProjectId"]);
+            
+            Common.AddSession("RMRProjectId", transactionDetailEntity.ProjectId.ToString());
+
+            revenueRequest.transactionDetailEntity = transactionDetailEntity;
+            string url = strBaseURL + "Revenue/GetManageReceivables";
+            client.BaseAddress = new Uri(url);
+            HttpResponseMessage responseMessage = await client.PostAsJsonAsync(url, revenueRequest);
+
+            if (responseMessage.IsSuccessStatusCode)
+            {
+                var responseData = responseMessage.Content.ReadAsStringAsync().Result;
+                revenueResponse = JsonConvert.DeserializeObject<RevenueResponse>(responseData);
+                if (revenueResponse.Message == string.Empty && revenueResponse.ErrorMessage == string.Empty)
+                {
+                    string PageName = "Expesnses";
+                    revenueResponse.transactionDetailEntity = transactionDetailEntity;
+                    revenueResponse.rolePermissionEntity = Common.PagePermissions(PageName);
+                    revenueResponse.pagedTransactionDetailEntities = revenueResponse.transactionDetailEntities.ToPagedList(pageIndex, pageSize);
+                    return View(revenueResponse);
+                }
+                else
+                {
+                    TempData["LoginFailure"] = revenueResponse.Message;
+                    return RedirectToAction("Error", "Home");
+                }
+            }
+            else
+            {
+                TempData["LoginFailure"] = responseMessage.ToString();
+                return RedirectToAction("Error", "Home");
+            }
+        }
+
     }
 }

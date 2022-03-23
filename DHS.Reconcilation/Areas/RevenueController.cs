@@ -265,11 +265,11 @@ namespace DHS.Reconcilation.Areas
 
         [HttpPost]
         [Route("DeleteRevenueTransaction")]
-        public RevenueResponse DeleteRevenueTransaction(RevenueRequest expenseRequest)
+        public RevenueResponse DeleteRevenueTransaction(RevenueRequest revenueRequest)
         {
             try
             {
-                expenseResponse = expenseRepository.DeleteRevenueTransaction(expenseRequest);
+                expenseResponse = expenseRepository.DeleteRevenueTransaction(revenueRequest);
             }
             catch (Exception ex)
             {
@@ -279,6 +279,22 @@ namespace DHS.Reconcilation.Areas
             return expenseResponse;
         }
 
-        
+
+        [HttpPost]
+        [Route("GetManageReceivables")]
+        public RevenueResponse GetManageReceivables(RevenueRequest revenueRequest)
+        {
+            try
+            {
+                expenseResponse = expenseRepository.GetManageReceivables(revenueRequest);
+            }
+            catch (Exception ex)
+            {
+                expenseResponse.ErrorMessage = ex.Message;
+                expenseResponse.Exception = ex;
+            }
+            return expenseResponse;
+        }
+
     }
 }
