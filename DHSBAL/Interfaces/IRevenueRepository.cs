@@ -21,5 +21,7 @@ namespace DHSBAL
         RevenueResponse GetRevenueTransactionDetails(RevenueRequest revenueRequest);
         RevenueResponse DeleteRevenueTransaction(RevenueRequest revenueRequest);
         RevenueResponse GetManageReceivables(RevenueRequest revenueRequest);
+        RevenueResponse GetTransactionDetail(RevenueRequest revenueRequest);
+        RevenueResponse SaveTransactionDetail(ExpenseRequest expenseRequest);
     }
 }

@@ -1,0 +1,246 @@
+﻿@model DHSEntities.RevenueResponse
+@using DHS.Reconcilation.Models
+@{
+    ViewBag.Title = "View Transaction Details";
+}
+
+<div class="modal-dialog" role="document">
+    <div class="modal-content">
+        <div class="modal-header">
+            <h5 class="modal-title" id="ExpenseModalLabel">
+                View Transaction Detail Information
+            </h5>
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+            </button>
+            <span class="mrp_modaledit">
+                <a href="Javascript:void()" title="Save" onclick="return SubmitValueTransaction()" id="btnSubmit" class="mra_edit_save">
+                    <i class="fa fa-floppy-o" aria-hidden="true"></i>
+                </a>
+            </span>
+        </div>
+        <div class="modal-body">
+            <div class="mrp_modalcontent">
+                <div class="row">
+                    <input type="hidden" id="TransactionDetailId" name="TransactionDetailId" value="@Model.transactionDetailEntity.TransactionDetailId" />
+                    <input type="hidden" id="ExpenseId" name="ExpenseId" value="@Model.transactionDetailEntity.ExpenseId" />
+                    <div class="col-lg-12">
+                        <div class="row">
+                            <div class="col-lg-3 col-xs-12 col-sm-3 col-md-3">
+                                <div class="form_modal">
+                                    <label>Transaction&nbsp;Number</label>
+                                </div>
+                            </div>
+                            <div class="col-lg-9 col-xs-12 col-sm-9 col-md-9">
+                                <div class="form_modal">
+                                    @Html.TextBoxFor(m => m.transactionDetailEntity.TransactionNumber, htmlAttributes: new { @class = "form-control mrp_modalselect", @disabled = "disabled" })
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="col-lg-12">
+                        <div class="row">
+                            <div class="col-lg-3 col-xs-12 col-sm-3 col-md-3">
+                                <div class="form_modal">
+                                    <label>Transaction&nbsp;Details&nbsp;Date</label>
+                                </div>
+                            </div>
+                            <div class="col-lg-9 col-xs-12 col-sm-9 col-md-9">
+                                <div class="form_modal">
+                                    @Html.TextBoxFor(m => m.transactionDetailEntity.TransactionDate, htmlAttributes: new {@id= "TransactionDate", @class = "form-control mrp_modalselect" })
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="col-lg-12">
+                        <div class="row">
+                            <div class="col-lg-3 col-xs-12 col-sm-3 col-md-3">
+                                <div class="form_modal">
+                                    <label>Transaction&nbsp;Amount</label>
+                                </div>
+                            </div>
+                            <div class="col-lg-9 col-xs-12 col-sm-9 col-md-9">
+                                <div class="form_modal">
+                                    <input type="text" value="@String.Format("{0:$#,##0.00}", Model.transactionDetailEntity.TransactionAmount)" id="TransactionAmount" class="form-control mrp_modalselect" />
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="col-lg-12">
+                        <div class="row">
+                            <div class="col-lg-3 col-xs-12 col-sm-3 col-md-3">
+                                <div class="form_modal">
+                                    <label>FGT&nbsp;Category&nbsp;1</label>
+                                </div>
+                            </div>
+                            <div class="col-lg-9 col-xs-12 col-sm-9 col-md-9">
+                                <div class="form_modal">
+                                    @Html.DropDownList("FGTCategoryId1", new SelectList(Model.fgtCategoryEntities, "FGTCategoryId", "FGTCategoryName", Model.transactionDetailEntity.FGTCategoryId1), "", new { @id = "FGTCategoryId1", @class = "form-control mrp_modalselect" })
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="col-lg-12">
+                        <div class="row">
+                            <div class="col-lg-3 col-xs-12 col-sm-3 col-md-3">
+                                <div class="form_modal">
+                                    <label>FGT&nbsp;Category&nbsp;2</label>
+                                </div>
+                            </div>
+                            <div class="col-lg-9 col-xs-12 col-sm-9 col-md-9">
+                                <div class="form_modal">
+                                    @Html.DropDownList("FGTCategoryId2", new SelectList(Model.fgtCategoryEntities2, "FGTCategoryId", "FGTCategoryName", Model.transactionDetailEntity.FGTCategoryId2), "", new { @id = "FGTCategoryId2", @class = "form-control mrp_modalselect" })
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="col-lg-12">
+                        <div class="row">
+                            <div class="col-lg-3 col-xs-12 col-sm-3 col-md-3">
+                                <div class="form_modal">
+                                    <label>Status</label>
+                                </div>
+                            </div>
+                            <div class="col-lg-9 col-xs-12 col-sm-9 col-md-9">
+                                <div class="form_modal">
+                                    @Html.DropDownList("StatusId", new SelectList(Model.statusEntities, "StatusId", "StatusName", Model.transactionDetailEntity.StatusId), "", new { @id = "StatusId", @class = "form-control mrp_modalselect" })
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="col-lg-12">
+                        <div class="row">
+                            <div class="col-lg-3 col-xs-12 col-sm-3 col-md-3">
+                                <div class="form_modal">
+                                    <label>Draw</label>
+                                </div>
+                            </div>
+                            <div class="col-lg-9 col-xs-12 col-sm-9 col-md-9">
+                                <div class="form_modal">
+                                    @Html.DropDownList("DrawId", new SelectList(Model.drawEntities, "DrawId", "BatchNumber", Model.transactionDetailEntity.DrawId), "", new { @id = "DrawId", @class = "form-control mrp_modalselect" })
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="col-lg-12">
+                        <div class="row">
+                            <div class="col-lg-3 col-xs-12 col-sm-3 col-md-3">
+                                <div class="form_modal">
+                                    <label>Vendor&nbsp;Name</label>
+                                </div>
+                            </div>
+                            <div class="col-lg-9 col-xs-12 col-sm-9 col-md-9">
+                                <div class="form_modal">
+                                    @Html.DropDownList("VendorId", new SelectList(Model.vendorEntities, "VendorId", "VendorName", Model.transactionDetailEntity.VendorId), "", new { @id = "VendorId", @class = "form-control mrp_modalselect" })
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-lg-12">
+                        <div class="row">
+                            <div class="col-lg-3 col-xs-12 col-sm-3 col-md-3">
+                                <div class="form_modal">
+                                    <label>Notes</label>
+                                </div>
+                            </div>
+                            <div class="col-lg-9 col-xs-12 col-sm-9 col-md-9">
+                                <div class="form_modal">
+                                    <textarea id="TransactionDescription" name="TransactionDescription" disabled="disabled" style="margin: 0px; width:100%; height: 120px;">@Model.transactionDetailEntity.TransactionDescription</textarea>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script language="JavaScript">
+
+
+    $("#FGTCategoryId1").change(function () {
+        var x = $("#FGTCategoryId1").val();
+        fire_ajax(x);
+    });
+
+    function fire_ajax(s) {
+        var fGTCategoryEntity = {
+            FGTParentCategoryId: s
+        };
+        var fGTCategoryRequest = {
+            FGTCategoryEntity: fGTCategoryEntity
+        };
+        $.ajax({
+            url: "/FGTCategory/GetFGTCategoriesById",
+            type: "POST",
+            data: fGTCategoryRequest,
+            dataType: 'json',
+            success: function (data) {
+                var s = '<option value="-1">Please Select Category</option>';
+                for (var i = 0; i < data.fGTCategoryEntities.length; i++) {
+                    s += '<option value="' + data.fGTCategoryEntities[i].FGTCategoryId + '">' + data.fGTCategoryEntities[i].FGTCategoryName + '</option>';
+                }
+                $("#FGTCategoryId2").html(s);
+            }
+
+        })
+    }
+
+
+    function SubmitValueTransaction() {
+        if (document.getElementById("TransactionDate").value == "") {
+            alert("Please enter transaction date.")
+            document.getElementById("TransactionDate").focus();
+            return false;
+        }
+        if (document.getElementById("FGTCategoryId1").value == "") {
+            alert("Please select fgt category.")
+            document.getElementById("FGTCategoryId1").focus();
+            return false;
+        }
+        if (document.getElementById("FGTCategoryId2").value == "") {
+            alert("Please select fgt category.")
+            document.getElementById("FGTCategoryId2").focus();
+            return false;
+        }
+        var transactionDetailEntity = {
+            TransactionDate: document.getElementById("TransactionDate").value,
+            ExpenseId: document.getElementById("ExpenseId").value,
+            TransactionDetailId: document.getElementById("TransactionDetailId").value,
+            DrawId: document.getElementById("DrawId").value,
+            VendorId: document.getElementById("VendorId").value,
+            StatusId: document.getElementById("StatusId").value,
+            FGTCategoryId1: document.getElementById("FGTCategoryId1").value,
+            FGTCategoryId2: document.getElementById("FGTCategoryId2").value,
+            TransactionDescription: document.getElementById("TransactionDescription").value,
+            TransactionAmount: parseFloat((document.getElementById("TransactionAmount").value).replace("$", "").replace(",", "")).toFixed(2),
+            ModifiedBy:@Common.GetSession("UserID"),
+            VendorAdjustments: ''
+        };
+        var expenseRequest = {
+            TransactionDetailEntity: transactionDetailEntity
+        };
+        $.ajax({
+            url: "/Revenue/SaveTransactionDetail",
+            type: "POST",
+            data: expenseRequest,
+            dataType: 'json',
+            success: function (result) {
+                window.location.reload();
+            },
+            complete: function () {
+
+            }
+        });
+        return true;
+    }
+</script>

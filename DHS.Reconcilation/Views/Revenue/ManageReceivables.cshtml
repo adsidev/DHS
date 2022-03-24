@@ -114,7 +114,7 @@
                                             foreach (var item in Model.pagedTransactionDetailEntities)
                                             {
                                                 Total = Total + item.TransactionAmount;
-                                                RevenueInfo = item.RevenueTransactionNumber + " - " + item.RevenueTransactionDate + " - " + String.Format("{0:$#,##0.00}", item.RevenueTransactionAmount) + " - " + item.RevenueProjectName + " - " + item.BatchNumber + " - " + String.Format("{0:$#,##0.00}", item.DrawAmount) + " - " + item.DrawDate;
+                                                RevenueInfo = item.BatchNumber + " - " + String.Format("{0:$#,##0.00}", item.DrawAmount) + " - " + item.DrawDate;
                                                 <tr>
                                                     <td nowrap style="text-align:left;">
                                                         @if (Model.rolePermissionEntity.ViewBit)
@@ -168,8 +168,6 @@
                                                     <td nowrap>
                                                         @item.VendorName
                                                     </td>
-                                                    @if (item.RevenueTransactionNumber != "")
-                                                    {
                                                         <td nowrap>
                                                             @if (item.DocumentFile != "")
                                                             {
@@ -180,11 +178,6 @@
                                                                 @RevenueInfo
                                                             }
                                                         </td>
-                                                    }
-                                                    else
-                                                    {
-                                                        <td nowrap>&nbsp;</td>
-                                                    }
                                                     <td style="text-align:left;" nowrap>
                                                         @item.TransactionDescription
                                                     </td>
@@ -237,14 +230,14 @@
         }
 
         $(document).ready(function () {
-            $('#mra_subliMET').addClass('active');
+            $('#mra_subliMR').addClass('active');
         });
 
         function ViewTransactionDetail(expenseId) {
             var options = { "backdrop": "static", keyboard: true };
             $.ajax({
                 type: "GET",
-                url: "/Expense/ViewTransactionDetail/" + expenseId,
+                url: "/Revenue/ViewTransactionDetail/" + expenseId,
                 dataType: "html",
                 success: function (evt) {
                     $('#TransactionDetailModal').html(evt);
@@ -288,6 +281,23 @@
 
         function OpenDocument(FileName) {
             window.open("/Documents/Draw/" + FileName);
+        }
+
+        function EditRevenueTransaction(revenueId) {
+            var options = { "backdrop": "static", keyboard: true };
+            $.ajax({
+                type: "GET",
+                url: "/Revenue/EditTransactionDetail/" + revenueId,
+                dataType: "html",
+                success: function (evt) {
+                    $('#TransactionDetailModal').html(evt);
+                    $('#TransactionDetailModal').modal(options);
+                    $('#TransactionDetailModal').modal('show');
+                },
+                error: function (req, status, error) {
+                    alert("Error!Occured");
+                }
+            });
         }
     </script>
 }

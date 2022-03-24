@@ -969,5 +969,86 @@ namespace DHS.Reconcilation.Controllers
             }
         }
 
+        public async Task<ActionResult> ViewTransactionDetail(long? id = 0)
+        {
+            if (!Common.SessionExists())
+                return RedirectToAction("Index", "Home");
+            if (id == 0)
+                return RedirectToAction("Index", "Home");
+            RevenueResponse revenueResponse = new RevenueResponse();
+
+            RevenueRequest revenueRequest = new RevenueRequest();
+            TransactionDetailEntity transactionDetailEntity = new TransactionDetailEntity();
+            transactionDetailEntity.TransactionDetailId = Convert.ToInt64(id);
+            revenueRequest.transactionDetailEntity = transactionDetailEntity;
+            string url = strBaseURL + "Revenue/GetTransactionDetail";
+            client.BaseAddress = new Uri(url);
+            Common.AddSession("ExpenseId", id.ToString());
+            HttpResponseMessage responseMessage = await client.PostAsJsonAsync(url, revenueRequest);
+
+            if (responseMessage.IsSuccessStatusCode)
+            {
+                var responseData = responseMessage.Content.ReadAsStringAsync().Result;
+                revenueResponse = JsonConvert.DeserializeObject<RevenueResponse>(responseData);
+                if (revenueResponse.Message == string.Empty && revenueResponse.ErrorMessage == string.Empty)
+                {
+                    string PageName = "Expesnses";
+                    revenueResponse.rolePermissionEntity = Common.PagePermissions(PageName);
+
+                    return PartialView("_viewTransactionDetail", revenueResponse);
+                }
+                else
+                {
+                    TempData["LoginFailure"] = revenueResponse.Message;
+                    return RedirectToAction("Error", "Home");
+                }
+            }
+            else
+            {
+                TempData["LoginFailure"] = responseMessage.ToString();
+                return RedirectToAction("Error", "Home");
+            }
+        }
+
+        public async Task<ActionResult> EditTransactionDetail(long? id = 0)
+        {
+            if (!Common.SessionExists())
+                return RedirectToAction("Index", "Home");
+            if (id == 0)
+                return RedirectToAction("Index", "Home");
+            RevenueResponse revenueResponse = new RevenueResponse();
+
+            RevenueRequest revenueRequest = new RevenueRequest();
+            TransactionDetailEntity transactionDetailEntity = new TransactionDetailEntity();
+            transactionDetailEntity.TransactionDetailId = Convert.ToInt64(id);
+            revenueRequest.transactionDetailEntity = transactionDetailEntity;
+            string url = strBaseURL + "Revenue/GetTransactionDetail";
+            client.BaseAddress = new Uri(url);
+            Common.AddSession("ExpenseId", id.ToString());
+            HttpResponseMessage responseMessage = await client.PostAsJsonAsync(url, revenueRequest);
+
+            if (responseMessage.IsSuccessStatusCode)
+            {
+                var responseData = responseMessage.Content.ReadAsStringAsync().Result;
+                revenueResponse = JsonConvert.DeserializeObject<RevenueResponse>(responseData);
+                if (revenueResponse.Message == string.Empty && revenueResponse.ErrorMessage == string.Empty)
+                {
+                    string PageName = "Expesnses";
+                    revenueResponse.rolePermissionEntity = Common.PagePermissions(PageName);
+
+                    return PartialView("_editTransactionDetail", revenueResponse);
+                }
+                else
+                {
+                    TempData["LoginFailure"] = revenueResponse.Message;
+                    return RedirectToAction("Error", "Home");
+                }
+            }
+            else
+            {
+                TempData["LoginFailure"] = responseMessage.ToString();
+                return RedirectToAction("Error", "Home");
+            }
+        }
     }
 }

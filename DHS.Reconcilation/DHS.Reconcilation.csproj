@@ -470,6 +470,8 @@
     <Content Include="Views\Expense\_viewExpenseTransactionDetail.cshtml" />
     <Content Include="Views\Expense\ManageExpExpCompare.cshtml" />
     <Content Include="Views\Revenue\ManageReceivables.cshtml" />
+    <Content Include="Views\Revenue\_viewTransactionDetail.cshtml" />
+    <Content Include="Views\Revenue\_editTransactionDetail.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
