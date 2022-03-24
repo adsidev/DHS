@@ -847,10 +847,14 @@ namespace DHS.Reconcilation.Controllers
             TransactionDetailEntity transactionDetailEntity = new TransactionDetailEntity();
             transactionDetailEntity.TransactionNumber = String.Empty;
             transactionDetailEntity.ProjectId = 0;
+            transactionDetailEntity.StatusId = 0;
             transactionDetailEntity.RevenueTransactionNumber = String.Empty;
 
             if (Common.GetSession("ETProjectId") != "")
                 transactionDetailEntity.ProjectId = Convert.ToInt32(Common.GetSession("ETProjectId"));
+
+            if (Common.GetSession("ETStatusId") != "")
+                transactionDetailEntity.StatusId = Convert.ToInt32(Common.GetSession("ETStatusId"));
 
             if (Common.GetSession("ETTransactionNumber") != "")
                 transactionDetailEntity.TransactionNumber = Common.GetSession("ETTransactionNumber");
@@ -901,11 +905,14 @@ namespace DHS.Reconcilation.Controllers
             TransactionDetailEntity transactionDetailEntity = new TransactionDetailEntity();
             transactionDetailEntity.TransactionNumber = String.Empty;
             transactionDetailEntity.ProjectId = 0;
+            transactionDetailEntity.StatusId = 0;
             transactionDetailEntity.RevenueTransactionNumber = String.Empty;
 
             if (Request["ProjectId"] != "")
                 transactionDetailEntity.ProjectId = Convert.ToInt32(Request["ProjectId"]);
 
+            if (Request["StatusId"] != "")
+                transactionDetailEntity.StatusId = Convert.ToInt32(Request["StatusId"]);
 
             if (Request["transactionDetailEntity.TransactionNumber"] != "")
                 transactionDetailEntity.TransactionNumber = Request["transactionDetailEntity.TransactionNumber"];
@@ -914,6 +921,7 @@ namespace DHS.Reconcilation.Controllers
                 transactionDetailEntity.RevenueTransactionNumber = Request["transactionDetailEntity.RevenueTransactionNumber"];
 
             Common.AddSession("ETProjectId", transactionDetailEntity.ProjectId.ToString());
+            Common.AddSession("ETStatusId", transactionDetailEntity.StatusId.ToString());
             Common.AddSession("ETRevenueTransactionNumber", transactionDetailEntity.RevenueTransactionNumber.ToString());
             Common.AddSession("ETTransactionNumber", transactionDetailEntity.TransactionNumber.ToString());
 
@@ -999,10 +1007,14 @@ namespace DHS.Reconcilation.Controllers
             ExpenseRequest expenseRequest = new ExpenseRequest();
             ExpenseEntity expenseEntity = new ExpenseEntity();
             expenseEntity.ProjectId = 0;
+            expenseEntity.StatusId = 0;
             expenseEntity.FiscalYearId = 0;
             if (Common.GetSession("ETProjectId") != "")
                 expenseEntity.ProjectId = Convert.ToInt32(Common.GetSession("ETProjectId"));
 
+            if (Common.GetSession("ETStatusId") != "")
+                expenseEntity.StatusId = Convert.ToInt32(Common.GetSession("ETStatusId"));
+            
             if (Common.GetSession("ETFiscalYearId") != "")
                 expenseEntity.FiscalYearId = Convert.ToInt32(Common.GetSession("ETFiscalYearId"));
             expenseRequest.expenseEntity = expenseEntity;
@@ -1048,16 +1060,22 @@ namespace DHS.Reconcilation.Controllers
             ExpenseRequest expenseRequest = new ExpenseRequest();
             ExpenseEntity expenseEntity = new ExpenseEntity();
             expenseEntity.ProjectId = 0;
+            expenseEntity.StatusId = 0;
             expenseEntity.FiscalYearId = 0;
 
             if (Request["ProjectId"] != "")
                 expenseEntity.ProjectId = Convert.ToInt32(Request["ProjectId"]);
+
+            if (Request["StatusId"] != "")
+                expenseEntity.StatusId = Convert.ToInt32(Request["StatusId"]);
+
 
             if (Request["FiscalYearId"] != "")
                 expenseEntity.FiscalYearId = Convert.ToInt32(Request["FiscalYearId"]);
 
             Common.AddSession("ETProjectId", expenseEntity.ProjectId.ToString());
             Common.AddSession("ETFiscalYearId", expenseEntity.FiscalYearId.ToString());
+            Common.AddSession("ETStatusId", expenseEntity.StatusId.ToString());
             
             expenseRequest.expenseEntity = expenseEntity;
             string url = strBaseURL + "Expense/GetExpExpTransCompare";

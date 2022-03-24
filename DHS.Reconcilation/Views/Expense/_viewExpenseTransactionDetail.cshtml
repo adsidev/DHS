@@ -140,7 +140,7 @@
                                                     {
                                                         <tr>
                                                             <td nowrap>
-                                                                <input type="radio" id="ExpenseTransactionDetailId" name="ExpenseTransactionDetail" value="@item.ExpenseTransactionDetailId" />
+                                                                <input type="checkbox" id="ExpenseTransactionDetailId" name="ExpenseTransactionDetail" value="@item.ExpenseTransactionDetailId" />
                                                             </td>
                                                             <td nowrap>
                                                                 @item.PeriodName
@@ -211,14 +211,23 @@
         var getSelectedValue = document.querySelector(
             'input[name="ExpenseTransactionDetail"]:checked');
 
-        if (getSelectedValue != null) {
-            var expenseRequest = {
-                expenseEntity:
+        var arr = [];
+        var expenseEntity;
+        for (x = 0; x < document.getElementsByTagName('input').length; x++) {
+            if (document.getElementsByTagName('input').item(x).type == 'checkbox' && document.getElementsByTagName('input').item(x).checked) {
+                expenseEntity = 
                 {
                     ExpenseId: document.getElementById("hdnExpenseIdL").value,
-                    ExpenseTransactionDetailId: getSelectedValue.value,
+                    ExpenseTransactionDetailId: document.getElementsByTagName('input').item(x).value,
                     CreatedBy: @Common.GetSession("UserID"),
-                },
+                }
+                arr.push(expenseEntity);
+            }
+        }
+
+        if (arr.length > 0) {
+            var expenseRequest = {
+                expenseEntities: arr,
             };
 
             $.ajax({
@@ -251,7 +260,7 @@
                 StartDate: document.getElementById("StartDate").value,
                 EndDate: document.getElementById("EndDate").value,
                 NetAmount: document.getElementById("GrossAmount").value,
-               
+
                 },
             };
 
@@ -268,8 +277,8 @@
                     });
                     $("#transcontent").html(s)
                     //write code to display the html content
-                    for (var i = 0; i < data.expenseEntities.length; i++) {                        
-                        s += '<tr><td nowrap><input type="radio" id="ExpenseTransactionDetailId" name="ExpenseTransactionDetail" value="' + data.expenseEntities[i].ExpenseTransactionDetailId + '" /></td>';
+                    for (var i = 0; i < data.expenseEntities.length; i++) {
+                        s += '<tr><td nowrap><input type="checkbox" id="ExpenseTransactionDetailId" value="' + data.expenseEntities[i].ExpenseTransactionDetailId + '" /></td>';
                         s += '<td nowrap>' + data.expenseEntities[i].PeriodName + '</td>';
                         s += '<td nowrap>' + data.expenseEntities[i].FiscalYear + '</td>';
                         s += '<td nowrap>' + data.expenseEntities[i].Journal + '</td>';

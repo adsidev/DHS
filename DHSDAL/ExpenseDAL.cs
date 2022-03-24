@@ -798,7 +798,8 @@ namespace DHSDAL
             SqlObject.Parameters = new object[] {
                     expenseRequest.transactionDetailEntity.ProjectId,
                     expenseRequest.transactionDetailEntity.TransactionNumber,
-                    expenseRequest.transactionDetailEntity.RevenueTransactionNumber
+                    expenseRequest.transactionDetailEntity.RevenueTransactionNumber,
+                    expenseRequest.transactionDetailEntity.StatusId,
             };
             var transactionDetailDataSet = SqlHelper.ExecuteDataset(_connectionString, StoredProcedures.Expense.USPGETALLTRANSACTIONDETAILS, SqlObject.Parameters);
             foreach (DataRow expenseDataRow in transactionDetailDataSet.Tables[0].Rows)
@@ -853,6 +854,7 @@ namespace DHSDAL
             expenseResponse.transactionDetailEntities = transactionDetailEntities;
             CommonDAL commonDAL = new CommonDAL();
             expenseResponse.projectEntities = commonDAL.GetProjects();
+            expenseResponse.statusEntities = commonDAL.GetStatuses();
             return expenseResponse;
         }
 
@@ -939,16 +941,18 @@ namespace DHSDAL
 
         public ExpenseResponse SaveLinkToExpenseTransaction(ExpenseRequest expenseRequest)
         {
-            List<ExpenseEntity> expenseEntities = new List<ExpenseEntity>();
-            try { 
-            SqlObject.Parameters = new object[] {
-                    expenseRequest.expenseEntity.ExpenseId,
-                    expenseRequest.expenseEntity.ExpenseTransactionDetailId,
-                    expenseRequest.expenseEntity.CreatedBy,
-                }; 
-                var intResult = SqlHelper.ExecuteScalar(_connectionString, StoredProcedures.Expense.USPSAVELINKTOEXPENSETRANSACTION, SqlObject.Parameters);
+            try {
                 expenseResponse.Message = string.Empty;
                 expenseResponse.ErrorMessage = string.Empty;
+                foreach (var expenseEntity in expenseRequest.expenseEntities)
+                {
+                    SqlObject.Parameters = new object[] {
+                    expenseEntity.ExpenseId,
+                    expenseEntity.ExpenseTransactionDetailId,
+                    expenseEntity.CreatedBy,
+                    };
+                    var intResult = SqlHelper.ExecuteScalar(_connectionString, StoredProcedures.Expense.USPSAVELINKTOEXPENSETRANSACTION, SqlObject.Parameters);
+                }
             }
             catch (Exception ex)
             {
@@ -964,6 +968,7 @@ namespace DHSDAL
             SqlObject.Parameters = new object[] {
                 expenseRequest.expenseEntity.ProjectId,
                 expenseRequest.expenseEntity.FiscalYearId,
+                expenseRequest.expenseEntity.StatusId,
             };
             var expenseDataSet = SqlHelper.ExecuteDataset(_connectionString, StoredProcedures.Expense.USPGETEXPEXPTRANSCOMPARE, SqlObject.Parameters);
             foreach (DataRow expenseDataRow in expenseDataSet.Tables[0].Rows)
@@ -1023,6 +1028,7 @@ namespace DHSDAL
             CommonDAL commonDAL = new CommonDAL();
             expenseResponse.projectEntities = commonDAL.GetProjects();
             expenseResponse.fiscalYearEntities = commonDAL.GetFiscalYears();
+            expenseResponse.statusEntities = commonDAL.GetStatuses();
             expenseResponse.expenseEntities = expenseEntities;
             return expenseResponse;
         }

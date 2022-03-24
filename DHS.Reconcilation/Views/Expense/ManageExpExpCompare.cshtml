@@ -25,20 +25,25 @@
                         <h2>View Expenses</h2>
                         <form class="mrp_selectdetails form-inline">
                             <div class="row">
-                                <div class="form-group col-lg-2 col-xs-12 col-sm-6">
+                                <div class="form-group col-lg-3 col-xs-12 col-sm-6">
                                     <label for="SearchOn">Fiscal&nbsp;Year:</label>
                                     <div class="form_modal">
                                         @Html.DropDownList("FiscalYearId", new SelectList(Model.fiscalYearEntities, "FiscalYearId", "FiscalYear", Model.expenseEntity.FiscalYearId), "", new { @id = "FiscalYearId", @class = "form-control mrp_modalselect" })
                                     </div>
                                 </div>
-                                <div class="form-group col-lg-2 col-xs-12 col-sm-6">
+                                <div class="form-group col-lg-3 col-xs-12 col-sm-6">
                                     <label for="SearchOn">Project:</label>
                                     <div class="form_modal">
                                         @Html.DropDownList("ProjectId", new SelectList(Model.projectEntities, "ProjectId", "ProjectName", Model.expenseEntity.ProjectId), "", new { @id = "ProjectId", @class = "form-control mrp_modalselect" })
                                     </div>
                                 </div>
-
-                                <div class="form-group col-lg-2 col-xs-12 col-sm-7">
+                                <div class="form-group col-lg-3 col-xs-12 col-sm-6">
+                                    <label for="SearchOn">Status:</label>
+                                    <div class="form_modal">
+                                        @Html.DropDownList("StatusId", new SelectList(Model.statusEntities, "StatusId", "StatusName", Model.expenseEntity.StatusId), "", new { @id = "StatusId", @class = "form-control mrp_modalselect" })
+                                    </div>
+                                </div>
+                                <div class="form-group col-lg-3 col-xs-12 col-sm-7">
                                     <div class="form_modal">
                                         @if (Model.rolePermissionEntity.ViewBit)
                                         {

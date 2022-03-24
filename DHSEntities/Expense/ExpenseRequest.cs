@@ -13,5 +13,7 @@ namespace DHSEntities
         public DocumentEntity documentEntity { get; set; }
         public string SearchOn { get; set; }
         public string SearchKey { get; set; }
+
+        public List<ExpenseEntity> expenseEntities { get; set; }
     }
 }
