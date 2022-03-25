@@ -190,6 +190,12 @@ namespace DHSDAL
                         PostDate = PostD[1] + "/" + PostD[0] + "/" + PostD[2];
                     else
                         PostDate = PostD[0];
+                    var EffectiveDate = expenseDataRow["EFFECTIVE DATE"].ToString();
+                    string[] EffectiveD = EffectiveDate.Split(' ')[0].Split('-');
+                    if (EffectiveD.Length > 1)
+                        EffectiveDate = EffectiveD[1] + "/" + EffectiveD[0] + "/" + EffectiveD[2];
+                    else
+                        EffectiveDate = EffectiveD[0];
                     var EntryDate = expenseDataRow["ENTRY DATE"].ToString();
                     string[] EntD = EntryDate.Split(' ')[0].Split('-');
                     if(EntD.Length > 1)
@@ -216,7 +222,7 @@ namespace DHSDAL
                         expenseDataRow["SOURCE"].ToString(),
                         expenseDataRow["COMMENT"].ToString(),
                         expenseDataRow["D/c"].ToString(),
-                        expenseDataRow["EFFECTIVE DATE"].ToString(),
+                        EffectiveDate,
                         EntryDate,
                         expenseDataRow["POST CLERK"].ToString(),
                         PostDate,
