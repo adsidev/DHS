@@ -749,7 +749,8 @@ namespace DHSDAL
         {
             List<RevenueTransactionEntity> revenueTransactionEntities = new List<RevenueTransactionEntity>();
             SqlObject.Parameters = new object[] {
-                expenseRequest.transactionDetailEntity.ExpenseId
+                expenseRequest.transactionDetailEntity.ExpenseId,
+                expenseRequest.transactionDetailEntity.ProjectId
             };
             var transactionDetailDataSet = SqlHelper.ExecuteDataset(_connectionString, StoredProcedures.Expense.USPGETREVENUETRANSACTIONBYEXPENSEID, SqlObject.Parameters);
             foreach (DataRow revenueDataRow in transactionDetailDataSet.Tables[0].Rows)
@@ -789,6 +790,8 @@ namespace DHSDAL
                 expenseResponse.Message = string.Empty;
             }
             expenseResponse.revenueTransactionEntities = revenueTransactionEntities;
+            CommonDAL commonDAL = new CommonDAL();
+            expenseResponse.projectEntities = commonDAL.GetProjects();
             return expenseResponse;
         }
 

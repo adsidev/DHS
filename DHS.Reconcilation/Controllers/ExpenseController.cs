@@ -807,6 +807,7 @@ namespace DHS.Reconcilation.Controllers
             ExpenseRequest expenseRequest = new ExpenseRequest();
             TransactionDetailEntity transactionDetailEntity = new TransactionDetailEntity();
             transactionDetailEntity.ExpenseId = Convert.ToInt64(id);
+            transactionDetailEntity.ProjectId = 0;
             expenseRequest.transactionDetailEntity = transactionDetailEntity;
             string url = strBaseURL + "Expense/GetRevenueTransactionByExpenseId";
             client.BaseAddress = new Uri(url);

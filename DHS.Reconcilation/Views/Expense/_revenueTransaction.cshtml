@@ -16,6 +16,28 @@
         </div>
         <div class="modal-body">
             <div class="mrp_modalcontent">
+                <form class="mrp_selectdetails form-inline" id="frmExpensesTransaction" method="post">
+                    <div class="row">
+                        <div class="form-group col-lg-4 col-xs-12 col-sm-7">
+                            <label for="SearchOn">Project:</label>
+                            <div class="form_modal">
+                                @Html.DropDownList("ProjectId", new SelectList(Model.projectEntities, "ProjectId", "ProjectName", ""), "", new { @id = "ProjectId", @class = "form-control mrp_modalselect" })
+                            </div>
+                        </div>
+                        <div class="form-group col-lg-2 col-xs-12 col-sm-7">
+                            <div class="form_modal">
+                                @if (Model.rolePermissionEntity.ViewBit)
+                                {
+                                    <img src="~/images/search.png" class="img-responsive" height="40" width="40" onclick="SelectedIndexChanged()" style="cursor:pointer;" alt="Search Expense Information" />
+                                }
+                                else
+                                {
+                                    <img src="~/images/search.png" class="disableButton" height="40" width="40" alt="Search Expense Information" />
+                                }
+                            </div>
+                        </div>
+                    </div>
+                </form>
                 <div class="row mrp_table-row">
                     <div class="col-lg-12 col-xs-12">
                         <div class="table-responsive">
@@ -64,7 +86,7 @@
                                                 </th>
                                             </tr>
                                         </thead>
-                                        <tbody>
+                                        <tbody id="transcontenth">
                                             @{
                                                 foreach (var item in Model.revenueTransactionEntities)
                                                 {
@@ -74,9 +96,9 @@
                                                     var itemPN = "PN" + @item.RevenueTransactionId;
                                                     <tr>
                                                         <td>
-                                                            @if(item.RevenueTypeName=="Draw Deposit")
+                                                            @if (item.RevenueTypeName == "Draw Deposit")
                                                             {
-                                                            <input type="radio" id="RevenueTransactionId" name="RevenueTransaction" value="@item.RevenueTransactionId" />
+                                                                <input type="radio" id="RevenueTransactionId" name="RevenueTransaction" value="@item.RevenueTransactionId" />
                                                             }
                                                         </td>
                                                         <td>
@@ -133,3 +155,59 @@
         </div>
     </div>
 </div>
+<script language="JavaScript">
+    function SelectedIndexChanged() {
+        var expenseRequest = {
+            transactionDetailEntity:
+            {
+                ExpenseId: 0,
+                ProjectId: document.getElementById("ProjectId").value
+            },
+        };
+
+        $.ajax({
+            url: "/Expense/GetRevenueTransactionByExpenseId",
+            type: "POST",
+            data: expenseRequest,
+            dataType: 'json',
+            success: function (data) {
+                var s = '';
+                let dollarUS = Intl.NumberFormat("en-US", {
+                    style: "currency",
+                    currency: "USD",
+                });
+                $("#transcontenth").html(s)
+                //write code to display the html content
+                for (var i = 0; i < data.revenueTransactionEntities.length; i++) {
+                    var item = data.revenueTransactionEntities[i];
+                    var itemTN = "TN" + data.revenueTransactionEntities[i].RevenueTransactionId;
+                    var itemTD = "TD" + data.revenueTransactionEntities[i].RevenueTransactionId;
+                    var itemTA = "TA" + data.revenueTransactionEntities[i].RevenueTransactionId;
+                    var itemPN = "PN" + data.revenueTransactionEntities[i].RevenueTransactionId;
+                    s += '<tr><td nowrap>';
+                    if (item.RevenueTypeName == "Draw Deposit")
+                    {
+                        s+= '<input type="radio" id="RevenueTransactionId" name="RevenueTransaction" value="' + item.RevenueTransactionId + '" />';
+                    }
+                    s += '</td>';
+                    s += '<td nowrap>'+item.RevenueTransactionNumber +'<input type="hidden" id="' + itemTN + '" name="' + itemTN + '" value="' + item.RevenueTransactionNumber + '" /></td>';
+                    s += '<td nowrap>' + item.RevenueTransactionDate + '<input type="hidden" id="' + itemTD + '" name="' + itemTD + '" value="' + item.RevenueTransactionDate + '" /></td>';
+                    s += '<td nowrap>' + dollarUS.format(item.RevenueTransactionAmount) + '<input type="hidden" id="' + itemTA + '" name="' + itemTA + '" value="' + dollarUS.format(item.RevenueTransactionAmount) + '" /></td>';
+                    s += '<td nowrap>' + item.OrgName + '</td>';
+                    s += '<td nowrap>' + item.ObjectName + '</td>';
+                    s += '<td nowrap>' + item.ProjectName + '<input type="hidden" id="' + itemPN + '" name="' + itemPN + '" value="' + item.ProjectName + '" /></td>';
+                    s += '<td nowrap>' + item.RevenueTypeName + '</td>';
+                    s += '<td nowrap>' + item.DrawNumber + '</td>';
+                    s += '<td nowrap>' + item.BatchNumber + '</td>';
+                    s += '<td nowrap>' + dollarUS.format(item.DrawAmount) + '</td>';
+                    s += '<td nowrap>' + item.DrawDate + '</td>';
+                    s += '</tr > ';
+                }
+                $("#transcontenth").html(s)
+            },
+            complete: function () {
+
+            }
+        });
+    }
+</script>
