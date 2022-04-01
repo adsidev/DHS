@@ -472,6 +472,7 @@
     <Content Include="Views\Revenue\ManageReceivables.cshtml" />
     <Content Include="Views\Revenue\_viewTransactionDetail.cshtml" />
     <Content Include="Views\Revenue\_editTransactionDetail.cshtml" />
+    <Content Include="Views\Report\ManageGrantReport.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

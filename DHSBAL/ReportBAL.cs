@@ -32,5 +32,19 @@ namespace DHSBAL
             return reportResponse;
         }
 
+        public ReportResponse GetGrantReport(ReportRequest reportRequest)
+        {
+            try
+            {
+                reportResponse = reportDALRepository.GetGrantReport(reportRequest);
+            }
+            catch (Exception ex)
+            {
+                reportResponse.ErrorMessage = ex.Message;
+                reportResponse.Exception = ex;
+            }
+            return reportResponse;
+        }
+
     }
 }

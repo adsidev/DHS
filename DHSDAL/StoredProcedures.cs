@@ -164,6 +164,14 @@ namespace DHSDAL
             public const string USPGETREVENUETRANSACTIONSBYPROJECTID = "sp_GetRevenueTransactionByProjectId";
             public const string USPGETPROJECTSUM = "sp_GetProjectSum";
         }
-
-    }
+        public class Report
+        {
+            public const string USPGETFGTREPORT = "sp_GetFGTReport";
+            public const string USPFGTREPORT = "sp_FGTReport";
+            public const string USPGETFGTPROJECTRECEIBABLES = "sp_GetFGTReportProjectReceivables";
+            public const string USPGETREVENUETRANSACTIONFORREPORT = "sp_GetRevenueTransactionForReport";
+            public const string USPGETREVENUETRANSACTIONBYPROJECTIDFORREPORT = "sp_GetRevenueTransactionByProjectIdForReport";
+            public const string USPGETDRAWSBYPROJECTID = "sp_GetDrawsByProjectId";
+        }
+        }
 }

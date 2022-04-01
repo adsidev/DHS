@@ -33,6 +33,21 @@ namespace DHS.Reconcilation.Areas
             return reportResponse;
         }
 
-
+        [HttpPost]
+        [Route("GetGrantReport")]
+        public ReportResponse GetGrantReport(ReportRequest reportRequest)
+        {
+            try
+            {
+                reportResponse = reportRepository.GetGrantReport(reportRequest);
+            }
+            catch (Exception ex)
+            {
+                reportResponse.ErrorMessage = ex.Message;
+                reportResponse.Exception = ex;
+            }
+            return reportResponse;
+        }
+        
     }
 }
