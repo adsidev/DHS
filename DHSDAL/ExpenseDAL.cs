@@ -972,6 +972,7 @@ namespace DHSDAL
                 expenseRequest.expenseEntity.ProjectId,
                 expenseRequest.expenseEntity.FiscalYearId,
                 expenseRequest.expenseEntity.StatusId,
+                expenseRequest.expenseEntity.Difference,
             };
             var expenseDataSet = SqlHelper.ExecuteDataset(_connectionString, StoredProcedures.Expense.USPGETEXPEXPTRANSCOMPARE, SqlObject.Parameters);
             foreach (DataRow expenseDataRow in expenseDataSet.Tables[0].Rows)

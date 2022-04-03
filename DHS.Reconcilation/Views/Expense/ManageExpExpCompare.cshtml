@@ -22,7 +22,7 @@
             <div class="row ">
                 <div class="col-lg-12">
                     <div class="mrp_content">
-                        <h2>View Expenses</h2>
+                        <h2>View Expense to Expense Transactions Comparison</h2>
                         <form class="mrp_selectdetails form-inline">
                             <div class="row">
                                 <div class="form-group col-lg-3 col-xs-12 col-sm-6">
@@ -43,7 +43,29 @@
                                         @Html.DropDownList("StatusId", new SelectList(Model.statusEntities, "StatusId", "StatusName", Model.expenseEntity.StatusId), "", new { @id = "StatusId", @class = "form-control mrp_modalselect" })
                                     </div>
                                 </div>
-                                <div class="form-group col-lg-3 col-xs-12 col-sm-7">
+                                <div class="form-group col-lg-3 col-xs-12 col-sm-6">
+                                    <label for="SearchOn">Difference:</label>
+                                    <div class="form_modal">
+                                        <select name="Difference" id="Difference" class="form-control mrp_modalselect">
+                                            <option value="">Select</option>
+                                            @if (Model.expenseEntity.Difference == 1)
+                                            {
+                                                <option value="1" selected>Zero</option>
+                                            }
+                                            else
+                                            {
+                                                <option value="1">Zero</option>
+                                            }
+                                            @if (Model.expenseEntity.Difference == 2)
+                                            {
+                                                <option value="2" selected>Non-Zero</option>
+                                            }
+                                            else
+                                            {
+                                                <option value="2">Non-Zero</option>
+                                            }                                            
+                                        </select>
+                                    </div>
                                     <div class="form_modal">
                                         @if (Model.rolePermissionEntity.ViewBit)
                                         {
@@ -99,7 +121,7 @@
                                                 Net Amount
                                             </th>
                                             <th nowrap>
-                                                Reconciled Amount
+                                                Transaction Amount
                                             </th>
                                             <th nowrap style="text-align:left">
                                                 Difference
@@ -179,8 +201,8 @@
 
         function ViewTransactionDetails(expenseId) {
             var url = "/Expense/ManageTransactionDetails/" + expenseId;
-            window.open(url, '');
-            //location.href = url;
+            //window.open(url, '');
+            location.href = url;
         }
 
         $(document).ready(function () {

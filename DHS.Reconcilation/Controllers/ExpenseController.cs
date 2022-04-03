@@ -1010,14 +1010,19 @@ namespace DHS.Reconcilation.Controllers
             expenseEntity.ProjectId = 0;
             expenseEntity.StatusId = 0;
             expenseEntity.FiscalYearId = 0;
-            if (Common.GetSession("ETProjectId") != "")
-                expenseEntity.ProjectId = Convert.ToInt32(Common.GetSession("ETProjectId"));
+            expenseEntity.Difference = 0;
+            if (Common.GetSession("ETCCProjectId") != "")
+                expenseEntity.ProjectId = Convert.ToInt32(Common.GetSession("ETCCProjectId"));
 
-            if (Common.GetSession("ETStatusId") != "")
-                expenseEntity.StatusId = Convert.ToInt32(Common.GetSession("ETStatusId"));
+            if (Common.GetSession("ETCCStatusId") != "")
+                expenseEntity.StatusId = Convert.ToInt32(Common.GetSession("ETCCStatusId"));
             
-            if (Common.GetSession("ETFiscalYearId") != "")
-                expenseEntity.FiscalYearId = Convert.ToInt32(Common.GetSession("ETFiscalYearId"));
+            if (Common.GetSession("ETCCFiscalYearId") != "")
+                expenseEntity.FiscalYearId = Convert.ToInt32(Common.GetSession("ETCCFiscalYearId"));
+
+            if (Common.GetSession("ETCCDifference") != "")
+                expenseEntity.Difference = Convert.ToInt32(Common.GetSession("ETCCDifference"));
+
             expenseRequest.expenseEntity = expenseEntity;
             string url = strBaseURL + "Expense/GetExpExpTransCompare";
             client.BaseAddress = new Uri(url);
@@ -1070,13 +1075,16 @@ namespace DHS.Reconcilation.Controllers
             if (Request["StatusId"] != "")
                 expenseEntity.StatusId = Convert.ToInt32(Request["StatusId"]);
 
-
             if (Request["FiscalYearId"] != "")
                 expenseEntity.FiscalYearId = Convert.ToInt32(Request["FiscalYearId"]);
 
-            Common.AddSession("ETProjectId", expenseEntity.ProjectId.ToString());
-            Common.AddSession("ETFiscalYearId", expenseEntity.FiscalYearId.ToString());
-            Common.AddSession("ETStatusId", expenseEntity.StatusId.ToString());
+            if (Request["Difference"] != "")
+                expenseEntity.Difference = Convert.ToInt32(Request["Difference"]);
+
+            Common.AddSession("ETCCProjectId", expenseEntity.ProjectId.ToString());
+            Common.AddSession("ETCCFiscalYearId", expenseEntity.FiscalYearId.ToString());
+            Common.AddSession("ETCCStatusId", expenseEntity.StatusId.ToString());
+            Common.AddSession("ETCCDifference", expenseEntity.Difference.ToString());
             
             expenseRequest.expenseEntity = expenseEntity;
             string url = strBaseURL + "Expense/GetExpExpTransCompare";

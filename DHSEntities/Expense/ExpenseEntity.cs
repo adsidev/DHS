@@ -62,5 +62,6 @@ namespace DHSEntities
         public string EndDate { get; set; }
         public string AssignedToUser { get; set; }
         public long ExpenseTransactionDetailId { get; set; }
+        public int Difference { get; set; }
     }
 }
