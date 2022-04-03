@@ -53,6 +53,7 @@ namespace DHSDAL
             public const string USPGETCATEGORYBYOBJECT = "sp_GetCategoryByObject";
             public const string USPGETEXPENSETRANSACTIONS = "sp_GetExpenseTransactions";
             public const string USPGETEXPEXPTRANSCOMPARE = "sp_GetExpExpTransCompare";
+            public const string USPCHECKRELATEDTRANSACTION = "sp_CheckRelatedTransaction";
         }
 
         public class Revenue
@@ -74,6 +75,7 @@ namespace DHSDAL
             public const string USPGETDRAWTRANSACTIONDETAIL = "sp_GetDrawTransactionDetail";
             public const string USPGETDRAWSFORRECEIVABLE = "sp_GetDrawsForReceivable";
             public const string USPSAVETRANSACTIONDRAWRECEIVABLE = "sp_SaveTransactionDrawReceivable";
+            public const string USPCHECKRELATEDREVENUETRANSACTION = "sp_CheckRelatedRevenueTransaction";
         }
 
         public class Draw

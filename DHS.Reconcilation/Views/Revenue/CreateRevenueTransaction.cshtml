@@ -508,7 +508,7 @@
                         <div class="row">
                             <div class="col-lg-4 col-xs-12 col-sm-4 col-md-4">
                                 <div class="form_modal">
-                                    <label>Revenue Deposit</label>
+                                    <label>Revenue&nbsp;Deposit</label>
                                 </div>
                             </div>
                             <div class="col-lg-8 col-xs-12 col-sm-8 col-md-8">
@@ -520,6 +520,20 @@
                         </div>
                     </div>
 
+                    <div class="col-lg-6">
+                        <div class="row">
+                            <div class="col-lg-4 col-xs-12 col-sm-4 col-md-4">
+                                <div class="form_modal">
+                                    <label>Related&nbsp;Trans</label>
+                                </div>
+                            </div>
+                            <div class="col-lg-8 col-xs-12 col-sm-8 col-md-8">
+                                <div class="form_modal">
+                                    @Html.TextBoxFor(m => m.revenueTransactionEntity.RelatedTrans, htmlAttributes: new { @id = "RelatedTrans", @class = "form-control mrp_modalselect" })
+                                </div>
+                            </div>
+                        </div>
+                    </div>
                 </div>
 
                 <div class="row">
@@ -567,6 +581,39 @@
                     document.getElementById("RevenueTranscationDescription").value = "The Org, Object or Project entered does not match with the Org, Object or Project for the Revenue Journal Entry";
                 }
             }
+            if (document.getElementById("RelatedTrans").value != '') {
+                var revenueTransactionEntity = {
+                    RevenueTransactionId: 0,
+                    RelatedTrans: document.getElementById("RelatedTrans").value,
+                };
+                var revenueRequest = {
+                    RevenueTransactionEntity: revenueTransactionEntity
+                };
+                $.ajax({
+                    url: "/Revenue/CheckRelatedTrans",
+                    type: "POST",
+                    data: revenueRequest,
+                    dataType: 'json',
+                    success: function (result) {
+                        if (document.getElementById("RelatedTrans").value == result.revenueTransactionEntity.RevenueTransactionNumber) {
+                            SaveTransaction();
+                        }
+                        else {
+                            alert("Please check the Related Transaction number.");
+                            document.getElementById("RelatedTrans").focus();
+                            window.location.reload();
+                            return false;
+                        }
+                    }
+                });
+            }
+            else {
+                SaveTransaction();
+            }
+            return true;
+        }
+
+        function SaveTransaction() {
             var Draw = 0
             if (document.getElementById("RevenueTypeId").value == 1) {
                 Draw = document.getElementById("DrawId").value;
@@ -589,6 +636,7 @@
                 ProjectName: document.getElementById("ProjectName").value,
                 DrawId: Draw,
                 ModifiedBy: @Common.GetSession("UserID"),
+                RelatedTrans: document.getElementById("RelatedTrans").value,
             };
             var revenueRequest = {
                 RevenueTransactionEntity: revenueTransactionEntity
@@ -605,7 +653,6 @@
 
                 }
             });
-            return true;
         }
 
         $(document).ready(function () {

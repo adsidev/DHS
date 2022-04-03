@@ -539,6 +539,7 @@ namespace DHSDAL
                     revenueTransactionEntity.ExpenseCount = Convert.ToInt32(revenueDataRow["ExpenseCount"].ToString());
                     revenueTransactionEntity.DocumentFile = revenueDataRow["DocumentFile"].ToString();
                     revenueTransactionEntity.DrawNumber = revenueDataRow["DrawNumber"].ToString();
+                    revenueTransactionEntity.RelatedTrans = revenueDataRow["RelatedTrans"].ToString();
                     revenueTransactionEntity.RevenueTransactionDate = Convert.ToDateTime(revenueDataRow["RevenueTransactionDate"].ToString()).ToShortDateString();
                 }
                 catch (Exception exception)
@@ -593,6 +594,7 @@ namespace DHSDAL
                         revenueTransactionEntity.OrgName = revenueDataRow["OrgName"].ToString();
                         revenueTransactionEntity.ObjectName = revenueDataRow["ObjectName"].ToString();
                         revenueTransactionEntity.ProjectName = revenueDataRow["ProjectName"].ToString();
+                        revenueTransactionEntity.RelatedTrans = revenueDataRow["RelatedTrans"].ToString();
                         revenueTransactionEntity.RevenueTransactionDate = Convert.ToDateTime(revenueDataRow["RevenueTransactionDate"].ToString()).ToShortDateString();
                     }
                     catch (Exception exception)
@@ -651,7 +653,8 @@ namespace DHSDAL
                 revenueRequest.revenueTransactionEntity.RevenueTranscationDescription,
                 revenueRequest.revenueTransactionEntity.ModifiedBy,
                 revenueRequest.revenueTransactionEntity.ProjectName,
-                revenueRequest.revenueTransactionEntity.DrawId
+                revenueRequest.revenueTransactionEntity.DrawId,
+                revenueRequest.revenueTransactionEntity.RelatedTrans
                 };
                 var intResult = SqlHelper.ExecuteScalar(_connectionString, StoredProcedures.Revenue.USPSAVEREVENEUTRANSACTION, SqlObject.Parameters);
                 revenueResponse.Message = string.Empty;
@@ -695,6 +698,7 @@ namespace DHSDAL
                     revenueTransactionEntity.BatchNumber = revenueDataRow["BatchNumber"].ToString();
                     revenueTransactionEntity.ProjectName = revenueDataRow["ProjectName"].ToString();
                     revenueTransactionEntity.DrawNumber = revenueDataRow["DrawNumber"].ToString();
+                    revenueTransactionEntity.RelatedTrans = revenueDataRow["RelatedTrans"].ToString();
                     revenueTransactionEntity.DocumentFile = revenueDataRow["DocumentFile"].ToString();
                     revenueTransactionEntity.ExpenseCount = Convert.ToInt32(revenueDataRow["ExpenseCount"].ToString());
                     revenueTransactionEntity.CompleteCount = Convert.ToInt32(revenueDataRow["CompleteCount"].ToString());
@@ -1055,6 +1059,31 @@ namespace DHSDAL
             return revenueResponse;
         }
 
+        public RevenueResponse CheckRelatedTrans(RevenueRequest revenueRequest)
+        {
+            revenueResponse.ErrorMessage = String.Empty;
+            revenueResponse.Message = String.Empty;
+            RevenueTransactionEntity revenueTransactionEntity = new RevenueTransactionEntity();
+            SqlObject.Parameters = new object[] {
+                revenueRequest.revenueTransactionEntity.RevenueTransactionId,
+                revenueRequest.revenueTransactionEntity.RelatedTrans
+            };
+            var expenseDataSet = SqlHelper.ExecuteDataset(_connectionString, StoredProcedures.Revenue.USPCHECKRELATEDREVENUETRANSACTION, SqlObject.Parameters);
+            foreach (DataRow expenseDataRow in expenseDataSet.Tables[0].Rows)
+            {
+                try
+                {
+                    revenueTransactionEntity.RevenueTransactionNumber = expenseDataRow["RevenueTransactionNumber"].ToString();
+                }
+                catch (Exception exception)
+                {
+                    revenueResponse.ErrorMessage = exception.Message;
+                    revenueResponse.Exception = exception;
+                }
+            }
+            revenueResponse.revenueTransactionEntity = revenueTransactionEntity;
+            return revenueResponse;
+        }
 
     }
 }

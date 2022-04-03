@@ -23,5 +23,6 @@ namespace DHSDAL
         RevenueResponse GetManageReceivables(RevenueRequest revenueRequest);
         RevenueResponse GetTransactionDetail(RevenueRequest revenueRequest);
         RevenueResponse SaveTransactionDetail(ExpenseRequest expenseRequest);
+        RevenueResponse CheckRelatedTrans(RevenueRequest revenueRequest);
     }
 }

@@ -116,12 +116,27 @@
                         <div class="row">
                             <div class="col-lg-3 col-xs-12 col-sm-3 col-md-3">
                                 <div class="form_modal">
-                                    <label>Revenue Deposit</label>
+                                    <label>Revenue&nbsp;Deposit</label>
                                 </div>
                             </div>
                             <div class="col-lg-9 col-xs-12 col-sm-9 col-md-9">
                                 <div class="form_modal">
                                     @Html.DropDownList("DrawId", new SelectList(Model.drawEntities, "DrawId", "DrawNumber", Model.revenueTransactionEntity.DrawId), "", new { @id = "DrawId", @class = "form-control mrp_modalselect" })
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="col-lg-12">
+                        <div class="row">
+                            <div class="col-lg-3 col-xs-12 col-sm-3 col-md-3">
+                                <div class="form_modal">
+                                    <label>Related&nbsp;Trans</label>
+                                </div>
+                            </div>
+                            <div class="col-lg-9 col-xs-12 col-sm-9 col-md-9">
+                                <div class="form_modal">
+                                    @Html.TextBoxFor(m => m.revenueTransactionEntity.RelatedTrans, htmlAttributes: new { @id = "RelatedTrans", @class = "form-control mrp_modalselect" })
                                 </div>
                             </div>
                         </div>
@@ -163,6 +178,38 @@
             return false;
         }
 
+        if (document.getElementById("RelatedTrans").value != '') {
+            var revenueTransactionEntity = {
+                RevenueTransactionId: document.getElementById("RevenueTransactionId").value,
+                RelatedTrans: document.getElementById("RelatedTrans").value,
+            };
+            var revenueRequest = {
+                RevenueTransactionEntity: revenueTransactionEntity
+            };
+            $.ajax({
+                url: "/Revenue/CheckRelatedTrans",
+                type: "POST",
+                data: revenueRequest,
+                dataType: 'json',
+                success: function (result) {
+                    if (document.getElementById("RelatedTrans").value == result.revenueTransactionEntity.RevenueTransactionNumber) {
+                        SaveTransaction();
+                    }
+                    else {
+                        alert("Please check the Related Transaction number.");
+                        document.getElementById("RelatedTrans").focus();
+                        return false;
+                    }
+                }
+            });
+        }
+        else {
+            SaveTransaction();
+        }
+        return true;
+    }
+
+    function SaveTransaction() {
         var Draw = 0
         if (document.getElementById("RevenueTTypeId").value == 1) {
             Draw = document.getElementById("DrawId").value;
@@ -185,6 +232,7 @@
             ProjectName: document.getElementById("ProjectName").value,
             DrawId: Draw,
             ModifiedBy: @Common.GetSession("UserID"),
+            RelatedTrans: document.getElementById("RelatedTrans").value,
         };
         var revenueRequest = {
             RevenueTransactionEntity: revenueTransactionEntity
@@ -202,9 +250,7 @@
 
             }
         });
-        return true;
     }
-
 
     $("#RevenueTTypeId").change(function () {
         var x = $("#RevenueTTypeId").val();

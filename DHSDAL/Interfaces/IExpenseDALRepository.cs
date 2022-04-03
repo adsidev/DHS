@@ -23,5 +23,6 @@ namespace DHSDAL
         ExpenseResponse GetExpenseTransactions(ExpenseRequest expenseRequest);
         ExpenseResponse SaveLinkToExpenseTransaction(ExpenseRequest expenseRequest);
         ExpenseResponse GetExpExpTransCompare(ExpenseRequest expenseRequest);
+        ExpenseResponse CheckRelatedTrans(ExpenseRequest expenseRequest);
     }
 }

@@ -535,6 +535,22 @@
                             </div>
                         </div>
                     </div>
+
+                    <div class="col-lg-6">
+                        <div class="row">
+                            <div class="col-lg-4 col-xs-12 col-sm-4 col-md-4">
+                                <div class="form_modal">
+                                    <label>Related Transaction</label>
+                                </div>
+                            </div>
+                            <div class="col-lg-8 col-xs-12 col-sm-8 col-md-8">
+                                <div class="form_modal">
+                                    @Html.TextBoxFor(m => m.transactionDetailEntity.RelatedTrans, htmlAttributes: new { @id = "RelatedTrans", @class = "form-control mrp_modalselect" })
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
                 </div>
 
                 <div class="row">
@@ -618,6 +634,7 @@
                                             <th nowrap>
                                                 Revenue Transaction
                                             </th>
+                                            <th nowrap>Related Trans</th>
                                             <th nowrap style="text-align:left">
                                                 Notes
                                             </th>
@@ -685,6 +702,7 @@
                                                     {
                                                         <td nowrap>&nbsp;</td>
                                                     }
+                                                    <td nowrap>@item.RelatedTrans</td>
                                                     <td style="text-align:left;" nowrap>
                                                         @item.TransactionDescription
                                                     </td>
@@ -723,6 +741,8 @@
 
 
     <script type="text/javascript">
+        var IsRelatedCheck = true;
+
         function SubmitValue() {
             if (document.getElementById("TransactionDate").value == "") {
                 alert("Please enter transaction date.")
@@ -739,6 +759,39 @@
                 document.getElementById("FGTCategoryId2").focus();
                 return false;
             }
+            if (document.getElementById("RelatedTrans").value != '') {
+                var transactionDetailEntity = {
+                    TransactionDetailId: document.getElementById("TransactionDetailId").value,
+                    RelatedTrans: document.getElementById("RelatedTrans").value,
+                };
+                var expenseRequest = {
+                    TransactionDetailEntity: transactionDetailEntity
+                };
+                $.ajax({
+                    url: "/Expense/CheckRelatedTrans",
+                    type: "POST",
+                    data: expenseRequest,
+                    dataType: 'json',
+                    success: function (result) {
+                        if (document.getElementById("RelatedTrans").value == result.transactionDetailEntity.TransactionNumber) {
+                            SaveTransaction();
+                        }
+                        else {
+                            alert("Please check the Related Transaction number.");
+                            document.getElementById("RelatedTrans").focus();
+                            window.location.reload();
+                            return false;
+                        }
+                    }
+                });
+            }
+            else {
+                SaveTransaction();
+            }
+            return true;
+        }
+
+        function SaveTransaction(){
             var transactionDetailEntity = {
                 TransactionDate: document.getElementById("TransactionDate").value,
                 ExpenseId: document.getElementById("ExpenseId").value,
@@ -751,6 +804,7 @@
                 DrawId: document.getElementById("hdnRevenueTransactionId").value,
                 VendorId: document.getElementById("VendorId").value,
                 StatusId: document.getElementById("StatusId").value,
+                RelatedTrans: document.getElementById("RelatedTrans").value,
             };
             var expenseRequest = {
                 TransactionDetailEntity: transactionDetailEntity
@@ -767,11 +821,10 @@
 
                 }
             });
-            return true;
         }
 
         $(document).ready(function () {
-            $('#mra_subli1').addClass('active');
+            $('#mra_subliMET').addClass('active');
         });
 
 

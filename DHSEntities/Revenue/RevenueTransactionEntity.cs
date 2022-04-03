@@ -31,5 +31,6 @@ namespace DHSEntities
         public string ObjectDescription { get; set; }
         public string ActivityDescription { get; set; }
         public string DocumentFile { get; set; }
+        public string RelatedTrans { get; set; }
     }
 }

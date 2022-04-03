@@ -333,6 +333,23 @@ namespace DHS.Reconcilation.Areas
             }
             return expenseResponse;
         }
+
+        [HttpPost]
+        [Route("CheckRelatedTrans")]
+        public ExpenseResponse CheckRelatedTrans(ExpenseRequest expenseRequest)
+        {
+            try
+            {
+                expenseResponse = expenseRepository.CheckRelatedTrans(expenseRequest);
+            }
+            catch (Exception ex)
+            {
+                expenseResponse.ErrorMessage = ex.Message;
+                expenseResponse.Exception = ex;
+            }
+            return expenseResponse;
+        }
+
         
     }
 }

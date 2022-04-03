@@ -291,6 +291,7 @@ namespace DHSDAL
                     transactionDetailEntity.RevenueTransactionAmount = Convert.ToDecimal(expenseDataRow["RevenueTransactionAmount"].ToString());
                     transactionDetailEntity.DrawAmount = Convert.ToDecimal(expenseDataRow["DrawAmount"].ToString());
                     transactionDetailEntity.BatchNumber = expenseDataRow["BatchNumber"].ToString();
+                    transactionDetailEntity.RelatedTrans = expenseDataRow["RelatedTrans"].ToString();
                     transactionDetailEntity.RevenueProjectName = expenseDataRow["RevenueProjectName"].ToString();
                     try
                     {
@@ -369,6 +370,7 @@ namespace DHSDAL
                         transactionDetailEntity.RevenueProjectName = expenseDataRow["RevenueProjectName"].ToString();
                         transactionDetailEntity.DrawAmount = Convert.ToDecimal(expenseDataRow["DrawAmount"].ToString());
                         transactionDetailEntity.BatchNumber = expenseDataRow["BatchNumber"].ToString();
+                        transactionDetailEntity.RelatedTrans = expenseDataRow["RelatedTrans"].ToString();
                         try
                         {
                             transactionDetailEntity.DrawDate = Convert.ToDateTime(expenseDataRow["DrawDate"].ToString()).ToShortDateString();
@@ -470,6 +472,7 @@ namespace DHSDAL
                 expenseRequest.transactionDetailEntity.DrawId,
                 expenseRequest.transactionDetailEntity.VendorId,
                 expenseRequest.transactionDetailEntity.StatusId,
+                expenseRequest.transactionDetailEntity.RelatedTrans,
                 };
                 var intResult = SqlHelper.ExecuteScalar(_connectionString, StoredProcedures.Expense.USPSAVETRANSACTIONDETAIL, SqlObject.Parameters);
                 expenseResponse.Message = string.Empty;
@@ -833,16 +836,30 @@ namespace DHSDAL
                     transactionDetailEntity.DocumentFile = expenseDataRow["DocumentFile"].ToString();
                     transactionDetailEntity.RevenueTransactionNumber = expenseDataRow["RevenueTransactionNumber"].ToString();
                     transactionDetailEntity.RevenueProjectName = expenseDataRow["RevenueProjectName"].ToString();
-                    transactionDetailEntity.DrawDate = Convert.ToDateTime(expenseDataRow["DrawDate"].ToString()).ToShortDateString();
-                    transactionDetailEntity.RevenueTransactionDate = Convert.ToDateTime(expenseDataRow["RevenueTransactionDate"].ToString()).ToShortDateString();
+                    transactionDetailEntity.RelatedTrans = expenseDataRow["RelatedTrans"].ToString();
+                    try
+                    {
+                        transactionDetailEntity.DrawDate = Convert.ToDateTime(expenseDataRow["DrawDate"].ToString()).ToShortDateString();
+                    }
+                    catch (Exception)
+                    {
+                        transactionDetailEntity.DrawDate = expenseDataRow["DrawDate"].ToString();
+                    }
+                    try
+                    {
+                        transactionDetailEntity.RevenueTransactionDate = Convert.ToDateTime(expenseDataRow["RevenueTransactionDate"].ToString()).ToShortDateString();
+                    }
+                    catch (Exception)
+                    {
+                        transactionDetailEntity.RevenueTransactionDate = expenseDataRow["RevenueTransactionDate"].ToString();
+                    }
                     transactionDetailEntity.TransactionDate = Convert.ToDateTime(expenseDataRow["TransactionDate"].ToString()).ToShortDateString();
                 }
                 catch (Exception exception)
                 {
                     transactionDetailEntity.ErrorMessage = exception.Message;
                     transactionDetailEntity.Exception = exception;
-                    transactionDetailEntity.TransactionDate = expenseDataRow["TransactionDate"].ToString(); transactionDetailEntity.DrawDate = expenseDataRow["DrawDate"].ToString();
-                    transactionDetailEntity.RevenueTransactionDate = expenseDataRow["RevenueTransactionDate"].ToString();
+                    transactionDetailEntity.TransactionDate = expenseDataRow["TransactionDate"].ToString(); 
                 }
                 finally
                 {
@@ -1037,5 +1054,30 @@ namespace DHSDAL
             return expenseResponse;
         }
 
+        public ExpenseResponse CheckRelatedTrans(ExpenseRequest expenseRequest)
+        {
+            expenseResponse.ErrorMessage = String.Empty;
+            expenseResponse.Message = String.Empty;
+            TransactionDetailEntity transactionDetailEntity = new TransactionDetailEntity();
+            SqlObject.Parameters = new object[] {
+                expenseRequest.transactionDetailEntity.TransactionDetailId,
+                expenseRequest.transactionDetailEntity.RelatedTrans
+            };
+            var expenseDataSet = SqlHelper.ExecuteDataset(_connectionString, StoredProcedures.Expense.USPCHECKRELATEDTRANSACTION, SqlObject.Parameters);
+            foreach (DataRow expenseDataRow in expenseDataSet.Tables[0].Rows)
+            {
+                try
+                {
+                    transactionDetailEntity.TransactionNumber = expenseDataRow["TransactionNumber"].ToString();
+                }
+                catch (Exception exception)
+                {
+                    expenseResponse.ErrorMessage = exception.Message;
+                    expenseResponse.Exception = exception;
+                }
+            }
+            expenseResponse.transactionDetailEntity = transactionDetailEntity;
+            return expenseResponse;
+        }
     }
 }
