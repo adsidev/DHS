@@ -23,7 +23,41 @@ namespace DHS.Reconcilation.Areas
         {
             try
             {
-                ProjectResponse = ProjectRepository.GetProjects();
+                ProjectResponse = ProjectRepository.GetProjects(projectRequest);
+            }
+            catch (Exception ex)
+            {
+                ProjectResponse.ErrorMessage = ex.Message;
+                ProjectResponse.Exception = ex;
+            }
+            return ProjectResponse;
+        }
+
+
+        [HttpPost]
+        [Route("GetProject")]
+        public ProjectResponse GetProject(ProjectRequest projectRequest)
+        {
+            try
+            {
+                ProjectResponse = ProjectRepository.GetProject(projectRequest);
+            }
+            catch (Exception ex)
+            {
+                ProjectResponse.ErrorMessage = ex.Message;
+                ProjectResponse.Exception = ex;
+            }
+            return ProjectResponse;
+        }
+
+
+        [HttpPost]
+        [Route("SaveProject")]
+        public ProjectResponse SaveProject(ProjectRequest projectRequest)
+        {
+            try
+            {
+                ProjectResponse = ProjectRepository.SaveProject(projectRequest);
             }
             catch (Exception ex)
             {

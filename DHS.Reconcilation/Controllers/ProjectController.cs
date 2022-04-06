@@ -27,6 +27,7 @@ namespace DHS.Reconcilation.Controllers
             projectResponse = new ProjectResponse();
         }
 
+        [HttpGet]
         public async Task<ActionResult> ManageProjects(int? page)
         {
             if (!Common.SessionExists())
@@ -35,6 +36,9 @@ namespace DHS.Reconcilation.Controllers
             int pageIndex = 1;
             pageIndex = page.HasValue ? Convert.ToInt32(page) : 1;
             ProjectRequest ProjectRequest = new ProjectRequest();
+            ProjectEntity projectEntity = new ProjectEntity();
+            projectEntity.FiscalYearId = 0;
+            ProjectRequest.projectEntity = projectEntity;
             string url = strBaseURL + "Project/GetProjects";
             client.BaseAddress = new Uri(url);
             HttpResponseMessage responseMessage = await client.PostAsJsonAsync(url, ProjectRequest);
@@ -46,8 +50,9 @@ namespace DHS.Reconcilation.Controllers
                 if (projectResponse.Message == string.Empty && projectResponse.ErrorMessage == string.Empty)
                 {
                     string PageName = "Project";
+                    projectResponse.projectEntity = ProjectRequest.projectEntity; 
                     projectResponse.rolePermissionEntity = Common.PagePermissions(PageName);
-                    projectResponse.pagedProjectEntities = projectResponse.projectEntities.ToPagedList(pageIndex, pageSize);
+                    projectResponse.pagedProjectEntities = projectResponse.projectEntities.ToPagedList(pageIndex, 15);
                     return View(projectResponse);
                 }
                 else
@@ -63,6 +68,50 @@ namespace DHS.Reconcilation.Controllers
             }
         }
 
+        [HttpPost]
+        public async Task<ActionResult> ManageProjects(int? page, int? id = 0)
+        {
+            if (!Common.SessionExists())
+                return RedirectToAction("Index", "Home");
+            int pageSize = Common.pageNumbers;
+            int pageIndex = 1;
+            pageIndex = page.HasValue ? Convert.ToInt32(page) : 1;
+            ProjectRequest ProjectRequest = new ProjectRequest();
+            ProjectEntity projectEntity = new ProjectEntity();
+            if(Request["FiscalYearId"]!="")
+            projectEntity.FiscalYearId = Convert.ToInt32(Request["FiscalYearId"]);
+            else
+            projectEntity.FiscalYearId = 0;
+            ProjectRequest.projectEntity = projectEntity;
+            string url = strBaseURL + "Project/GetProjects";
+            client.BaseAddress = new Uri(url);
+            HttpResponseMessage responseMessage = await client.PostAsJsonAsync(url, ProjectRequest);
+
+            if (responseMessage.IsSuccessStatusCode)
+            {
+                var responseData = responseMessage.Content.ReadAsStringAsync().Result;
+                projectResponse = JsonConvert.DeserializeObject<ProjectResponse>(responseData);
+                if (projectResponse.Message == string.Empty && projectResponse.ErrorMessage == string.Empty)
+                {
+                    string PageName = "Project";
+                    projectResponse.projectEntity = ProjectRequest.projectEntity;
+                    projectResponse.rolePermissionEntity = Common.PagePermissions(PageName);
+                    projectResponse.pagedProjectEntities = projectResponse.projectEntities.ToPagedList(pageIndex, 15);
+                    return View(projectResponse);
+                }
+                else
+                {
+                    TempData["LoginFailure"] = projectResponse.Message;
+                    return RedirectToAction("Error", "Home");
+                }
+            }
+            else
+            {
+                TempData["LoginFailure"] = responseMessage.ToString();
+                return RedirectToAction("Error", "Home");
+            }
+        }
+        
         [HttpGet]
         public async Task<ActionResult> ManageProjectSummary()
         {
@@ -178,5 +227,86 @@ namespace DHS.Reconcilation.Controllers
             }
         }
 
+        public async Task<ActionResult> ViewProject(long? id = 0)
+        {
+            if (!Common.SessionExists())
+                return RedirectToAction("Index", "Home");
+            if (id == 0)
+                return RedirectToAction("Index", "Home");
+            ProjectResponse projectResponse = new ProjectResponse();
+            ProjectRequest projectRequest = new ProjectRequest();
+            ProjectEntity projectEntity = new ProjectEntity();
+
+            projectEntity.ProjectId = Convert.ToInt32(id);
+            projectRequest.projectEntity = projectEntity;
+            string url = strBaseURL + "Project/GetProject";
+            client.BaseAddress = new Uri(url);
+
+            HttpResponseMessage responseMessage = await client.PostAsJsonAsync(url, projectRequest);
+
+            if (responseMessage.IsSuccessStatusCode)
+            {
+                var responseData = responseMessage.Content.ReadAsStringAsync().Result;
+                projectResponse = JsonConvert.DeserializeObject<ProjectResponse>(responseData);
+                if (projectResponse.Message == string.Empty && projectResponse.ErrorMessage == string.Empty)
+                {
+                    string PageName = "Project";
+                    projectResponse.rolePermissionEntity = Common.PagePermissions(PageName);
+
+                    return PartialView("_viewProject", projectResponse);
+                }
+                else
+                {
+                    TempData["LoginFailure"] = projectResponse.Message;
+                    return RedirectToAction("Error", "Home");
+                }
+            }
+            else
+            {
+                TempData["LoginFailure"] = responseMessage.ToString();
+                return RedirectToAction("Error", "Home");
+            }
+        }
+
+        public async Task<ActionResult> EditProject(long? id = 0)
+        {
+            if (!Common.SessionExists())
+                return RedirectToAction("Index", "Home");
+            if (id == 0)
+                return RedirectToAction("Index", "Home");
+            ProjectResponse projectResponse = new ProjectResponse();
+            ProjectRequest projectRequest = new ProjectRequest();
+            ProjectEntity projectEntity = new ProjectEntity();
+
+            projectEntity.ProjectId = Convert.ToInt32(id);
+            projectRequest.projectEntity = projectEntity;
+            string url = strBaseURL + "Project/GetProject";
+            client.BaseAddress = new Uri(url);
+
+            HttpResponseMessage responseMessage = await client.PostAsJsonAsync(url, projectRequest);
+
+            if (responseMessage.IsSuccessStatusCode)
+            {
+                var responseData = responseMessage.Content.ReadAsStringAsync().Result;
+                projectResponse = JsonConvert.DeserializeObject<ProjectResponse>(responseData);
+                if (projectResponse.Message == string.Empty && projectResponse.ErrorMessage == string.Empty)
+                {
+                    string PageName = "Project";
+                    projectResponse.rolePermissionEntity = Common.PagePermissions(PageName);
+
+                    return PartialView("_editProject", projectResponse);
+                }
+                else
+                {
+                    TempData["LoginFailure"] = projectResponse.Message;
+                    return RedirectToAction("Error", "Home");
+                }
+            }
+            else
+            {
+                TempData["LoginFailure"] = responseMessage.ToString();
+                return RedirectToAction("Error", "Home");
+            }
+        }
     }
 }

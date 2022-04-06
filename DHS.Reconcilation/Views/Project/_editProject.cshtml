@@ -1,0 +1,211 @@
+﻿@model DHSEntities.ProjectResponse
+@using DHS.Reconcilation.Models
+@{
+    ViewBag.Title = "Edit Projects";
+}
+@Html.HiddenFor(m => m.projectEntity.ProjectId, htmlAttributes: new { @id = "ProjectId" })
+<div class="modal-dialog" role="document">
+    <div class="modal-content">
+        <div class="modal-header">
+            <h5 class="modal-title" id="exampleModalLabel">Edit Project Information</h5>
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+            </button>
+            <div class="modal-footer mra_edit_footer">
+                <a href="Javascript:void()" title="Save" onclick="return SubmitValue()" id="btnSubmit" class="mra_edit_save">
+                    <i class="fa fa-floppy-o" aria-hidden="true"></i>
+                </a>
+            </div>
+            <div class="modal-body">
+                <div class="mrp_modalcontent">
+                    <div class="row">
+
+
+                        @*<div class="col-lg-12">
+                            <div class="row">
+                                <div class="col-lg-3 col-xs-12 col-sm-3 col-md-3">
+                                    <div class="form_modal">
+                                        <label>Fiscal&nbsp;Year</label>
+                                    </div>
+                                </div>
+                                <div class="col-lg-9 col-xs-12 col-sm-9 col-md-9">
+                                    <div class="form_modal">
+                                        @Html.DropDownList("FiscalYearId", new SelectList(Model.fiscalYearEntities, "FiscalYearId", "FiscalYear", Model.projectEntity.FiscalYearId), "", new { @id= "PFiscalYearId", @class = "form-control mrp_modalselect" })
+                                    </div>
+                                </div>
+                            </div>
+                        </div>*@
+
+                        <div class="col-lg-12">
+                            <div class="row">
+                                <div class="col-lg-3 col-xs-12 col-sm-3 col-md-3">
+                                    <div class="form_modal">
+                                        <label>Project&nbsp;Code</label>
+                                    </div>
+                                </div>
+                                <div class="col-lg-9 col-xs-12 col-sm-9 col-md-9">
+                                    <div class="form_modal">
+                                        @Html.TextBoxFor(m => m.projectEntity.ProjectName, htmlAttributes: new { @class = "form-control mrp_modalselect", @id = "ProjectName", @disabled = "disabled" })
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+
+                        <div class="col-lg-12">
+                            <div class="row">
+                                <div class="col-lg-3 col-xs-12 col-sm-3 col-md-3">
+                                    <div class="form_modal">
+                                        <label>CFDA</label>
+                                    </div>
+                                </div>
+                                <div class="col-lg-9 col-xs-12 col-sm-9 col-md-9">
+                                    <div class="form_modal">
+                                        @Html.TextBoxFor(m => m.projectEntity.CFDA, htmlAttributes: new { @id = "CFDA", @class = "form-control mrp_modalselect" })
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="col-lg-12">
+                            <div class="row">
+                                <div class="col-lg-3 col-xs-12 col-sm-3 col-md-3">
+                                    <div class="form_modal">
+                                        <label>Project&nbsp;Name</label>
+                                    </div>
+                                </div>
+                                <div class="col-lg-9 col-xs-12 col-sm-9 col-md-9">
+                                    <div class="form_modal">
+                                        @Html.TextBoxFor(m => m.projectEntity.ProjectDescription, htmlAttributes: new { @id = "ProjectDescription", @class = "form-control mrp_modalselect" })
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="col-lg-12">
+                            <div class="row">
+                                <div class="col-lg-3 col-xs-12 col-sm-3 col-md-3">
+                                    <div class="form_modal">
+                                        <label>Project&nbsp;Group</label>
+                                    </div>
+                                </div>
+                                <div class="col-lg-9 col-xs-12 col-sm-9 col-md-9">
+                                    <div class="form_modal">
+                                        @Html.TextBoxFor(m => m.projectEntity.ProjectGroup, htmlAttributes: new { @id = "ProjectGroup", @class = "form-control mrp_modalselect" })
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="col-lg-12">
+                            <div class="row">
+                                <div class="col-lg-3 col-xs-12 col-sm-3 col-md-3">
+                                    <div class="form_modal">
+                                        <label>Expense&nbsp;Status</label>
+                                    </div>
+                                </div>
+                                <div class="col-lg-9 col-xs-12 col-sm-9 col-md-9">
+                                    <div class="form_modal">
+                                        @Html.DropDownList("ExpenseStatusId", new SelectList(Model.projectStatusEntities, "ProjectStatusId", "ProjectStatus", Model.projectEntity.ExpenseStatusId), "", new { @class = "form-control mrp_modalselect" })
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="col-lg-12">
+                            <div class="row">
+                                <div class="col-lg-3 col-xs-12 col-sm-3 col-md-3">
+                                    <div class="form_modal">
+                                        <label>Revenue&nbsp;Status</label>
+                                    </div>
+                                </div>
+                                <div class="col-lg-9 col-xs-12 col-sm-9 col-md-9">
+                                    <div class="form_modal">
+                                        @Html.DropDownList("RevenueStatusId", new SelectList(Model.projectStatusEntities, "ProjectStatusId", "ProjectStatus", Model.projectEntity.RevenueStatusId), "", new { @class = "form-control mrp_modalselect" })
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+
+                        <div class="col-lg-12">
+                            <div class="row">
+                                <div class="col-lg-3 col-xs-12 col-sm-3 col-md-3">
+                                    <div class="form_modal">
+                                        <label>Project&nbsp;Status</label>
+                                    </div>
+                                </div>
+                                <div class="col-lg-9 col-xs-12 col-sm-9 col-md-9">
+                                    <div class="form_modal">
+                                        @Html.DropDownList("ProjectStatusId", new SelectList(Model.projectStatusEntities, "ProjectStatusId", "ProjectStatus", Model.projectEntity.ProjectStatusId), "", new { @class = "form-control mrp_modalselect" })
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="row">
+                            <div class="col-lg-1">
+                                <div class="form_modal">
+                                    <label>
+                                        Notes:
+                                    </label>
+                                </div>
+                            </div>
+                            <div class="col-log-11">
+                                <textarea id="ProjectNotes" name="ProjectNotes" style="margin: 0px; width: 100%; height: 120px;"></textarea>
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <script type="text/javascript">
+        var IsExists = false;
+        function SubmitValue() {
+            //if (document.getElementById("PFiscalYearId").value == "") {
+            //    alert("Please select fiscal year.")
+            //    document.getElementById("PFiscalYearId").focus();
+            //    return false;
+            //}
+
+            if (document.getElementById("ProjectDescription").value == "") {
+                alert("Please enter project name.");
+                document.getElementById("ProjectDescription").focus();
+                return false;
+            }
+            //document.getElementById("PFiscalYearId").value
+            var projectEntity = {
+                ProjectId: document.getElementById("ProjectId").value,
+                FiscalYearId: 0,
+                ProjectName: document.getElementById("ProjectName").value,
+                ProjectDescription: document.getElementById("ProjectDescription").value,
+                CFDA: document.getElementById("CFDA").value,
+                ProjectGroup: document.getElementById("ProjectGroup").value,
+                ProjectNotes: document.getElementById("ProjectNotes").value,
+                ExpenseStatusId: document.getElementById("ExpenseStatusId").value,
+                RevenueStatusId: document.getElementById("RevenueStatusId").value,
+                ProjectStatusId: document.getElementById("ProjectStatusId").value,
+                ModifiedBy:@Common.GetSession("UserID"),
+            };
+            var projectRequest = {
+                projectEntity: projectEntity
+            };
+
+            $.ajax({
+                url: "/Project/SaveProject",
+                type: "POST",
+                data: projectRequest,
+                dataType: 'json',
+                success: function (result) {
+                    window.location.reload();
+                },
+                complete: function () {
+
+                }
+            });
+            return true;
+        }
+
+    </script>

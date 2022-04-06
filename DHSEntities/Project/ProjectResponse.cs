@@ -15,5 +15,6 @@ namespace DHSEntities
         public RolePermissionEntity rolePermissionEntity { get; set; }
         public IPagedList<ProjectEntity> pagedProjectEntities { get; set; }
         public List<FiscalYearEntity> fiscalYearEntities { get; set; }
+        public List<ProjectStatusEntity> projectStatusEntities { get; set; }
     }
 }

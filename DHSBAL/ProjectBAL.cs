@@ -18,11 +18,39 @@ namespace DHSBAL
             ProjectResponse = new ProjectResponse();
         }
 
-        public ProjectResponse GetProjects()
+        public ProjectResponse GetProjects(ProjectRequest projectRequest)
         {
             try
             {
-                ProjectResponse = ProjectDALRepository.GetProjects();
+                ProjectResponse = ProjectDALRepository.GetProjects(projectRequest);
+            }
+            catch (Exception ex)
+            {
+                ProjectResponse.ErrorMessage = ex.Message;
+                ProjectResponse.Exception = ex;
+            }
+            return ProjectResponse;
+        }
+
+        public ProjectResponse GetProject(ProjectRequest projectRequest)
+        {
+            try
+            {
+                ProjectResponse = ProjectDALRepository.GetProject(projectRequest);
+            }
+            catch (Exception ex)
+            {
+                ProjectResponse.ErrorMessage = ex.Message;
+                ProjectResponse.Exception = ex;
+            }
+            return ProjectResponse;
+        }
+
+        public ProjectResponse SaveProject(ProjectRequest projectRequest)
+        {
+            try
+            {
+                ProjectResponse = ProjectDALRepository.SaveProject(projectRequest);
             }
             catch (Exception ex)
             {

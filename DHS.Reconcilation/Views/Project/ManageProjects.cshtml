@@ -23,6 +23,26 @@
                     <div class="mrp_content">
                         <h2>View Projects</h2>
                         <form class="mrp_selectdetails form-inline">
+                            @*<div class="row">
+                                <div class="form-group col-lg-2 col-xs-12 col-sm-7">
+                                    <label for="SearchOn">FiscalYear:</label>
+                                    <div class="form_modal">
+                                        @Html.DropDownList("FiscalYearId", new SelectList(Model.fiscalYearEntities, "FiscalYearId", "FiscalYear", Model.projectEntity.FiscalYearId), "", new { @id = "FiscalYearId", @class = "form-control mrp_modalselect" })
+                                    </div>
+                                </div>
+                                <div class="form-group col-lg-2 col-xs-12 col-sm-7">
+                                    <div class="form_modal">
+                                        @if (Model.rolePermissionEntity.ViewBit)
+                                        {
+                                            <img src="~/images/search.png" class="img-responsive" height="40" width="40" onclick="SelectedIndexChanged()" style="cursor:pointer;" alt="Search Project Information" />
+                                        }
+                                        else
+                                        {
+                                            <img src="~/images/search.png" class="disableButton" height="40" width="40" alt="Search Project Information" />
+                                        }
+                                    </div>
+                                </div>
+                            </div>*@
                         </form>
                     </div>
                 </div>
@@ -35,14 +55,32 @@
                                 <table class="table table-bordered table-striped">
                                     <thead>
                                         <tr>
+                                            <th style="margin-left:1px; margin-right:1px;">
+                                                Action
+                                            </th>
+                                            @*<th nowrap>
+                                                Fiscal Year
+                                            </th>*@
                                             <th nowrap>
-                                                Project Name
+                                                Project Code
                                             </th>
                                             <th nowrap>
                                                 CFDA
                                             </th>
                                             <th nowrap>
-                                                Description
+                                                Project Name
+                                            </th>
+                                            <th nowrap>
+                                                Expense Status
+                                            </th>
+                                            <th nowrap>
+                                                Revenue Status
+                                            </th>
+                                            <th nowrap>
+                                                Project Status
+                                            </th>
+                                            <th nowrap>
+                                                Notes
                                             </th>
                                         </tr>
                                     </thead>
@@ -51,13 +89,38 @@
                                             {
                                                 <tr>
                                                     <td nowrap>
+                                                        @if (Model.rolePermissionEntity.ViewBit)
+                                                        {
+                                                            <img src="~/images/view-icon.png" class="img-responsive" onclick="ViewProjectInformation('@item.ProjectId')" style="cursor:pointer;" alt="View Project Information" />
+                                                        }
+                                                        else
+                                                        {
+                                                                <img src="~/images/view-icon.png" alt="View Project Information"  class="img-responsive disableButton" onclick="JavaScript:alert('You do not have permission to View project information. Contact Administrator for access.')" />                      
+                                                        }                                                        
+                                                    </td>
+                                                    @*<td nowrap>
+                                                        @item.FiscalYear
+                                                    </td>*@ 
+                                                    <td nowrap>
                                                         @item.ProjectName.ToUpper()
                                                     </td>
-                                                    <td>
+                                                    <td nowrap>
                                                         @item.CFDA
                                                     </td>
-                                                    <td>
+                                                    <td nowrap>
                                                         @item.ProjectDescription
+                                                    </td>                                                    
+                                                    <td nowrap>
+                                                        @item.ExpenseStatus
+                                                    </td>
+                                                    <td nowrap>
+                                                        @item.RevenueStatus
+                                                    </td>
+                                                    <td nowrap>
+                                                        @item.ProjectStatus
+                                                    </td>
+                                                    <td nowrap>
+                                                        @item.ProjectNotes
                                                     </td>
                                                 </tr>
                                             }
@@ -91,5 +154,32 @@
             $('#mra_subliPR').addClass('active');
         });
 
+        function SelectedIndexChanged() {
+            if ($("#SearchOn").val() != "" & $("#txtSearch").val() == "") {
+                alert("Please enter value to search");
+                $("#txtSearch").focus();
+            }
+            else {
+                $('#frmProjects').submit();
+            }
+        }
+
+        function ViewProjectInformation(projectId) {
+            var options = { "backdrop": "static", keyboard: true };
+            $.ajax({
+                type: "GET",
+                url: "/Project/ViewProject/" + projectId,
+                dataType: "html",
+                success: function (evt) {
+                    $('#ProjectModal').html(evt);
+                    $('#ProjectModal').modal(options);
+                    $('#ProjectModal').modal('show');
+                },
+                error: function (req, status, error) {
+                    alert(error);
+                    alert("Error!Occured");
+                }
+            });
+        }
     </script>
 }

@@ -19,9 +19,12 @@ namespace DHSDAL
             projectResponse.Message = string.Empty;
         }
 
-        public ProjectResponse GetProjects()
+        public ProjectResponse GetProjects(ProjectRequest projectRequest)
         {
-            var periodDataSet = SqlHelper.ExecuteDataset(_connectionString, StoredProcedures.Common.USPGETPROJECTS);
+            SqlObject.Parameters = new object[] {
+                projectRequest.projectEntity.FiscalYearId
+            };
+            var periodDataSet = SqlHelper.ExecuteDataset(_connectionString, StoredProcedures.Project.USPGETALLPROJECTS, SqlObject.Parameters);
             List<ProjectEntity> projectEntities = new List<ProjectEntity>();
             foreach (DataRow expenseDataRow in periodDataSet.Tables[0].Rows)
             {
@@ -29,8 +32,13 @@ namespace DHSDAL
                 try
                 {
                     projectEntity.ProjectId = Convert.ToInt32(expenseDataRow["ProjectId"]);
+                    projectEntity.FiscalYear = expenseDataRow["FiscalYear"].ToString();
                     projectEntity.ProjectName = expenseDataRow["ProjectCode"].ToString();
                     projectEntity.ProjectDescription = expenseDataRow["ProjectDescription"].ToString();
+                    projectEntity.ProjectNotes = expenseDataRow["ProjectNotes"].ToString();
+                    projectEntity.ExpenseStatus = expenseDataRow["ExpenseStatus"].ToString();
+                    projectEntity.RevenueStatus = expenseDataRow["RevenueStatus"].ToString();
+                    projectEntity.ProjectStatus = expenseDataRow["ProjectStatus"].ToString();
                     projectEntity.CFDA = expenseDataRow["CFDA"].ToString();
                 }
                 catch (Exception exception)
@@ -45,6 +53,111 @@ namespace DHSDAL
                 }
             }
             projectResponse.projectEntities = projectEntities;
+            CommonDAL commonDAL = new CommonDAL();
+            projectResponse.fiscalYearEntities = commonDAL.GetFiscalYears();
+            return projectResponse;
+        }
+
+        public ProjectResponse GetProject(ProjectRequest projectRequest)
+        {
+            SqlObject.Parameters = new object[] {
+                projectRequest.projectEntity.ProjectId
+            };
+            var periodDataSet = SqlHelper.ExecuteDataset(_connectionString, StoredProcedures.Project.USPGETPROJECT, SqlObject.Parameters);
+            ProjectEntity projectEntity = new ProjectEntity(); 
+            foreach (DataRow expenseDataRow in periodDataSet.Tables[0].Rows)
+            {
+                try
+                {
+                    projectEntity.ProjectId = Convert.ToInt32(expenseDataRow["ProjectId"]);
+                    projectEntity.FiscalYearId = Convert.ToInt32(expenseDataRow["FiscalYearId"]);
+                    projectEntity.ExpenseStatusId = Convert.ToInt32(expenseDataRow["ExpenseStatusId"]);
+                    projectEntity.RevenueStatusId = Convert.ToInt32(expenseDataRow["RevenueStatusId"]);
+                    projectEntity.ProjectStatusId = Convert.ToInt32(expenseDataRow["ProjectStatusId"]);
+                    projectEntity.FiscalYear = expenseDataRow["FiscalYear"].ToString();
+                    projectEntity.ProjectName = expenseDataRow["ProjectCode"].ToString();
+                    projectEntity.ProjectDescription = expenseDataRow["ProjectDescription"].ToString();
+                    projectEntity.ProjectNotes = expenseDataRow["ProjectNotes"].ToString();
+                    projectEntity.ExpenseStatus = expenseDataRow["ExpenseStatus"].ToString();
+                    projectEntity.RevenueStatus = expenseDataRow["RevenueStatus"].ToString();
+                    projectEntity.ProjectStatus = expenseDataRow["ProjectStatus"].ToString();
+                    projectEntity.CFDA = expenseDataRow["CFDA"].ToString();
+                }
+                catch (Exception exception)
+                {
+                    projectResponse.ErrorMessage = exception.Message;
+                    projectResponse.Message = exception.Message;
+                    projectResponse.Exception = exception;
+                }
+                finally
+                {
+                    
+                }
+            }
+            projectResponse.projectEntity= projectEntity;
+            CommonDAL commonDAL = new CommonDAL();
+            projectResponse.fiscalYearEntities = commonDAL.GetFiscalYears();
+            projectResponse.projectStatusEntities = GetProjectStatus();
+            return projectResponse;
+        }
+
+        private List<ProjectStatusEntity> GetProjectStatus()
+        {
+            var periodDataSet = SqlHelper.ExecuteDataset(_connectionString, StoredProcedures.Project.USPGETPROJECTSTATUSES);
+            List<ProjectStatusEntity> sourceEntities = new List<ProjectStatusEntity>();
+            foreach (DataRow expenseDataRow in periodDataSet.Tables[0].Rows)
+            {
+                ProjectStatusEntity projectEntity = new ProjectStatusEntity();
+                try
+                {
+                    projectEntity.ProjectStatusId = Convert.ToInt32(expenseDataRow["ProjectStatusId"]);
+                    projectEntity.ProjectStatus = expenseDataRow["ProjectStatus"].ToString();
+                }
+                catch (Exception exception)
+                {
+                    projectEntity.ErrorMessage = exception.Message;
+                    projectEntity.Exception = exception;
+                }
+                finally
+                {
+                    sourceEntities.Add(projectEntity);
+                }
+            }
+            return sourceEntities;
+        }
+
+        public ProjectResponse SaveProject(ProjectRequest projectRequest)
+        {
+            try
+            {
+                if (projectRequest.projectEntity.ProjectId > 0)
+                    projectRequest.projectEntity.SaveString = "U";
+                else
+                    projectRequest.projectEntity.SaveString = "I";
+
+                SqlObject.Parameters = new object[] {
+                projectRequest.projectEntity.SaveString,
+                projectRequest.projectEntity.ProjectId,
+                projectRequest.projectEntity.FiscalYearId,
+                projectRequest.projectEntity.ProjectName,
+                projectRequest.projectEntity.ProjectDescription,
+                projectRequest.projectEntity.CFDA,
+                projectRequest.projectEntity.ProjectGroup,
+                projectRequest.projectEntity.ProjectNotes,
+                projectRequest.projectEntity.ExpenseStatusId,
+                projectRequest.projectEntity.RevenueStatusId,
+                projectRequest.projectEntity.ProjectStatusId,
+                projectRequest.projectEntity.ModifiedBy,
+                };
+                var intResult = SqlHelper.ExecuteScalar(_connectionString, StoredProcedures.Project.USPSAVEPROJECT, SqlObject.Parameters);
+                projectResponse.Message = string.Empty;
+                projectResponse.ErrorMessage = string.Empty;
+            }
+            catch (Exception ex)
+            {
+                projectResponse.ErrorMessage = ex.Message;
+                projectResponse.Exception = ex;
+            }
             return projectResponse;
         }
 
@@ -178,7 +291,7 @@ namespace DHSDAL
                 try
                 {
                     revenueEntity.RevenueId = Convert.ToInt64(revenueDataRow["RevenueId"].ToString());
-                    revenueEntity.DrawId = Convert.ToInt64(revenueDataRow["DrawId"].ToString());
+                    revenueEntity.ProjectId = Convert.ToInt64(revenueDataRow["ProjectId"].ToString());
                     revenueEntity.Journal = revenueDataRow["Journal"].ToString();
                     revenueEntity.JournalName = revenueDataRow["JournalName"].ToString();
                     revenueEntity.PeriodName = revenueDataRow["PeriodName"].ToString();

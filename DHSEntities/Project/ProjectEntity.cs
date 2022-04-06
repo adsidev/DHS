@@ -10,6 +10,7 @@ namespace DHSEntities
     {
         public long ProjectId { get; set; }
         public long FiscalYearId { get; set; }
+        public string FiscalYear { get; set; }
         public string ProjectName { get; set; }
         public string ProjectDescription { get; set; }
         public string CFDA { get; set; }
@@ -17,5 +18,14 @@ namespace DHSEntities
         public decimal RevenueAmount { get; set; }
         public decimal ExpenseTransactionAmount { get; set; }
         public decimal RevenueTransactionAmount { get; set; }
+        public string ProjectGroup { get; set; }
+        public string ProjectNotes { get; set; }
+        public int ExpenseStatusId { get; set; }
+        public int RevenueStatusId { get; set; }
+        public int ProjectStatusId { get; set; }
+        public string ExpenseStatus { get; set; }
+        public string RevenueStatus { get; set; }
+        public string ProjectStatus { get; set; }
+        public string SaveString { get; set; }
     }
 }
