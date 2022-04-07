@@ -18,6 +18,7 @@ namespace DHSEntities
         public decimal RevenueAmount { get; set; }
         public decimal ExpenseTransactionAmount { get; set; }
         public decimal RevenueTransactionAmount { get; set; }
+        public int ProjectGroupId { get; set; }
         public string ProjectGroup { get; set; }
         public string ProjectNotes { get; set; }
         public int ExpenseStatusId { get; set; }

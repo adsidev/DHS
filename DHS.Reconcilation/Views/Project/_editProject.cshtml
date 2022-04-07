@@ -91,7 +91,7 @@
                                 </div>
                                 <div class="col-lg-9 col-xs-12 col-sm-9 col-md-9">
                                     <div class="form_modal">
-                                        @Html.TextBoxFor(m => m.projectEntity.ProjectGroup, htmlAttributes: new { @id = "ProjectGroup", @class = "form-control mrp_modalselect" })
+                                        @Html.DropDownList("ProjectGroupId", new SelectList(Model.projectGroupEntities, "ProjectGroupId", "ProjectGroup", Model.projectEntity.ProjectGroupId), "", new { @class = "form-control mrp_modalselect" })
                                     </div>
                                 </div>
                             </div>
@@ -182,7 +182,7 @@
                 ProjectName: document.getElementById("ProjectName").value,
                 ProjectDescription: document.getElementById("ProjectDescription").value,
                 CFDA: document.getElementById("CFDA").value,
-                ProjectGroup: document.getElementById("ProjectGroup").value,
+                ProjectGroupId: document.getElementById("ProjectGroupId").value,
                 ProjectNotes: document.getElementById("ProjectNotes").value,
                 ExpenseStatusId: document.getElementById("ExpenseStatusId").value,
                 RevenueStatusId: document.getElementById("RevenueStatusId").value,

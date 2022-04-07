@@ -36,6 +36,7 @@ namespace DHSDAL
                     projectEntity.ProjectName = expenseDataRow["ProjectCode"].ToString();
                     projectEntity.ProjectDescription = expenseDataRow["ProjectDescription"].ToString();
                     projectEntity.ProjectNotes = expenseDataRow["ProjectNotes"].ToString();
+                    projectEntity.ProjectGroup = expenseDataRow["ProjectGroup"].ToString();
                     projectEntity.ExpenseStatus = expenseDataRow["ExpenseStatus"].ToString();
                     projectEntity.RevenueStatus = expenseDataRow["RevenueStatus"].ToString();
                     projectEntity.ProjectStatus = expenseDataRow["ProjectStatus"].ToString();
@@ -74,6 +75,7 @@ namespace DHSDAL
                     projectEntity.ExpenseStatusId = Convert.ToInt32(expenseDataRow["ExpenseStatusId"]);
                     projectEntity.RevenueStatusId = Convert.ToInt32(expenseDataRow["RevenueStatusId"]);
                     projectEntity.ProjectStatusId = Convert.ToInt32(expenseDataRow["ProjectStatusId"]);
+                    projectEntity.ProjectGroupId = Convert.ToInt32(expenseDataRow["ProjectGroupId"]);
                     projectEntity.FiscalYear = expenseDataRow["FiscalYear"].ToString();
                     projectEntity.ProjectName = expenseDataRow["ProjectCode"].ToString();
                     projectEntity.ProjectDescription = expenseDataRow["ProjectDescription"].ToString();
@@ -81,6 +83,7 @@ namespace DHSDAL
                     projectEntity.ExpenseStatus = expenseDataRow["ExpenseStatus"].ToString();
                     projectEntity.RevenueStatus = expenseDataRow["RevenueStatus"].ToString();
                     projectEntity.ProjectStatus = expenseDataRow["ProjectStatus"].ToString();
+                    projectEntity.ProjectGroup = expenseDataRow["ProjectGroup"].ToString();
                     projectEntity.CFDA = expenseDataRow["CFDA"].ToString();
                 }
                 catch (Exception exception)
@@ -98,6 +101,7 @@ namespace DHSDAL
             CommonDAL commonDAL = new CommonDAL();
             projectResponse.fiscalYearEntities = commonDAL.GetFiscalYears();
             projectResponse.projectStatusEntities = GetProjectStatus();
+            projectResponse.projectGroupEntities = GetProjectGroup();
             return projectResponse;
         }
 
@@ -112,6 +116,32 @@ namespace DHSDAL
                 {
                     projectEntity.ProjectStatusId = Convert.ToInt32(expenseDataRow["ProjectStatusId"]);
                     projectEntity.ProjectStatus = expenseDataRow["ProjectStatus"].ToString();
+                }
+                catch (Exception exception)
+                {
+                    projectEntity.ErrorMessage = exception.Message;
+                    projectEntity.Exception = exception;
+                }
+                finally
+                {
+                    sourceEntities.Add(projectEntity);
+                }
+            }
+            return sourceEntities;
+        }
+
+
+        private List<ProjectGroupEntity> GetProjectGroup()
+        {
+            var periodDataSet = SqlHelper.ExecuteDataset(_connectionString, StoredProcedures.Project.USPGETPROJECTGROUPS);
+            List<ProjectGroupEntity> sourceEntities = new List<ProjectGroupEntity>();
+            foreach (DataRow expenseDataRow in periodDataSet.Tables[0].Rows)
+            {
+                ProjectGroupEntity projectEntity = new ProjectGroupEntity();
+                try
+                {
+                    projectEntity.ProjectGroupId = Convert.ToInt32(expenseDataRow["ProjectGroupId"]);
+                    projectEntity.ProjectGroup = expenseDataRow["ProjectGroup"].ToString();
                 }
                 catch (Exception exception)
                 {
@@ -142,7 +172,7 @@ namespace DHSDAL
                 projectRequest.projectEntity.ProjectName,
                 projectRequest.projectEntity.ProjectDescription,
                 projectRequest.projectEntity.CFDA,
-                projectRequest.projectEntity.ProjectGroup,
+                projectRequest.projectEntity.ProjectGroupId,
                 projectRequest.projectEntity.ProjectNotes,
                 projectRequest.projectEntity.ExpenseStatusId,
                 projectRequest.projectEntity.RevenueStatusId,

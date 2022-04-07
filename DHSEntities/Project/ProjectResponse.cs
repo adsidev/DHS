@@ -16,5 +16,6 @@ namespace DHSEntities
         public IPagedList<ProjectEntity> pagedProjectEntities { get; set; }
         public List<FiscalYearEntity> fiscalYearEntities { get; set; }
         public List<ProjectStatusEntity> projectStatusEntities { get; set; }
+        public List<ProjectGroupEntity> projectGroupEntities { get; set; }
     }
 }
