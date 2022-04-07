@@ -1,0 +1,111 @@
+﻿@model DHSEntities.PayrollResponse
+@using DHS.Reconcilation.Models
+
+@{
+    ViewBag.Title = "Create Payrolls";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+<script src="~/Scripts/jquery-1.10.2.min.js"></script>
+@section LeftMenuSection
+{
+    @Html.Partial("_menuCRPayments");
+}
+
+@using (Html.BeginForm("CreatePayroll", "Payroll", FormMethod.Post, new { @id = "frmPayroll" }))
+{
+
+    <title>@ViewBag.Title</title>
+    <div class="tab-pane active" id="dashboard">
+        <div class="container-fluid">
+            <!-- top tiles -->
+            <div class="mrp_content">
+                <h2>Create Payroll Information</h2>
+
+                <div class="row mra_createcost_report_payment">
+                    <div class="col-lg-6">
+
+                        <div class="row">
+                            <div class="col-lg-4 col-xs-12 col-sm-4 col-md-4">
+                                <div class="form_modal">
+                                    <label>Fiscal&nbsp;Year</label>
+                                </div>
+                            </div>
+                            <div class="col-lg-8 col-xs-12 col-sm-8 col-md-8">
+                                <div class="form_modal">
+                                    @Html.DropDownList("FiscalYearId", new SelectList(Model.fiscalYearEntities, "FiscalYearId", "FiscalYear", Model.payrollEntity.FiscalYearId), "", new { @class = "form-control mrp_modalselect" })
+                                </div>
+                            </div>
+                        </div>
+
+                    </div>
+
+                    <div class="col-lg-6">
+                        <div class="row">
+                            <div class="col-lg-4 col-xs-12 col-sm-4 col-md-4">
+                                <div class="form_modal">
+                                    <label> Payroll Date</label>
+                                </div>
+                            </div>
+                            <div class="col-lg-8 col-xs-12 col-sm-8 col-md-8">
+                                <div class="form_modal">
+                                    <input type="date" value="@Model.payrollEntity.PayrollDate" id="PayrollDate" class="form-control mrp_modalselect" />
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+
+                <div class="modal-footer">
+                    <input type="submit" id="btnSubmit" class="btn btn-primary btn-updated" onclick="return SubmitValue()" value="Save Changes" />
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script type="text/javascript">
+        var IsExists = false;
+        function SubmitValue() {
+            if (document.getElementById("FiscalYearId").value == "") {
+                alert("Please select fiscal year.")
+                document.getElementById("FiscalYearId").focus();
+                return false;
+            }
+
+            if (document.getElementById("PayrollDate").value == "") {
+                alert("Please enter payroll date.");
+                document.getElementById("PayrollDate").focus();
+                return false;
+            }
+
+            var payrollEntity = {
+                PayrollDate: document.getElementById("PayrollDate").value,
+                FiscalYearId: document.getElementById("FiscalYearId").value,
+                ModifiedBy:@Common.GetSession("UserID"),
+                PayrollId:0,
+            };
+
+            var payrollRequest = {
+                PayrollEntity: payrollEntity
+            };
+            $.ajax({
+                url: "/Payroll/SavePayroll",
+                type: "POST",
+                data: payrollRequest,
+                dataType: 'json',
+                success: function (result) {
+                    location.href = "/Payroll/ManagePayroll";
+                },
+                complete: function () {
+
+                }
+            });
+            return true;
+        }
+
+        $(document).ready(function () {
+            $('#mra_subliCPA').addClass('active');
+        });
+
+    </script>
+}

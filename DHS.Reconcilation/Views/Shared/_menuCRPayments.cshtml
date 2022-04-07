@@ -61,6 +61,18 @@
                     </ul>
                 </li>
             }
+            @if (Common.AdminPageHasPermission("Payroll"))
+            {
+                <li>
+                    <a href="#">Payroll</a>
+                    <ul>
+                        <li id="mra_subliMPA">@Html.ActionLink("Manage Payroll", "ManagePayroll", "Payroll")</li>
+                        <li id="mra_subliMPP">@Html.ActionLink("Manage Payroll Project", "ManagePayrollProject", "Payroll")</li>
+                        <li id="mra_subliCPA">@Html.ActionLink("Create Payroll ", "CreatePayroll", "Payroll")</li>
+                        <li id="mra_subliCPP">@Html.ActionLink("Create Payroll Project", "CreatePayrollProject", "Payroll")</li>
+                    </ul>
+                </li>
+            }
             @if (Common.PageHasPermission("FGTCategories"))
             {
                 <li>

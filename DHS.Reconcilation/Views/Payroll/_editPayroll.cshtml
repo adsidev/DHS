@@ -1,0 +1,115 @@
+﻿@model DHSEntities.PayrollResponse
+@using DHS.Reconcilation.Models
+@{
+    ViewBag.Title = "Edit Payrolls";
+}
+@Html.HiddenFor(m => m.payrollEntity.PayrollId, htmlAttributes: new { @id = "PayrollId" })
+<div class="modal-dialog" role="document">
+    <div class="modal-content">
+        <div class="modal-header">
+            <h5 class="modal-title" id="exampleModalLabel">Edit Payroll Information</h5>
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+            </button>
+            <div class="modal-footer mra_edit_footer">
+                <a href="Javascript:void()" title="Save" onclick="return SubmitValue()" id="btnSubmit" class="mra_edit_save">
+                    <i class="fa fa-floppy-o" aria-hidden="true"></i>
+                </a>
+            </div>
+            <div class="modal-body">
+                <div class="mrp_modalcontent">
+                    <div class="row">
+
+
+                        <div class="col-lg-12">
+                            <div class="row">
+                                <div class="col-lg-3 col-xs-12 col-sm-3 col-md-3">
+                                    <div class="form_modal">
+                                        <label>Fiscal&nbsp;Year</label>
+                                    </div>
+                                </div>
+                                <div class="col-lg-9 col-xs-12 col-sm-9 col-md-9">
+                                    <div class="form_modal">
+                                        @Html.DropDownList("FiscalYearId", new SelectList(Model.fiscalYearEntities, "FiscalYearId", "FiscalYear", Model.payrollEntity.FiscalYearId), "", new { @id= "PFiscalYearId", @class = "form-control mrp_modalselect" })
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="col-lg-12">
+                            <div class="row">
+                                <div class="col-lg-3 col-xs-12 col-sm-3 col-md-3">
+                                    <div class="form_modal">
+                                        <label>Payroll&nbsp;Number</label>
+                                    </div>
+                                </div>
+                                <div class="col-lg-9 col-xs-12 col-sm-9 col-md-9">
+                                    <div class="form_modal">
+                                        @Html.TextBoxFor(m => m.payrollEntity.PayrollNumber, htmlAttributes: new { @class = "form-control mrp_modalselect", @id = "PayrollNumber", @disabled = "disabled" })
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+
+                        <div class="col-lg-12">
+                            <div class="row">
+                                <div class="col-lg-3 col-xs-12 col-sm-3 col-md-3">
+                                    <div class="form_modal">
+                                        <label>Payroll&nbsp;Date</label>
+                                    </div>
+                                </div>
+                                <div class="col-lg-9 col-xs-12 col-sm-9 col-md-9">
+                                    <div class="form_modal">
+                                        @Html.TextBoxFor(m => m.payrollEntity.PayrollDate, htmlAttributes: new { @id = "PayrollDate", @class = "form-control mrp_modalselect" })
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <script type="text/javascript">
+        var IsExists = false;
+        function SubmitValue() {
+            if (document.getElementById("PFiscalYearId").value == "") {
+                alert("Please select fiscal year.")
+                document.getElementById("PFiscalYearId").focus();
+                return false;
+            }
+
+            if (document.getElementById("PayrollDate").value == "") {
+                alert("Please enter payroll date.");
+                document.getElementById("PayrollDate").focus();
+                return false;
+            }
+            //document.getElementById("PFiscalYearId").value
+            var payrollEntity = {
+                PayrollId: document.getElementById("PayrollId").value,
+                FiscalYearId: document.getElementById("PFiscalYearId").value,
+                PayrollDate: document.getElementById("PayrollDate").value,
+                ModifiedBy:@Common.GetSession("UserID"),
+            };
+            var payrollRequest = {
+                payrollEntity: payrollEntity
+            };
+
+            $.ajax({
+                url: "/Payroll/SavePayroll",
+                type: "POST",
+                data: payrollRequest,
+                dataType: 'json',
+                success: function (result) {
+                    window.location.reload();
+                },
+                complete: function () {
+
+                }
+            });
+            return true;
+        }
+
+    </script>

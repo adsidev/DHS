@@ -64,6 +64,10 @@
     <Compile Include="Journal\JournalEntity.cs" />
     <Compile Include="Journal\JournalRequest.cs" />
     <Compile Include="Journal\JournalResponse.cs" />
+    <Compile Include="Payroll\PayrollEntity.cs" />
+    <Compile Include="Payroll\PayrollProjectEntity.cs" />
+    <Compile Include="Payroll\PayrollRequest.cs" />
+    <Compile Include="Payroll\PayrollResponse.cs" />
     <Compile Include="Project\ProjectGroupEntity.cs" />
     <Compile Include="Project\ProjectRequest.cs" />
     <Compile Include="Project\ProjectResponse.cs" />

@@ -180,5 +180,12 @@ namespace DHSDAL
             public const string USPGETREVENUETRANSACTIONBYPROJECTIDFORREPORT = "sp_GetRevenueTransactionByProjectIdForReport";
             public const string USPGETDRAWSBYPROJECTID = "sp_GetDrawsByProjectId";
         }
+
+        public class Payroll
+        {
+            public const string USPGETPAYROLLS = "sp_GetPayrolls";
+            public const string USPGETPAYROLL = "sp_GetPayroll";
+            public const string USPSAVEPAYROLL = "sp_SavePayroll";
         }
+    }
 }

@@ -44,12 +44,14 @@
     <Compile Include="FGTCategoryBAL.cs" />
     <Compile Include="Interfaces\IFGTCategoryRepository.cs" />
     <Compile Include="Interfaces\IImportRepository.cs" />
+    <Compile Include="Interfaces\IPayrollRepository.cs" />
     <Compile Include="Interfaces\IReportRepository.cs" />
     <Compile Include="Interfaces\IProjectRepository.cs" />
     <Compile Include="Interfaces\IVendorRepository.cs" />
     <Compile Include="Interfaces\IRevenueTypeRepository.cs" />
     <Compile Include="Interfaces\IJournalRepository.cs" />
     <Compile Include="ImportBAL.cs" />
+    <Compile Include="PayrollBAL.cs" />
     <Compile Include="ReportBAL.cs" />
     <Compile Include="ProjectBAL.cs" />
     <Compile Include="VendorBAL.cs" />
