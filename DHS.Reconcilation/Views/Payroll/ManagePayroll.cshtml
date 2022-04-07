@@ -76,7 +76,7 @@
                                                     <td nowrap>
                                                         @if (Model.rolePermissionEntity.ViewBit)
                                                         {
-                                                            <img src="~/images/view-icon.png" class="img-responsive" onclick="ViewPayrollInformation('@item.PayrollId')" style="cursor:pointer;" alt="View Payroll Information" />
+                                                            <img src="~/images/view-icon.png" class="img-responsive" onclick="ViewPayrollProjects('@item.PayrollId')" style="cursor:pointer;" alt="Open Payroll Projects" />
                                                         }
                                                         else
                                                         {
@@ -132,6 +132,10 @@
             else {
                 $('#frmPayrolls').submit();
             }
+        }
+
+        function ViewPayrollProjects(payrollId) {
+            location.href = "/Payroll/ManagePayrollProject/" + payrollId;
         }
 
         function ViewPayrollInformation(projectId) {

@@ -186,6 +186,9 @@ namespace DHSDAL
             public const string USPGETPAYROLLS = "sp_GetPayrolls";
             public const string USPGETPAYROLL = "sp_GetPayroll";
             public const string USPSAVEPAYROLL = "sp_SavePayroll";
+            public const string USPGETPAYROLLPROJECTS = "sp_GetPayrollProjects";
+            public const string USPGETPAYROLLPROJECT = "sp_GetPayrollProject";
+            public const string USPSAVEPAYROLLPROJECT = "sp_SavePayrollProject";
         }
     }
 }

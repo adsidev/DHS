@@ -481,6 +481,12 @@
     <Content Include="Views\Payroll\_viewPayroll.cshtml" />
     <Content Include="Views\Payroll\_editPayroll.cshtml" />
     <Content Include="Views\Payroll\CreatePayroll.cshtml" />
+    <Content Include="Views\Payroll\ManagePayrollProject.cshtml" />
+    <Content Include="Views\Payroll\CreatePayrollProject.cshtml" />
+    <Content Include="Views\Payroll\_viewPayrollProject.cshtml" />
+    <Content Include="Views\Payroll\_editPayrollProject.cshtml" />
+    <Content Include="Views\Payroll\PayrollDocuments.cshtml" />
+    <Content Include="Views\Payroll\CreatePayrollDocument.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

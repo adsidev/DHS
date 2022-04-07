@@ -1,0 +1,229 @@
+﻿@model DHSEntities.PayrollResponse
+@using PagedList.Mvc
+@using DHS.Reconcilation.Models
+
+@{
+    ViewBag.Title = "DHS Reconcilation Application :: Manage Payroll Projects";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+<script src="~/Scripts/jquery-1.10.2.min.js"></script>
+@section LeftMenuSection
+{
+    @Html.Partial("_menuCRPayments");
+}
+@using (Html.BeginForm("ManagePayrollProject", "Payroll", FormMethod.Post, new { @id = "frmPayrolls" }))
+{
+    <title>@ViewBag.Title</title>
+    <input type="hidden" id="hdnPayrollId" name="hdnPayrollId" />
+    <div class="tab-pane active" id="dashboard">
+        <div class="container-fluid">
+            <!-- top tiles -->
+            <div class="row ">
+                <div class="col-lg-9">
+                    <div class="mrp_content">
+                        <h2>View Payroll Projects</h2>
+                        <form class="mrp_selectdetails form-inline">
+                        </form>
+                    </div>
+                </div>
+                <div class="col-lg-1">
+                    @if (Model.rolePermissionEntity.EditBit)
+                    {
+                        <img src="~/images/edit.png" class="img-responsive" height="40" width="40" onclick="EditPayroll('@Model.payrollProjectEntity.PayrollId')" style="cursor:pointer;" alt="Edit Payroll Information" />
+
+                    }
+                    else
+                    {
+                        <a class="mrp_popup disableButton" data-toggle="modal">
+                            <img src="~/images/edit.png" class="img-responsive disableButton" height="40" width="40" alt="Edit Payroll Information" />
+                        </a>
+                    }
+                </div>
+                <div class="col-lg-2">
+                    @if (Model.rolePermissionEntity.EditBit)
+                    {
+                        <input type="button" id="btnSubmit" class="btn btn-primary btn-updated" onclick="return CreatePayrollProject('@Model.payrollProjectEntity.PayrollId')" value="Create Payroll Project" />
+
+                    }
+                    else
+                    {
+                        <input type="button" id="btnSubmit" class="btn btn-primary btn-updated" onclick="JavaScript:alert('You do not have permission to create payroll project. Contact administrator.')" value="Create Payroll Project" />
+                    }
+                </div>
+
+            </div>
+            <div class="row mrp_table-row">
+                <div class="col-lg-12 col-xs-12">
+                    <div class="table-responsive">
+                        <div class="mrp_contentbody mrp_contenttable">
+                            <div class="mrp_table">
+                                <table class="table table-bordered table-striped">
+                                    <thead>                                        
+                                        <tr>
+                                            <th style="margin-left:1px; margin-right:1px;">
+                                                Action
+                                            </th>
+                                            <th nowrap>
+                                                Payroll Number
+                                            </th>
+                                            <th nowrap>
+                                                Fiscal Year
+                                            </th>
+                                            <th nowrap>
+                                                Payroll Date
+                                            </th>
+                                            <th nowrap>
+                                                Project Code
+                                            </th>
+                                            <th nowrap>
+                                                Effective Date
+                                            </th>
+                                            <th nowrap>
+                                                Payroll Total
+                                            </th>
+                                            <th nowrap>
+                                                Batch Number
+                                            </th>
+                                            <th nowrap>
+                                                Drawn Amount
+                                            </th>
+                                            <th nowrap>
+                                                Adjusted Amount
+                                            </th>
+                                            <th nowrap>
+                                                Notes
+                                            </th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        @{foreach (var item in Model.payrollProjectEntities)
+                                            {
+                                                <tr>
+                                                    <td nowrap>
+                                                        @if (Model.rolePermissionEntity.ViewBit)
+                                                        {
+                                                            <img src="~/images/view-icon.png" class="img-responsive" onclick="ViewPayrollProjectInformation('@item.PayrollProjectId')" style="cursor:pointer;" alt="View Payroll Project Information" />
+                                                            <img src="~/images/document.png" class="img-responsive" onclick="ViewPayrollProjectDocuments('@item.PayrollProjectId')" style="cursor:pointer;" alt="View Payroll Project Documents" height="24" width="24" />
+                                                        }
+                                                        else
+                                                        {
+                                                                <img src="~/images/view-icon.png" alt="View Payroll Project Information"  class="img-responsive disableButton" onclick="JavaScript:alert('You do not have permission to View payroll project information. Contact Administrator for access.')" />                      
+                                                        }                                                        
+                                                    </td>
+                                                    <td nowrap>
+                                                        @item.PayrollNumber
+                                                    </td>
+                                                    <td nowrap>
+                                                        @item.FiscalYear
+                                                    </td>
+                                                    <td nowrap>
+                                                        @item.PayrollDate
+                                                    </td>
+                                                    <td nowrap>
+                                                        @item.ProjectName
+                                                    </td> 
+                                                    <td nowrap>
+                                                        @item.EffectiveDate
+                                                    </td>
+                                                    <td nowrap>
+                                                        @string.Format("{0:C}", item.PayrollTotal)
+                                                    </td>                                                    
+                                                    <td nowrap>
+                                                        @item.BatchNumber
+                                                    </td>
+                                                    <td nowrap>
+                                                        @string.Format("{0:C}", item.DrawnAmount)
+                                                    </td>
+                                                    <td nowrap>
+                                                        @string.Format("{0:C}", item.AdjustedAmount)
+                                                    </td>
+                                                    <td nowrap>
+                                                        @item.Notes
+                                                    </td>
+                                                </tr>
+                                            }
+                                        }
+                                    </tbody>
+                                </table>
+
+                                <!-- popup -->
+                                <div class="modal fade mrp_modalpopup" id="PayrollProjectModal">
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- /top tiles -->
+                </div>
+            </div>
+            <!-- /page content -->
+            <div id="container" class="mra_pagination">
+                <div class="pagination">
+                    
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+
+    <script type="text/javascript">
+
+        $(document).ready(function () {
+            $('#mra_subliMPA').addClass('active');
+        });
+
+        function SelectedIndexChanged() {
+            if ($("#SearchOn").val() != "" & $("#txtSearch").val() == "") {
+                alert("Please enter value to search");
+                $("#txtSearch").focus();
+            }
+            else {
+                $('#frmPayrolls').submit();
+            }
+        }
+
+        function CreatePayrollProject(payrollId) {
+            location.href = "/Payroll/CreatePayrollProject/" + payrollId;
+        }
+
+        function ViewPayrollProjectInformation(projectId) {
+            var options = { "backdrop": "static", keyboard: true };
+            $.ajax({
+                type: "GET",
+                url: "/Payroll/ViewPayrollProject/" + projectId,
+                dataType: "html",
+                success: function (evt) {
+                    $('#PayrollProjectModal').html(evt);
+                    $('#PayrollProjectModal').modal(options);
+                    $('#PayrollProjectModal').modal('show');
+                },
+                error: function (req, status, error) {
+                    alert(error);
+                    alert("Error!Occured");
+                }
+            });
+        }
+
+        function EditPayroll(payrollId) {
+            var options = { "backdrop": "static", keyboard: true };
+            $.ajax({
+                type: "GET",
+                url: "/Payroll/EditPayroll/" + payrollId,
+                dataType: "html",
+                success: function (evt) {
+                    $('#PayrollProjectModal').html(evt);
+                    $('#PayrollProjectModal').modal(options);
+                    $('#PayrollProjectModal').modal('show');
+                },
+                error: function (req, status, error) {
+                    alert("Error!Occured");
+                }
+            });
+        }
+
+
+        function ViewPayrollProjectDocuments(payrollProjectId) {
+            location.href = "/Payroll/PayrollDocuments/" + payrollProjectId;
+        }
+    </script>
+}

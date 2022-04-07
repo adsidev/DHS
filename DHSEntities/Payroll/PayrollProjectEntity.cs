@@ -11,6 +11,8 @@ namespace DHSEntities
         public long PayrollProjectId { get; set; }
         public long PayrollId { get; set; }
         public string PayrollNumber { get; set; }
+        public string FiscalYear { get; set; }
+        public string PayrollDate { get; set; }
         public long ProjectId { get; set; }
         public string ProjectName { get; set; }
         public string EffectiveDate { get; set; }
