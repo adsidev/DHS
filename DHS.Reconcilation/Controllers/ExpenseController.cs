@@ -925,8 +925,8 @@ namespace DHS.Reconcilation.Controllers
             if (Request["transactionDetailEntity.RevenueTransactionNumber"] != "")
                 transactionDetailEntity.RevenueTransactionNumber = Request["transactionDetailEntity.RevenueTransactionNumber"];
 
-            if (Request["transactionDetailEntity.CategoryId"] != "")
-                transactionDetailEntity.FGTCategoryId2 = Convert.ToUInt32(Request["transactionDetailEntity.CategoryId"]);
+            if (Request["CategoryId"] != "")
+                transactionDetailEntity.FGTCategoryId2 = Convert.ToInt32(Request["CategoryId"]);
 
             Common.AddSession("ETProjectId", transactionDetailEntity.ProjectId.ToString());
             Common.AddSession("ETStatusId", transactionDetailEntity.StatusId.ToString());
