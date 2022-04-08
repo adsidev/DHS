@@ -849,6 +849,7 @@ namespace DHS.Reconcilation.Controllers
             transactionDetailEntity.TransactionNumber = String.Empty;
             transactionDetailEntity.ProjectId = 0;
             transactionDetailEntity.StatusId = 0;
+            transactionDetailEntity.FGTCategoryId2 = 0;
             transactionDetailEntity.RevenueTransactionNumber = String.Empty;
 
             if (Common.GetSession("ETProjectId") != "")
@@ -862,6 +863,9 @@ namespace DHS.Reconcilation.Controllers
 
             if (Common.GetSession("ETRevenueTransactionNumber") != "")
                 transactionDetailEntity.RevenueTransactionNumber = Common.GetSession("ETRevenueTransactionNumber");
+
+            if (Common.GetSession("ETFGTCategoryId2") != "")
+                transactionDetailEntity.FGTCategoryId2= Convert.ToUInt32(Common.GetSession("ETFGTCategoryId2"));
 
             expenseRequest.transactionDetailEntity = transactionDetailEntity;
             string url = strBaseURL + "Expense/GetAllTransactionDetails";
@@ -921,10 +925,14 @@ namespace DHS.Reconcilation.Controllers
             if (Request["transactionDetailEntity.RevenueTransactionNumber"] != "")
                 transactionDetailEntity.RevenueTransactionNumber = Request["transactionDetailEntity.RevenueTransactionNumber"];
 
+            if (Request["transactionDetailEntity.CategoryId"] != "")
+                transactionDetailEntity.FGTCategoryId2 = Convert.ToUInt32(Request["transactionDetailEntity.CategoryId"]);
+
             Common.AddSession("ETProjectId", transactionDetailEntity.ProjectId.ToString());
             Common.AddSession("ETStatusId", transactionDetailEntity.StatusId.ToString());
             Common.AddSession("ETRevenueTransactionNumber", transactionDetailEntity.RevenueTransactionNumber.ToString());
             Common.AddSession("ETTransactionNumber", transactionDetailEntity.TransactionNumber.ToString());
+            Common.AddSession("ETFGTCategoryId2", transactionDetailEntity.FGTCategoryId2.ToString());
 
             expenseRequest.transactionDetailEntity = transactionDetailEntity;
             string url = strBaseURL + "Expense/GetAllTransactionDetails";

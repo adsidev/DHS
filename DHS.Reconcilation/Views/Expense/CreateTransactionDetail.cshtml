@@ -759,35 +759,36 @@
                 document.getElementById("FGTCategoryId2").focus();
                 return false;
             }
-            if (document.getElementById("RelatedTrans").value != '') {
-                var transactionDetailEntity = {
-                    TransactionDetailId: document.getElementById("TransactionDetailId").value,
-                    RelatedTrans: document.getElementById("RelatedTrans").value,
-                };
-                var expenseRequest = {
-                    TransactionDetailEntity: transactionDetailEntity
-                };
-                $.ajax({
-                    url: "/Expense/CheckRelatedTrans",
-                    type: "POST",
-                    data: expenseRequest,
-                    dataType: 'json',
-                    success: function (result) {
-                        if (document.getElementById("RelatedTrans").value == result.transactionDetailEntity.TransactionNumber) {
-                            SaveTransaction();
-                        }
-                        else {
-                            alert("Please check the Related Transaction number.");
-                            document.getElementById("RelatedTrans").focus();
-                            window.location.reload();
-                            return false;
-                        }
-                    }
-                });
-            }
-            else {
-                SaveTransaction();
-            }
+            //if (document.getElementById("RelatedTrans").value != '') {
+            //    var transactionDetailEntity = {
+            //        TransactionDetailId: document.getElementById("TransactionDetailId").value,
+            //        RelatedTrans: document.getElementById("RelatedTrans").value,
+            //    };
+            //    var expenseRequest = {
+            //        TransactionDetailEntity: transactionDetailEntity
+            //    };
+            //    $.ajax({
+            //        url: "/Expense/CheckRelatedTrans",
+            //        type: "POST",
+            //        data: expenseRequest,
+            //        dataType: 'json',
+            //        success: function (result) {
+            //            if (document.getElementById("RelatedTrans").value == result.transactionDetailEntity.TransactionNumber) {
+            //                SaveTransaction();
+            //            }
+            //            else {
+            //                alert("Please check the Related Transaction number.");
+            //                document.getElementById("RelatedTrans").focus();
+            //                window.location.reload();
+            //                return false;
+            //            }
+            //        }
+            //    });
+            //}
+            //else {
+            //    SaveTransaction();
+            //}
+            SaveTransaction();
             return true;
         }
 

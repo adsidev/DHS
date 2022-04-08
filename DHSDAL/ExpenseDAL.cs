@@ -806,6 +806,7 @@ namespace DHSDAL
                     expenseRequest.transactionDetailEntity.TransactionNumber,
                     expenseRequest.transactionDetailEntity.RevenueTransactionNumber,
                     expenseRequest.transactionDetailEntity.StatusId,
+                    expenseRequest.transactionDetailEntity.FGTCategoryId2,
             };
             var transactionDetailDataSet = SqlHelper.ExecuteDataset(_connectionString, StoredProcedures.Expense.USPGETALLTRANSACTIONDETAILS, SqlObject.Parameters);
             foreach (DataRow expenseDataRow in transactionDetailDataSet.Tables[0].Rows)
@@ -875,6 +876,8 @@ namespace DHSDAL
             CommonDAL commonDAL = new CommonDAL();
             expenseResponse.projectEntities = commonDAL.GetProjects();
             expenseResponse.statusEntities = commonDAL.GetStatuses();
+            FGTCategoryDAL fGTCategoryDAL = new FGTCategoryDAL();
+            expenseResponse.fgtCategoryEntities2 = fGTCategoryDAL.GetFGTCategories().fGTCategoryEntities;
             return expenseResponse;
         }
 
