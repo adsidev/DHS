@@ -807,6 +807,7 @@ namespace DHSDAL
                     expenseRequest.transactionDetailEntity.RevenueTransactionNumber,
                     expenseRequest.transactionDetailEntity.StatusId,
                     expenseRequest.transactionDetailEntity.FGTCategoryId2,
+                    expenseRequest.transactionDetailEntity.FiscalYearId,
             };
             var transactionDetailDataSet = SqlHelper.ExecuteDataset(_connectionString, StoredProcedures.Expense.USPGETALLTRANSACTIONDETAILS, SqlObject.Parameters);
             foreach (DataRow expenseDataRow in transactionDetailDataSet.Tables[0].Rows)
