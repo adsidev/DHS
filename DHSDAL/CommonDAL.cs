@@ -205,7 +205,7 @@ namespace DHSDAL
                 try
                 {
                     projectEntity.ProjectId = Convert.ToInt32(expenseDataRow["ProjectId"]);
-                    projectEntity.ProjectName = expenseDataRow["ProjectCode"].ToString();
+                    projectEntity.ProjectName = expenseDataRow["ProjectCode"].ToString() + " - " + expenseDataRow["ProjectDescription"].ToString();
                 }
                 catch (Exception exception)
                 {

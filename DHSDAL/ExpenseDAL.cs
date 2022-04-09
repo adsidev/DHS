@@ -876,6 +876,7 @@ namespace DHSDAL
             CommonDAL commonDAL = new CommonDAL();
             expenseResponse.projectEntities = commonDAL.GetProjects();
             expenseResponse.statusEntities = commonDAL.GetStatuses();
+            expenseResponse.fiscalYearEntities = commonDAL.GetFiscalYears();
             FGTCategoryDAL fGTCategoryDAL = new FGTCategoryDAL();
             expenseResponse.fgtCategoryEntities2 = fGTCategoryDAL.GetFGTCategories().fGTCategoryEntities;
             return expenseResponse;

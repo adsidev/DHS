@@ -201,13 +201,13 @@
                                                 RevenueTransactionId = item.RevenueTransactionId;
                                             }
                                         }
-                                    <tr>
-                                        <td colspan="3"><b>Transaction Amount Total:</b></td>
-                                        <td>@string.Format("{0:C}", TransactionAmountTotal)</td>
-                                        <td colspan="8" style="text-align:right;"><b>Drawn Amount Total:</b></td>
-                                        <td>@string.Format("{0:C}", DraDownAmountTotal)</td>
-                                        <td colspan="5"></td>
-                                    </tr>
+                                        <tr>
+                                            <td colspan="3"><b>Transaction Amount Total:</b></td>
+                                            <td>@string.Format("{0:C}", TransactionAmountTotal)</td>
+                                            <td colspan="8" style="text-align:right;"><b>Drawn Amount Total:</b></td>
+                                            <td>@string.Format("{0:C}", DraDownAmountTotal)</td>
+                                            <td colspan="5"></td>
+                                        </tr>
                                     </tbody>
                                 </table>
                                 <table class="table table-bordered table-striped">
@@ -304,7 +304,7 @@
                                         }
                                         <tr>
                                             <td colspan="3"><b>Transaction Amount Total</b></td>
-                                            <td >@string.Format("{0:C}", ExpenseTransactionAmount)</td>
+                                            <td>@string.Format("{0:C}", ExpenseTransactionAmount)</td>
                                             <td colspan="10">&nbsp;</td>
                                         </tr>
                                     </tbody>
@@ -638,12 +638,12 @@
                                                     </td>
                                                     <td nowrap>
                                                         @string.Format("{0:C}", item.DrawDownAmount)
-                                                    </td>                                                    
+                                                    </td>
                                                     <td nowrap>
                                                         @string.Format("{0:C}", item.AdjustedAmount)
-                                                    </td>                                                    
+                                                    </td>
                                                     <td nowrap>
-                                                        @string.Format("{0:C}", (item.DrawDownAmount+item.AdjustedAmount))
+                                                        @string.Format("{0:C}", (item.DrawDownAmount + item.AdjustedAmount))
                                                     </td>
                                                     <td nowrap>
                                                         @item.BatchNumber
@@ -678,7 +678,7 @@
             <!-- /page content -->
             <div id="container" class="mra_pagination">
                 <div class="pagination">
-                    
+
                 </div>
             </div>
         </div>
@@ -708,7 +708,33 @@
             $('#mra_subliGRe').addClass('active');
         });
 
+        $("#FiscalYearId").change(function () {
+            var x = $("#FiscalYearId").val();
+            fire_ajax(x);
+        });
 
-       
+        function fire_ajax(s) {
+            var projectEntity = {
+                FiscalYearId: s
+            };
+            var projectRequest = {
+                projectEntity: projectEntity
+            };
+            $.ajax({
+                url: "/Project/GetProjects",
+                type: "POST",
+                data: projectRequest,
+                dataType: 'json',
+                success: function (data) {
+                    var s = '<option value="-1">Please Select Project</option>';
+                    for (var i = 0; i < data.projectEntities.length; i++) {
+                        s += '<option value="' + data.projectEntities[i].ProjectId + '">' + data.projectEntities[i].ProjectName + ' - ' + data.projectEntities[i].ProjectDescription + '</option>';
+                    }
+                    $("#ProjectId").html(s);
+                }
+
+            })
+        }
+
     </script>
-                                            }
+}

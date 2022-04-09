@@ -4,6 +4,7 @@
     ViewBag.Title = "Edit Projects";
 }
 @Html.HiddenFor(m => m.projectEntity.ProjectId, htmlAttributes: new { @id = "ProjectId" })
+@Html.HiddenFor(m => m.projectEntity.ProjectFiscalYearId, htmlAttributes: new { @id = "hdnProjectFiscalYearId" })
 <div class="modal-dialog" role="document">
     <div class="modal-content">
         <div class="modal-header">
@@ -21,29 +22,29 @@
                     <div class="row">
 
 
-                        @*<div class="col-lg-12">
+                        <div class="col-lg-12">
                             <div class="row">
-                                <div class="col-lg-3 col-xs-12 col-sm-3 col-md-3">
+                                <div class="col-lg-2 col-xs-12 col-sm-3 col-md-3">
                                     <div class="form_modal">
                                         <label>Fiscal&nbsp;Year</label>
                                     </div>
                                 </div>
-                                <div class="col-lg-9 col-xs-12 col-sm-9 col-md-9">
+                                <div class="col-lg-10 col-xs-12 col-sm-9 col-md-9">
                                     <div class="form_modal">
                                         @Html.DropDownList("FiscalYearId", new SelectList(Model.fiscalYearEntities, "FiscalYearId", "FiscalYear", Model.projectEntity.FiscalYearId), "", new { @id= "PFiscalYearId", @class = "form-control mrp_modalselect" })
                                     </div>
                                 </div>
                             </div>
-                        </div>*@
+                        </div>
 
                         <div class="col-lg-12">
                             <div class="row">
-                                <div class="col-lg-3 col-xs-12 col-sm-3 col-md-3">
+                                <div class="col-lg-2 col-xs-12 col-sm-3 col-md-3">
                                     <div class="form_modal">
                                         <label>Project&nbsp;Code</label>
                                     </div>
                                 </div>
-                                <div class="col-lg-9 col-xs-12 col-sm-9 col-md-9">
+                                <div class="col-lg-10 col-xs-12 col-sm-9 col-md-9">
                                     <div class="form_modal">
                                         @Html.TextBoxFor(m => m.projectEntity.ProjectName, htmlAttributes: new { @class = "form-control mrp_modalselect", @id = "ProjectName", @disabled = "disabled" })
                                     </div>
@@ -54,12 +55,12 @@
 
                         <div class="col-lg-12">
                             <div class="row">
-                                <div class="col-lg-3 col-xs-12 col-sm-3 col-md-3">
+                                <div class="col-lg-2 col-xs-12 col-sm-3 col-md-3">
                                     <div class="form_modal">
                                         <label>CFDA</label>
                                     </div>
                                 </div>
-                                <div class="col-lg-9 col-xs-12 col-sm-9 col-md-9">
+                                <div class="col-lg-10 col-xs-12 col-sm-9 col-md-9">
                                     <div class="form_modal">
                                         @Html.TextBoxFor(m => m.projectEntity.CFDA, htmlAttributes: new { @id = "CFDA", @class = "form-control mrp_modalselect" })
                                     </div>
@@ -69,12 +70,12 @@
 
                         <div class="col-lg-12">
                             <div class="row">
-                                <div class="col-lg-3 col-xs-12 col-sm-3 col-md-3">
+                                <div class="col-lg-2 col-xs-12 col-sm-3 col-md-3">
                                     <div class="form_modal">
                                         <label>Project&nbsp;Name</label>
                                     </div>
                                 </div>
-                                <div class="col-lg-9 col-xs-12 col-sm-9 col-md-9">
+                                <div class="col-lg-10 col-xs-12 col-sm-9 col-md-9">
                                     <div class="form_modal">
                                         @Html.TextBoxFor(m => m.projectEntity.ProjectDescription, htmlAttributes: new { @id = "ProjectDescription", @class = "form-control mrp_modalselect" })
                                     </div>
@@ -84,12 +85,12 @@
 
                         <div class="col-lg-12">
                             <div class="row">
-                                <div class="col-lg-3 col-xs-12 col-sm-3 col-md-3">
+                                <div class="col-lg-2 col-xs-12 col-sm-3 col-md-3">
                                     <div class="form_modal">
                                         <label>Project&nbsp;Group</label>
                                     </div>
                                 </div>
-                                <div class="col-lg-9 col-xs-12 col-sm-9 col-md-9">
+                                <div class="col-lg-10 col-xs-12 col-sm-9 col-md-9">
                                     <div class="form_modal">
                                         @Html.DropDownList("ProjectGroupId", new SelectList(Model.projectGroupEntities, "ProjectGroupId", "ProjectGroup", Model.projectEntity.ProjectGroupId), "", new { @class = "form-control mrp_modalselect" })
                                     </div>
@@ -99,12 +100,12 @@
 
                         <div class="col-lg-12">
                             <div class="row">
-                                <div class="col-lg-3 col-xs-12 col-sm-3 col-md-3">
+                                <div class="col-lg-2 col-xs-12 col-sm-3 col-md-3">
                                     <div class="form_modal">
                                         <label>Expense&nbsp;Status</label>
                                     </div>
                                 </div>
-                                <div class="col-lg-9 col-xs-12 col-sm-9 col-md-9">
+                                <div class="col-lg-10 col-xs-12 col-sm-9 col-md-9">
                                     <div class="form_modal">
                                         @Html.DropDownList("ExpenseStatusId", new SelectList(Model.projectStatusEntities, "ProjectStatusId", "ProjectStatus", Model.projectEntity.ExpenseStatusId), "", new { @class = "form-control mrp_modalselect" })
                                     </div>
@@ -114,12 +115,12 @@
 
                         <div class="col-lg-12">
                             <div class="row">
-                                <div class="col-lg-3 col-xs-12 col-sm-3 col-md-3">
+                                <div class="col-lg-2 col-xs-12 col-sm-3 col-md-3">
                                     <div class="form_modal">
                                         <label>Revenue&nbsp;Status</label>
                                     </div>
                                 </div>
-                                <div class="col-lg-9 col-xs-12 col-sm-9 col-md-9">
+                                <div class="col-lg-10 col-xs-12 col-sm-9 col-md-9">
                                     <div class="form_modal">
                                         @Html.DropDownList("RevenueStatusId", new SelectList(Model.projectStatusEntities, "ProjectStatusId", "ProjectStatus", Model.projectEntity.RevenueStatusId), "", new { @class = "form-control mrp_modalselect" })
                                     </div>
@@ -130,12 +131,12 @@
 
                         <div class="col-lg-12">
                             <div class="row">
-                                <div class="col-lg-3 col-xs-12 col-sm-3 col-md-3">
+                                <div class="col-lg-2 col-xs-12 col-sm-3 col-md-3">
                                     <div class="form_modal">
                                         <label>Project&nbsp;Status</label>
                                     </div>
                                 </div>
-                                <div class="col-lg-9 col-xs-12 col-sm-9 col-md-9">
+                                <div class="col-lg-10 col-xs-12 col-sm-9 col-md-9">
                                     <div class="form_modal">
                                         @Html.DropDownList("ProjectStatusId", new SelectList(Model.projectStatusEntities, "ProjectStatusId", "ProjectStatus", Model.projectEntity.ProjectStatusId), "", new { @class = "form-control mrp_modalselect" })
                                     </div>
@@ -164,21 +165,22 @@
     <script type="text/javascript">
         var IsExists = false;
         function SubmitValue() {
-            //if (document.getElementById("PFiscalYearId").value == "") {
-            //    alert("Please select fiscal year.")
-            //    document.getElementById("PFiscalYearId").focus();
-            //    return false;
-            //}
+            if (document.getElementById("PFiscalYearId").value == "") {
+                alert("Please select fiscal year.")
+                document.getElementById("PFiscalYearId").focus();
+                return false;
+            }
 
             if (document.getElementById("ProjectDescription").value == "") {
                 alert("Please enter project name.");
                 document.getElementById("ProjectDescription").focus();
                 return false;
             }
-            //document.getElementById("PFiscalYearId").value
+            //
             var projectEntity = {
                 ProjectId: document.getElementById("ProjectId").value,
-                FiscalYearId: 0,
+                ProjectFiscalYearId: document.getElementById("hdnProjectFiscalYearId").value,
+                FiscalYearId: document.getElementById("PFiscalYearId").value,
                 ProjectName: document.getElementById("ProjectName").value,
                 ProjectDescription: document.getElementById("ProjectDescription").value,
                 CFDA: document.getElementById("CFDA").value,

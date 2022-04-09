@@ -875,6 +875,7 @@ namespace DHSDAL
             revenueResponse.transactionDetailEntities = transactionDetailEntities;
             CommonDAL commonDAL = new CommonDAL();
             revenueResponse.projectEntities = commonDAL.GetProjects();
+            revenueResponse.fiscalYearEntities = commonDAL.GetFiscalYears();
             
             return revenueResponse;
         }

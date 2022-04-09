@@ -23,7 +23,7 @@
                     <div class="mrp_content">
                         <h2>View Projects</h2>
                         <form class="mrp_selectdetails form-inline">
-                            @*<div class="row">
+                            <div class="row">
                                 <div class="form-group col-lg-2 col-xs-12 col-sm-7">
                                     <label for="SearchOn">FiscalYear:</label>
                                     <div class="form_modal">
@@ -42,7 +42,7 @@
                                         }
                                     </div>
                                 </div>
-                            </div>*@
+                            </div>
                         </form>
                     </div>
                 </div>
@@ -58,9 +58,9 @@
                                             <th style="margin-left:1px; margin-right:1px;">
                                                 Action
                                             </th>
-                                            @*<th nowrap>
+                                            <th nowrap>
                                                 Fiscal Year
-                                            </th>*@
+                                            </th>
                                             <th nowrap>
                                                 Project Code
                                             </th>
@@ -94,16 +94,16 @@
                                                     <td nowrap>
                                                         @if (Model.rolePermissionEntity.ViewBit)
                                                         {
-                                                            <img src="~/images/view-icon.png" class="img-responsive" onclick="ViewProjectInformation('@item.ProjectId')" style="cursor:pointer;" alt="View Project Information" />
+                                                            <img src="~/images/view-icon.png" class="img-responsive" onclick="ViewProjectInformation('@item.ProjectFiscalYearId')" style="cursor:pointer;" alt="View Project Information" />
                                                         }
                                                         else
                                                         {
                                                                 <img src="~/images/view-icon.png" alt="View Project Information"  class="img-responsive disableButton" onclick="JavaScript:alert('You do not have permission to View project information. Contact Administrator for access.')" />                      
                                                         }                                                        
                                                     </td>
-                                                    @*<td nowrap>
+                                                    <td nowrap>
                                                         @item.FiscalYear
-                                                    </td>*@ 
+                                                    </td> 
                                                     <td nowrap>
                                                         @item.ProjectName.ToUpper()
                                                     </td>

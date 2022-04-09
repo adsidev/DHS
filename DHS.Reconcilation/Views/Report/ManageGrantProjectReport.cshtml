@@ -16,28 +16,7 @@
 
 
 <script src="~/js/jquery.min.js"></script>
-<script type="text/javascript">
-    function ValidateFields() {
-        var FiscalYear = $('#FiscalYearId option:selected').text();
 
-        if (FiscalYear == "") {
-            alert("Please select Fiscal Year.");
-            $("#FiscalYear").focus();
-            return false;
-        }
-
-        var ProjectId = $('#ProjectId option:selected').text();
-        if (ProjectId == "") {
-            alert("Please select project.");
-            $("#ProjectId").focus();
-            return false;
-        }
-        return true;
-    }
-    $(document).ready(function () {
-        $('#mra_subliMGPR').addClass('active');
-    });
-</script>
 @using (Html.BeginForm("ManageGrantProjectReport", "Report", FormMethod.Post, new { @id = "frmManageGrantProjectReport" }))
 {
 
@@ -49,12 +28,12 @@
             <div class="mra_manage_settlement_report">
                 <div class="form-group col-lg-6">
                     <label for="Facility">Select&nbsp;Fiscal Year</label>
-                    @Html.DropDownList("FiscalYearId", new SelectList(Model.fiscalYearEntities, "FiscalYearId", "FiscalYear", @ViewData["FiscalYear"]), "", new { @class = "form-control mrp_modalselect" })&nbsp;&nbsp;
+                    @Html.DropDownList("FiscalYearId", new SelectList(Model.fiscalYearEntities, "FiscalYearId", "FiscalYear", @ViewData["FiscalYear"]), "", new {@id= "FiscalYearId",  @class = "form-control mrp_modalselect" })&nbsp;&nbsp;
                     <input type="hidden" id="hdnFiscalYear" />
                 </div>
                 <div class="col-md-6">
                     <label for="FiscalYear">Select&nbsp;Project</label>
-                    @Html.DropDownList("ProjectId", new SelectList(Model.projectEntities, "ProjectId", "ProjectName", @ViewData["Project"]), "", new { @class = "form-control mrp_modalselect" })&nbsp;&nbsp;
+                    @Html.DropDownList("ProjectId", new SelectList(Model.projectEntities, "ProjectId", "ProjectName", @ViewData["Project"]), "", new {@id= "ProjectId", @class = "form-control mrp_modalselect" })&nbsp;&nbsp;
                     <input type="hidden" id="hdnProject" />
                     @if (Model.rolePermissionEntity.ViewBit)
                     {
@@ -80,3 +59,54 @@
 
 
 }
+<script type="text/javascript">
+    function ValidateFields() {
+        var FiscalYear = $('#FiscalYearId option:selected').text();
+
+        if (FiscalYear == "") {
+            alert("Please select Fiscal Year.");
+            $("#FiscalYear").focus();
+            return false;
+        }
+
+        var ProjectId = $('#ProjectId option:selected').text();
+        if (ProjectId == "") {
+            alert("Please select project.");
+            $("#ProjectId").focus();
+            return false;
+        }
+        return true;
+    }
+    $(document).ready(function () {
+        $('#mra_subliMGPR').addClass('active');
+    });
+
+
+    $("#FiscalYearId").change(function () {
+        var x = $("#FiscalYearId").val();
+        fire_ajax(x);
+    });
+
+    function fire_ajax(s) {
+        var projectEntity = {
+            FiscalYearId: s
+        };
+        var projectRequest = {
+            projectEntity: projectEntity
+        };
+        $.ajax({
+            url: "/Project/GetProjects",
+            type: "POST",
+            data: projectRequest,
+            dataType: 'json',
+            success: function (data) {
+                var s = '<option value="-1">Please Select Project</option>';
+                for (var i = 0; i < data.projectEntities.length; i++) {
+                    s += '<option value="' + data.projectEntities[i].ProjectId + '">' + data.projectEntities[i].ProjectName + ' - ' + data.projectEntities[i].ProjectDescription + '</option>';
+                }
+                $("#ProjectId").html(s);
+            }
+
+        })
+    }
+</script>

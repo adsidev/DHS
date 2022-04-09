@@ -218,6 +218,33 @@
                 $('#frmExpenses').submit();
             }
         }
-       
+
+        $("#FiscalYearId").change(function () {
+            var x = $("#FiscalYearId").val();
+            fire_ajax(x);
+        });
+
+        function fire_ajax(s) {
+            var projectEntity = {
+                FiscalYearId: s
+            };
+            var projectRequest = {
+                projectEntity: projectEntity
+            };
+            $.ajax({
+                url: "/Project/GetProjects",
+                type: "POST",
+                data: projectRequest,
+                dataType: 'json',
+                success: function (data) {
+                    var s = '<option value="-1">Please Select Project</option>';
+                    for (var i = 0; i < data.projectEntities.length; i++) {
+                        s += '<option value="' + data.projectEntities[i].ProjectId + '">' + data.projectEntities[i].ProjectName + ' - ' + data.projectEntities[i].ProjectDescription + '</option>';
+                    }
+                    $("#ProjectId").html(s);
+                }
+
+            })
+        }
     </script>
 }

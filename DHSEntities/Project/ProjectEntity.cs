@@ -28,5 +28,6 @@ namespace DHSEntities
         public string RevenueStatus { get; set; }
         public string ProjectStatus { get; set; }
         public string SaveString { get; set; }
+        public long ProjectFiscalYearId { get; set; }
     }
 }

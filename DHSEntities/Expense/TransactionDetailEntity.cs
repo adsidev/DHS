@@ -10,6 +10,7 @@ namespace DHSEntities
     {
         public long TransactionDetailId { get; set; }
         public long ExpenseId { get; set; }
+        public long FiscalYearId { get; set; }
         public string TransactionDate { get; set; }
         public string TransactionDescription { get; set; }
         public decimal TransactionAmount { get; set; }

@@ -31,6 +31,7 @@ namespace DHSDAL
                 ProjectEntity projectEntity = new ProjectEntity();
                 try
                 {
+                    projectEntity.ProjectFiscalYearId = Convert.ToInt64(expenseDataRow["ProjectFiscalYearId"]);
                     projectEntity.ProjectId = Convert.ToInt32(expenseDataRow["ProjectId"]);
                     projectEntity.FiscalYear = expenseDataRow["FiscalYear"].ToString();
                     projectEntity.ProjectName = expenseDataRow["ProjectCode"].ToString();
@@ -70,6 +71,7 @@ namespace DHSDAL
             {
                 try
                 {
+                    projectEntity.ProjectFiscalYearId = Convert.ToInt64(expenseDataRow["ProjectFiscalYearId"]);
                     projectEntity.ProjectId = Convert.ToInt32(expenseDataRow["ProjectId"]);
                     projectEntity.FiscalYearId = Convert.ToInt32(expenseDataRow["FiscalYearId"]);
                     projectEntity.ExpenseStatusId = Convert.ToInt32(expenseDataRow["ExpenseStatusId"]);
@@ -178,6 +180,7 @@ namespace DHSDAL
                 projectRequest.projectEntity.RevenueStatusId,
                 projectRequest.projectEntity.ProjectStatusId,
                 projectRequest.projectEntity.ModifiedBy,
+                projectRequest.projectEntity.ProjectFiscalYearId,
                 };
                 var intResult = SqlHelper.ExecuteScalar(_connectionString, StoredProcedures.Project.USPSAVEPROJECT, SqlObject.Parameters);
                 projectResponse.Message = string.Empty;
