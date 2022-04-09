@@ -848,12 +848,16 @@ namespace DHS.Reconcilation.Controllers
             TransactionDetailEntity transactionDetailEntity = new TransactionDetailEntity();
             transactionDetailEntity.TransactionNumber = String.Empty;
             transactionDetailEntity.ProjectId = 0;
+            transactionDetailEntity.FiscalYearId = 0;
             transactionDetailEntity.StatusId = 0;
             transactionDetailEntity.FGTCategoryId2 = 0;
             transactionDetailEntity.RevenueTransactionNumber = String.Empty;
 
             if (Common.GetSession("ETProjectId") != "")
                 transactionDetailEntity.ProjectId = Convert.ToInt32(Common.GetSession("ETProjectId"));
+
+            if (Common.GetSession("ETFiscalYearId") != "")
+                transactionDetailEntity.FiscalYearId = Convert.ToInt32(Common.GetSession("ETFiscalYearId"));
 
             if (Common.GetSession("ETStatusId") != "")
                 transactionDetailEntity.StatusId = Convert.ToInt32(Common.GetSession("ETStatusId"));
@@ -911,10 +915,14 @@ namespace DHS.Reconcilation.Controllers
             transactionDetailEntity.TransactionNumber = String.Empty;
             transactionDetailEntity.ProjectId = 0;
             transactionDetailEntity.StatusId = 0;
+            transactionDetailEntity.FiscalYearId = 0;
             transactionDetailEntity.RevenueTransactionNumber = String.Empty;
 
             if (Request["ProjectId"] != "")
                 transactionDetailEntity.ProjectId = Convert.ToInt32(Request["ProjectId"]);
+
+            if (Request["FiscalYearId"] != "")
+                transactionDetailEntity.FiscalYearId = Convert.ToInt32(Request["FiscalYearId"]);
 
             if (Request["StatusId"] != "")
                 transactionDetailEntity.StatusId = Convert.ToInt32(Request["StatusId"]);
@@ -929,6 +937,7 @@ namespace DHS.Reconcilation.Controllers
                 transactionDetailEntity.FGTCategoryId2 = Convert.ToInt32(Request["CategoryId"]);
 
             Common.AddSession("ETProjectId", transactionDetailEntity.ProjectId.ToString());
+            Common.AddSession("ETFiscalYearId", transactionDetailEntity.FiscalYearId.ToString());
             Common.AddSession("ETStatusId", transactionDetailEntity.StatusId.ToString());
             Common.AddSession("ETRevenueTransactionNumber", transactionDetailEntity.RevenueTransactionNumber.ToString());
             Common.AddSession("ETTransactionNumber", transactionDetailEntity.TransactionNumber.ToString());
