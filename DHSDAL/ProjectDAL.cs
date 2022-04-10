@@ -42,6 +42,7 @@ namespace DHSDAL
                     projectEntity.RevenueStatus = expenseDataRow["RevenueStatus"].ToString();
                     projectEntity.ProjectStatus = expenseDataRow["ProjectStatus"].ToString();
                     projectEntity.CFDA = expenseDataRow["CFDA"].ToString();
+                    projectEntity.SaveString = projectEntity.ProjectName + " - " + projectEntity.ProjectDescription;
                 }
                 catch (Exception exception)
                 {

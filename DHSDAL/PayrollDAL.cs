@@ -144,11 +144,17 @@ namespace DHSDAL
                     {
                         payrollProjectEntity.PayrollDate = expenseDataRow["PayrollDate"].ToString();
                     }
-                    payrollProjectEntity.EffectiveDate= Convert.ToDateTime(expenseDataRow["EffectiveDate"].ToString()).ToShortDateString();
+                    try
+                    {
+                        payrollProjectEntity.EffectiveDate = Convert.ToDateTime(expenseDataRow["EffectiveDate"].ToString()).ToShortDateString();
+                    }
+                    catch (Exception)
+                    {
+                        payrollProjectEntity.EffectiveDate = expenseDataRow["EffectiveDate"].ToString();
+                    }
                 }
                 catch (Exception exception)
                 {
-                    payrollProjectEntity.EffectiveDate = expenseDataRow["EffectiveDate"].ToString();
                     payrollResponse.ErrorMessage = exception.Message;
                     payrollResponse.Message = exception.Message;
                     payrollResponse.Exception = exception;
@@ -167,6 +173,8 @@ namespace DHSDAL
         public PayrollResponse GetPayrollProject(PayrollRequest payrollRequest)
         {
             PayrollProjectEntity payrollProjectEntity = new PayrollProjectEntity();
+            ProjectEntity projectEntity = new ProjectEntity();
+
             if (payrollRequest.payrollProjectEntity.PayrollProjectId>0)
             {
                 SqlObject.Parameters = new object[] {
@@ -180,6 +188,7 @@ namespace DHSDAL
                     {
                         payrollProjectEntity.PayrollId = Convert.ToInt64(expenseDataRow["PayrollId"]);
                         payrollProjectEntity.PayrollProjectId = Convert.ToInt64(expenseDataRow["PayrollProjectId"]);
+                        projectEntity.FiscalYearId = Convert.ToInt64(expenseDataRow["FiscalYearId"]);
                         payrollProjectEntity.ProjectId = Convert.ToInt32(expenseDataRow["ProjectId"]);
                         payrollProjectEntity.ProjectName = expenseDataRow["ProjectName"].ToString();
                         payrollProjectEntity.FiscalYear = expenseDataRow["FiscalYear"].ToString();
@@ -210,11 +219,18 @@ namespace DHSDAL
             }
             else
             {
+                PayrollEntity payrollEntity = new PayrollEntity();
+                payrollEntity.PayrollId = payrollRequest.payrollProjectEntity.PayrollId;
+                payrollRequest.payrollEntity = payrollEntity;
+                payrollEntity = GetPayroll(payrollRequest).payrollEntity;
                 payrollProjectEntity.PayrollId = payrollRequest.payrollProjectEntity.PayrollId;
+                projectEntity.FiscalYearId = payrollEntity.FiscalYearId;
             }
             payrollResponse.payrollProjectEntity= payrollProjectEntity;
-            CommonDAL commonDAL = new CommonDAL();
-            payrollResponse.projectEntities = commonDAL.GetProjects();
+            ProjectDAL projectDAL = new ProjectDAL();
+            ProjectRequest projectRequest = new ProjectRequest();
+            projectRequest.projectEntity = projectEntity;
+            payrollResponse.projectEntities = projectDAL.GetProjects(projectRequest).projectEntities;
             return payrollResponse;
         }
 
