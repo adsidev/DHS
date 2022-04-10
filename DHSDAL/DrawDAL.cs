@@ -45,10 +45,24 @@ namespace DHSDAL
                     drawEntity.RevenueCount = Convert.ToInt32(drawDataRow["RevenueCount"].ToString());
                     drawEntity.DrawDownAmount = Convert.ToDecimal(drawDataRow["DarwDownAmount"].ToString()); 
                     drawEntity.AllocatedAmount = Convert.ToDecimal(drawDataRow["AllocatedAmount"].ToString()); 
-                    drawEntity.AdjustedAmount = Convert.ToDecimal(drawDataRow["AdjustedAmount"].ToString()); 
-                    drawEntity.DrawDownDate = Convert.ToDateTime(drawDataRow["DrawDownDate"].ToString()).ToShortDateString();
-                    if(drawDataRow["DatePosted"].ToString()!="")
-                        drawEntity.DatePosted = Convert.ToDateTime(drawDataRow["DatePosted"].ToString()).ToShortDateString();
+                    drawEntity.AdjustedAmount = Convert.ToDecimal(drawDataRow["AdjustedAmount"].ToString());
+                    try
+                    {
+                        drawEntity.DrawDownDate = Convert.ToDateTime(drawDataRow["DrawDownDate"].ToString()).ToShortDateString();
+                    }
+                    catch (Exception ex)
+                    {
+                        drawEntity.DrawDownDate = drawDataRow["DrawDownDate"].ToString();
+                    }
+                    try
+                    {
+                        if (drawDataRow["DatePosted"].ToString() != "")
+                            drawEntity.DatePosted = Convert.ToDateTime(drawDataRow["DatePosted"].ToString()).ToShortDateString();
+                    }
+                    catch (Exception ex)
+                    {
+                        drawEntity.DatePosted = drawDataRow["DatePosted"].ToString();
+                    }                    
                     drawEntity.BatchNumber = drawDataRow["BatchNumber"].ToString();
                     drawEntity.StatusName = drawDataRow["StatusName"].ToString();
                     drawEntity.FiscalYear = drawDataRow["FiscalYear"].ToString();
@@ -59,6 +73,7 @@ namespace DHSDAL
                     drawEntity.ProjectName = drawDataRow["ProjectName"].ToString();
                     drawEntity.DrawDescription = drawDataRow["DrawDescription"].ToString();
                     drawEntity.AssignedToUser = drawDataRow["AssignedToUser"].ToString();
+                    drawEntity.DocumentFile = drawDataRow["DocumentFile"].ToString();
                 }
                 catch (Exception exception)
                 {

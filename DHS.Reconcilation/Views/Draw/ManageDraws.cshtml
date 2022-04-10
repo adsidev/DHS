@@ -164,7 +164,14 @@
                                                 @item.StatusName
                                             </td>
                                             <td nowrap>
-                                                @item.DrawNumber
+                                                @if (item.DocumentFile != "")
+                                                {
+                                                    <a href="javascript:void()" onclick="OpenDocument('@item.DocumentFile')" style="cursor:pointer;">@item.DrawNumber</a>
+                                                }
+                                                else
+                                                {
+                                                    @item.DrawNumber
+                                                }
                                             </td>
                                             <td nowrap>
                                                 @string.Format("{0:C}", item.DrawDownAmount)
@@ -324,6 +331,10 @@
                     }
                 })
             }
+        }
+
+        function OpenDocument(FileName) {
+            window.open("/Documents/Draw/" + FileName);
         }
     </script>
 }

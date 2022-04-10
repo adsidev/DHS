@@ -33,6 +33,6 @@ namespace DHSEntities
         public int RevenueCount { get; set; }
         public int RevenueTransactionCount { get; set; }
         public decimal AdjustedAmount { get; set; }
-
+        public string DocumentFile { get; set; }
     }
 }
