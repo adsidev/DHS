@@ -630,6 +630,9 @@
                                                 Transaction Amount
                                             </th>
                                             <th nowrap>
+                                                Correct Amount
+                                            </th>
+                                            <th nowrap>
                                                 Org
                                             </th>
                                             <th nowrap>
@@ -656,6 +659,9 @@
                                             <th nowrap>
                                                 Revenue Transaction
                                             </th>
+                                            <th nowrap>
+                                                Related Transaction
+                                            </th>
                                             <th nowrap style="text-align:left">
                                                 Notes
                                             </th>
@@ -678,6 +684,9 @@
                                                     </td>
                                                     <td nowrap>
                                                         @String.Format("{0:$#,##0.00}", item.TransactionAmount)
+                                                    </td>
+                                                    <td nowrap>
+                                                        @String.Format("{0:$#,##0.00}", item.CorrectAmount)
                                                     </td>
                                                     <td nowrap>
                                                         @item.OrgName
@@ -711,6 +720,9 @@
                                                     {
                                                         <td nowrap>&nbsp;</td>
                                                     }
+                                                    <td nowrap>
+                                                        @item.RelatedTrans
+                                                    </td>
                                                     <td style="text-align:left;" nowrap>
                                                         @item.TransactionDescription
                                                     </td>
@@ -720,7 +732,7 @@
                                             {
                                                 <tr>
                                                     <td colspan="2" style="text-align:right"><b>Total: </b></td>
-                                                    <td colspan="11" style="text-align:left;"><b>@String.Format("{0:$#,##0.00}", Total)</b></td>
+                                                    <td colspan="13" style="text-align:left;"><b>@String.Format("{0:$#,##0.00}", Total)</b></td>
                                                 </tr>
                                             }
                                         }

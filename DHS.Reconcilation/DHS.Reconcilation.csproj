@@ -162,6 +162,7 @@
     <Compile Include="Areas\PayrollController.cs" />
     <Compile Include="Areas\ReportController.cs" />
     <Compile Include="Areas\ProjectController.cs" />
+    <Compile Include="Areas\FiscalYearController.cs" />
     <Compile Include="Areas\VendorController.cs" />
     <Compile Include="Areas\RevenueTypeController.cs" />
     <Compile Include="Areas\JournalController.cs" />
@@ -211,6 +212,7 @@
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\RoleController.cs" />
     <Compile Include="Controllers\ToolsController.cs" />
+    <Compile Include="Controllers\FiscalYearController.cs" />
     <Compile Include="Controllers\UserController.cs" />
     <Compile Include="Controllers\ValuesController.cs" />
     <Compile Include="Controllers\VendorController.cs" />
@@ -487,6 +489,10 @@
     <Content Include="Views\Payroll\_editPayrollProject.cshtml" />
     <Content Include="Views\Payroll\PayrollDocuments.cshtml" />
     <Content Include="Views\Payroll\CreatePayrollDocument.cshtml" />
+    <Content Include="Views\FiscalYear\_editFiscalYear.cshtml" />
+    <Content Include="Views\FiscalYear\_viewFiscalYear.cshtml" />
+    <Content Include="Views\FiscalYear\ManageFiscalYears.cshtml" />
+    <Content Include="Views\FiscalYear\CreateFiscalYear.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

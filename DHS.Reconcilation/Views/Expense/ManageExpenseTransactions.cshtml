@@ -99,6 +99,9 @@
                                                 Transaction Amount
                                             </th>
                                             <th nowrap>
+                                                Correct Amount
+                                            </th>
+                                            <th nowrap>
                                                 Expense No
                                             </th>
                                             <th nowrap>
@@ -167,6 +170,9 @@
                                                     </td>
                                                     <td nowrap>
                                                         @String.Format("{0:$#,##0.00}", item.TransactionAmount)
+                                                    </td>
+                                                    <td nowrap>
+                                                        @String.Format("{0:$#,##0.00}", item.CorrectAmount)
                                                     </td>
                                                     <td nowrap>
                                                         @item.ExpenseNumber

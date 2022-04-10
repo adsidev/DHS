@@ -45,5 +45,6 @@ namespace DHSEntities
         public string ActivityDescription { get; set; }
         public int ExpenseCount { get; set; }
         public string RelatedTrans { get; set; }
+        public decimal CorrectAmount { get; set; }
     }
 }

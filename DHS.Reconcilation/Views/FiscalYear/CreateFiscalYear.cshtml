@@ -1,0 +1,91 @@
+﻿@model DHSEntities.FiscalYearResponse
+@using DHS.Reconcilation.Models
+
+@{
+    ViewBag.Title = "DHS Reconcilation Application :: Create Fiscal Years";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+<script src="~/Scripts/jquery-1.10.2.min.js"></script>
+@section LeftMenuSection
+{
+    @Html.Partial("_menuCRPayments");
+}
+
+@using (Html.BeginForm("CreateFiscalYear", "FiscalYear", FormMethod.Post, new { @id = "frmFiscalYear" }))
+{
+
+    <title>@ViewBag.Title</title>
+    <div class="tab-pane active" id="dashboard">
+        <div class="container-fluid">
+            <!-- top tiles -->
+            <div class="mrp_content">
+                <h2>Create Fiscal Year Information</h2>
+
+                <div class="row mra_createcost_report_payment">
+                    <div class="col-lg-6">
+
+                        <div class="row">
+                            <div class="col-lg-4 col-xs-12 col-sm-4 col-md-4">
+                                <div class="form_modal">
+                                    <label>Fiscal&nbsp;Year</label>
+                                </div>
+                            </div>
+                            <div class="col-lg-8 col-xs-12 col-sm-8 col-md-8">
+                                <div class="form_modal">
+                                    @Html.TextBoxFor(m => m.fiscalYearEntity.FiscalYear, htmlAttributes: new { @id = "FiscalYear", @class = "form-control mrp_modalselect" })
+                                </div>
+                            </div>
+                        </div>
+
+                    </div>
+
+                </div>
+
+
+                <div class="modal-footer">
+                    <input type="submit" id="btnSubmit" class="btn btn-primary btn-updated" onclick="return SubmitValue()" value="Save Changes" />
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script type="text/javascript">
+        var IsExists = false;
+        function SubmitValue() {
+
+
+            if (document.getElementById("FiscalYear").value == "") {
+                alert("Please enter fiscal year.");
+                document.getElementById("FiscalYear").focus();
+                return false;
+            }
+            //
+            var fiscalYearEntity = {
+                FiscalYearId: 0,
+                FiscalYear: document.getElementById("FiscalYear").value,
+                ModifiedBy:@Common.GetSession("UserID"),
+            };
+            var fiscalYearRequest = {
+                fiscalYearEntity: fiscalYearEntity
+            };
+
+            $.ajax({
+                url: "/FiscalYear/SaveFiscalYear",
+                type: "POST",
+                data: fiscalYearRequest,
+                dataType: 'json',
+                success: function (result) {
+                    location.href = "FiscalYear/ManageFiscalYears";
+                },
+                complete: function () {
+
+                }
+            });
+            return true;
+        }
+
+        $(document).ready(function () {
+            $('#mra_subliFYC').addClass('active');
+        });
+    </script>
+}

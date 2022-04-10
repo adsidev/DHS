@@ -59,7 +59,9 @@
     <Compile Include="Draw\DrawResponse.cs" />
     <Compile Include="FGTCategory\FGTCategoryRequest.cs" />
     <Compile Include="FGTCategory\FGTCategoryResponse.cs" />
-    <Compile Include="Common\FiscalYearEntity.cs" />
+    <Compile Include="FiscalYear\FiscalYearEntity.cs" />
+    <Compile Include="FiscalYear\FiscalYearRequest.cs" />
+    <Compile Include="FiscalYear\FiscalYearResponse.cs" />
     <Compile Include="ImportRequest.cs" />
     <Compile Include="Journal\JournalEntity.cs" />
     <Compile Include="Journal\JournalRequest.cs" />
@@ -72,9 +74,9 @@
     <Compile Include="Project\ProjectRequest.cs" />
     <Compile Include="Project\ProjectResponse.cs" />
     <Compile Include="Project\ProjectStatusEntity.cs" />
-    <Compile Include="ReportEntity.cs" />
-    <Compile Include="ReportRequest.cs" />
-    <Compile Include="ReportResponse.cs" />
+    <Compile Include="Report\ReportEntity.cs" />
+    <Compile Include="Report\ReportRequest.cs" />
+    <Compile Include="Report\ReportResponse.cs" />
     <Compile Include="Revenue\RevenueTransactionEntity.cs" />
     <Compile Include="RevenueType\RevenueTypeEntity.cs" />
     <Compile Include="RevenueType\RevenueTypeRequest.cs" />

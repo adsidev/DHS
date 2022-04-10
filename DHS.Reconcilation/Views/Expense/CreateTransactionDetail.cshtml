@@ -15,6 +15,7 @@
 
 @using (Html.BeginForm("CreateTransactionDetail", "Expense", FormMethod.Post, new { @id = "frmExpense" }))
 {
+    <input type="hidden" id="hdntransactionDetailEntities" value="@Model.transactionDetailEntities" />
     <div class="tab-pane active" id="dashboard">
         <div class="container-fluid">
             <div class="row ">
@@ -441,6 +442,21 @@
                         <div class="row">
                             <div class="col-lg-4 col-xs-12 col-sm-4 col-md-4">
                                 <div class="form_modal">
+                                    <label>Correct Amount</label>
+                                </div>
+                            </div>
+                            <div class="col-lg-8 col-xs-12 col-sm-8 col-md-8">
+                                <div class="form_modal">
+                                    @Html.TextBoxFor(m => m.transactionDetailEntity.CorrectAmount, htmlAttributes: new { @id = "CorrectAmount", Value = String.Format("{0:$#,##0.00}", Model.transactionDetailEntity.CorrectAmount), @class = "form-control mrp_modalselect" })
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="col-lg-6">
+                        <div class="row">
+                            <div class="col-lg-4 col-xs-12 col-sm-4 col-md-4">
+                                <div class="form_modal">
                                     <label>FGT Category 1</label>
                                 </div>
                             </div>
@@ -608,6 +624,9 @@
                                                 Transaction Amount
                                             </th>
                                             <th nowrap>
+                                                Correct Amount
+                                            </th>
+                                            <th nowrap>
                                                 Org
                                             </th>
                                             <th nowrap>
@@ -669,6 +688,9 @@
                                                     </td>
                                                     <td nowrap>
                                                         @String.Format("{0:$#,##0.00}", item.TransactionAmount)
+                                                    </td>
+                                                    <td nowrap>
+                                                        @String.Format("{0:$#,##0.00}", item.CorrectAmount)
                                                     </td>
                                                     <td nowrap>
                                                         @item.OrgName
@@ -741,9 +763,8 @@
 
 
     <script type="text/javascript">
-        var IsRelatedCheck = true;
-
         function SubmitValue() {
+            var IsRelatedCheck = false;
             if (document.getElementById("TransactionDate").value == "") {
                 alert("Please enter transaction date.")
                 document.getElementById("TransactionDate").focus();
@@ -759,36 +780,41 @@
                 document.getElementById("FGTCategoryId2").focus();
                 return false;
             }
-            //if (document.getElementById("RelatedTrans").value != '') {
-            //    var transactionDetailEntity = {
-            //        TransactionDetailId: document.getElementById("TransactionDetailId").value,
-            //        RelatedTrans: document.getElementById("RelatedTrans").value,
-            //    };
-            //    var expenseRequest = {
-            //        TransactionDetailEntity: transactionDetailEntity
-            //    };
-            //    $.ajax({
-            //        url: "/Expense/CheckRelatedTrans",
-            //        type: "POST",
-            //        data: expenseRequest,
-            //        dataType: 'json',
-            //        success: function (result) {
-            //            if (document.getElementById("RelatedTrans").value == result.transactionDetailEntity.TransactionNumber) {
-            //                SaveTransaction();
-            //            }
-            //            else {
-            //                alert("Please check the Related Transaction number.");
-            //                document.getElementById("RelatedTrans").focus();
-            //                window.location.reload();
-            //                return false;
-            //            }
-            //        }
-            //    });
-            //}
-            //else {
-            //    SaveTransaction();
-            //}
-            SaveTransaction();
+
+            if (document.getElementById("RelatedTrans").value != '') {
+                var transactionDetailEntity = {
+                    TransactionDetailId: document.getElementById("TransactionDetailId").value,
+                    RelatedTrans: document.getElementById("RelatedTrans").value,
+                };
+                var expenseRequest = {
+                    TransactionDetailEntity: transactionDetailEntity
+                };
+                $.ajax({
+                    url: "/Expense/CheckRelatedTrans",
+                    type: "POST",
+                    data: expenseRequest,
+                    dataType: 'json',
+                    success: function (result) {
+                        if (document.getElementById("RelatedTrans").value == result.transactionDetailEntity.TransactionNumber) {
+                            IsRelatedCheck = true;
+                        }
+                        else {
+                            alert("Please check the Related Transaction number.");
+                            document.getElementById("RelatedTrans").focus();
+                            window.location.reload();
+                            return false;
+                        }
+                    }
+                });
+            }
+            else {
+                IsRelatedCheck = true;
+            }
+
+
+
+            if (IsRelatedCheck)
+                SaveTransaction();
             return true;
         }
 
@@ -806,6 +832,7 @@
                 VendorId: document.getElementById("VendorId").value,
                 StatusId: document.getElementById("StatusId").value,
                 RelatedTrans: document.getElementById("RelatedTrans").value,
+                CorrectAmount: document.getElementById("CorrectAmount").value,
             };
             var expenseRequest = {
                 TransactionDetailEntity: transactionDetailEntity

@@ -275,6 +275,7 @@ namespace DHSDAL
                     transactionDetailEntity.FGTCategoryName2 = expenseDataRow["FGTCategoryName2"].ToString();
                     transactionDetailEntity.TransactionDescription = expenseDataRow["TransactionDescription"].ToString();
                     transactionDetailEntity.TransactionAmount = Convert.ToDecimal(expenseDataRow["TransactionAmount"].ToString());
+                    transactionDetailEntity.CorrectAmount = Convert.ToDecimal(expenseDataRow["CorrectAmount"].ToString());
                     transactionDetailEntity.VendorAdjustments = expenseDataRow["VendorAdjustments"].ToString();
                     transactionDetailEntity.TransactionNumber = expenseDataRow["TransactionNumber"].ToString();
                     transactionDetailEntity.ObjectDescription = expenseDataRow["ObjectDescription"].ToString();
@@ -360,6 +361,7 @@ namespace DHSDAL
                         transactionDetailEntity.FGTCategoryName2 = expenseDataRow["FGTCategoryName2"].ToString();
                         transactionDetailEntity.TransactionDescription = expenseDataRow["TransactionDescription"].ToString();
                         transactionDetailEntity.TransactionAmount = Convert.ToDecimal(expenseDataRow["TransactionAmount"].ToString());
+                        transactionDetailEntity.CorrectAmount = Convert.ToDecimal(expenseDataRow["CorrectAmount"].ToString());
                         transactionDetailEntity.VendorAdjustments = expenseDataRow["VendorAdjustments"].ToString();
                         transactionDetailEntity.TransactionNumber = expenseDataRow["TransactionNumber"].ToString();
                         transactionDetailEntity.DrawNumber = expenseDataRow["DrawNumber"].ToString();
@@ -386,8 +388,7 @@ namespace DHSDAL
                         catch (Exception)
                         {
                             transactionDetailEntity.RevenueTransactionDate = expenseDataRow["RevenueTransactionDate"].ToString();
-                        }
-                        
+                        }                        
                         transactionDetailEntity.TransactionDate = Convert.ToDateTime(expenseDataRow["TransactionDate"].ToString()).ToShortDateString();
                     }
                     catch (Exception exception)
@@ -395,10 +396,6 @@ namespace DHSDAL
                         transactionDetailEntity.ErrorMessage = exception.Message;
                         transactionDetailEntity.Exception = exception;
                         transactionDetailEntity.TransactionDate = expenseDataRow["TransactionDate"].ToString();
-                    }
-                    finally
-                    {
-                       
                     }
                 }
             }
@@ -473,6 +470,7 @@ namespace DHSDAL
                 expenseRequest.transactionDetailEntity.VendorId,
                 expenseRequest.transactionDetailEntity.StatusId,
                 expenseRequest.transactionDetailEntity.RelatedTrans,
+                expenseRequest.transactionDetailEntity.CorrectAmount,
                 };
                 var intResult = SqlHelper.ExecuteScalar(_connectionString, StoredProcedures.Expense.USPSAVETRANSACTIONDETAIL, SqlObject.Parameters);
                 expenseResponse.Message = string.Empty;
@@ -822,6 +820,7 @@ namespace DHSDAL
                     transactionDetailEntity.FGTCategoryName2 = expenseDataRow["FGTCategoryName2"].ToString();
                     transactionDetailEntity.TransactionDescription = expenseDataRow["TransactionDescription"].ToString();
                     transactionDetailEntity.TransactionAmount = Convert.ToDecimal(expenseDataRow["TransactionAmount"].ToString());
+                    transactionDetailEntity.CorrectAmount = Convert.ToDecimal(expenseDataRow["CorrectAmount"].ToString());
                     transactionDetailEntity.VendorAdjustments = expenseDataRow["VendorAdjustments"].ToString();
                     transactionDetailEntity.TransactionNumber = expenseDataRow["TransactionNumber"].ToString();
                     transactionDetailEntity.ObjectDescription = expenseDataRow["ObjectDescription"].ToString();

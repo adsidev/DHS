@@ -176,6 +176,7 @@ namespace DHSDAL
             public const string USPGETFGTREPORT = "sp_GetFGTReport";
             public const string USPFGTREPORT = "sp_FGTReport";
             public const string USPGETFGTPROJECTRECEIBABLES = "sp_GetFGTReportProjectReceivables";
+            public const string USPGETFGTPROJECTPAYABLES = "sp_GetFGTReportProjectPayables";
             public const string USPGETREVENUETRANSACTIONFORREPORT = "sp_GetRevenueTransactionForReport";
             public const string USPGETREVENUETRANSACTIONBYPROJECTIDFORREPORT = "sp_GetRevenueTransactionByProjectIdForReport";
             public const string USPGETDRAWSBYPROJECTID = "sp_GetDrawsByProjectId";
@@ -189,6 +190,14 @@ namespace DHSDAL
             public const string USPGETPAYROLLPROJECTS = "sp_GetPayrollProjects";
             public const string USPGETPAYROLLPROJECT = "sp_GetPayrollProject";
             public const string USPSAVEPAYROLLPROJECT = "sp_SavePayrollProject";
+        }
+
+        public class FiscalYear
+        {
+            public const string USPGETFISCALYEARS = "sp_GetFiscalYears";
+            public const string USPGETFISCALYEAR = "sp_GetFiscalYear";
+            public const string USPSAVEFISCALYEAR = "sp_SaveFiscalYear";
+            public const string USPCHECKFISCALYEAR = "sp_CheckFiscalYear";
         }
     }
 }

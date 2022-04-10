@@ -16,6 +16,7 @@ namespace DHSEntities
 
         public List<ReportEntity> reportEntities { get; set;}
         public List<ProjectReceivables> projectReceivables { get; set; }
+        public List<ProjectPayables> projectPayables { get; set; }
         public List<ExpenseAdjustments> expenseAdjustments { get; set; }
         public List<RevenueDeposits> revenueDeposits { get; set; }
         public List<RevenueAdjustments> revenueAdjustments { get; set; }

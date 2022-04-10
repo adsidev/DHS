@@ -128,6 +128,16 @@
                 </li>
             }
 
+            @if (Common.AdminPageHasPermission("FiscalYear"))
+            {
+                <li>
+                    <a href="#">FISCAL YEAR</a>
+                    <ul>
+                        <li id="mra_subliFY">@Html.ActionLink("Fiscal Years", "ManageFiscalYears", "FiscalYear")</li>
+                        <li id="mra_subliFYC">@Html.ActionLink("Create Fiscal Year", "CreateFiscalYear", "FiscalYear")</li>
+                    </ul>
+                </li>
+            }
         </ul>
     </div>
 </div>
