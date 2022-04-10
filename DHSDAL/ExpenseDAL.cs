@@ -293,6 +293,7 @@ namespace DHSDAL
                     transactionDetailEntity.DrawAmount = Convert.ToDecimal(expenseDataRow["DrawAmount"].ToString());
                     transactionDetailEntity.BatchNumber = expenseDataRow["BatchNumber"].ToString();
                     transactionDetailEntity.RelatedTrans = expenseDataRow["RelatedTrans"].ToString();
+                    transactionDetailEntity.OtherBatchNumber = expenseDataRow["OtherBatchNumber"].ToString();
                     transactionDetailEntity.RevenueProjectName = expenseDataRow["RevenueProjectName"].ToString();
                     try
                     {
@@ -373,6 +374,7 @@ namespace DHSDAL
                         transactionDetailEntity.DrawAmount = Convert.ToDecimal(expenseDataRow["DrawAmount"].ToString());
                         transactionDetailEntity.BatchNumber = expenseDataRow["BatchNumber"].ToString();
                         transactionDetailEntity.RelatedTrans = expenseDataRow["RelatedTrans"].ToString();
+                        transactionDetailEntity.OtherBatchNumber = expenseDataRow["OtherBatchNumber"].ToString();
                         try
                         {
                             transactionDetailEntity.DrawDate = Convert.ToDateTime(expenseDataRow["DrawDate"].ToString()).ToShortDateString();
@@ -471,6 +473,7 @@ namespace DHSDAL
                 expenseRequest.transactionDetailEntity.StatusId,
                 expenseRequest.transactionDetailEntity.RelatedTrans,
                 expenseRequest.transactionDetailEntity.CorrectAmount,
+                expenseRequest.transactionDetailEntity.OtherBatchNumber,
                 };
                 var intResult = SqlHelper.ExecuteScalar(_connectionString, StoredProcedures.Expense.USPSAVETRANSACTIONDETAIL, SqlObject.Parameters);
                 expenseResponse.Message = string.Empty;
@@ -838,6 +841,7 @@ namespace DHSDAL
                     transactionDetailEntity.RevenueTransactionNumber = expenseDataRow["RevenueTransactionNumber"].ToString();
                     transactionDetailEntity.RevenueProjectName = expenseDataRow["RevenueProjectName"].ToString();
                     transactionDetailEntity.RelatedTrans = expenseDataRow["RelatedTrans"].ToString();
+                    transactionDetailEntity.OtherBatchNumber = expenseDataRow["OtherBatchNumber"].ToString();
                     try
                     {
                         transactionDetailEntity.DrawDate = Convert.ToDateTime(expenseDataRow["DrawDate"].ToString()).ToShortDateString();
@@ -1073,6 +1077,31 @@ namespace DHSDAL
                 try
                 {
                     transactionDetailEntity.TransactionNumber = expenseDataRow["TransactionNumber"].ToString();
+                }
+                catch (Exception exception)
+                {
+                    expenseResponse.ErrorMessage = exception.Message;
+                    expenseResponse.Exception = exception;
+                }
+            }
+            expenseResponse.transactionDetailEntity = transactionDetailEntity;
+            return expenseResponse;
+        }
+
+        public ExpenseResponse CheckBatchNumber(ExpenseRequest expenseRequest)
+        {
+            expenseResponse.ErrorMessage = String.Empty;
+            expenseResponse.Message = String.Empty;
+            TransactionDetailEntity transactionDetailEntity = new TransactionDetailEntity();
+            SqlObject.Parameters = new object[] {
+                expenseRequest.transactionDetailEntity.OtherBatchNumber,
+            };
+            var expenseDataSet = SqlHelper.ExecuteDataset(_connectionString, StoredProcedures.Expense.USPCHECKOTHERBATCHNUMBER, SqlObject.Parameters);
+            foreach (DataRow expenseDataRow in expenseDataSet.Tables[0].Rows)
+            {
+                try
+                {
+                    transactionDetailEntity.OtherBatchNumber = expenseDataRow["OtherBatchNumber"].ToString();
                 }
                 catch (Exception exception)
                 {

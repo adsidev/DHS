@@ -556,12 +556,27 @@
                         <div class="row">
                             <div class="col-lg-4 col-xs-12 col-sm-4 col-md-4">
                                 <div class="form_modal">
-                                    <label>Related Transaction</label>
+                                    <label>Related&nbsp;Transaction</label>
                                 </div>
                             </div>
                             <div class="col-lg-8 col-xs-12 col-sm-8 col-md-8">
                                 <div class="form_modal">
                                     @Html.TextBoxFor(m => m.transactionDetailEntity.RelatedTrans, htmlAttributes: new { @id = "RelatedTrans", @class = "form-control mrp_modalselect" })
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="col-lg-6">
+                        <div class="row">
+                            <div class="col-lg-4 col-xs-12 col-sm-4 col-md-4">
+                                <div class="form_modal">
+                                    <label>Batch&nbsp;Number</label>
+                                </div>
+                            </div>
+                            <div class="col-lg-8 col-xs-12 col-sm-8 col-md-8">
+                                <div class="form_modal">
+                                    @Html.TextBoxFor(m => m.transactionDetailEntity.OtherBatchNumber, htmlAttributes: new { @id = "OtherBatchNumber", @class = "form-control mrp_modalselect" })
                                 </div>
                             </div>
                         </div>
@@ -654,6 +669,7 @@
                                                 Revenue Transaction
                                             </th>
                                             <th nowrap>Related Trans</th>
+                                            <th nowrap>Other Batch Number</th>
                                             <th nowrap style="text-align:left">
                                                 Notes
                                             </th>
@@ -725,6 +741,7 @@
                                                         <td nowrap>&nbsp;</td>
                                                     }
                                                     <td nowrap>@item.RelatedTrans</td>
+                                                    <td nowrap>@item.OtherBatchNumber</td>
                                                     <td style="text-align:left;" nowrap>
                                                         @item.TransactionDescription
                                                     </td>
@@ -735,7 +752,7 @@
                                                 <tr>
                                                     <td colspan="3" style="text-align:right"><b>Total: </b></td>
                                                     <td><b>@String.Format("{0:$#,##0.00}", Total)</b></td>
-                                                    <td colspan="8" style="text-align:right"></td>
+                                                    <td colspan="11" style="text-align:right"></td>
                                                 </tr>
                                             }
                                         }
@@ -811,7 +828,34 @@
                 IsRelatedCheck = true;
             }
 
-
+            if (document.getElementById("OtherBatchNumber").value != '') {
+                var transactionDetailEntity = {
+                    OtherBatchNumber: document.getElementById("OtherBatchNumber").value,
+                };
+                var expenseRequest = {
+                    TransactionDetailEntity: transactionDetailEntity
+                };
+                $.ajax({
+                    url: "/Expense/CheckBatchNumber",
+                    type: "POST",
+                    data: expenseRequest,
+                    dataType: 'json',
+                    success: function (result) {
+                        if (document.getElementById("OtherBatchNumber").value == result.transactionDetailEntity.OtherBatchNumber) {
+                            IsRelatedCheck = true;
+                        }
+                        else {
+                            alert("Please check the Other Batch number.");
+                            document.getElementById("OtherBatchNumber").focus();
+                            window.location.reload();
+                            return false;
+                        }
+                    }
+                });
+            }
+            else {
+                IsRelatedCheck = true;
+            }
 
             if (IsRelatedCheck)
                 SaveTransaction();
@@ -833,6 +877,7 @@
                 StatusId: document.getElementById("StatusId").value,
                 RelatedTrans: document.getElementById("RelatedTrans").value,
                 CorrectAmount: document.getElementById("CorrectAmount").value,
+                OtherBatchNumber: document.getElementById("OtherBatchNumber").value,
             };
             var expenseRequest = {
                 TransactionDetailEntity: transactionDetailEntity

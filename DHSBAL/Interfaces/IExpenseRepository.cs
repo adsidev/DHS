@@ -24,5 +24,6 @@ namespace DHSBAL
         ExpenseResponse SaveLinkToExpenseTransaction(ExpenseRequest expenseRequest);
         ExpenseResponse GetExpExpTransCompare(ExpenseRequest expenseRequest);
         ExpenseResponse CheckRelatedTrans(ExpenseRequest expenseRequest);
+        ExpenseResponse CheckBatchNumber(ExpenseRequest expenseRequest);
     }
 }

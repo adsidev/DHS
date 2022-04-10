@@ -414,6 +414,7 @@ namespace DHSDAL
                         transactionDetailEntity.DrawDate = expenseDataRow["DrawDate"].ToString();
                     }
                     transactionDetailEntity.RelatedTrans = expenseDataRow["RelatedTrans"].ToString();
+                    transactionDetailEntity.OtherBatchNumber = expenseDataRow["OtherBatchNumber"].ToString();
                     transactionDetailEntity.RevenueTransactionNumber = expenseDataRow["RevenueTransactionNumber"].ToString();
                     transactionDetailEntity.RevenueProjectName = expenseDataRow["RevenueProjectName"].ToString();
                     transactionDetailEntity.RevenueTransactionDate = Convert.ToDateTime(expenseDataRow["RevenueTransactionDate"].ToString()).ToShortDateString();

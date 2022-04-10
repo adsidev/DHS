@@ -793,6 +793,7 @@ namespace DHSDAL
                         }
                         transactionDetailEntity.RevenueTransactionNumber = expenseDataRow["RevenueTransactionNumber"].ToString();
                         transactionDetailEntity.RelatedTrans = expenseDataRow["RelatedTrans"].ToString();
+                        transactionDetailEntity.OtherBatchNumber = expenseDataRow["OtherBatchNumber"].ToString();
                         transactionDetailEntity.RevenueProjectName = expenseDataRow["RevenueProjectName"].ToString();
                         transactionDetailEntity.DocumentFile = expenseDataRow["DocumentFile"].ToString();
                         try
