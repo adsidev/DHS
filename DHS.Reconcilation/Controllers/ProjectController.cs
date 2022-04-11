@@ -227,6 +227,45 @@ namespace DHS.Reconcilation.Controllers
             }
         }
 
+        public async Task<ActionResult> CreateProject()
+        {
+            if (!Common.SessionExists())
+                return RedirectToAction("Index", "Home");
+            
+            ProjectResponse projectResponse = new ProjectResponse();
+            ProjectRequest projectRequest = new ProjectRequest();
+            ProjectEntity projectEntity = new ProjectEntity();
+
+            projectEntity.ProjectId = 0;
+            projectRequest.projectEntity = projectEntity;
+            string url = strBaseURL + "Project/GetProject";
+            client.BaseAddress = new Uri(url);
+
+            HttpResponseMessage responseMessage = await client.PostAsJsonAsync(url, projectRequest);
+
+            if (responseMessage.IsSuccessStatusCode)
+            {
+                var responseData = responseMessage.Content.ReadAsStringAsync().Result;
+                projectResponse = JsonConvert.DeserializeObject<ProjectResponse>(responseData);
+                if (projectResponse.Message == string.Empty && projectResponse.ErrorMessage == string.Empty)
+                {
+                    string PageName = "Project";
+                    projectResponse.rolePermissionEntity = Common.PagePermissions(PageName);
+                    return View(projectResponse);
+                }
+                else
+                {
+                    TempData["LoginFailure"] = projectResponse.Message;
+                    return RedirectToAction("Error", "Home");
+                }
+            }
+            else
+            {
+                TempData["LoginFailure"] = responseMessage.ToString();
+                return RedirectToAction("Error", "Home");
+            }
+        }
+
         public async Task<ActionResult> ViewProject(long? id = 0)
         {
             if (!Common.SessionExists())

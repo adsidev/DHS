@@ -63,43 +63,42 @@ namespace DHSDAL
 
         public ProjectResponse GetProject(ProjectRequest projectRequest)
         {
-            SqlObject.Parameters = new object[] {
-                projectRequest.projectEntity.ProjectId
-            };
-            var periodDataSet = SqlHelper.ExecuteDataset(_connectionString, StoredProcedures.Project.USPGETPROJECT, SqlObject.Parameters);
-            ProjectEntity projectEntity = new ProjectEntity(); 
-            foreach (DataRow expenseDataRow in periodDataSet.Tables[0].Rows)
+            ProjectEntity projectEntity = new ProjectEntity();
+            if(projectRequest.projectEntity.ProjectId>0)
             {
-                try
+                SqlObject.Parameters = new object[] {
+                    projectRequest.projectEntity.ProjectId
+                };
+                var periodDataSet = SqlHelper.ExecuteDataset(_connectionString, StoredProcedures.Project.USPGETPROJECT, SqlObject.Parameters);
+                foreach (DataRow expenseDataRow in periodDataSet.Tables[0].Rows)
                 {
-                    projectEntity.ProjectFiscalYearId = Convert.ToInt64(expenseDataRow["ProjectFiscalYearId"]);
-                    projectEntity.ProjectId = Convert.ToInt32(expenseDataRow["ProjectId"]);
-                    projectEntity.FiscalYearId = Convert.ToInt32(expenseDataRow["FiscalYearId"]);
-                    projectEntity.ExpenseStatusId = Convert.ToInt32(expenseDataRow["ExpenseStatusId"]);
-                    projectEntity.RevenueStatusId = Convert.ToInt32(expenseDataRow["RevenueStatusId"]);
-                    projectEntity.ProjectStatusId = Convert.ToInt32(expenseDataRow["ProjectStatusId"]);
-                    projectEntity.ProjectGroupId = Convert.ToInt32(expenseDataRow["ProjectGroupId"]);
-                    projectEntity.FiscalYear = expenseDataRow["FiscalYear"].ToString();
-                    projectEntity.ProjectName = expenseDataRow["ProjectCode"].ToString();
-                    projectEntity.ProjectDescription = expenseDataRow["ProjectDescription"].ToString();
-                    projectEntity.ProjectNotes = expenseDataRow["ProjectNotes"].ToString();
-                    projectEntity.ExpenseStatus = expenseDataRow["ExpenseStatus"].ToString();
-                    projectEntity.RevenueStatus = expenseDataRow["RevenueStatus"].ToString();
-                    projectEntity.ProjectStatus = expenseDataRow["ProjectStatus"].ToString();
-                    projectEntity.ProjectGroup = expenseDataRow["ProjectGroup"].ToString();
-                    projectEntity.CFDA = expenseDataRow["CFDA"].ToString();
+                    try
+                    {
+                        projectEntity.ProjectFiscalYearId = Convert.ToInt64(expenseDataRow["ProjectFiscalYearId"]);
+                        projectEntity.ProjectId = Convert.ToInt32(expenseDataRow["ProjectId"]);
+                        projectEntity.FiscalYearId = Convert.ToInt32(expenseDataRow["FiscalYearId"]);
+                        projectEntity.ExpenseStatusId = Convert.ToInt32(expenseDataRow["ExpenseStatusId"]);
+                        projectEntity.RevenueStatusId = Convert.ToInt32(expenseDataRow["RevenueStatusId"]);
+                        projectEntity.ProjectStatusId = Convert.ToInt32(expenseDataRow["ProjectStatusId"]);
+                        projectEntity.ProjectGroupId = Convert.ToInt32(expenseDataRow["ProjectGroupId"]);
+                        projectEntity.FiscalYear = expenseDataRow["FiscalYear"].ToString();
+                        projectEntity.ProjectName = expenseDataRow["ProjectCode"].ToString();
+                        projectEntity.ProjectDescription = expenseDataRow["ProjectDescription"].ToString();
+                        projectEntity.ProjectNotes = expenseDataRow["ProjectNotes"].ToString();
+                        projectEntity.ExpenseStatus = expenseDataRow["ExpenseStatus"].ToString();
+                        projectEntity.RevenueStatus = expenseDataRow["RevenueStatus"].ToString();
+                        projectEntity.ProjectStatus = expenseDataRow["ProjectStatus"].ToString();
+                        projectEntity.ProjectGroup = expenseDataRow["ProjectGroup"].ToString();
+                        projectEntity.CFDA = expenseDataRow["CFDA"].ToString();
+                    }
+                    catch (Exception exception)
+                    {
+                        projectResponse.ErrorMessage = exception.Message;
+                        projectResponse.Message = exception.Message;
+                        projectResponse.Exception = exception;
+                    }
                 }
-                catch (Exception exception)
-                {
-                    projectResponse.ErrorMessage = exception.Message;
-                    projectResponse.Message = exception.Message;
-                    projectResponse.Exception = exception;
-                }
-                finally
-                {
-                    
-                }
-            }
+            }            
             projectResponse.projectEntity= projectEntity;
             CommonDAL commonDAL = new CommonDAL();
             projectResponse.fiscalYearEntities = commonDAL.GetFiscalYears();

@@ -9,11 +9,11 @@
     <div class="modal-content">
         <div class="modal-header">
             <h5 class="modal-title" id="exampleModalLabel">Edit Project Information</h5>
-            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <button type="button" class="close" title="Close the window" data-dismiss="modal" aria-label="Close">
                 <span aria-hidden="true">&times;</span>
             </button>
             <div class="modal-footer mra_edit_footer">
-                <a href="Javascript:void()" title="Save" onclick="return SubmitValue()" id="btnSubmit" class="mra_edit_save">
+                <a href="Javascript:void()" title="Save Project Information" onclick="return SubmitValue()" id="btnSubmit" class="mra_edit_save">
                     <i class="fa fa-floppy-o" aria-hidden="true"></i>
                 </a>
             </div>
@@ -31,7 +31,7 @@
                                 </div>
                                 <div class="col-lg-10 col-xs-12 col-sm-9 col-md-9">
                                     <div class="form_modal">
-                                        @Html.DropDownList("FiscalYearId", new SelectList(Model.fiscalYearEntities, "FiscalYearId", "FiscalYear", Model.projectEntity.FiscalYearId), "", new { @id= "PFiscalYearId", @class = "form-control mrp_modalselect" })
+                                        @Html.DropDownList("FiscalYearId", new SelectList(Model.fiscalYearEntities, "FiscalYearId", "FiscalYear", Model.projectEntity.FiscalYearId), "", new { @id = "PFiscalYearId", @class = "form-control mrp_modalselect", @disabled = "disabled" })
                                     </div>
                                 </div>
                             </div>
@@ -52,6 +52,20 @@
                             </div>
                         </div>
 
+                        <div class="col-lg-12">
+                            <div class="row">
+                                <div class="col-lg-2 col-xs-12 col-sm-3 col-md-3">
+                                    <div class="form_modal">
+                                        <label>Project&nbsp;Name</label>
+                                    </div>
+                                </div>
+                                <div class="col-lg-10 col-xs-12 col-sm-9 col-md-9">
+                                    <div class="form_modal">
+                                        @Html.TextBoxFor(m => m.projectEntity.ProjectDescription, htmlAttributes: new { @id = "ProjectDescription", @class = "form-control mrp_modalselect" })
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
 
                         <div class="col-lg-12">
                             <div class="row">
@@ -63,21 +77,6 @@
                                 <div class="col-lg-10 col-xs-12 col-sm-9 col-md-9">
                                     <div class="form_modal">
                                         @Html.TextBoxFor(m => m.projectEntity.CFDA, htmlAttributes: new { @id = "CFDA", @class = "form-control mrp_modalselect" })
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-
-                        <div class="col-lg-12">
-                            <div class="row">
-                                <div class="col-lg-2 col-xs-12 col-sm-3 col-md-3">
-                                    <div class="form_modal">
-                                        <label>Project&nbsp;Name</label>
-                                    </div>
-                                </div>
-                                <div class="col-lg-10 col-xs-12 col-sm-9 col-md-9">
-                                    <div class="form_modal">
-                                        @Html.TextBoxFor(m => m.projectEntity.ProjectDescription, htmlAttributes: new { @id = "ProjectDescription", @class = "form-control mrp_modalselect" })
                                     </div>
                                 </div>
                             </div>
@@ -162,12 +161,13 @@
             </div>
         </div>
     </div>
+</div>
     <script type="text/javascript">
         var IsExists = false;
         function SubmitValue() {
-            if (document.getElementById("PFiscalYearId").value == "") {
+            if (document.getElementById("FiscalYearId").value == "") {
                 alert("Please select fiscal year.")
-                document.getElementById("PFiscalYearId").focus();
+                document.getElementById("FiscalYearId").focus();
                 return false;
             }
 

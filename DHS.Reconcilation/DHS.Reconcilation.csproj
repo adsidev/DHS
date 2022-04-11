@@ -499,6 +499,7 @@
     <Content Include="Views\Status\_viewStatus.cshtml" />
     <Content Include="Views\Status\CreateStatus.cshtml" />
     <Content Include="Views\Status\ManageStatus.cshtml" />
+    <Content Include="Views\Project\CreateProject.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
