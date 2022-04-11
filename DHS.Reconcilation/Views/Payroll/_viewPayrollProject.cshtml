@@ -13,21 +13,65 @@
             <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                 <span aria-hidden="true">&times;</span>
             </button>
-            <span class="mrp_modaledit"><strong><i class="fa fa-pencil" aria-hidden="true" onclick="EditPayrollProject()"></i></strong></span>
+            <span class="mrp_modaledit"><strong><i class="fa fa-pencil" title="Edit Payroll Project" aria-hidden="true" onclick="EditPayrollProject()"></i></strong></span>
         </div>
         <div class="modal-body">
             <div class="mrp_modalcontent">
                 <div class="row">
                     <input type="hidden" value="@Model.payrollProjectEntity.PayrollProjectId" id="hdnPayrollProjectId" />
-                    <input type="hidden" value="@Model.payrollProjectEntity.PayrollId" id="hdnPayrollId" />
+
                     <div class="col-lg-12">
                         <div class="row">
-                            <div class="col-lg-3 col-xs-12 col-sm-3 col-md-3">
+                            <div class="col-lg-2 col-xs-12 col-sm-3 col-md-3">
+                                <div class="form_modal">
+                                    <label>Payroll&nbsp;Number</label>
+                                </div>
+                            </div>
+                            <div class="col-lg-10 col-xs-12 col-sm-9 col-md-9">
+                                <div class="form_modal">
+                                    @Html.TextBoxFor(m => m.payrollProjectEntity.PayrollNumber, htmlAttributes: new { @class = "form-control mrp_modalselect", @disabled = "disabled" })
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="col-lg-12">
+                        <div class="row">
+                            <div class="col-lg-2 col-xs-12 col-sm-3 col-md-3">
+                                <div class="form_modal">
+                                    <label>Fiscal Year</label>
+                                </div>
+                            </div>
+                            <div class="col-lg-10 col-xs-12 col-sm-9 col-md-9">
+                                <div class="form_modal">
+                                    @Html.TextBoxFor(m => m.payrollProjectEntity.FiscalYear, htmlAttributes: new { @class = "form-control mrp_modalselect", @disabled = "disabled" })
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="col-lg-12">
+                        <div class="row">
+                            <div class="col-lg-2 col-xs-12 col-sm-3 col-md-3">
+                                <div class="form_modal">
+                                    <label>Payroll&nbsp;Date</label>
+                                </div>
+                            </div>
+                            <div class="col-lg-10 col-xs-12 col-sm-9 col-md-9">
+                                <div class="form_modal">
+                                    @Html.TextBoxFor(m => m.payrollProjectEntity.PayrollDate, htmlAttributes: new { @class = "form-control mrp_modalselect", @disabled = "disabled" })
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-lg-12">
+                        <div class="row">
+                            <div class="col-lg-2 col-xs-12 col-sm-3 col-md-3">
                                 <div class="form_modal">
                                     <label>Project&nbsp;Name</label>
                                 </div>
                             </div>
-                            <div class="col-lg-9 col-xs-12 col-sm-9 col-md-9">
+                            <div class="col-lg-10 col-xs-12 col-sm-9 col-md-9">
                                 <div class="form_modal">
                                     @Html.TextBoxFor(m => m.payrollProjectEntity.ProjectName, htmlAttributes: new { @class = "form-control mrp_modalselect", @disabled = "disabled" })
                                 </div>
@@ -37,12 +81,12 @@
 
                     <div class="col-lg-12">
                         <div class="row">
-                            <div class="col-lg-3 col-xs-12 col-sm-3 col-md-3">
+                            <div class="col-lg-2 col-xs-12 col-sm-3 col-md-3">
                                 <div class="form_modal">
                                     <label>Effective&nbsp;Date</label>
                                 </div>
                             </div>
-                            <div class="col-lg-9 col-xs-12 col-sm-9 col-md-9">
+                            <div class="col-lg-10 col-xs-12 col-sm-9 col-md-9">
                                 <div class="form_modal">
                                     <input type="text" disabled="disabled" value="@Model.payrollProjectEntity.EffectiveDate" class="form-control mrp_modalselect" />
                                 </div>
@@ -52,12 +96,12 @@
 
                     <div class="col-lg-12">
                         <div class="row">
-                            <div class="col-lg-3 col-xs-12 col-sm-3 col-md-3">
+                            <div class="col-lg-2 col-xs-12 col-sm-3 col-md-3">
                                 <div class="form_modal">
                                     <label>Payroll&nbsp;Total</label>
                                 </div>
                             </div>
-                            <div class="col-lg-9 col-xs-12 col-sm-9 col-md-9">
+                            <div class="col-lg-10 col-xs-12 col-sm-9 col-md-9">
                                 <div class="form_modal">
                                     <input type="text" disabled="disabled" value="@String.Format("{0:$#,##0.00}", Model.payrollProjectEntity.PayrollTotal)" class="form-control mrp_modalselect" />
                                 </div>
@@ -65,14 +109,14 @@
                         </div>
                     </div>
 
-                    <div class="col-lg-12">
+                    @*<div class="col-lg-12">
                         <div class="row">
-                            <div class="col-lg-3 col-xs-12 col-sm-3 col-md-3">
+                            <div class="col-lg-2 col-xs-12 col-sm-3 col-md-3">
                                 <div class="form_modal">
                                     <label>Batch&nbsp;Number </label>
                                 </div>
                             </div>
-                            <div class="col-lg-9 col-xs-12 col-sm-9 col-md-9">
+                            <div class="col-lg-10 col-xs-12 col-sm-9 col-md-9">
                                 <div class="form_modal">
                                     @Html.TextBoxFor(m => m.payrollProjectEntity.BatchNumber, htmlAttributes: new { @class = "form-control mrp_modalselect", @disabled = "disabled" })
                                 </div>
@@ -82,12 +126,12 @@
 
                     <div class="col-lg-12">
                         <div class="row">
-                            <div class="col-lg-3 col-xs-12 col-sm-3 col-md-3">
+                            <div class="col-lg-2 col-xs-12 col-sm-3 col-md-3">
                                 <div class="form_modal">
                                     <label>Drawn&nbsp;Amount</label>
                                 </div>
                             </div>
-                            <div class="col-lg-9 col-xs-12 col-sm-9 col-md-9">
+                            <div class="col-lg-10 col-xs-12 col-sm-9 col-md-9">
                                 <div class="form_modal">
                                     <input type="text" disabled="disabled" value="@String.Format("{0:$#,##0.00}", Model.payrollProjectEntity.DrawnAmount)" class="form-control mrp_modalselect" />
                                 </div>
@@ -98,27 +142,27 @@
 
                     <div class="col-lg-12">
                         <div class="row">
-                            <div class="col-lg-3 col-xs-12 col-sm-3 col-md-3">
+                            <div class="col-lg-2 col-xs-12 col-sm-3 col-md-3">
                                 <div class="form_modal">
                                     <label>Adjusted&nbsp;Amount</label>
                                 </div>
                             </div>
-                            <div class="col-lg-9 col-xs-12 col-sm-9 col-md-9">
+                            <div class="col-lg-10 col-xs-12 col-sm-9 col-md-9">
                                 <div class="form_modal">
                                     <input type="text" disabled="disabled" value="@String.Format("{0:$#,##0.00}", Model.payrollProjectEntity.AdjustedAmount)" class="form-control mrp_modalselect" />
                                 </div>
                             </div>
                         </div>
-                    </div>
+                    </div>*@
 
                     <div class="col-lg-12">
                         <div class="row">
-                            <div class="col-lg-3 col-xs-12 col-sm-3 col-md-3">
+                            <div class="col-lg-2 col-xs-12 col-sm-3 col-md-3">
                                 <div class="form_modal">
                                     <label>Notes:</label>
                                 </div>
                             </div>
-                            <div class="col-lg-9 col-xs-12 col-sm-9 col-md-9">
+                            <div class="col-lg-10 col-xs-12 col-sm-9 col-md-9">
                                 <div class="form_modal">
                                     <textarea id="Notes" name="Notes" disabled="disabled" style="margin: 0px; width: 500px; height: 40px;">@Model.payrollProjectEntity.Notes</textarea>
                                 </div>

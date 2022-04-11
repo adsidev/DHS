@@ -1,0 +1,120 @@
+﻿@model DHSEntities.StatusResponse
+@using DHS.Reconcilation.Models
+
+@{
+    ViewBag.Title = "DHS Reconcilation Application :: Create Fiscal Years";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+<script src="~/Scripts/jquery-1.10.2.min.js"></script>
+@section LeftMenuSection
+{
+    @Html.Partial("_menuCRPayments");
+}
+
+@using (Html.BeginForm("CreateStatus", "Status", FormMethod.Post, new { @id = "frmStatus" }))
+{
+
+    <title>@ViewBag.Title</title>
+    <div class="tab-pane active" id="dashboard">
+        <div class="container-fluid">
+            <!-- top tiles -->
+            <div class="mrp_content">
+                <h2>Create Fiscal Year Information</h2>
+
+                <div class="row mra_createcost_report_payment">
+                    <div class="col-lg-6">
+
+                        <div class="row">
+                            <div class="col-lg-4 col-xs-12 col-sm-4 col-md-4">
+                                <div class="form_modal">
+                                    <label>Status</label>
+                                </div>
+                            </div>
+                            <div class="col-lg-8 col-xs-12 col-sm-8 col-md-8">
+                                <div class="form_modal">
+                                    @Html.TextBoxFor(m => m.statusEntity.StatusName, htmlAttributes: new { @id = "StatusName", @class = "form-control mrp_modalselect" })
+                                </div>
+                            </div>
+                        </div>
+
+                    </div>
+
+                </div>
+
+
+                <div class="modal-footer">
+                    <input type="submit" id="btnSubmit" class="btn btn-primary btn-updated" onclick="return SubmitValue()" value="Save Changes" />
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script type="text/javascript">
+        var IsExists = false;
+        function SubmitValue() {
+            if (document.getElementById("StatusName").value == "") {
+                alert("Please enter fiscal year.");
+                document.getElementById("StatusName").focus();
+                return false;
+            }
+            else {
+                var statusEntity = {
+                    StatusId: document.getElementById("StatusId").value,
+                    StatusName: document.getElementById("StatusName").value
+                };
+                var statusRequest = {
+                    statusEntity: statusEntity
+                };
+
+                $.ajax({
+                    url: "/Status/CheckStatus",
+                    type: "POST",
+                    data: statusRequest,
+                    dataType: 'json',
+                    success: function (result) {
+                        if (result.statusEntity.FiscaYearCount != 0) {
+                            alert("This Fiscal Year is already exists in the System. Please enter the other one.");
+                            return false;
+                        }
+                        else {
+                            SaveValues();
+                        }
+                    },
+                    complete: function () {
+
+                    }
+                });
+            }
+            SaveValues();
+            return true;
+        }
+
+        function SaveValues() {
+            var statusEntity = {
+                StatusId: document.getElementById("StatusId").value,
+                StatusName: document.getElementById("StatusName").value,
+                ModifiedBy:@Common.GetSession("UserID"),
+            };
+            var statusRequest = {
+                statusEntity: statusEntity
+            };
+
+            $.ajax({
+                url: "/Status/SaveStatus",
+                type: "POST",
+                data: statusRequest,
+                dataType: 'json',
+                success: function (result) {
+                    location.href = "Status/ManageStatus";
+                },
+                complete: function () {
+
+                }
+            });
+        }
+
+        $(document).ready(function () {
+            $('#mra_subliSC').addClass('active');
+        });
+    </script>
+}

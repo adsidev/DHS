@@ -45,6 +45,8 @@
     <Compile Include="CommonDAL.cs" />
     <Compile Include="Constant.cs" />
     <Compile Include="DocumentDAL.cs" />
+    <Compile Include="Interfaces\IStatusDALRepository.cs" />
+    <Compile Include="StatusDAL.cs" />
     <Compile Include="FiscalYearDAL.cs" />
     <Compile Include="Interfaces\IFiscalYearDALRepository.cs" />
     <Compile Include="Interfaces\IPayrollDALRepository.cs" />

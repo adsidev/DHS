@@ -1,0 +1,58 @@
+﻿@model DHSEntities.StatusResponse
+@{
+    ViewBag.Title = "View Status";
+}
+
+<div class="modal-dialog" role="document">
+    <div class="modal-content">
+        <div class="modal-header">
+            <h5 class="modal-title" id="DrawModalLabel">
+                View Status Information
+            </h5>
+
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+            </button>
+            <span class="mrp_modaledit"> <strong><i class="fa fa-pencil" aria-hidden="true" onclick="EditStatus(@Model.statusEntity.StatusId)"></i></strong></span>
+        </div>
+        <div class="modal-body">
+            <div class="mrp_modalcontent">
+                <div class="row">
+
+                    <div class="col-lg-12">
+                        <div class="row">
+                            <div class="col-lg-2 col-xs-12 col-sm-3 col-md-3">
+                                <div class="form_modal">
+                                    <label>Fiscal&nbsp;Year</label>
+                                </div>
+                            </div>
+                            <div class="col-lg-10 col-xs-12 col-sm-9 col-md-9">
+                                <div class="form_modal">
+                                    @Html.TextBoxFor(m => m.statusEntity.StatusName, htmlAttributes: new { @class = "form-control mrp_modalselect", @disabled = "disabled" })
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<script language="JavaScript">
+    function EditStatus(statusId) {
+        var options = { "backdrop": "static", keyboard: true };
+        $.ajax({
+            type: "GET",
+            url: "/Status/EditStatus/" + statusId,
+            dataType: "html",
+            success: function (evt) {
+                $('#StatusModal').html(evt);
+                $('#StatusModal').modal(options);
+                $('#StatusModal').modal('show');
+            },
+            error: function (req, status, error) {
+                alert("Error!Occured");
+            }
+        });
+    }
+</script>

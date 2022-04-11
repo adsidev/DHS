@@ -18,48 +18,6 @@ namespace DHSBAL
             PayrollResponse = new PayrollResponse();
         }
 
-        public PayrollResponse GetPayrolls(PayrollRequest payrollRequest)
-        {
-            try
-            {
-                PayrollResponse = PayrollDALRepository.GetPayrolls(payrollRequest);
-            }
-            catch (Exception ex)
-            {
-                PayrollResponse.ErrorMessage = ex.Message;
-                PayrollResponse.Exception = ex;
-            }
-            return PayrollResponse;
-        }
-
-        public PayrollResponse GetPayroll(PayrollRequest payrollRequest)
-        {
-            try
-            {
-                PayrollResponse = PayrollDALRepository.GetPayroll(payrollRequest);
-            }
-            catch (Exception ex)
-            {
-                PayrollResponse.ErrorMessage = ex.Message;
-                PayrollResponse.Exception = ex;
-            }
-            return PayrollResponse;
-        }
-
-        public PayrollResponse SavePayroll(PayrollRequest payrollRequest)
-        {
-            try
-            {
-                PayrollResponse = PayrollDALRepository.SavePayroll(payrollRequest);
-            }
-            catch (Exception ex)
-            {
-                PayrollResponse.ErrorMessage = ex.Message;
-                PayrollResponse.Exception = ex;
-            }
-            return PayrollResponse;
-        }
-
         public PayrollResponse GetPayrollProjects(PayrollRequest payrollRequest)
         {
             try

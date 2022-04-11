@@ -19,104 +19,10 @@ namespace DHSDAL
             payrollResponse.Message = string.Empty;
         }
 
-        public PayrollResponse GetPayrolls(PayrollRequest payrollRequest)
-        {
-            SqlObject.Parameters = new object[] {
-                payrollRequest.payrollEntity.FiscalYearId
-            };
-            var periodDataSet = SqlHelper.ExecuteDataset(_connectionString, StoredProcedures.Payroll.USPGETPAYROLLS, SqlObject.Parameters);
-            List<PayrollEntity> payrollEntities = new List<PayrollEntity>();
-            foreach (DataRow expenseDataRow in periodDataSet.Tables[0].Rows)
-            {
-                PayrollEntity payrollEntity = new PayrollEntity();
-                try
-                {
-                    payrollEntity.PayrollId = Convert.ToInt32(expenseDataRow["PayrollId"]);
-                    payrollEntity.FiscalYear = expenseDataRow["FiscalYear"].ToString();
-                    payrollEntity.PayrollNumber = expenseDataRow["PayrollNumber"].ToString();
-                    payrollEntity.PayrollDate = Convert.ToDateTime(expenseDataRow["PayrollDate"].ToString()).ToShortDateString();                    
-                }
-                catch (Exception exception)
-                {
-                    payrollEntity.PayrollDate = expenseDataRow["PayrollDate"].ToString();
-                    payrollResponse.ErrorMessage = exception.Message;
-                    payrollResponse.Message = exception.Message;
-                    payrollResponse.Exception = exception;
-                }
-                finally
-                {
-                    payrollEntities.Add(payrollEntity);
-                }
-            }
-            payrollResponse.payrollEntities = payrollEntities;
-            CommonDAL commonDAL = new CommonDAL();
-            payrollResponse.fiscalYearEntities = commonDAL.GetFiscalYears();
-            return payrollResponse;
-        }
-
-        public PayrollResponse GetPayroll(PayrollRequest payrollRequest)
-        {
-            SqlObject.Parameters = new object[] {
-                payrollRequest.payrollEntity.PayrollId
-            };
-            var periodDataSet = SqlHelper.ExecuteDataset(_connectionString, StoredProcedures.Payroll.USPGETPAYROLL, SqlObject.Parameters);
-            PayrollEntity payrollEntity = new PayrollEntity();
-            foreach (DataRow expenseDataRow in periodDataSet.Tables[0].Rows)
-            {
-                try
-                {
-                    payrollEntity.PayrollId = Convert.ToInt64(expenseDataRow["PayrollId"]);
-                    payrollEntity.FiscalYearId = Convert.ToInt32(expenseDataRow["FiscalYearId"]);
-                    payrollEntity.FiscalYear = expenseDataRow["FiscalYear"].ToString();
-                    payrollEntity.PayrollNumber = expenseDataRow["PayrollNumber"].ToString();
-                    payrollEntity.PayrollDate = Convert.ToDateTime(expenseDataRow["PayrollDate"].ToString()).ToShortDateString();
-                }
-                catch (Exception exception)
-                {
-                    payrollEntity.PayrollDate = expenseDataRow["PayrollDate"].ToString();
-                    payrollResponse.ErrorMessage = exception.Message;
-                    payrollResponse.Message = exception.Message;
-                    payrollResponse.Exception = exception;
-                }
-            }
-            payrollResponse.payrollEntity = payrollEntity;
-            CommonDAL commonDAL = new CommonDAL();
-            payrollResponse.fiscalYearEntities = commonDAL.GetFiscalYears();
-            return payrollResponse;
-        }
-
-        public PayrollResponse SavePayroll(PayrollRequest payrollRequest)
-        {
-            try
-            {
-                if (payrollRequest.payrollEntity.PayrollId > 0)
-                    payrollRequest.payrollEntity.SaveString = "U";
-                else
-                    payrollRequest.payrollEntity.SaveString = "I";
-
-                SqlObject.Parameters = new object[] {
-                payrollRequest.payrollEntity.SaveString,
-                payrollRequest.payrollEntity.PayrollId,
-                payrollRequest.payrollEntity.FiscalYearId,
-                payrollRequest.payrollEntity.PayrollDate,
-                payrollRequest.payrollEntity.ModifiedBy,
-            };
-                var intResult = SqlHelper.ExecuteScalar(_connectionString, StoredProcedures.Payroll.USPSAVEPAYROLL, SqlObject.Parameters);
-            }
-            catch (Exception ex)
-            {
-                payrollResponse.ErrorMessage = ex.Message;
-                payrollResponse.Message = ex.Message;
-                payrollResponse.Exception = ex;
-            }
-           
-            return payrollResponse;
-        }
-
         public PayrollResponse GetPayrollProjects(PayrollRequest payrollRequest)
         {
             SqlObject.Parameters = new object[] {
-                payrollRequest.payrollProjectEntity.PayrollId
+                payrollRequest.payrollProjectEntity.FiscalYearId
             };
             var periodDataSet = SqlHelper.ExecuteDataset(_connectionString, StoredProcedures.Payroll.USPGETPAYROLLPROJECTS, SqlObject.Parameters);
             List<PayrollProjectEntity> payrollProjectEntities = new List<PayrollProjectEntity>();
@@ -125,7 +31,7 @@ namespace DHSDAL
                 PayrollProjectEntity payrollProjectEntity = new PayrollProjectEntity();
                 try
                 {
-                    payrollProjectEntity.PayrollId = Convert.ToInt64(expenseDataRow["PayrollId"]);
+                    payrollProjectEntity.FiscalYearId = Convert.ToInt64(expenseDataRow["FiscalYearId"]);
                     payrollProjectEntity.PayrollProjectId = Convert.ToInt64(expenseDataRow["PayrollProjectId"]);
                     payrollProjectEntity.ProjectId = Convert.ToInt32(expenseDataRow["ProjectId"]);
                     payrollProjectEntity.ProjectName = expenseDataRow["ProjectName"].ToString();
@@ -167,14 +73,13 @@ namespace DHSDAL
             payrollResponse.payrollProjectEntities = payrollProjectEntities;
             CommonDAL commonDAL = new CommonDAL();
             payrollResponse.projectEntities = commonDAL.GetProjects();
+            payrollResponse.fiscalYearEntities = commonDAL.GetFiscalYears();
             return payrollResponse;
         }
 
         public PayrollResponse GetPayrollProject(PayrollRequest payrollRequest)
         {
             PayrollProjectEntity payrollProjectEntity = new PayrollProjectEntity();
-            ProjectEntity projectEntity = new ProjectEntity();
-
             if (payrollRequest.payrollProjectEntity.PayrollProjectId>0)
             {
                 SqlObject.Parameters = new object[] {
@@ -186,9 +91,8 @@ namespace DHSDAL
                 {
                     try
                     {
-                        payrollProjectEntity.PayrollId = Convert.ToInt64(expenseDataRow["PayrollId"]);
                         payrollProjectEntity.PayrollProjectId = Convert.ToInt64(expenseDataRow["PayrollProjectId"]);
-                        projectEntity.FiscalYearId = Convert.ToInt64(expenseDataRow["FiscalYearId"]);
+                        payrollProjectEntity.FiscalYearId = Convert.ToInt64(expenseDataRow["FiscalYearId"]);
                         payrollProjectEntity.ProjectId = Convert.ToInt32(expenseDataRow["ProjectId"]);
                         payrollProjectEntity.ProjectName = expenseDataRow["ProjectName"].ToString();
                         payrollProjectEntity.FiscalYear = expenseDataRow["FiscalYear"].ToString();
@@ -217,20 +121,11 @@ namespace DHSDAL
                     }
                 }
             }
-            else
-            {
-                PayrollEntity payrollEntity = new PayrollEntity();
-                payrollEntity.PayrollId = payrollRequest.payrollProjectEntity.PayrollId;
-                payrollRequest.payrollEntity = payrollEntity;
-                payrollEntity = GetPayroll(payrollRequest).payrollEntity;
-                payrollProjectEntity.PayrollId = payrollRequest.payrollProjectEntity.PayrollId;
-                projectEntity.FiscalYearId = payrollEntity.FiscalYearId;
-            }
+            
             payrollResponse.payrollProjectEntity= payrollProjectEntity;
-            ProjectDAL projectDAL = new ProjectDAL();
-            ProjectRequest projectRequest = new ProjectRequest();
-            projectRequest.projectEntity = projectEntity;
-            payrollResponse.projectEntities = projectDAL.GetProjects(projectRequest).projectEntities;
+            CommonDAL commonDAL = new CommonDAL();
+            payrollResponse.projectEntities = commonDAL.GetProjects();
+            payrollResponse.fiscalYearEntities = commonDAL.GetFiscalYears();
             return payrollResponse;
         }
 
@@ -246,8 +141,9 @@ namespace DHSDAL
                 SqlObject.Parameters = new object[] {
                 payrollRequest.payrollProjectEntity.SaveString,
                 payrollRequest.payrollProjectEntity.PayrollProjectId,
-                payrollRequest.payrollProjectEntity.PayrollId,
+                payrollRequest.payrollProjectEntity.FiscalYearId,
                 payrollRequest.payrollProjectEntity.ProjectId,
+                payrollRequest.payrollProjectEntity.PayrollDate,
                 payrollRequest.payrollProjectEntity.EffectiveDate,
                 payrollRequest.payrollProjectEntity.PayrollTotal,
                 payrollRequest.payrollProjectEntity.BatchNumber,

@@ -200,5 +200,13 @@ namespace DHSDAL
             public const string USPSAVEFISCALYEAR = "sp_SaveFiscalYear";
             public const string USPCHECKFISCALYEAR = "sp_CheckFiscalYear";
         }
+
+        public class Status
+        {
+            public const string USPGETSTATUSES = "sp_GetStatuses";
+            public const string USPGETSTATUS = "sp_GetStatus";
+            public const string USPSAVESTATUS = "sp_SaveStatus";
+            public const string USPCHECKSTATUS = "sp_CheckStatus";
+        }
     }
 }

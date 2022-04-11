@@ -42,6 +42,8 @@
   <ItemGroup>
     <Compile Include="AuditBAL.cs" />
     <Compile Include="FGTCategoryBAL.cs" />
+    <Compile Include="Interfaces\IStatusRepository.cs" />
+    <Compile Include="StatusBAL.cs" />
     <Compile Include="Interfaces\IFGTCategoryRepository.cs" />
     <Compile Include="Interfaces\IImportRepository.cs" />
     <Compile Include="Interfaces\IPayrollRepository.cs" />

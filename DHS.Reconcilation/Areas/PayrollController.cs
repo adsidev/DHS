@@ -16,58 +16,7 @@ namespace DHS.Reconcilation.Areas
             PayrollRepository = new PayrollBAL();
             PayrollResponse = new PayrollResponse();
         }
-
-        [HttpPost]
-        [Route("GetPayrolls")]
-        public PayrollResponse GetPayrolls(PayrollRequest payrollRequest)
-        {
-            try
-            {
-                PayrollResponse = PayrollRepository.GetPayrolls(payrollRequest);
-            }
-            catch (Exception ex)
-            {
-                PayrollResponse.ErrorMessage = ex.Message;
-                PayrollResponse.Exception = ex;
-            }
-            return PayrollResponse;
-        }
-
-
-        [HttpPost]
-        [Route("GetPayroll")]
-        public PayrollResponse GetPayroll(PayrollRequest payrollRequest)
-        {
-            try
-            {
-                PayrollResponse = PayrollRepository.GetPayroll(payrollRequest);
-            }
-            catch (Exception ex)
-            {
-                PayrollResponse.ErrorMessage = ex.Message;
-                PayrollResponse.Exception = ex;
-            }
-            return PayrollResponse;
-        }
-
-
-        [HttpPost]
-        [Route("SavePayroll")]
-        public PayrollResponse SavePayroll(PayrollRequest payrollRequest)
-        {
-            try
-            {
-                PayrollResponse = PayrollRepository.SavePayroll(payrollRequest);
-            }
-            catch (Exception ex)
-            {
-                PayrollResponse.ErrorMessage = ex.Message;
-                PayrollResponse.Exception = ex;
-            }
-            return PayrollResponse;
-        }
-
-
+        
         [HttpPost]
         [Route("GetPayrollProjects")]
         public PayrollResponse GetPayrollProjects(PayrollRequest payrollRequest)

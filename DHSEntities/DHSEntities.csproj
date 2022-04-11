@@ -102,7 +102,9 @@
     <Compile Include="Roles\RoleResponse.cs" />
     <Compile Include="Common\SourceEntity.cs" />
     <Compile Include="Expense\TransactionDetailEntity.cs" />
-    <Compile Include="Common\StatusEntity.cs" />
+    <Compile Include="Status\StatusEntity.cs" />
+    <Compile Include="Status\StatusRequest.cs" />
+    <Compile Include="Status\StatusResponse.cs" />
     <Compile Include="User\AdminReconcilation.cs" />
     <Compile Include="User\UserEntity.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

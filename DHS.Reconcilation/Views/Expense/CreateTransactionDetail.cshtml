@@ -798,6 +798,12 @@
                 return false;
             }
 
+            if (document.getElementById("StatusId").value == 11 && document.getElementById("OtherBatchNumber").value =="") {
+                alert("Please enter other batch number.");
+                document.getElementById("OtherBatchNumber").focus();
+                return false;
+            }
+
             if (document.getElementById("RelatedTrans").value != '') {
                 var transactionDetailEntity = {
                     TransactionDetailId: document.getElementById("TransactionDetailId").value,

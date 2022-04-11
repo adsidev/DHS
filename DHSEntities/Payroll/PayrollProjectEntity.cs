@@ -9,8 +9,8 @@ namespace DHSEntities
     public class PayrollProjectEntity:Audit
     {
         public long PayrollProjectId { get; set; }
-        public long PayrollId { get; set; }
         public string PayrollNumber { get; set; }
+        public long FiscalYearId { get; set; }
         public string FiscalYear { get; set; }
         public string PayrollDate { get; set; }
         public long ProjectId { get; set; }

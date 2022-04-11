@@ -29,219 +29,14 @@ namespace DHS.Reconcilation.Controllers
         }
 
         [HttpGet]
-        public async Task<ActionResult> ManagePayroll(int? page)
-        {
-            if (!Common.SessionExists())
-                return RedirectToAction("Index", "Home");
-            int pageSize = Common.pageNumbers;
-            int pageIndex = 1;
-            pageIndex = page.HasValue ? Convert.ToInt32(page) : 1;
-            PayrollRequest PayrollRequest = new PayrollRequest();
-            PayrollEntity payrollEntity = new PayrollEntity();
-            payrollEntity.FiscalYearId = 0;
-            PayrollRequest.payrollEntity = payrollEntity;
-            string url = strBaseURL + "Payroll/GetPayrolls";
-            client.BaseAddress = new Uri(url);
-            HttpResponseMessage responseMessage = await client.PostAsJsonAsync(url, PayrollRequest);
-
-            if (responseMessage.IsSuccessStatusCode)
-            {
-                var responseData = responseMessage.Content.ReadAsStringAsync().Result;
-                payrollResponse = JsonConvert.DeserializeObject<PayrollResponse>(responseData);
-                if (payrollResponse.Message == string.Empty && payrollResponse.ErrorMessage == string.Empty)
-                {
-                    string PageName = "Payroll";
-                    payrollResponse.payrollEntity = PayrollRequest.payrollEntity; 
-                    payrollResponse.rolePermissionEntity = Common.PagePermissions(PageName);
-                    payrollResponse.pagedPayrollEntities = payrollResponse.payrollEntities.ToPagedList(pageIndex, 15);
-                    return View(payrollResponse);
-                }
-                else
-                {
-                    TempData["LoginFailure"] = payrollResponse.Message;
-                    return RedirectToAction("Error", "Home");
-                }
-            }
-            else
-            {
-                TempData["LoginFailure"] = responseMessage.ToString();
-                return RedirectToAction("Error", "Home");
-            }
-        }
-
-        [HttpPost]
-        public async Task<ActionResult> ManagePayroll(int? page, int? id = 0)
-        {
-            if (!Common.SessionExists())
-                return RedirectToAction("Index", "Home");
-            int pageSize = Common.pageNumbers;
-            int pageIndex = 1;
-            pageIndex = page.HasValue ? Convert.ToInt32(page) : 1;
-            PayrollRequest PayrollRequest = new PayrollRequest();
-            PayrollEntity payrollEntity = new PayrollEntity();
-            if(Request["FiscalYearId"]!="")
-            payrollEntity.FiscalYearId = Convert.ToInt32(Request["FiscalYearId"]);
-            else
-            payrollEntity.FiscalYearId = 0;
-            PayrollRequest.payrollEntity = payrollEntity;
-            string url = strBaseURL + "Payroll/GetPayrolls";
-            client.BaseAddress = new Uri(url);
-            HttpResponseMessage responseMessage = await client.PostAsJsonAsync(url, PayrollRequest);
-
-            if (responseMessage.IsSuccessStatusCode)
-            {
-                var responseData = responseMessage.Content.ReadAsStringAsync().Result;
-                payrollResponse = JsonConvert.DeserializeObject<PayrollResponse>(responseData);
-                if (payrollResponse.Message == string.Empty && payrollResponse.ErrorMessage == string.Empty)
-                {
-                    string PageName = "Payroll";
-                    payrollResponse.payrollEntity = PayrollRequest.payrollEntity;
-                    payrollResponse.rolePermissionEntity = Common.PagePermissions(PageName);
-                    payrollResponse.pagedPayrollEntities = payrollResponse.payrollEntities.ToPagedList(pageIndex, 15);
-                    return View(payrollResponse);
-                }
-                else
-                {
-                    TempData["LoginFailure"] = payrollResponse.Message;
-                    return RedirectToAction("Error", "Home");
-                }
-            }
-            else
-            {
-                TempData["LoginFailure"] = responseMessage.ToString();
-                return RedirectToAction("Error", "Home");
-            }
-        }
-
-        public async Task<ActionResult> CreatePayroll(long? id = 0)
-        {
-            if (!Common.SessionExists())
-                return RedirectToAction("Index", "Home");
-
-            PayrollRequest payrollRequest = new PayrollRequest();
-            PayrollEntity payrollEntity = new PayrollEntity();
-
-            payrollEntity.PayrollId = Convert.ToInt32(id);
-            payrollRequest.payrollEntity = payrollEntity;
-            string url = strBaseURL + "Payroll/GetPayroll";
-            client.BaseAddress = new Uri(url);
-
-            HttpResponseMessage responseMessage = await client.PostAsJsonAsync(url, payrollRequest);
-
-            if (responseMessage.IsSuccessStatusCode)
-            {
-                var responseData = responseMessage.Content.ReadAsStringAsync().Result;
-                payrollResponse = JsonConvert.DeserializeObject<PayrollResponse>(responseData);
-                if (payrollResponse.Message == string.Empty && payrollResponse.ErrorMessage == string.Empty)
-                {
-                    string PageName = "Payroll";
-                    payrollResponse.rolePermissionEntity = Common.PagePermissions(PageName);
-                    return View(payrollResponse);
-                }
-                else
-                {
-                    TempData["LoginFailure"] = payrollResponse.Message;
-                    return RedirectToAction("Error", "Home");
-                }
-            }
-            else
-            {
-                TempData["LoginFailure"] = responseMessage.ToString();
-                return RedirectToAction("Error", "Home");
-            }
-        }
-
-        public async Task<ActionResult> ViewPayroll(long? id = 0)
-        {
-            if (!Common.SessionExists())
-                return RedirectToAction("Index", "Home");
-            if (id == 0)
-                return RedirectToAction("Index", "Home");
-
-            PayrollRequest payrollRequest = new PayrollRequest();
-            PayrollEntity payrollEntity = new PayrollEntity();
-
-            payrollEntity.PayrollId = Convert.ToInt32(id);
-            payrollRequest.payrollEntity = payrollEntity;
-            string url = strBaseURL + "Payroll/GetPayroll";
-            client.BaseAddress = new Uri(url);
-
-            HttpResponseMessage responseMessage = await client.PostAsJsonAsync(url, payrollRequest);
-
-            if (responseMessage.IsSuccessStatusCode)
-            {
-                var responseData = responseMessage.Content.ReadAsStringAsync().Result;
-                payrollResponse = JsonConvert.DeserializeObject<PayrollResponse>(responseData);
-                if (payrollResponse.Message == string.Empty && payrollResponse.ErrorMessage == string.Empty)
-                {
-                    string PageName = "Payroll";
-                    payrollResponse.rolePermissionEntity = Common.PagePermissions(PageName);
-
-                    return PartialView("_viewPayroll", payrollResponse);
-                }
-                else
-                {
-                    TempData["LoginFailure"] = payrollResponse.Message;
-                    return RedirectToAction("Error", "Home");
-                }
-            }
-            else
-            {
-                TempData["LoginFailure"] = responseMessage.ToString();
-                return RedirectToAction("Error", "Home");
-            }
-        }
-
-        public async Task<ActionResult> EditPayroll(long? id = 0)
-        {
-            if (!Common.SessionExists())
-                return RedirectToAction("Index", "Home");
-            if (id == 0)
-                return RedirectToAction("Index", "Home");
-
-            PayrollRequest payrollRequest = new PayrollRequest();
-            PayrollEntity payrollEntity = new PayrollEntity();
-
-            payrollEntity.PayrollId = Convert.ToInt32(id);
-            payrollRequest.payrollEntity = payrollEntity;
-            string url = strBaseURL + "Payroll/GetPayroll";
-            client.BaseAddress = new Uri(url);
-
-            HttpResponseMessage responseMessage = await client.PostAsJsonAsync(url, payrollRequest);
-
-            if (responseMessage.IsSuccessStatusCode)
-            {
-                var responseData = responseMessage.Content.ReadAsStringAsync().Result;
-                payrollResponse = JsonConvert.DeserializeObject<PayrollResponse>(responseData);
-                if (payrollResponse.Message == string.Empty && payrollResponse.ErrorMessage == string.Empty)
-                {
-                    string PageName = "Payroll";
-                    payrollResponse.rolePermissionEntity = Common.PagePermissions(PageName);
-
-                    return PartialView("_editPayroll", payrollResponse);
-                }
-                else
-                {
-                    TempData["LoginFailure"] = payrollResponse.Message;
-                    return RedirectToAction("Error", "Home");
-                }
-            }
-            else
-            {
-                TempData["LoginFailure"] = responseMessage.ToString();
-                return RedirectToAction("Error", "Home");
-            }
-        }
-
-        [HttpGet]
-        public async Task<ActionResult> ManagePayrollProject(long? id)
+        public async Task<ActionResult> ManagePayrollProject()
         {
             if (!Common.SessionExists())
                 return RedirectToAction("Index", "Home");
             
             PayrollRequest PayrollRequest = new PayrollRequest();
             PayrollProjectEntity payrollProjectEntity = new PayrollProjectEntity();
-            payrollProjectEntity.PayrollId = Convert.ToInt64(id);
+            payrollProjectEntity.FiscalYearId = 0;
             PayrollRequest.payrollProjectEntity = payrollProjectEntity;
             
             string url = strBaseURL + "Payroll/GetPayrollProjects";
@@ -272,6 +67,48 @@ namespace DHS.Reconcilation.Controllers
             }
         }
 
+        [HttpPost]
+        public async Task<ActionResult> ManagePayrollProject(long? id)
+        {
+            if (!Common.SessionExists())
+                return RedirectToAction("Index", "Home");
+
+            PayrollRequest PayrollRequest = new PayrollRequest();
+            PayrollProjectEntity payrollProjectEntity = new PayrollProjectEntity();
+            if (Request["FiscalYearId"] != "")
+                payrollProjectEntity.FiscalYearId = Convert.ToInt64(Request["FiscalYearId"]);
+            else
+                payrollProjectEntity.FiscalYearId = 0;
+            PayrollRequest.payrollProjectEntity = payrollProjectEntity;
+
+            string url = strBaseURL + "Payroll/GetPayrollProjects";
+            client.BaseAddress = new Uri(url);
+            HttpResponseMessage responseMessage = await client.PostAsJsonAsync(url, PayrollRequest);
+
+            if (responseMessage.IsSuccessStatusCode)
+            {
+                var responseData = responseMessage.Content.ReadAsStringAsync().Result;
+                payrollResponse = JsonConvert.DeserializeObject<PayrollResponse>(responseData);
+                if (payrollResponse.Message == string.Empty && payrollResponse.ErrorMessage == string.Empty)
+                {
+                    string PageName = "Payroll";
+                    payrollResponse.payrollProjectEntity = payrollProjectEntity;
+                    payrollResponse.rolePermissionEntity = Common.PagePermissions(PageName);
+                    return View(payrollResponse);
+                }
+                else
+                {
+                    TempData["LoginFailure"] = payrollResponse.Message;
+                    return RedirectToAction("Error", "Home");
+                }
+            }
+            else
+            {
+                TempData["LoginFailure"] = responseMessage.ToString();
+                return RedirectToAction("Error", "Home");
+            }
+        }
+        
         public async Task<ActionResult> CreatePayrollProject(long? id)
         {
             if (!Common.SessionExists())
@@ -282,8 +119,7 @@ namespace DHS.Reconcilation.Controllers
 
             PayrollRequest payrollRequest = new PayrollRequest();
             PayrollProjectEntity payrollProjectEntity = new PayrollProjectEntity();
-            payrollProjectEntity.PayrollId = Convert.ToInt32(id);
-            payrollProjectEntity.PayrollProjectId = 0;
+           payrollProjectEntity.PayrollProjectId = 0;
             payrollRequest.payrollProjectEntity = payrollProjectEntity;
             string url = strBaseURL + "Payroll/GetPayrollProject";
             client.BaseAddress = new Uri(url);

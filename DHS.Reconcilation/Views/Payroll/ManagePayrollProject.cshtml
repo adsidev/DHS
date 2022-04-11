@@ -19,25 +19,32 @@
         <div class="container-fluid">
             <!-- top tiles -->
             <div class="row ">
-                <div class="col-lg-11">
+                <div class="col-lg-12">
                     <div class="mrp_content">
                         <h2>View Payroll Projects</h2>
                         <form class="mrp_selectdetails form-inline">
+                            <div class="row">
+                                <div class="form-group col-lg-2 col-xs-12 col-sm-7">
+                                    <label for="SearchOn">FiscalYear:</label>
+                                    <div class="form_modal">
+                                        @Html.DropDownList("FiscalYearId", new SelectList(Model.fiscalYearEntities, "FiscalYearId", "FiscalYear", Model.payrollProjectEntity.FiscalYearId), "", new { @id = "FiscalYearId", @class = "form-control mrp_modalselect" })
+                                    </div>
+                                </div>
+                                <div class="form-group col-lg-2 col-xs-12 col-sm-7">
+                                    <div class="form_modal">
+                                        @if (Model.rolePermissionEntity.ViewBit)
+                                        {
+                                            <img src="~/images/search.png" class="img-responsive" height="40" width="40" onclick="SelectedIndexChanged()" style="cursor:pointer;" alt="Search Payroll Information" />
+                                        }
+                                        else
+                                        {
+                                            <img src="~/images/search.png" class="disableButton" height="40" width="40" alt="Search Payroll Information" />
+                                        }
+                                    </div>
+                                </div>
+                            </div>
                         </form>
                     </div>
-                </div>
-                <div class="col-lg-1">
-                    @if (Model.rolePermissionEntity.EditBit)
-                    {
-                        <img src="~/images/edit.png" class="img-responsive" height="40" width="40" onclick="EditPayroll('@Model.payrollProjectEntity.PayrollId')" style="cursor:pointer;" alt="Edit Payroll Information" />
-
-                    }
-                    else
-                    {
-                        <a class="mrp_popup disableButton" data-toggle="modal">
-                            <img src="~/images/edit.png" class="img-responsive disableButton" height="40" width="40" alt="Edit Payroll Information" />
-                        </a>
-                    }
                 </div>
             </div>
             <div class="row mrp_table-row">
@@ -69,7 +76,7 @@
                                             <th nowrap>
                                                 Payroll Total
                                             </th>
-                                            <th nowrap>
+                                            @*<th nowrap>
                                                 Batch Number
                                             </th>
                                             <th nowrap>
@@ -77,7 +84,7 @@
                                             </th>
                                             <th nowrap>
                                                 Adjusted Amount
-                                            </th>
+                                            </th>*@
                                             <th nowrap>
                                                 Notes
                                             </th>
@@ -90,23 +97,8 @@
                                                     <td nowrap>
                                                         @if (Model.rolePermissionEntity.ViewBit)
                                                         {
-                                                            if(item.PayrollProjectId>0)
-                                                            {
-                                                                <img src="~/images/view-icon.png" class="img-responsive" onclick="ViewPayrollProjectInformation('@item.PayrollProjectId')" style="cursor:pointer;" alt="View Payroll Project Information" />
+                                                            <img src="~/images/view-icon.png" class="img-responsive" onclick="ViewPayrollProjectInformation('@item.PayrollProjectId')" style="cursor:pointer;" alt="View Payroll Project Information" />
                                                                 <img src="~/images/document.png" class="img-responsive" onclick="ViewPayrollProjectDocuments('@item.PayrollProjectId')" style="cursor:pointer;" alt="View Payroll Project Documents" height="24" width="24" />
-                                                            }
-                                                            else
-                                                            {
-                                                                if (Model.rolePermissionEntity.CreateBit)
-                    {
-                        <input type="button" id="btnSubmit" class="btn btn-primary btn-updated" onclick="return CreatePayrollProject('@item.PayrollId')" value="Create" />
-
-                    }
-                    else
-                    {
-                        <input type="button" id="btnSubmit" class="btn btn-primary btn-updated" onclick="JavaScript:alert('You do not have permission to create payroll project. Contact administrator.')" value="Create Payroll Project" />
-                    }
-                                                            }
                                                         }
                                                         else
                                                         {
@@ -131,7 +123,7 @@
                                                     <td nowrap>
                                                         @string.Format("{0:C}", item.PayrollTotal)
                                                     </td>                                                    
-                                                    <td nowrap>
+                                                    @*<td nowrap>
                                                         @item.BatchNumber
                                                     </td>
                                                     <td nowrap>
@@ -139,7 +131,7 @@
                                                     </td>
                                                     <td nowrap>
                                                         @string.Format("{0:C}", item.AdjustedAmount)
-                                                    </td>
+                                                    </td>*@
                                                     <td nowrap>
                                                         @item.Notes
                                                     </td>
@@ -206,24 +198,6 @@
                 }
             });
         }
-
-        function EditPayroll(payrollId) {
-            var options = { "backdrop": "static", keyboard: true };
-            $.ajax({
-                type: "GET",
-                url: "/Payroll/EditPayroll/" + payrollId,
-                dataType: "html",
-                success: function (evt) {
-                    $('#PayrollProjectModal').html(evt);
-                    $('#PayrollProjectModal').modal(options);
-                    $('#PayrollProjectModal').modal('show');
-                },
-                error: function (req, status, error) {
-                    alert("Error!Occured");
-                }
-            });
-        }
-
 
         function ViewPayrollProjectDocuments(payrollProjectId) {
             location.href = "/Payroll/PayrollDocuments/" + payrollProjectId;

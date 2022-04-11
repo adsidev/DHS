@@ -66,8 +66,8 @@
                 <li>
                     <a href="#">Payroll</a>
                     <ul>
-                        <li id="mra_subliMPA">@Html.ActionLink("Manage Payroll", "ManagePayroll", "Payroll")</li>
-                        <li id="mra_subliCPA">@Html.ActionLink("Create Payroll ", "CreatePayroll", "Payroll")</li>
+                        <li id="mra_subliMPA">@Html.ActionLink("View Payroll Project", "ManagePayrollProject", "Payroll")</li>
+                        <li id="mra_subliCPA">@Html.ActionLink("Create Payroll Project", "CreatePayrollProject", "Payroll")</li>
                     </ul>
                 </li>
             }
@@ -135,6 +135,17 @@
                     <ul>
                         <li id="mra_subliFY">@Html.ActionLink("Fiscal Years", "ManageFiscalYears", "FiscalYear")</li>
                         <li id="mra_subliFYC">@Html.ActionLink("Create Fiscal Year", "CreateFiscalYear", "FiscalYear")</li>
+                    </ul>
+                </li>
+            }
+
+            @if (Common.AdminPageHasPermission("Status"))
+            {
+                <li>
+                    <a href="#">STATUS</a>
+                    <ul>
+                        <li id="mra_subliS">@Html.ActionLink("Statuses", "ManageStatus", "Status")</li>
+                        <li id="mra_subliSC">@Html.ActionLink("Create Status", "CreateStatus", "Status")</li>
                     </ul>
                 </li>
             }
