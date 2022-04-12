@@ -8,7 +8,6 @@ namespace DHSEntities
 {
     public class UserRequest
     {
-        public int UserId { get; set; }
         public UserEntity UserEntity { get; set; }
     }
 }

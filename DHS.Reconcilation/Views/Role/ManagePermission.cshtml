@@ -1,7 +1,7 @@
-﻿@model DHSEntities.StatusResponse
+﻿@model DHSEntities.RoleResponse
 
 @{
-    ViewBag.Title = "DHS Reconcilation Application :: Manage Status";
+    ViewBag.Title = "DHS Reconcilation Application :: Manage Permission";
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 <script src="~/Scripts/jquery-1.10.2.min.js"></script>
@@ -9,30 +9,30 @@
 {
     @Html.Partial("_menuCRPayments");
 }
-@using (Html.BeginForm("ManageStatus", "Status", FormMethod.Post, new { @id = "frmStatus" }))
+@using (Html.BeginForm("ManagePermission", "Permission", FormMethod.Post, new { @id = "frmPermission" }))
 {
     <title>@ViewBag.Title</title>
-    <input type="hidden" id="hdnStatusId" name="hdnStatusId" />
+    <input type="hidden" id="hdnPermissionId" name="hdnPermissionId" />
     <div class="tab-pane active" id="dashboard">
         <div class="container-fluid">
             <!-- top tiles -->
             <div class="row ">
                 <div class="col-lg-11">
                     <div class="mrp_content">
-                        <h2>View Status Information</h2>
+                        <h2>View Permissions</h2>
                         <form class="mrp_selectdetails form-inline">
                         </form>
                     </div>
-                    <div class="col-lg-1">
-                        @if (Model.rolePermissionEntity.CreateBit)
-                        {
-                            <img src="~/images/Create.png" class="img-responsive" height="40" width="40" onclick="CreateStatus()" style="cursor:pointer;" alt="Create Status Information" />
-                        }
-                        else
-                        {
-                            <img src="~/images/Create.png" class="disableButton" style="cursor:pointer;" onclick="JavaScript:alert('You do not have permission to create status. Please contact administrator.')" height="40" width="40" alt="Create Status Information" />
-                        }
-                    </div>
+                </div>
+                <div class="col-lg-1">
+                    @if (Model.RolePermissionEntity.CreateBit)
+                    {
+                        <img src="~/images/Create.png" class="img-responsive" height="40" width="40" onclick="CreatePermission()" style="cursor:pointer;" alt="Create Permission Information" />
+                    }
+                    else
+                    {
+                        <img src="~/images/Create.png" class="disableButton" style="cursor:pointer;" onclick="JavaScript:alert('You do not have permission to create permission. Please contact administrator.')" height="40" width="40" alt="Create Permission Information" />
+                    }
                 </div>
             </div>
             <div class="row mrp_table-row">
@@ -47,26 +47,32 @@
                                                 Action
                                             </th>
                                             <th nowrap>
-                                                Status Name
+                                                Permission Name
+                                            </th>
+                                            <th nowrap>
+                                                Permission Description
                                             </th>
                                         </tr>
                                     </thead>
                                     <tbody>
-                                        @{foreach (var item in Model.statusEntities)
+                                        @{foreach (var item in Model.permissionEntities)
                                             {
                                                 <tr>
                                                     <td nowrap>
-                                                        @if (Model.rolePermissionEntity.ViewBit)
+                                                        @if (Model.RolePermissionEntity.ViewBit)
                                                         {
-                                                            <img src="~/images/view-icon.png" class="img-responsive" onclick="ViewStatusInformation('@item.StatusId')" style="cursor:pointer;" alt="View Status Information" />
+                                                            <img src="~/images/view-icon.png" class="img-responsive" onclick="ViewPermissionInformation('@item.PermissionId')" style="cursor:pointer;" alt="View Permission Information" />
                                                         }
                                                         else
                                                         {
-                                                                <img src="~/images/view-icon.png" alt="View Status Information"  class="img-responsive disableButton" onclick="JavaScript:alert('You do not have permission to View status information. Contact Administrator for access.')" />                      
+                                                                <img src="~/images/view-icon.png" alt="View Permission Information"  class="img-responsive disableButton" onclick="JavaScript:alert('You do not have permission to View status information. Contact Administrator for access.')" />                      
                                                         }                                                        
                                                     </td>
                                                     <td nowrap>
-                                                        @item.StatusName
+                                                        @item.PermissionName
+                                                    </td> 
+                                                    <td nowrap>
+                                                        @item.PermissionDescription
                                                     </td> 
                                                 </tr>
                                             }
@@ -75,7 +81,7 @@
                                 </table>
 
                                 <!-- popup -->
-                                <div class="modal fade mrp_modalpopup" id="StatusModal">
+                                <div class="modal fade mrp_modalpopup" id="PermissionModal">
                                 </div>
                             </div>
                         </div>
@@ -97,7 +103,7 @@
     <script type="text/javascript">
 
         $(document).ready(function () {
-            $('#mra_subliS').addClass('active');
+            $('#mra_subliP').addClass('active');
         });
 
         function SelectedIndexChanged() {
@@ -106,20 +112,20 @@
                 $("#txtSearch").focus();
             }
             else {
-                $('#frmStatuss').submit();
+                $('#frmPermissions').submit();
             }
         }
 
-        function ViewStatusInformation(statusId) {
+        function ViewPermissionInformation(statusId) {
             var options = { "backdrop": "static", keyboard: true };
             $.ajax({
                 type: "GET",
-                url: "/Status/ViewStatus/" + statusId,
+                url: "/Role/ViewPermission/" + statusId,
                 dataType: "html",
                 success: function (evt) {
-                    $('#StatusModal').html(evt);
-                    $('#StatusModal').modal(options);
-                    $('#StatusModal').modal('show');
+                    $('#PermissionModal').html(evt);
+                    $('#PermissionModal').modal(options);
+                    $('#PermissionModal').modal('show');
                 },
                 error: function (req, status, error) {
                     alert(error);
@@ -128,8 +134,8 @@
             });
         }
 
-        function CreateStatus() {
-            location.href = "/Status/CreateStatus";
+        function CreatePermission() {
+            location.href = "/Role/CreatePermission";
         }
     </script>
 }

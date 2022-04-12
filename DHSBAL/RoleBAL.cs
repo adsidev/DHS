@@ -105,5 +105,62 @@ namespace DHSBAL
             }
             return roleResponse;
         }
+
+        public RoleResponse GetPermissions()
+        {
+            try
+            {
+                roleResponse = roleDALRepository.GetPermissions();
+            }
+            catch (Exception ex)
+            {
+                roleResponse.ErrorMessage = ex.Message;
+                roleResponse.Exception = ex;
+            }
+            return roleResponse;
+        }
+
+        public RoleResponse GetPermission(RoleRequest roleRequest)
+        {
+            try
+            {
+                roleResponse = roleDALRepository.GetPermission(roleRequest);
+            }
+            catch (Exception ex)
+            {
+                roleResponse.ErrorMessage = ex.Message;
+                roleResponse.Exception = ex;
+            }
+            return roleResponse;
+        }
+
+        public RoleResponse SavePermission(RoleRequest roleRequest)
+        {
+            try
+            {
+                roleResponse = roleDALRepository.SavePermission(roleRequest);
+            }
+            catch (Exception ex)
+            {
+                roleResponse.ErrorMessage = ex.Message;
+                roleResponse.Exception = ex;
+            }
+            return roleResponse;
+        }
+
+
+        public RoleResponse CheckPermission(RoleRequest roleRequest)
+        {
+            try
+            {
+                roleResponse = roleDALRepository.CheckPermission(roleRequest);
+            }
+            catch (Exception ex)
+            {
+                roleResponse.ErrorMessage = ex.Message;
+                roleResponse.Exception = ex;
+            }
+            return roleResponse;
+        }
     }
 }

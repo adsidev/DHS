@@ -12,5 +12,6 @@ namespace DHSEntities
         public int UserId { get; set; }
         public string PageName { get; set; }
         public RolePermissionEntity RolePermissionEntity { get; set; }
+        public PermissionEntity permissionEntity { get; set; }
     }
 }

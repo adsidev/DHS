@@ -19,12 +19,22 @@
         <div class="container-fluid">
             <!-- top tiles -->
             <div class="row ">
-                <div class="col-lg-12">
+                <div class="col-lg-11">
                     <div class="mrp_content">
                         <h2>View Federal Grant Template Categories</h2>
                         <form class="mrp_selectdetails form-inline">
                         </form>
                     </div>
+                </div>
+                <div class="col-lg-1">
+                    @if (Model.rolePermissionEntity.CreateBit)
+                    {
+                        <img src="~/images/Create.png" class="img-responsive" height="40" width="40" onclick="CreateCategory()" style="cursor:pointer;" alt="Create FGT Category Information" />
+                    }
+                    else
+                    {
+                        <img src="~/images/Create.png" style="cursor:pointer;" onclick="JavaScript:alert('You do not have permission to create fgt category. Please contact administrator.')" class="disableButton" height="40" width="40" alt="Create FGT Category Information" />
+                    }
                 </div>
             </div>
             <div class="row mrp_table-row">
@@ -205,6 +215,10 @@
         function OpenFGTCategoryDocuments(FGTCategoryId) {
             var url = "/FGTCategory/FGTCategoryDocuments/" + FGTCategoryId;
             location.href = url;
+        }
+
+        function CreateCategory() {
+            location.href = "/FGTCategory/CreateFGTCategory";
         }
     </script>
 }

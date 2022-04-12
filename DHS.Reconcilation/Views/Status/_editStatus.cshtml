@@ -1,13 +1,13 @@
 ﻿@model DHSEntities.StatusResponse
 @using DHS.Reconcilation.Models
 @{
-    ViewBag.Title = "Edit Statuss";
+    ViewBag.Title = "Edit Status";
 }
 @Html.HiddenFor(m => m.statusEntity.StatusId, htmlAttributes: new { @id = "StatusId" })
 <div class="modal-dialog" role="document">
     <div class="modal-content">
         <div class="modal-header">
-            <h5 class="modal-title" id="exampleModalLabel">Edit Fiscal Year Information</h5>
+            <h5 class="modal-title" id="exampleModalLabel">Edit Status Information</h5>
             <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                 <span aria-hidden="true">&times;</span>
             </button>
@@ -23,7 +23,7 @@
                             <div class="row">
                                 <div class="col-lg-2 col-xs-12 col-sm-3 col-md-3">
                                     <div class="form_modal">
-                                        <label>Fiscal&nbsp;Year</label>
+                                        <label>Status&nbsp;Name</label>
                                     </div>
                                 </div>
                                 <div class="col-lg-10 col-xs-12 col-sm-9 col-md-9">
@@ -62,7 +62,7 @@
                     dataType: 'json',
                     success: function (result) {
                         if (result.statusEntity.FiscaYearCount != 0) {
-                            alert("This Fiscal Year is already exists in the System. Please enter the other one.");
+                            alert("This status is already exists in the System. Please enter the other one.");
                             return false;
                         }
                         else {

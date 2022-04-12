@@ -10,5 +10,10 @@ namespace DHSBAL
         RoleResponse GetUserRollPermissions(RoleRequest roleRequest);
         RoleResponse PagePermissions(RoleRequest roleRequest);
         RoleResponse GetRoles();
+        RoleResponse GetPermissions();
+        RoleResponse GetPermission(RoleRequest statusRequest);
+        RoleResponse SavePermission(RoleRequest statusRequest);
+        RoleResponse CheckPermission(RoleRequest statusRequest);
     }
 }
+

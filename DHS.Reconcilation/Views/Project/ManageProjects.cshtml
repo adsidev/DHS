@@ -42,6 +42,18 @@
                                         }
                                     </div>
                                 </div>
+                                <div class="form-group col-lg-2 col-xs-12 col-sm-7">
+                                    <div class="form_modal">
+                                        @if (Model.rolePermissionEntity.CreateBit)
+                                        {
+                                            <img src="~/images/Create.png" class="img-responsive" height="40" width="40" onclick="CreateProject()" style="cursor:pointer;" alt="Create Project Information" />
+                                        }
+                                        else
+                                        {
+                                            <img src="~/images/Create.png" class="disableButton" height="40" width="40" alt="Create Project Information" />
+                                        }
+                                    </div>
+                                </div>
                             </div>
                         </form>
                     </div>
@@ -186,6 +198,10 @@
                     alert("Error!Occured");
                 }
             });
+        }
+
+        function CreateProject() {
+            location.href = "/Project/CreateProject";
         }
     </script>
 }

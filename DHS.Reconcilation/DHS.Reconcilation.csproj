@@ -249,6 +249,7 @@
     <Content Include="fonts\HelveticaNeueLTStd-Roman\stylesheet.css" />
     <Content Include="Global.asax" />
     <Content Include="images\audit-report.png" />
+    <Content Include="images\create.png" />
     <Content Include="images\Delete.png" />
     <Content Include="images\inner-arrow-icon.png" />
     <Content Include="images\invoice.png" />
@@ -500,6 +501,12 @@
     <Content Include="Views\Status\CreateStatus.cshtml" />
     <Content Include="Views\Status\ManageStatus.cshtml" />
     <Content Include="Views\Project\CreateProject.cshtml" />
+    <Content Include="Views\Role\ManagePermission.cshtml" />
+    <Content Include="Views\Role\_editPermission.cshtml" />
+    <Content Include="Views\Role\_viewPermission.cshtml" />
+    <Content Include="Views\Role\CreatePermission.cshtml" />
+    <Content Include="Views\User\_viewUser.cshtml" />
+    <Content Include="Views\User\_editUser.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

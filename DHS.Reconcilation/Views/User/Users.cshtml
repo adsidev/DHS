@@ -1,6 +1,6 @@
 ﻿@model DHSEntities.UserResponse
 @{
-    ViewBag.Title = "Users";
+    ViewBag.Title = "DHS Reconcilation Application :: Manage Users";
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 <script src="~/js/jquery.min.js"></script>
@@ -10,15 +10,24 @@
 
 }
 <form method="post" action="Users" name="frmUser" id="frmUser">
-    <input type="hidden" id="hdnUserId" name="hdnUserId" />
     <div class="tab-pane active" id="dashboard">
         <div class="container-fluid">
             <!-- top tiles -->
             <div class="row ">
-                <div class="col-lg-12">
+                <div class="col-lg-11">
                     <div class="mrp_content">
                         <h2>View Users</h2>
                     </div>
+                </div>
+                <div class="col-lg-1">
+                    @if (Model.rolePermissionEntity.CreateBit)
+                    {
+                        <img src="~/images/Create.png" class="img-responsive" height="40" width="40" onclick="CreateUser()" style="cursor:pointer;" alt="Create User Information" />
+                    }
+                    else
+                    {
+                        <img src="~/images/Create.png" class="disableButton" style="cursor:pointer;" onclick="JavaScript:alert('You do not have permission to create user. Please contact administrator.')" height="40" width="40" alt="Create User Information" />
+                    }
                 </div>
             </div>
             <div class="row mrp_table-row">
@@ -30,24 +39,32 @@
                                     <thead>
                                         <tr>
                                             <th>Action</th>
+                                            <th>First Name</th>
+                                            <th>Last Name</th>
                                             <th>User Name</th>
                                             <th>Email</th>
                                             <th>Role</th>
                                         </tr>
                                     </thead>
                                     <tbody>
-                                        @{foreach (var item in Model.LstUserEntity)
+                                        @{foreach (var item in Model.userEntities)
                                             {
                                                 <tr>
                                                     <td>
                                                         @if (Model.rolePermissionEntity.ViewBit)
                                                         {
-                                                            <img src="~/images/view-icon.png" class="img-responsive" onclick="OpenCreateUser('@item.UserId')" style="cursor:pointer;" />
+                                                            <img src="~/images/view-icon.png" class="img-responsive" onclick="OpenCreateUser('@item.UserId')" style="cursor:pointer;" title="View User Information" />
                                                         }
                                                         else
                                                         {
-                                                            <img src="~/images/view-icon.png" class="img-responsive disableButton" onclick="OpenDisableUser()" style="cursor:pointer;" />
+                                                    <img src="~/images/view-icon.png" class="img-responsive" onclick="OpenCreateUser('@item.UserId')" style="cursor:pointer;" title="View User Information" /><img src="~/images/view-icon.png" class="img-responsive disableButton" onclick="JavaScript:alert('You don not permission to view users. Please contact administrator.')" style="cursor:pointer;" title="View User Information" />
                                                         }
+                                                    </td>
+                                                    <td>
+                                                        @item.FirstName
+                                                    </td>
+                                                    <td>
+                                                        @item.LastName
                                                     </td>
                                                     <td>
                                                         @item.UserName
@@ -63,6 +80,9 @@
                                         }
                                     </tbody>
                                 </table>
+                                <!-- popup -->
+                                <div class="modal fade mrp_modalpopup" id="UserModal">
+                                </div>
                             </div>
                         </div>
                     </div>
@@ -70,15 +90,39 @@
                 </div>
             </div>
             <!-- /page content -->
+            <div id="container" class="mra_pagination">
+                <div class="pagination">
+
+                </div>
+            </div>
         </div>
     </div>
 </form>
 <script type="text/javascript">
+    
     function OpenCreateUser(userId) {
-        document.getElementById("hdnUserId").value = userId;
-        document.forms[0].submit();
+        var options = { "backdrop": "static", keyboard: true };
+        $.ajax({
+            type: "GET",
+            url: "/User/ViewUser/" + userId,
+            dataType: "html",
+            success: function (evt) {
+                $('#UserModal').html(evt);
+                $('#UserModal').modal(options);
+                $('#UserModal').modal('show');
+            },
+            error: function (req, status, error) {
+                alert(error);
+                alert("Error!Occured");
+            }
+        });
     }
+
     $(document).ready(function () {
-        $('#mra_subli24').addClass('active');
+        $('#mra_subliMU').addClass('active');
     });
+
+    function CreateUser() {
+        location.href = "/User/CreateUser";
+    }
 </script>

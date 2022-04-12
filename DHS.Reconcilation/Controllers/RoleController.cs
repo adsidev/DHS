@@ -16,10 +16,12 @@ namespace DHS.Reconcilation.Controllers
     {
         HttpClient client;
         readonly string strBaseURL;
+        RoleResponse roleResponse;
         //The URL of the WEB API Service
 
         public RoleController()
         {
+            roleResponse = new RoleResponse();
             strBaseURL = ConfigurationManager.AppSettings["BaseURL"];
             client = new HttpClient();
             client.DefaultRequestHeaders.Accept.Clear();
@@ -31,7 +33,6 @@ namespace DHS.Reconcilation.Controllers
         {
             if (!Common.SessionExists())
                 return RedirectToAction("Index", "Home");
-            RoleResponse roleResponse = new RoleResponse();
             HttpResponseMessage responseMessage = await GetRoles();
 
             if (responseMessage.IsSuccessStatusCode)
@@ -78,8 +79,6 @@ namespace DHS.Reconcilation.Controllers
         {
             if (!Common.SessionExists())
                 return RedirectToAction("Index", "Home");
-
-            RoleResponse roleResponse = new RoleResponse();
             RoleRequest roleRequest = new RoleRequest();
             if (TempData["ID"] != null)
                 roleRequest.RoleId = Convert.ToInt32(TempData["ID"]);
@@ -142,11 +141,11 @@ namespace DHS.Reconcilation.Controllers
                 roleResponse = JsonConvert.DeserializeObject<RoleResponse>(responseData);
                 if (roleResponse.Message == string.Empty && roleResponse.ErrorMessage == string.Empty)
                 {
-                    List<Roles> userAccountList = roleResponse.LstRoles;
+                    List<RoleEntity> roleEntities = roleResponse.roleEntities;
                     // check user name already present
                     if (Request.Form[0] == "0")
                     {
-                        var userWithSameName = from c in userAccountList where c.RoleName == Request.Form[1] select c;
+                        var userWithSameName = from c in roleEntities where c.RoleName == Request.Form[1] select c;
                         if (userWithSameName.Count() > 0)
                         {
                             TempData["FailureMesage"] = "Please enter another role name.";
@@ -155,7 +154,7 @@ namespace DHS.Reconcilation.Controllers
                     }
                     if (Request.Form[0] != "0")
                     {
-                        var userWithSameName = from c in userAccountList where c.RoleName == Request.Form[1] && c.RoleId != Convert.ToInt32(Request.Form[0]) select c;
+                        var userWithSameName = from c in roleEntities where c.RoleName == Request.Form[1] && c.RoleId != Convert.ToInt32(Request.Form[0]) select c;
                         if (userWithSameName.Count() > 0)
                         {
                             TempData["FailureMesage"] = "Please enter another role name.";
@@ -208,6 +207,152 @@ namespace DHS.Reconcilation.Controllers
                     string PageName = "Roles";
                     roleResponse.RolePermissionEntity = Common.PagePermissions(PageName);
                     return View(roleResponse);
+                }
+                else
+                {
+                    TempData["LoginFailure"] = roleResponse.Message;
+                    return RedirectToAction("Error", "Home");
+                }
+            }
+            else
+            {
+                TempData["LoginFailure"] = responseMessage.ToString();
+                return RedirectToAction("Error", "Home");
+            }
+        }
+
+        public async Task<ActionResult> ManagePermission()
+        {
+            if (!Common.SessionExists())
+                return RedirectToAction("Index", "Home");
+
+            string url = strBaseURL + "Permission/GetPermissions";
+            client.BaseAddress = new Uri(url);
+            HttpResponseMessage responseMessage = await client.GetAsync(url);
+
+            if (responseMessage.IsSuccessStatusCode)
+            {
+                var responseData = responseMessage.Content.ReadAsStringAsync().Result;
+                roleResponse = JsonConvert.DeserializeObject<RoleResponse>(responseData);
+                if (roleResponse.Message == string.Empty && roleResponse.ErrorMessage == string.Empty)
+                {
+                    string PageName = "Permission";
+                    roleResponse.RolePermissionEntity = Common.PagePermissions(PageName);
+                    return View(roleResponse);
+                }
+                else
+                {
+                    TempData["LoginFailure"] = roleResponse.Message;
+                    return RedirectToAction("Error", "Home");
+                }
+            }
+            else
+            {
+                TempData["LoginFailure"] = responseMessage.ToString();
+                return RedirectToAction("Error", "Home");
+            }
+        }
+
+        public async Task<ActionResult> CreatePermission(int? id = 0)
+        {
+            if (!Common.SessionExists())
+                return RedirectToAction("Index", "Home");
+
+            string url = strBaseURL + "Permission/GetPermission";
+            client.BaseAddress = new Uri(url);
+            RoleRequest statusRequest = new RoleRequest();
+            PermissionEntity permissionEntity = new PermissionEntity();
+            permissionEntity.PermissionId = Convert.ToInt32(id);
+            statusRequest.permissionEntity = permissionEntity;
+            HttpResponseMessage responseMessage = await client.PostAsJsonAsync(url, statusRequest);
+
+            if (responseMessage.IsSuccessStatusCode)
+            {
+                var responseData = responseMessage.Content.ReadAsStringAsync().Result;
+                roleResponse = JsonConvert.DeserializeObject<RoleResponse>(responseData);
+                if (roleResponse.Message == string.Empty && roleResponse.ErrorMessage == string.Empty)
+                {
+                    string PageName = "Permission";
+                    roleResponse.RolePermissionEntity = Common.PagePermissions(PageName);
+                    return View(roleResponse);
+                }
+                else
+                {
+                    TempData["LoginFailure"] = roleResponse.Message;
+                    return RedirectToAction("Error", "Home");
+                }
+            }
+            else
+            {
+                TempData["LoginFailure"] = responseMessage.ToString();
+                return RedirectToAction("Error", "Home");
+            }
+        }
+
+        public async Task<ActionResult> ViewPermission(long? id = 0)
+        {
+            if (!Common.SessionExists())
+                return RedirectToAction("Index", "Home");
+            if (id == 0)
+                return RedirectToAction("Index", "Home");
+            RoleRequest statusRequest = new RoleRequest();
+            PermissionEntity permissionEntity = new PermissionEntity();
+
+            permissionEntity.PermissionId = Convert.ToInt32(id);
+            statusRequest.permissionEntity = permissionEntity;
+            string url = strBaseURL + "Permission/GetPermission";
+            client.BaseAddress = new Uri(url);
+
+            HttpResponseMessage responseMessage = await client.PostAsJsonAsync(url, statusRequest);
+
+            if (responseMessage.IsSuccessStatusCode)
+            {
+                var responseData = responseMessage.Content.ReadAsStringAsync().Result;
+                roleResponse = JsonConvert.DeserializeObject<RoleResponse>(responseData);
+                if (roleResponse.Message == string.Empty && roleResponse.ErrorMessage == string.Empty)
+                {
+                    string PageName = "Permission";
+                    roleResponse.RolePermissionEntity = Common.PagePermissions(PageName);
+                    return PartialView("_viewPermission", roleResponse);
+                }
+                else
+                {
+                    TempData["LoginFailure"] = roleResponse.Message;
+                    return RedirectToAction("Error", "Home");
+                }
+            }
+            else
+            {
+                TempData["LoginFailure"] = responseMessage.ToString();
+                return RedirectToAction("Error", "Home");
+            }
+        }
+
+        public async Task<ActionResult> EditPermission(long? id = 0)
+        {
+            if (!Common.SessionExists())
+                return RedirectToAction("Index", "Home");
+            if (id == 0)
+                return RedirectToAction("Index", "Home");
+            RoleRequest statusRequest = new RoleRequest();
+            PermissionEntity permissionEntity = new PermissionEntity();
+
+            permissionEntity.PermissionId = Convert.ToInt32(id);
+            statusRequest.permissionEntity = permissionEntity;
+            string url = strBaseURL + "Permission/GetPermission";
+            client.BaseAddress = new Uri(url);
+
+            HttpResponseMessage responseMessage = await client.PostAsJsonAsync(url, statusRequest);
+
+            if (responseMessage.IsSuccessStatusCode)
+            {
+                var responseData = responseMessage.Content.ReadAsStringAsync().Result;
+                roleResponse = JsonConvert.DeserializeObject<RoleResponse>(responseData);
+                if (roleResponse.Message == string.Empty && roleResponse.ErrorMessage == string.Empty)
+                {
+                    string PageName = "Permission";
+                    roleResponse.RolePermissionEntity = Common.PagePermissions(PageName);
+                    return PartialView("_editPermission", roleResponse);
                 }
                 else
                 {

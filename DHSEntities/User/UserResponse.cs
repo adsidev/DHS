@@ -8,10 +8,10 @@ namespace DHSEntities
 {
     public class UserResponse : ErrorMessages
     {
-        public UserEntity UserEntity { get; set; }
+        public UserEntity userEntity { get; set; }
         public List<UserEntity> userEntities { get; set; }
         public RolePermissionEntity rolePermissionEntity { get; set; }
         public AdminAndReconciliation adminAndReconciliation { get; set; }
-        public List<Roles> LstRoles { get; set; }
+        public List<RoleEntity> roleEntities { get; set; }
     }
 }

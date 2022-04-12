@@ -11,9 +11,9 @@ namespace DHSDAL
         public class User
         {
             public const string USPVERIFYUSER = "sp_VerifyUser";
-            public const string USPSAVEUSERACCOUNT = "sp_SaveUserAccount";
-            public const string USPGETUSERACCOUNTS= "sp_GetUserAccounts";
-            public const string USPGETUSERACCOUNT= "sp_GetUserAccount";
+            public const string USPSAVEUSER = "sp_SaveUser";
+            public const string USPGETUSERS = "sp_GetUsers";
+            public const string USPGETUSER = "sp_GetUser";
             public const string USPGETASSIGNEDTO= "sp_GetAssignedTo";
         }
 
@@ -207,6 +207,14 @@ namespace DHSDAL
             public const string USPGETSTATUS = "sp_GetStatus";
             public const string USPSAVESTATUS = "sp_SaveStatus";
             public const string USPCHECKSTATUS = "sp_CheckStatus";
+        }
+
+        public class Permission
+        {
+            public const string USPGETPERMISSIONS = "sp_GetPermissions";
+            public const string USPGETPERMISSION = "sp_GetPermission";
+            public const string USPSAVEPERMISSION = "sp_SavePermission";
+            public const string USPCHECKPERMISSION = "sp_CheckPermission";
         }
     }
 }

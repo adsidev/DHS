@@ -1,0 +1,118 @@
+﻿@model DHSEntities.UserResponse
+@{
+    ViewBag.Title = "View Users";
+}
+
+<div class="modal-dialog" role="document">
+    <div class="modal-content">
+        <div class="modal-header">
+            <h5 class="modal-title" id="UserModalLabel">
+                View User Information
+            </h5>
+
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+            </button>
+            <span class="mrp_modaledit"> <strong><i class="fa fa-pencil" aria-hidden="true" onclick="EditUser('@Model.userEntity.UserId')" title="Edit User Information"></i></strong></span>
+        </div>
+        <div class="modal-body">
+            <div class="mrp_modalcontent">
+                <div class="row">
+
+                    <div class="col-lg-6">
+                        <div class="row">
+                            <div class="col-lg-3 col-xs-12 col-sm-3 col-md-3">
+                                <div class="form_modal">
+                                    <label>User&nbsp;Name</label>
+                                </div>
+                            </div>
+                            <div class="col-lg-9 col-xs-12 col-sm-9 col-md-9">
+                                <div class="form_modal">
+                                    @Html.TextBoxFor(m => m.userEntity.UserName, htmlAttributes: new { @class = "form-control mrp_modalselect", @disabled = "disabled" })
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="col-lg-6">
+                        <div class="row">
+                            <div class="col-lg-3 col-xs-12 col-sm-3 col-md-3">
+                                <div class="form_modal">
+                                    <label>First&nbsp;Name</label>
+                                </div>
+                            </div>
+                            <div class="col-lg-9 col-xs-12 col-sm-9 col-md-9">
+                                <div class="form_modal">
+                                    <input type="text" disabled="disabled" value="@Model.userEntity.FirstName" class="form-control mrp_modalselect" />
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="col-lg-6">
+                        <div class="row">
+                            <div class="col-lg-3 col-xs-12 col-sm-3 col-md-3">
+                                <div class="form_modal">
+                                    <label>Last&nbsp;Name</label>
+                                </div>
+                            </div>
+                            <div class="col-lg-9 col-xs-12 col-sm-9 col-md-9">
+                                <div class="form_modal">
+                                    @Html.TextBoxFor(m => m.userEntity.LastName, htmlAttributes: new { @class = "form-control mrp_modalselect", @disabled = "disabled" })
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="col-lg-6">
+                        <div class="row">
+                            <div class="col-lg-3 col-xs-12 col-sm-3 col-md-3">
+                                <div class="form_modal">
+                                    <label>Role&nbsp;Name </label>
+                                </div>
+                            </div>
+                            <div class="col-lg-9 col-xs-12 col-sm-9 col-md-9">
+                                <div class="form_modal">
+                                    @Html.TextBoxFor(m => m.userEntity.RoleName, htmlAttributes: new { @class = "form-control mrp_modalselect", @disabled = "disabled" })
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="col-lg-6">
+                        <div class="row">
+                            <div class="col-lg-3 col-xs-12 col-sm-3 col-md-3">
+                                <div class="form_modal">
+                                    <label>Email</label>
+                                </div>
+                            </div>
+                            <div class="col-lg-9 col-xs-12 col-sm-9 col-md-9">
+                                <div class="form_modal">
+                                    @Html.TextBoxFor(m => m.userEntity.Email, htmlAttributes: new { @class = "form-control mrp_modalselect", @disabled = "disabled" })
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<script language="JavaScript">
+    function EditUser(userId) {
+        var options = { "backdrop": "static", keyboard: true };
+        $.ajax({
+            type: "GET",
+            url: "/User/EditUser/" + userId,
+            dataType: "html",
+            success: function (evt) {
+                $('#UserModal').html(evt);
+                $('#UserModal').modal(options);
+                $('#UserModal').modal('show');
+            },
+            error: function (req, status, error) {
+                alert("Error!Occured");
+            }
+        });
+    }
+</script>

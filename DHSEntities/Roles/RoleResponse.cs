@@ -10,7 +10,9 @@ namespace DHSEntities
     {
         public RolePermissionEntity RolePermissionEntity { get; set; }
         public List<RolePermissionEntity> LstRolePermissionEntities { get; set; }
-        public Roles roles { get; set; }
-        public List<Roles> LstRoles { get; set; }
+        public RoleEntity roleEntity { get; set; }
+        public List<RoleEntity> roleEntities { get; set; }
+        public List<PermissionEntity> permissionEntities { get; set; }
+        public PermissionEntity permissionEntity { get; set; }
     }
 }

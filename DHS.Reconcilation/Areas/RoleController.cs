@@ -112,5 +112,69 @@ namespace DHS.Reconcilation.Areas
             }
             return roleResponse;
         }
+
+        [HttpPost]
+        [Route("SavePermission")]
+        public RoleResponse SavePermission(RoleRequest roleRequest)
+        {
+            try
+            {
+                roleResponse = roleRepository.SavePermission(roleRequest);
+            }
+            catch (Exception ex)
+            {
+                roleResponse.ErrorMessage = ex.Message;
+                roleResponse.Exception = ex;
+            }
+            return roleResponse;
+        }
+
+        [HttpGet]
+        [Route("GetPermissions")]
+        public RoleResponse GetPermissions()
+        {
+            try
+            {
+                roleResponse = roleRepository.GetPermissions();
+            }
+            catch (Exception ex)
+            {
+                roleResponse.ErrorMessage = ex.Message;
+                roleResponse.Exception = ex;
+            }
+            return roleResponse;
+        }
+
+        [HttpPost]
+        [Route("GetPermission")]
+        public RoleResponse GetPermission(RoleRequest roleRequest)
+        {
+            try
+            {
+                roleResponse = roleRepository.GetPermission(roleRequest);
+            }
+            catch (Exception ex)
+            {
+                roleResponse.ErrorMessage = ex.Message;
+                roleResponse.Exception = ex;
+            }
+            return roleResponse;
+        }
+
+        [HttpPost]
+        [Route("CheckPermission")]
+        public RoleResponse CheckPermission(RoleRequest roleRequest)
+        {
+            try
+            {
+                roleResponse = roleRepository.CheckPermission(roleRequest);
+            }
+            catch (Exception ex)
+            {
+                roleResponse.ErrorMessage = ex.Message;
+                roleResponse.Exception = ex;
+            }
+            return roleResponse;
+        }
     }
 }

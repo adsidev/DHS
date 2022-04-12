@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace DHSEntities
 {
-    public class Roles : Audit
+    public class RoleEntity : Audit
     {
         public int RoleId { get; set; }
         public string RoleName { get; set; }

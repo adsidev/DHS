@@ -2,7 +2,7 @@
 @using DHS.Reconcilation.Models
 
 @{
-    ViewBag.Title = "DHS Reconcilation Application :: Create Fiscal Years";
+    ViewBag.Title = "DHS Reconcilation Application :: Create Status";
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 <script src="~/Scripts/jquery-1.10.2.min.js"></script>
@@ -19,7 +19,7 @@
         <div class="container-fluid">
             <!-- top tiles -->
             <div class="mrp_content">
-                <h2>Create Fiscal Year Information</h2>
+                <h2>Create Status Information</h2>
 
                 <div class="row mra_createcost_report_payment">
                     <div class="col-lg-6">
@@ -27,7 +27,7 @@
                         <div class="row">
                             <div class="col-lg-4 col-xs-12 col-sm-4 col-md-4">
                                 <div class="form_modal">
-                                    <label>Status</label>
+                                    <label>Status Name</label>
                                 </div>
                             </div>
                             <div class="col-lg-8 col-xs-12 col-sm-8 col-md-8">
@@ -73,7 +73,7 @@
                     dataType: 'json',
                     success: function (result) {
                         if (result.statusEntity.FiscaYearCount != 0) {
-                            alert("This Fiscal Year is already exists in the System. Please enter the other one.");
+                            alert("This status is already exists in the System. Please enter the other one.");
                             return false;
                         }
                         else {

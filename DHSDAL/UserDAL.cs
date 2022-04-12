@@ -44,7 +44,7 @@ namespace DHSDAL
                         RoleId = Convert.ToInt32(userDataRow["RoleID"].ToString()),
                         RoleName = userDataRow["RoleName"].ToString()
                     };
-                    userResponse.UserEntity = users;
+                    userResponse.userEntity = users;
                     userResponse.Message = string.Empty;
                     userResponse.ErrorMessage = string.Empty;
                 }
@@ -66,13 +66,16 @@ namespace DHSDAL
             try
             {
                 SqlObject.Parameters = new object[] {
-                userRequest.UserId,
+                userRequest.UserEntity.UserId,
                 userRequest.UserEntity.UserName,
+                userRequest.UserEntity.FirstName,
+                userRequest.UserEntity.LastName,
                 userRequest.UserEntity.Password,
                 userRequest.UserEntity.Email,
                 userRequest.UserEntity.RoleId,
+                userRequest.UserEntity.ModifiedBy,
                 };
-                var intResult = SqlHelper.ExecuteScalar(_connectionString, StoredProcedures.User.USPSAVEUSERACCOUNT, SqlObject.Parameters);
+                var intResult = SqlHelper.ExecuteScalar(_connectionString, StoredProcedures.User.USPSAVEUSER, SqlObject.Parameters);
                 userResponse.Message = string.Empty;
                 userResponse.ErrorMessage = string.Empty;
             }
@@ -88,28 +91,30 @@ namespace DHSDAL
         {
             try
             {
-                UserEntity users = new UserEntity();
-                if (userRequest.UserId>0)
+                UserEntity userEntity = new UserEntity();
+                if (userRequest.UserEntity.UserId > 0)
                 {
-                    SqlObject.Parameters = new object[] { userRequest.UserId };
-                    var userDataSet = SqlHelper.ExecuteDataset(_connectionString, StoredProcedures.User.USPGETUSERACCOUNT, SqlObject.Parameters);
+                    SqlObject.Parameters = new object[] { userRequest.UserEntity.UserId };
+                    var userDataSet = SqlHelper.ExecuteDataset(_connectionString, StoredProcedures.User.USPGETUSER, SqlObject.Parameters);
                     DataRow userDataRow = userDataSet.Tables[0].Rows[0];
-                    users.UserId = Convert.ToInt32(userDataRow["UserID"].ToString());
-                    users.UserName = userDataRow["UserName"].ToString();
-                    users.Email = userDataRow["Email"].ToString();
-                    users.RoleId = Convert.ToInt32(userDataRow["RoleID"].ToString());
-                    users.RoleName = userDataRow["RoleName"].ToString();
-                    users.Password = userDataRow["Password"].ToString();
+                    userEntity.UserId = Convert.ToInt32(userDataRow["UserID"].ToString());
+                    userEntity.UserName = userDataRow["UserName"].ToString();
+                    userEntity.FirstName = userDataRow["FirstName"].ToString();
+                    userEntity.LastName = userDataRow["LastName"].ToString();
+                    userEntity.Email = userDataRow["Email"].ToString();
+                    userEntity.RoleId = Convert.ToInt32(userDataRow["RoleID"].ToString());
+                    userEntity.RoleName = userDataRow["RoleName"].ToString();
+                    userEntity.Password = userDataRow["UserPassword"].ToString();
                 }
                 
-                userResponse.UserEntity = users;
+                userResponse.userEntity = userEntity;
                 userResponse.Message = string.Empty;
                 userResponse.ErrorMessage = string.Empty;
 
                 RoleDAL roleDAL = new RoleDAL();
                 RoleResponse roleResponse = new RoleResponse();
                 roleResponse = roleDAL.GetRoles();
-                userResponse.LstRoles = roleResponse.LstRoles;
+                userResponse.roleEntities = roleResponse.roleEntities;
             }
             catch (Exception exception)
             {
@@ -121,36 +126,38 @@ namespace DHSDAL
 
         public UserResponse GetUsers()
         {
-            var lstUserEntities = new List<UserEntity>();
-            var userDataSet = SqlHelper.ExecuteDataset(_connectionString, StoredProcedures.User.USPGETUSERACCOUNTS);
+            List<UserEntity> userEntities = new List<UserEntity>();
+            var userDataSet = SqlHelper.ExecuteDataset(_connectionString, StoredProcedures.User.USPGETUSERS);
             foreach (DataRow userDataRow in userDataSet.Tables[0].Rows)
             {
-                UserEntity users = new UserEntity();
+                UserEntity userEntity = new UserEntity();
                 try
                 {
-                    users.UserId = Convert.ToInt32(userDataRow["UserID"].ToString());
-                    users.UserName = userDataRow["UserName"].ToString();
-                    users.Email = userDataRow["Email"].ToString();
-                    users.RoleId = Convert.ToInt32(userDataRow["RoleID"].ToString());
-                    users.RoleName = userDataRow["RoleName"].ToString();
-                    users.Password = userDataRow["Password"].ToString();
+                    userEntity.UserId = Convert.ToInt32(userDataRow["UserID"].ToString());
+                    userEntity.UserName = userDataRow["UserName"].ToString();
+                    userEntity.FirstName = userDataRow["FirstName"].ToString();
+                    userEntity.LastName = userDataRow["LastName"].ToString();
+                    userEntity.Email = userDataRow["Email"].ToString();
+                    userEntity.RoleId = Convert.ToInt32(userDataRow["RoleID"].ToString());
+                    userEntity.RoleName = userDataRow["RoleName"].ToString();
+                    userEntity.Password = userDataRow["Password"].ToString();
                 }
                 catch (Exception exception)
                 {
-                    users.ErrorMessage = exception.Message;
-                    users.Exception = exception;
+                    userEntity.ErrorMessage = exception.Message;
+                    userEntity.Exception = exception;
                 }
                 finally
                 {
-                    lstUserEntities.Add(users);
+                    userEntities.Add(userEntity);
                 }
             }
-            if (lstUserEntities.Count > 1)
+            if (userEntities.Count > 1)
             {
                 userResponse.Message = string.Empty;
                 userResponse.ErrorMessage = string.Empty;
             }
-            userResponse.userEntities = lstUserEntities;
+            userResponse.userEntities = userEntities;
             return userResponse;
         }
 

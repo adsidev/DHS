@@ -16,13 +16,14 @@ namespace DHS.Reconcilation.Controllers
         HttpClient client;
         readonly string strBaseURL;
         //The URL of the WEB API Service
-
+        UserResponse userResponse;
         public UserController()
         {
             strBaseURL = ConfigurationManager.AppSettings["BaseURL"];
             client = new HttpClient();
             client.DefaultRequestHeaders.Accept.Clear();
             client.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
+            userResponse = new UserResponse();
         }
 
         // GET: User
@@ -31,7 +32,6 @@ namespace DHS.Reconcilation.Controllers
             if (!Common.SessionExists())
                 return RedirectToAction("Index", "Home");
 
-            UserResponse userResponse = new UserResponse();
             string url = strBaseURL + "User/GetUsers";
             client.BaseAddress = new Uri(url);
             HttpResponseMessage responseMessage = await client.GetAsync(url);
@@ -59,24 +59,17 @@ namespace DHS.Reconcilation.Controllers
             }
         }
 
-        [HttpPost]
-        public ActionResult Users(UserResponse userResponse)
-        {
-            TempData["ID"] = Request["hdnUserId"];
-            Common.RemoveSession("UserId");
-            return RedirectToAction("CreateUser");
-        }
-
         public async Task<ActionResult> CreateUser()
         {
             if (!Common.SessionExists())
                 return RedirectToAction("Index", "Home");
 
-            UserResponse userResponse = new UserResponse();
             string url = strBaseURL + "User/GetUser";
             client.BaseAddress = new Uri(url);
             UserRequest userRequest = new UserRequest();
-            userRequest.UserId= Convert.ToInt32(TempData["ID"]);
+            UserEntity userEntity = new UserEntity();
+            userEntity.UserId= Convert.ToInt32(0);
+            userRequest.UserEntity = userEntity;
             HttpResponseMessage responseMessage = await client.PostAsJsonAsync(url, userRequest);
 
             if (responseMessage.IsSuccessStatusCode)
@@ -111,8 +104,8 @@ namespace DHS.Reconcilation.Controllers
             string url = strBaseURL + "User/SaveUser";
             client.BaseAddress = new Uri(url);
             UserRequest userRequest = new UserRequest();
-            userRequest.UserId = Convert.ToInt32(Request["hdnUserId"]);
             UserEntity userEntity = new UserEntity();
+            userEntity.UserId = Convert.ToInt32(Request["hdnUserId"]);
             userEntity.UserName = Request["UserName"];
             userEntity.Password = EncodePasswordToBase64(Request["Password"]);
             userEntity.Email = Request["Email"];
@@ -164,5 +157,103 @@ namespace DHS.Reconcilation.Controllers
             }
             return encodedData;
         } //this function Convert to Decord your Password
+
+        private string DecodeFrom64(string encodedData)
+        {
+            string result = string.Empty;
+            if (encodedData != "")
+            {
+                System.Text.UTF8Encoding encoder = new System.Text.UTF8Encoding();
+                System.Text.Decoder utf8Decode = encoder.GetDecoder();
+                byte[] todecode_byte = Convert.FromBase64String(encodedData);
+                int charCount = utf8Decode.GetCharCount(todecode_byte, 0, todecode_byte.Length);
+                char[] decoded_char = new char[charCount];
+                utf8Decode.GetChars(todecode_byte, 0, todecode_byte.Length, decoded_char, 0);
+                result = new String(decoded_char);
+            }
+            return result;
+
+        }
+
+
+        public async Task<ActionResult> ViewUser(long? id = 0)
+        {
+            if (!Common.SessionExists())
+                return RedirectToAction("Index", "Home");
+            if (id == 0)
+                return RedirectToAction("Index", "Home");
+            UserRequest userRequest = new UserRequest();
+            UserEntity userEntity = new UserEntity();
+
+            userEntity.UserId = Convert.ToInt32(id);
+            userRequest.UserEntity = userEntity;
+            string url = strBaseURL + "User/GetUser";
+            client.BaseAddress = new Uri(url);
+
+            HttpResponseMessage responseMessage = await client.PostAsJsonAsync(url, userRequest);
+
+            if (responseMessage.IsSuccessStatusCode)
+            {
+                var responseData = responseMessage.Content.ReadAsStringAsync().Result;
+                userResponse = JsonConvert.DeserializeObject<UserResponse>(responseData);
+                if (userResponse.Message == string.Empty && userResponse.ErrorMessage == string.Empty)
+                {
+                    string PageName = "User";
+                    userResponse.rolePermissionEntity = Common.PagePermissions(PageName);
+
+                    return PartialView("_viewUser", userResponse);
+                }
+                else
+                {
+                    TempData["LoginFailure"] = userResponse.Message;
+                    return RedirectToAction("Error", "Home");
+                }
+            }
+            else
+            {
+                TempData["LoginFailure"] = responseMessage.ToString();
+                return RedirectToAction("Error", "Home");
+            }
+        }
+
+        public async Task<ActionResult> EditUser(long? id = 0)
+        {
+            if (!Common.SessionExists())
+                return RedirectToAction("Index", "Home");
+            if (id == 0)
+                return RedirectToAction("Index", "Home");
+            UserRequest userRequest = new UserRequest();
+            UserEntity userEntity = new UserEntity();
+
+            userEntity.UserId = Convert.ToInt32(id);
+            userRequest.UserEntity = userEntity;
+            string url = strBaseURL + "User/GetUser";
+            client.BaseAddress = new Uri(url);
+
+            HttpResponseMessage responseMessage = await client.PostAsJsonAsync(url, userRequest);
+
+            if (responseMessage.IsSuccessStatusCode)
+            {
+                var responseData = responseMessage.Content.ReadAsStringAsync().Result;
+                userResponse = JsonConvert.DeserializeObject<UserResponse>(responseData);
+                if (userResponse.Message == string.Empty && userResponse.ErrorMessage == string.Empty)
+                {
+                    string PageName = "User";
+                    userResponse.rolePermissionEntity = Common.PagePermissions(PageName);
+                    userResponse.userEntity.Password = DecodeFrom64(userResponse.userEntity.Password);
+                    return PartialView("_editUser", userResponse);
+                }
+                else
+                {
+                    TempData["LoginFailure"] = userResponse.Message;
+                    return RedirectToAction("Error", "Home");
+                }
+            }
+            else
+            {
+                TempData["LoginFailure"] = responseMessage.ToString();
+                return RedirectToAction("Error", "Home");
+            }
+        }
     }
 }

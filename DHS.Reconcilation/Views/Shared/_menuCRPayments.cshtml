@@ -13,7 +13,7 @@
                     <a href="#">EXPENSES</a>
                     <ul>
                         <li id="mra_subli1">@Html.ActionLink("Expenses", "ManageExpenses", "Expense")</li>
-                        <li id="mra_subliMET">@Html.ActionLink("Expense Transactions", "ManageExpenseTransactions", "Expense")</li>
+                        <li id="mra_subliMET">@Html.ActionLink("Expense Trans", "ManageExpenseTransactions", "Expense")</li>
                         <li id="mra_subliEEC">@Html.ActionLink("Exp-Exp Trans Compare", "ManageExpExpCompare", "Expense")</li>
                     </ul>
                 </li>
@@ -24,7 +24,7 @@
                     <a href="#">REVENUES</a>
                     <ul>
                         <li id="mra_subli3">@Html.ActionLink("Revenues", "ManageRevenues", "Revenue")</li>
-                        <li id="mra_subliMRT">@Html.ActionLink("Revenue Transactions", "ManageRevenueTransactions", "Revenue")</li>
+                        <li id="mra_subliMRT">@Html.ActionLink("Revenue Trans", "ManageRevenueTransactions", "Revenue")</li>
                         <li id="mra_subliMR">@Html.ActionLink("Manage Receivables", "ManageReceivables", "Revenue")</li>
                     </ul>
                 </li>
@@ -37,18 +37,6 @@
                     <a href="#">DRAWS</a>
                     <ul>
                         <li id="mra_subli5">@Html.ActionLink("Draws", "ManageDraws", "Draw")</li>
-                        <li id="mra_subli6">@Html.ActionLink("Create Draw", "CreateDraw", "Draw")</li>
-                    </ul>
-                </li>
-            }
-            @if (Common.AdminPageHasPermission("Project"))
-            {
-                <li>
-                    <a href="#">PROJECT</a>
-                    <ul>
-                        <li id="mra_subliPR">@Html.ActionLink("Manage Projects", "ManageProjects", "Project")</li>
-                        <li id="mra_subliPRC">@Html.ActionLink("Create Project", "CreateProject", "Project")</li>
-                        <li id="mra_subliPRS">@Html.ActionLink("Project Summary", "ManageProjectSummary", "Project")</li>
                     </ul>
                 </li>
             }
@@ -62,40 +50,47 @@
                     </ul>
                 </li>
             }
+            @if (Common.AdminPageHasPermission("Project"))
+            {
+                <li>
+                    <a href="#">PROJECT</a>
+                    <ul>
+                        <li id="mra_subliPR">@Html.ActionLink("Manage Projects", "ManageProjects", "Project")</li>
+                        <li id="mra_subliPRS">@Html.ActionLink("Project Summary", "ManageProjectSummary", "Project")</li>
+                    </ul>
+                </li>
+            }
             @if (Common.AdminPageHasPermission("Payroll"))
             {
                 <li>
                     <a href="#">Payroll</a>
                     <ul>
-                        <li id="mra_subliMPA">@Html.ActionLink("View Payroll Project", "ManagePayrollProject", "Payroll")</li>
-                        <li id="mra_subliCPA">@Html.ActionLink("Create Payroll Project", "CreatePayrollProject", "Payroll")</li>
+                        <li id="mra_subliMPA">@Html.ActionLink("View Payroll", "ManagePayrollProject", "Payroll")</li>
                     </ul>
                 </li>
             }
-            @if (Common.PageHasPermission("FGTCategories"))
+            @if (Common.AdminPageHasPermission("FGTCategories"))
             {
                 <li>
                     <a href="#">CATEGORIES</a>
                     <ul>
                         <li id="mra_subli8">@Html.ActionLink("FGT Categories", "ManageFGTCategories", "FGTCategory")</li>
-                        <li id="mra_subli9">@Html.ActionLink("Create FGT Category", "CreateFGTCategory", "FGTCategory")</li>
                     </ul>
                 </li>
             }
-            @if (Common.PageHasPermission("Journals"))
+            @if (Common.AdminPageHasPermission("Journals"))
             {
 
                 <li>
                     <a href="#">JOURNALS</a>
                     <ul>
                         <li id="mra_subli7">@Html.ActionLink("Journals", "ManageJournals", "Journal")</li>
-                        @*<li id="mra_subli8">@Html.ActionLink("Create Journal", "CreateJournal", "Journal")</li>*@
                     </ul>
                 </li>
             }
 
 
-            @if (Common.PageHasPermission("Import"))
+            @if (Common.AdminPageHasPermission("Import"))
             {
                 <li>
                     <a href="#">IMPORT</a>
@@ -113,7 +108,6 @@
                     <a href="#">REVENUE TYPES</a>
                     <ul>
                         <li id="mra_subliRT">@Html.ActionLink("Revenue Types", "ManageRevenueTypes", "RevenueType")</li>
-                        <li id="mra_subliRTC">@Html.ActionLink("Create Revenue Type", "CreateRevenueType", "RevenueType")</li>
                     </ul>
                 </li>
             }
@@ -124,7 +118,6 @@
                     <a href="#">VENDORS</a>
                     <ul>
                         <li id="mra_subliVen">@Html.ActionLink("Vendor List", "ManageVendors", "Vendor")</li>
-                        <li id="mra_subliVenC">@Html.ActionLink("Create Vendor", "CreateVendor", "Vendor")</li>
                     </ul>
                 </li>
             }
@@ -135,7 +128,6 @@
                     <a href="#">FISCAL YEAR</a>
                     <ul>
                         <li id="mra_subliFY">@Html.ActionLink("Fiscal Years", "ManageFiscalYears", "FiscalYear")</li>
-                        <li id="mra_subliFYC">@Html.ActionLink("Create Fiscal Year", "CreateFiscalYear", "FiscalYear")</li>
                     </ul>
                 </li>
             }
@@ -146,7 +138,25 @@
                     <a href="#">STATUS</a>
                     <ul>
                         <li id="mra_subliS">@Html.ActionLink("Statuses", "ManageStatus", "Status")</li>
-                        <li id="mra_subliSC">@Html.ActionLink("Create Status", "CreateStatus", "Status")</li>
+                    </ul>
+                </li>
+            }
+
+            @if (Common.AdminPageHasPermission("Permission"))
+            {
+                <li>
+                    <a href="#">PERMISSION</a>
+                    <ul>
+                        <li id="mra_subliP">@Html.ActionLink("Permissions", "ManagePermission", "Role")</li>
+                    </ul>
+                </li>
+            }
+            @if (Common.AdminPageHasPermission("Users"))
+            {
+                <li>
+                    <a href="#">USER</a>
+                    <ul>
+                        <li id="mra_subliMU">@Html.ActionLink("Manage User", "ManageUser", "User")</li>
                     </ul>
                 </li>
             }

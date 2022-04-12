@@ -19,13 +19,22 @@
         <div class="container-fluid">
             <!-- top tiles -->
             <div class="row ">
-                <div class="col-lg-12">
+                <div class="col-lg-11">
                     <div class="mrp_content">
                         <h2>View RevenueTypes</h2>
                         <form class="mrp_selectdetails form-inline">
-                           
                         </form>
                     </div>
+                </div>
+                <div class="col-lg-1">
+                    @if (Model.rolePermissionEntity.CreateBit)
+                    {
+                        <img src="~/images/Create.png" class="img-responsive" height="40" width="40" onclick="CreateRevenueType()" style="cursor:pointer;" alt="Create Revenue Type Information" />
+                    }
+                    else
+                    {
+                        <img src="~/images/Create.png" style="cursor:pointer;" onclick="JavaScript:alert('You do not have permission to create revenue type. Please contact administrator.')" class="disableButton" height="40" width="40" alt="Create Revenue Type Information" />
+                    }
                 </div>
             </div>
             <div class="row mrp_table-row">
@@ -194,6 +203,10 @@
             document.getElementById("hdnRevenueTypeId").value = InvoiceId;
             document.forms[0].action = "CreateInvoicePayment";
             document.forms[0].submit();
+        }
+
+        function CreateRevenueType() {
+            location.href = "/RevenueType/CreateRevenueType";
         }
     </script>
 }

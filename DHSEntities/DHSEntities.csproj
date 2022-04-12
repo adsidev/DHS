@@ -96,7 +96,8 @@
     <Compile Include="PaymentType.cs" />
     <Compile Include="Common\PeriodEntity.cs" />
     <Compile Include="Project\ProjectEntity.cs" />
-    <Compile Include="Roles\Roles.cs" />
+    <Compile Include="Roles\PermissionEntity.cs" />
+    <Compile Include="Roles\RoleEntity.cs" />
     <Compile Include="Roles\RolePermissionEntity.cs" />
     <Compile Include="Roles\RoleRequest.cs" />
     <Compile Include="Roles\RoleResponse.cs" />

@@ -17,12 +17,21 @@
         <div class="container-fluid">
             <!-- top tiles -->
             <div class="row ">
-                <div class="col-lg-12">
+                <div class="col-lg-11">
                     <div class="mrp_content">
                         <h2>View Fiscal Years</h2>
                         <form class="mrp_selectdetails form-inline">
-                            
                         </form>
+                    </div>
+                    <div class="col-lg-1">
+                        @if (Model.rolePermissionEntity.CreateBit)
+                        {
+                            <img src="~/images/Create.png" class="img-responsive" height="40" width="40" onclick="CreateFiscalYear()" style="cursor:pointer;" alt="Create Fiscal Year Information" />
+                        }
+                        else
+                        {
+                            <img src="~/images/Create.png" style="cursor:pointer;" onclick="JavaScript:alert('You do not have permission to create fiscal year. Please contact administrator.')" class="disableButton" height="40" width="40" alt="Create Fiscal Year Information" />
+                        }
                     </div>
                 </div>
             </div>
@@ -117,6 +126,10 @@
                     alert("Error!Occured");
                 }
             });
+        }
+
+        function CreateFiscalYear() {
+            location.href = "/FiscalYear/CreateFiscalYear";
         }
     </script>
 }

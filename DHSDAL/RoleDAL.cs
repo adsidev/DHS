@@ -199,33 +199,131 @@ namespace DHSDAL
 
         public RoleResponse GetRoles()
         {
-            var lstRoles = new List<Roles>();
+            List<RoleEntity> roleEntities = new List<RoleEntity>();
             var roleDataSet = SqlHelper.ExecuteDataset(_connectionString, StoredProcedures.Role.USPGETROLES);
             foreach (DataRow roleDataRow in roleDataSet.Tables[0].Rows)
             {
-                Roles roles = new Roles();
+                RoleEntity roleEntity = new RoleEntity();
                 try
                 {
-                    roles.RoleId = Convert.ToInt32(roleDataRow["RoleId"].ToString());
-                    roles.RoleName = roleDataRow["RoleName"].ToString();
-                    roles.RoleDescription = roleDataRow["Description"].ToString();
+                    roleEntity.RoleId = Convert.ToInt32(roleDataRow["RoleId"].ToString());
+                    roleEntity.RoleName = roleDataRow["RoleName"].ToString();
+                    roleEntity.RoleDescription = roleDataRow["Description"].ToString();
                 }
                 catch (Exception exception)
                 {
-                    roles.ErrorMessage = exception.Message;
-                    roles.Exception = exception;
+                    roleEntity.ErrorMessage = exception.Message;
+                    roleEntity.Exception = exception;
                 }
                 finally
                 {
-                    lstRoles.Add(roles);
+                    roleEntities.Add(roleEntity);
                 }
             }
-            if (lstRoles.Count > 1)
+            if (roleEntities.Count > 1)
             {
                 roleResponse.Message = string.Empty;
                 roleResponse.ErrorMessage = string.Empty;
             }
-            roleResponse.LstRoles = lstRoles;
+            roleResponse.roleEntities = roleEntities;
+            return roleResponse;
+        }
+
+        public RoleResponse GetPermissions()
+        {
+            var periodDataSet = SqlHelper.ExecuteDataset(_connectionString, StoredProcedures.Permission.USPGETPERMISSIONS);
+            List<PermissionEntity> statusEntities = new List<PermissionEntity>();
+            foreach (DataRow expenseDataRow in periodDataSet.Tables[0].Rows)
+            {
+                PermissionEntity permissionEntity = new PermissionEntity();
+                try
+                {
+                    permissionEntity.PermissionId = Convert.ToInt32(expenseDataRow["PermissionId"]);
+                    permissionEntity.PermissionName = expenseDataRow["PermissionName"].ToString();
+                    permissionEntity.PermissionDescription = expenseDataRow["PermissionDescription"].ToString();
+                }
+                catch (Exception exception)
+                {
+                    roleResponse.ErrorMessage = exception.Message;
+                    roleResponse.Exception = exception;
+                }
+                finally
+                {
+                    statusEntities.Add(permissionEntity);
+                }
+            }
+            roleResponse.permissionEntities = statusEntities;
+            return roleResponse;
+        }
+
+        public RoleResponse GetPermission(RoleRequest statusRequest)
+        {
+            SqlObject.Parameters = new object[] {
+                   statusRequest.permissionEntity.PermissionId
+                };
+            var periodDataSet = SqlHelper.ExecuteDataset(_connectionString, StoredProcedures.Permission.USPGETPERMISSION, SqlObject.Parameters);
+            PermissionEntity permissionEntity = new PermissionEntity();
+            foreach (DataRow expenseDataRow in periodDataSet.Tables[0].Rows)
+            {
+                try
+                {
+                    permissionEntity.PermissionId = Convert.ToInt32(expenseDataRow["PermissionId"]);
+                    permissionEntity.PermissionName = expenseDataRow["PermissionName"].ToString();
+                    permissionEntity.PermissionDescription = expenseDataRow["PermissionDescription"].ToString();
+                }
+                catch (Exception exception)
+                {
+                    roleResponse.ErrorMessage = exception.Message;
+                    roleResponse.Exception = exception;
+                }
+                finally
+                {
+
+                }
+            }
+            roleResponse.permissionEntity = permissionEntity;
+            return roleResponse;
+        }
+
+        public RoleResponse SavePermission(RoleRequest statusRequest)
+        {
+            try
+            {
+                SqlObject.Parameters = new object[] {
+                statusRequest.permissionEntity.PermissionId,
+                statusRequest.permissionEntity.PermissionName,
+                statusRequest.permissionEntity.PermissionDescription,
+                statusRequest.permissionEntity.ModifiedBy,
+                };
+                var intResult = SqlHelper.ExecuteScalar(_connectionString, StoredProcedures.Permission.USPSAVEPERMISSION, SqlObject.Parameters);
+                roleResponse.Message = string.Empty;
+                roleResponse.ErrorMessage = string.Empty;
+            }
+            catch (Exception ex)
+            {
+                roleResponse.ErrorMessage = ex.Message;
+                roleResponse.Exception = ex;
+            }
+            return roleResponse;
+        }
+
+        public RoleResponse CheckPermission(RoleRequest statusRequest)
+        {
+            try
+            {
+                SqlObject.Parameters = new object[] {
+                statusRequest.permissionEntity.PermissionId,
+                statusRequest.permissionEntity.PermissionName
+                };
+                var intResult = SqlHelper.ExecuteScalar(_connectionString, StoredProcedures.Permission.USPCHECKPERMISSION, SqlObject.Parameters);
+                roleResponse.Message = string.Empty;
+                roleResponse.ErrorMessage = string.Empty;
+            }
+            catch (Exception ex)
+            {
+                roleResponse.ErrorMessage = ex.Message;
+                roleResponse.Exception = ex;
+            }
             return roleResponse;
         }
     }

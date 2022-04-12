@@ -1,0 +1,132 @@
+﻿@model DHSEntities.RoleResponse
+@using DHS.Reconcilation.Models
+
+@{
+    ViewBag.Title = "DHS Reconcilation Application :: Create Permission";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+<script src="~/Scripts/jquery-1.10.2.min.js"></script>
+@section LeftMenuSection
+{
+    @Html.Partial("_menuCRPayments");
+}
+
+@using (Html.BeginForm("CreatePermission", "Permission", FormMethod.Post, new { @id = "frmPermission" }))
+{
+
+    <title>@ViewBag.Title</title>
+    <div class="tab-pane active" id="dashboard">
+        <div class="container-fluid">
+            <!-- top tiles -->
+            <div class="mrp_content">
+                <h2>Create Permission Information</h2>
+
+                <div class="row mra_createcost_report_payment">
+                    <div class="col-lg-6">
+
+                        <div class="row">
+                            <div class="col-lg-4 col-xs-12 col-sm-4 col-md-4">
+                                <div class="form_modal">
+                                    <label>Permission Name</label>
+                                </div>
+                            </div>
+                            <div class="col-lg-8 col-xs-12 col-sm-8 col-md-8">
+                                <div class="form_modal">
+                                    @Html.TextBoxFor(m => m.permissionEntity.PermissionName, htmlAttributes: new { @id = "PermissionName", @class = "form-control mrp_modalselect" })
+                                </div>
+                            </div>
+                        </div>
+
+                    </div>
+
+                </div>
+                <div class="row">
+                    <div class="col-lg-2 col-xs-12 col-sm-4 col-md-2">
+                        <div class="form_modal">
+                            <label>Permission Description</label>
+                        </div>
+                    </div>
+                    <div class="col-lg-10 col-xs-12 col-sm-8 col-md-10">
+                        <div class="form_modal">
+                            <textarea id="PermissionDescription" name="PermissionDescription" style="margin: 0px; width: 100%; height: 80px;">@Model.permissionEntity.PermissionDescription</textarea>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="modal-footer">
+                    <input type="submit" id="btnSubmit" class="btn btn-primary btn-updated" onclick="return SubmitValue()" value="Save Changes" />
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script type="text/javascript">
+        var IsExists = false;
+        function SubmitValue() {
+            if (document.getElementById("PermissionName").value == "") {
+                alert("Please enter fiscal year.");
+                document.getElementById("PermissionName").focus();
+                return false;
+            }
+            else {
+                var permissionEntity = {
+                    PermissionId: document.getElementById("PermissionId").value,
+                    PermissionName: document.getElementById("PermissionName").value
+                };
+                var roleRequest = {
+                    permissionEntity: permissionEntity
+                };
+
+                $.ajax({
+                    url: "/Permission/CheckPermission",
+                    type: "POST",
+                    data: roleRequest,
+                    dataType: 'json',
+                    success: function (result) {
+                        if (result.permissionEntity.FiscaYearCount != 0) {
+                            alert("This Fiscal Year is already exists in the System. Please enter the other one.");
+                            return false;
+                        }
+                        else {
+                            SaveValues();
+                        }
+                    },
+                    complete: function () {
+
+                    }
+                });
+            }
+            SaveValues();
+            return true;
+        }
+
+        function SaveValues() {
+            var permissionEntity = {
+                PermissionId: document.getElementById("PermissionId").value,
+                PermissionName: document.getElementById("PermissionName").value,
+                PermissionDescription: document.getElementById("PermissionDescription").value,
+                ModifiedBy:@Common.GetSession("UserID"),
+            };
+            var roleRequest = {
+                permissionEntity: permissionEntity
+            };
+
+            $.ajax({
+                url: "/Permission/SavePermission",
+                type: "POST",
+                data: roleRequest,
+                dataType: 'json',
+                success: function (result) {
+                    location.href = "Permission/ManagePermission";
+                },
+                complete: function () {
+
+                }
+            });
+        }
+
+        $(document).ready(function () {
+            $('#mra_subliPC').addClass('active');
+        });
+    </script>
+}

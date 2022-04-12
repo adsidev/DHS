@@ -48,13 +48,13 @@ namespace DHS.Reconcilation.Controllers
                 var userResponse = JsonConvert.DeserializeObject<UserResponse>(responseData);
                 if (userResponse.Message == string.Empty && userResponse.ErrorMessage == string.Empty)
                 {
-                    Common.AddSession("UserName", userResponse.UserEntity.UserName);
-                    Common.AddSession("UserID", userResponse.UserEntity.UserId.ToString());
+                    Common.AddSession("UserName", userResponse.userEntity.UserName);
+                    Common.AddSession("UserID", userResponse.userEntity.UserId.ToString());
                     
                     client.Dispose();
                     url = strBaseURL + "Role/GetUserRollPermissions";
                     RoleRequest roleRequest = new RoleRequest();
-                    roleRequest.UserId = userResponse.UserEntity.UserId;
+                    roleRequest.UserId = userResponse.userEntity.UserId;
                     client = new HttpClient();
                     client.DefaultRequestHeaders.Accept.Clear();
                     client.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
