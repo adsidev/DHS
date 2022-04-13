@@ -3,7 +3,7 @@
 @using DHS.Reconcilation.Models
 
 @{
-    ViewBag.Title = "DHS Reconcilation :: Manage Missing Expense Transaction Details";
+    ViewBag.Title = "DHS Reconcilation :: Manage Missing Expense Transactions";
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 <title>@ViewBag.Title</title>
@@ -74,14 +74,16 @@
                                     </div>
                                 </div>
                                 <div class="form-group col-lg-1 col-xs-12 col-sm-7">
-                                    @if (Model.rolePermissionEntity.CreateBit)
-                                    {
-                                        <img src="~/images/create.png" class="img-responsive" height="40" width="40" onclick="CreateMissingTransaction()" style="cursor:pointer;" alt="Create missing expense transaction  Information" title="Create missing expense transaction  Information" />
-                                    }
-                                    else
-                                    {
-                                        <img src="~/images/create.png" style="cursor:pointer;" onclick="JavaScript:alert('You do not have permission to create missing expense transaction. Please contact administrator.')" class="disableButton" height="40" width="40" alt="Create missing expense transaction  Information" title="Create missing expense transaction  Information" />
-                                    }
+                                    <div class="form_modal">
+                                        @if (Model.rolePermissionEntity.CreateBit)
+                                        {
+                                            <img src="~/images/create.png" class="img-responsive" height="40" width="40" onclick="CreateMissingTransaction()" style="cursor:pointer;" alt="Create missing expense transaction  Information" title="Create missing expense transaction  Information" />
+                                        }
+                                        else
+                                        {
+                                            <img src="~/images/create.png" style="cursor:pointer;" onclick="JavaScript:alert('You do not have permission to create missing expense transaction. Please contact administrator.')" class="disableButton" height="40" width="40" alt="Create missing expense transaction  Information" title="Create missing expense transaction  Information" />
+                                        }
+                                    </div>
                                 </div>
                             </div>
                         </form>

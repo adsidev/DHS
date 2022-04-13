@@ -1,0 +1,330 @@
+﻿@model DHSEntities.RevenueResponse
+@using PagedList.Mvc
+@using DHS.Reconcilation.Models
+
+@{
+    ViewBag.Title = "DHS Reconcilation :: Create Missing Revenue Transaction";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+<script src="~/Scripts/jquery-1.10.2.min.js"></script>
+@section LeftMenuSection
+{
+    @Html.Partial("_menuCRPayments");
+}
+
+@using (Html.BeginForm("CreateMissingRevenueTransaction", "Revenue", FormMethod.Post, new { @id = "frmExpense" }))
+{
+
+    <title>@ViewBag.Title</title>
+    <div class="tab-pane active" id="dashboard">
+        <div class="container-fluid">
+            <div class="row ">
+                <div class="col-lg-12">
+                    <div class="mrp_modalcontent">
+                        <h2>Create Missing Revenue Information</h2>
+                        <form class="mrp_selectdetails form-inline"></form>
+                    </div>
+                </div>
+            </div>
+            <!-- top tiles -->
+            <div class="mrp_content">
+                <div class="row mra_createcost_report_payment">
+
+                    <div class="col-lg-6">
+                        <div class="row">
+                            <div class="col-lg-4 col-xs-12 col-sm-4 col-md-4">
+                                <div class="form_modal">
+                                    <label>Fiscal Year</label>
+                                </div>
+                            </div>
+                            <div class="col-lg-8 col-xs-12 col-sm-8 col-md-8">
+                                <div class="form_modal">
+                                    @Html.DropDownList("FiscalYearId", new SelectList(Model.fiscalYearEntities, "FiscalYearId", "FiscalYear", Model.revenueTransactionEntity.FiscalYearId), "", new { @id = "FiscalYearId", @class = "form-control mrp_modalselect" })
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="col-lg-6">
+                        <div class="row">
+                            <div class="col-lg-4 col-xs-12 col-sm-4 col-md-4">
+                                <div class="form_modal">
+                                    <label>Revenue Transaction Date</label>
+                                </div>
+                            </div>
+                            <div class="col-lg-8 col-xs-12 col-sm-8 col-md-8">
+                                <div class="form_modal">
+                                    <input type="date" value="@Model.revenueTransactionEntity.RevenueTransactionDate" id="RevenueTransactionDate" , class="form-control mrp_modalselect" />
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="col-lg-6">
+                        <div class="row">
+                            <div class="col-lg-4 col-xs-12 col-sm-4 col-md-4">
+                                <div class="form_modal">
+                                    <label>Revenue Transaction Amount</label>
+                                </div>
+                            </div>
+                            <div class="col-lg-8 col-xs-12 col-sm-8 col-md-8">
+                                <div class="form_modal">
+                                    @Html.TextBoxFor(m => m.revenueTransactionEntity.RevenueTransactionAmount, htmlAttributes: new { @id = "RevenueTransactionAmount", Value = String.Format("{0:$#,##0.00}", Model.revenueTransactionEntity.RevenueTransactionAmount), @class = "form-control mrp_modalselect" })
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="col-lg-6">
+                        <div class="row">
+                            <div class="col-lg-4 col-xs-12 col-sm-4 col-md-4">
+                                <div class="form_modal">
+                                    <label>Org</label>
+                                </div>
+                            </div>
+                            <div class="col-lg-8 col-xs-12 col-sm-8 col-md-8">
+                                <div class="form_modal">
+                                    <input type="hidden" id="hdnOrg" value="@Model.revenueTransactionEntity.OrgName" />
+                                    @Html.TextBoxFor(m => m.revenueTransactionEntity.OrgName, htmlAttributes: new { @id = "OrgName", @class = "form-control mrp_modalselect" })
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="col-lg-6">
+                        <div class="row">
+                            <div class="col-lg-4 col-xs-12 col-sm-4 col-md-4">
+                                <div class="form_modal">
+                                    <label>Object</label>
+                                </div>
+                            </div>
+                            <div class="col-lg-8 col-xs-12 col-sm-8 col-md-8">
+                                <div class="form_modal">
+                                    <input type="hidden" id="hdnObject" value="@Model.revenueTransactionEntity.ObjectName" />
+                                    @Html.TextBoxFor(m => m.revenueTransactionEntity.ObjectName, htmlAttributes: new { @id = "ObjectName", @class = "form-control mrp_modalselect" })
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="col-lg-6">
+                        <div class="row">
+                            <div class="col-lg-4 col-xs-12 col-sm-4 col-md-4">
+                                <div class="form_modal">
+                                    <label>Project</label>
+                                </div>
+                            </div>
+                            <div class="col-lg-8 col-xs-12 col-sm-8 col-md-8">
+                                <div class="form_modal">
+                                    <input type="hidden" id="hdnProject" value="@Model.revenueTransactionEntity.ProjectName" />
+                                    @Html.TextBoxFor(m => m.revenueTransactionEntity.ProjectName, htmlAttributes: new { @id = "ProjectName", @class = "form-control mrp_modalselect" })
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="col-lg-6">
+                        <div class="row">
+                            <div class="col-lg-4 col-xs-12 col-sm-4 col-md-4">
+                                <div class="form_modal">
+                                    <label>Revenue&nbsp;Type</label>
+                                </div>
+                            </div>
+                            <div class="col-lg-8 col-xs-12 col-sm-8 col-md-8">
+                                <div class="form_modal">
+                                    @Html.DropDownList("RevenueTypeId", new SelectList(Model.revenueTypeEntities, "RevenueTypeId", "RevenueTypeName", Model.revenueTransactionEntity.RevenueTypeId), "", new { @id = "RevenueTypeId", @class = "form-control mrp_modalselect" })
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="col-lg-6">
+                        <div class="row">
+                            <div class="col-lg-4 col-xs-12 col-sm-4 col-md-4">
+                                <div class="form_modal">
+                                    <label>Revenue&nbsp;Deposit</label>
+                                </div>
+                            </div>
+                            <div class="col-lg-8 col-xs-12 col-sm-8 col-md-8">
+                                <div class="form_modal">
+                                    <select id="DrawId" name="DrawId" class="form-control mrp_modalselect">
+                                    </select>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="col-lg-6">
+                        <div class="row">
+                            <div class="col-lg-4 col-xs-12 col-sm-4 col-md-4">
+                                <div class="form_modal">
+                                    <label>Related&nbsp;Trans</label>
+                                </div>
+                            </div>
+                            <div class="col-lg-8 col-xs-12 col-sm-8 col-md-8">
+                                <div class="form_modal">
+                                    @Html.TextBoxFor(m => m.revenueTransactionEntity.RelatedTrans, htmlAttributes: new { @id = "RelatedTrans", @class = "form-control mrp_modalselect" })
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="row">
+                    <div class="col-lg-2 col-xs-12 col-sm-4 col-md-2">
+                        <div class="form_modal">
+                            <label>Notes</label>
+                        </div>
+                    </div>
+                    <div class="col-lg-10 col-xs-12 col-sm-8 col-md-10">
+                        <div class="form_modal">
+                            <textarea id="RevenueTranscationDescription" name="RevenueTranscationDescription" style="margin: 0px; width: 100%; height: 120px;">@Model.revenueTransactionEntity.RevenueTranscationDescription</textarea>
+                        </div>
+                    </div>
+                </div>
+
+
+                <div class="modal-footer">
+                    <input type="button" id="btnSubmit" title="Save missing revenue transactions" class="btn btn-primary btn-updated" onclick="return SubmitValue()" value="Save Changes" />
+
+                    <button type="button" title="Cancel saving missing revenue transactions" class="btn btn-secondary btn-close" data-dismiss="modal" onclick="OpenPreviosPage()">Cancel</button>
+                </div>
+            </div>
+        </div>
+    </div>
+}
+<script type="text/javascript">
+        function SubmitValue() {
+            if (document.getElementById("RevenueTransactionDate").value == "") {
+                alert("Please enter transaction date.")
+                document.getElementById("RevenueTransactionDate").focus();
+                return false;
+            }
+            if (document.getElementById("RevenueTypeId").value == "") {
+                alert("Please select revenue type.")
+                document.getElementById("RevenueTypeId").focus();
+                return false;
+            }
+
+            if (document.getElementById("RevenueTranscationDescription").value == "") {
+                if ((document.getElementById("OrgName").value != document.getElementById("hdnOrg").value) ) {
+                    document.getElementById("RevenueTranscationDescription").value = "The Org, Object or Project entered does not match with the Org, Object or Project for the Revenue Journal Entry";
+                }
+            }
+            if (document.getElementById("RelatedTrans").value != '') {
+                var revenueTransactionEntity = {
+                    RevenueTransactionId: 0,
+                    RelatedTrans: document.getElementById("RelatedTrans").value,
+                };
+                var revenueRequest = {
+                    RevenueTransactionEntity: revenueTransactionEntity
+                };
+                $.ajax({
+                    url: "/Revenue/CheckRelatedTrans",
+                    type: "POST",
+                    data: revenueRequest,
+                    dataType: 'json',
+                    success: function (result) {
+                        if (document.getElementById("RelatedTrans").value == result.revenueTransactionEntity.RevenueTransactionNumber) {
+                            SaveTransaction();
+                        }
+                        else {
+                            alert("Please check the Related Transaction number.");
+                            document.getElementById("RelatedTrans").focus();
+                            window.location.reload();
+                            return false;
+                        }
+                    }
+                });
+            }
+            else {
+                SaveTransaction();
+            }
+            return true;
+        }
+
+        function SaveTransaction() {
+            var Draw = 0
+            if (document.getElementById("RevenueTypeId").value == 1) {
+                Draw = document.getElementById("DrawId").value;
+            }
+            var revenueAmount = (document.getElementById("RevenueTransactionAmount").value).replace("$", "").replace(",", "");
+            if (document.getElementById("RevenueTypeId").value == 1) {
+                if (revenueAmount > 0)
+                    revenueAmount = -revenueAmount
+            }
+            revenueAmount = parseFloat(revenueAmount).toFixed(2);
+            var revenueTransactionEntity = {
+                RevenueTransactionId:0,
+                RevenueTransactionDate: document.getElementById("RevenueTransactionDate").value,
+                RevenueTypeId: document.getElementById("RevenueTypeId").value,
+                OrgName: document.getElementById("OrgName").value,
+                RevenueTranscationDescription: document.getElementById("RevenueTranscationDescription").value,
+                RevenueTransactionAmount: revenueAmount,
+                ObjectName: document.getElementById("ObjectName").value,
+                ProjectName: document.getElementById("ProjectName").value,
+                DrawId: Draw,
+                ModifiedBy: @Common.GetSession("UserID"),
+                RelatedTrans: document.getElementById("RelatedTrans").value,
+                FiscalYearId: document.getElementById("FiscalYearId").value,
+            };
+            var revenueRequest = {
+                RevenueTransactionEntity: revenueTransactionEntity
+            };
+            $.ajax({
+                url: "/Revenue/SaveMissingRevenueTransaction",
+                type: "POST",
+                data: revenueRequest,
+                dataType: 'json',
+                success: function (result) {
+                    location.href = "/Revenue/ManageMissingRevenueTransactions/";
+                },
+                complete: function () {
+
+                }
+            });
+        }
+
+        $(document).ready(function () {
+            $('#mra_subliMMRT').addClass('active');
+        });
+
+        function OpenPreviosPage() {
+            location.href = "/Revenue/ManageMissingRevenueTransactions/";
+        }
+
+        //$("#RevenueTypeId").change(function () {
+        //    var x = $("#RevenueTypeId").val();
+        //    if (x == 1) {
+        //        fire_ajax(document.getElementById("RevenueId").value);
+        //    }
+        //    else {
+        //        var s = '';
+        //        $("#DrawId").html(s);
+        //    }
+        //});
+
+        function fire_ajax(s) {
+            var revenueEntity = {
+                RevenueId: s
+            };
+            var revenueRequest = {
+                revenueEntity: revenueEntity
+            };
+            $.ajax({
+                url: "/Revenue/DrawRevenue",
+                type: "POST",
+                data: revenueRequest,
+                dataType: 'json',
+                success: function (data) {
+                    var s = '<option value="-1">Please Select Draw</option>';
+                    for (var i = 0; i < data.drawEntities.length; i++) {
+                        s += '<option value="' + data.drawEntities[i].DrawId + '">' + data.drawEntities[i].DrawNumber + '</option>';
+                    }
+                    $("#DrawId").html(s);
+                }
+
+            })
+        }
+
+</script>

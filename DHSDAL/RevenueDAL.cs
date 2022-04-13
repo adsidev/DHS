@@ -1102,5 +1102,152 @@ namespace DHSDAL
             return revenueResponse;
         }
 
+        public RevenueResponse GetMissingRevenueTransactions(RevenueRequest revenueRequest)
+        {
+            revenueResponse.ErrorMessage = string.Empty;
+            revenueResponse.Message = string.Empty;
+            List<RevenueTransactionEntity> revenueTransactionEntities = new List<RevenueTransactionEntity>();
+            SqlObject.Parameters = new object[] {
+                    revenueRequest.revenueTransactionEntity.ProjectName,
+                    revenueRequest.revenueTransactionEntity.RevenueTransactionNumber,
+                    revenueRequest.revenueTransactionEntity.RevenueTypeId
+            };
+            var transactionDetailDataSet = SqlHelper.ExecuteDataset(_connectionString, StoredProcedures.Revenue.USPGETMISSINGREVENUETRANSACTIONS, SqlObject.Parameters);
+            foreach (DataRow revenueDataRow in transactionDetailDataSet.Tables[0].Rows)
+            {
+                RevenueTransactionEntity revenueTransactionEntity = new RevenueTransactionEntity();
+                try
+                {
+                    revenueTransactionEntity.RevenueTransactionId = Convert.ToInt64(revenueDataRow["RevenueTransactionId"].ToString());
+                    revenueTransactionEntity.RevenueTypeName = revenueDataRow["RevenueTypeName"].ToString();
+                    revenueTransactionEntity.RevenueTranscationDescription = revenueDataRow["RevenueTranscationDescription"].ToString();
+                    revenueTransactionEntity.RevenueTransactionAmount = Convert.ToDecimal(revenueDataRow["RevenueTransactionAmount"].ToString());
+                    revenueTransactionEntity.FiscalYear = revenueDataRow["FiscalYear"].ToString();
+                    revenueTransactionEntity.RevenueTransactionNumber = revenueDataRow["RevenueTransactionNumber"].ToString();
+                    //revenueTransactionEntity.ActivityDescription = revenueDataRow["ActivityDescription"].ToString();
+                    //revenueTransactionEntity.ObjectDescription = revenueDataRow["ObjectDescription"].ToString();
+                    revenueTransactionEntity.OrgName = revenueDataRow["OrgName"].ToString();
+                    revenueTransactionEntity.ObjectName = revenueDataRow["ObjectName"].ToString();
+                    revenueTransactionEntity.BatchNumber = revenueDataRow["BatchNumber"].ToString();
+                    revenueTransactionEntity.ProjectName = revenueDataRow["ProjectName"].ToString();
+                    revenueTransactionEntity.CompleteCount = Convert.ToInt32(revenueDataRow["CompleteCount"].ToString());
+                    revenueTransactionEntity.ExpenseCount = Convert.ToInt32(revenueDataRow["ExpenseCount"].ToString());
+                    revenueTransactionEntity.DocumentFile = revenueDataRow["DocumentFile"].ToString();
+                    revenueTransactionEntity.DrawNumber = revenueDataRow["DrawNumber"].ToString();
+                    revenueTransactionEntity.RelatedTrans = revenueDataRow["RelatedTrans"].ToString();
+                    revenueTransactionEntity.RevenueTransactionDate = Convert.ToDateTime(revenueDataRow["RevenueTransactionDate"].ToString()).ToShortDateString();
+                }
+                catch (Exception exception)
+                {
+                    revenueTransactionEntity.ErrorMessage = exception.Message;
+                    revenueTransactionEntity.Exception = exception;
+                    revenueTransactionEntity.RevenueTransactionDate = revenueDataRow["RevenueTransactionDate"].ToString();
+                }
+                finally
+                {
+                    revenueTransactionEntities.Add(revenueTransactionEntity);
+                }
+            }
+            if (revenueTransactionEntities.Count >= 1 || revenueTransactionEntities.Count == 0)
+            {
+                revenueResponse.ErrorMessage = string.Empty;
+                revenueResponse.Message = string.Empty;
+            }
+            revenueResponse.revenueTransactionEntities = revenueTransactionEntities;
+
+            RevenueTypeDAL revenueTypeDAL = new RevenueTypeDAL();
+            revenueResponse.revenueTypeEntities = revenueTypeDAL.GetRevenueTypes().RevenueTypeEntities;
+            return revenueResponse;
+        }
+
+        public RevenueResponse GetMissingRevenueTransaction(RevenueRequest revenueRequest)
+        {
+            revenueResponse.ErrorMessage = string.Empty;
+            revenueResponse.Message = string.Empty;
+            RevenueTransactionEntity revenueTransactionEntity = new RevenueTransactionEntity();
+            revenueTransactionEntity.FiscalYearId = 0; 
+            if (revenueRequest.revenueTransactionEntity.RevenueTransactionId > 0)
+            {
+                SqlObject.Parameters = new object[] {
+                    revenueRequest.revenueTransactionEntity.RevenueTransactionId
+                };
+                var revenueDataSet = SqlHelper.ExecuteDataset(_connectionString, StoredProcedures.Revenue.USPGETMISSINGREVENUETRANSACTION, SqlObject.Parameters);
+                foreach (DataRow revenueDataRow in revenueDataSet.Tables[0].Rows)
+                {
+                    try
+                    {
+                        revenueTransactionEntity.RevenueTransactionId = Convert.ToInt64(revenueDataRow["RevenueTransactionId"].ToString());
+                        revenueTransactionEntity.DrawId = Convert.ToInt64(revenueDataRow["DrawId"].ToString());
+                        revenueTransactionEntity.FiscalYearId = Convert.ToInt64(revenueDataRow["FiscalYearId"].ToString());
+                        revenueTransactionEntity.RevenueTypeId = Convert.ToInt32(revenueDataRow["RevenueTypeId"].ToString());
+                        revenueTransactionEntity.RevenueTypeName = revenueDataRow["RevenueTypeName"].ToString();
+                        revenueTransactionEntity.FiscalYear = revenueDataRow["FiscalYear"].ToString();
+                        revenueTransactionEntity.DrawNumber = revenueDataRow["DrawNumber"].ToString();
+                        revenueTransactionEntity.RevenueTranscationDescription = revenueDataRow["RevenueTranscationDescription"].ToString();
+                        revenueTransactionEntity.RevenueTransactionAmount = Convert.ToDecimal(revenueDataRow["RevenueTransactionAmount"].ToString());
+                        revenueTransactionEntity.RevenueTransactionNumber = revenueDataRow["RevenueTransactionNumber"].ToString();
+                        revenueTransactionEntity.OrgName = revenueDataRow["OrgName"].ToString();
+                        revenueTransactionEntity.ObjectName = revenueDataRow["ObjectName"].ToString();
+                        revenueTransactionEntity.ProjectName = revenueDataRow["ProjectName"].ToString();
+                        revenueTransactionEntity.RelatedTrans = revenueDataRow["RelatedTrans"].ToString();
+                        revenueTransactionEntity.RevenueTransactionDate = Convert.ToDateTime(revenueDataRow["RevenueTransactionDate"].ToString()).ToShortDateString();
+                    }
+                    catch (Exception exception)
+                    {
+                        revenueTransactionEntity.ErrorMessage = exception.Message;
+                        revenueTransactionEntity.Exception = exception;
+                        revenueTransactionEntity.RevenueTransactionDate = revenueDataRow["RevenueTransactionDate"].ToString();
+                    }
+                    finally
+                    {
+
+                    }
+                }
+            }
+            
+            revenueResponse.revenueTransactionEntity = revenueTransactionEntity;
+            RevenueTypeDAL revenueTypeDAL = new RevenueTypeDAL();
+            revenueResponse.revenueTypeEntities = revenueTypeDAL.GetRevenueTypes().RevenueTypeEntities;
+            CommonDAL commonDAL = new CommonDAL();
+            revenueResponse.fiscalYearEntities = commonDAL.GetFiscalYears();
+            return revenueResponse;
+        }
+
+        public RevenueResponse SaveMissingRevenueTransaction(RevenueRequest revenueRequest)
+        {
+            try
+            {
+                if (revenueRequest.revenueTransactionEntity.RevenueTransactionId > 0)
+                    revenueRequest.revenueTransactionEntity.SaveString = "U";
+                else
+                    revenueRequest.revenueTransactionEntity.SaveString = "I";
+
+                SqlObject.Parameters = new object[] {
+                revenueRequest.revenueTransactionEntity.SaveString,
+                revenueRequest.revenueTransactionEntity.RevenueTransactionId,
+                revenueRequest.revenueTransactionEntity.RevenueTransactionDate,
+                revenueRequest.revenueTransactionEntity.RevenueTransactionAmount,
+                revenueRequest.revenueTransactionEntity.RevenueTypeId,
+                revenueRequest.revenueTransactionEntity.OrgName,
+                revenueRequest.revenueTransactionEntity.ObjectName,
+                revenueRequest.revenueTransactionEntity.RevenueTranscationDescription,
+                revenueRequest.revenueTransactionEntity.ModifiedBy,
+                revenueRequest.revenueTransactionEntity.ProjectName,
+                revenueRequest.revenueTransactionEntity.DrawId,
+                revenueRequest.revenueTransactionEntity.RelatedTrans,
+                revenueRequest.revenueTransactionEntity.FiscalYearId,
+                };
+                var intResult = SqlHelper.ExecuteScalar(_connectionString, StoredProcedures.Revenue.USPSAVEMISSINGREVENEUTRANSACTION, SqlObject.Parameters);
+                revenueResponse.Message = string.Empty;
+                revenueResponse.ErrorMessage = string.Empty;
+            }
+            catch (Exception ex)
+            {
+                revenueResponse.ErrorMessage = ex.Message;
+                revenueResponse.Exception = ex;
+            }
+            return revenueResponse;
+
+        }
     }
 }

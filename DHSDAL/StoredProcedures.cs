@@ -80,6 +80,9 @@ namespace DHSDAL
             public const string USPGETDRAWSFORRECEIVABLE = "sp_GetDrawsForReceivable";
             public const string USPSAVETRANSACTIONDRAWRECEIVABLE = "sp_SaveTransactionDrawReceivable";
             public const string USPCHECKRELATEDREVENUETRANSACTION = "sp_CheckRelatedRevenueTransaction";
+            public const string USPGETMISSINGREVENUETRANSACTIONS = "sp_GetMissingRevenueTransactions";
+            public const string USPGETMISSINGREVENUETRANSACTION = "sp_GetMissingRevenueTransaction";
+            public const string USPSAVEMISSINGREVENEUTRANSACTION = "sp_SaveMissingRevenueTransaction";
         }
 
         public class Draw

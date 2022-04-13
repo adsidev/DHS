@@ -1058,5 +1058,237 @@ namespace DHS.Reconcilation.Controllers
                 return RedirectToAction("Error", "Home");
             }
         }
+
+        public async Task<ActionResult> CreateMissingRevenueTransaction()
+        {
+            if (!Common.SessionExists())
+                return RedirectToAction("Index", "Home");
+            RevenueResponse revenueResponse = new RevenueResponse();
+
+            RevenueRequest revenueRequest = new RevenueRequest();
+            RevenueTransactionEntity revenueTransactionEntity = new RevenueTransactionEntity();
+            revenueTransactionEntity.RevenueTransactionId = 0;
+            revenueRequest.revenueTransactionEntity = revenueTransactionEntity;
+            string url = strBaseURL + "Revenue/GetMissingRevenueTransaction";
+            client.BaseAddress = new Uri(url);
+            HttpResponseMessage responseMessage = await client.PostAsJsonAsync(url, revenueRequest);
+
+            if (responseMessage.IsSuccessStatusCode)
+            {
+                var responseData = responseMessage.Content.ReadAsStringAsync().Result;
+                revenueResponse = JsonConvert.DeserializeObject<RevenueResponse>(responseData);
+                if (revenueResponse.Message == string.Empty && revenueResponse.ErrorMessage == string.Empty)
+                {
+                    string PageName = "Revenues";
+                    revenueResponse.rolePermissionEntity = Common.PagePermissions(PageName);
+                    return View(revenueResponse);
+                }
+                else
+                {
+                    TempData["LoginFailure"] = revenueResponse.Message;
+                    return RedirectToAction("Error", "Home");
+                }
+            }
+            else
+            {
+                TempData["LoginFailure"] = responseMessage.ToString();
+                return RedirectToAction("Error", "Home");
+            }
+        }
+
+        public async Task<ActionResult> ViewMissingRevenueTransaction(long? id = 0)
+        {
+            if (!Common.SessionExists())
+                return RedirectToAction("Index", "Home");
+            if (id == 0)
+                return RedirectToAction("Index", "Home");
+
+            RevenueResponse revenueResponse = new RevenueResponse();
+
+            RevenueRequest revenueRequest = new RevenueRequest();
+            RevenueTransactionEntity revenueTransactionEntity = new RevenueTransactionEntity();
+            revenueTransactionEntity.RevenueTransactionId = Convert.ToInt64(id);
+            revenueRequest.revenueTransactionEntity = revenueTransactionEntity;
+            string url = strBaseURL + "Revenue/GetMissingRevenueTransaction";
+            client.BaseAddress = new Uri(url);
+
+            HttpResponseMessage responseMessage = await client.PostAsJsonAsync(url, revenueRequest);
+
+            if (responseMessage.IsSuccessStatusCode)
+            {
+                var responseData = responseMessage.Content.ReadAsStringAsync().Result;
+                revenueResponse = JsonConvert.DeserializeObject<RevenueResponse>(responseData);
+                if (revenueResponse.Message == string.Empty && revenueResponse.ErrorMessage == string.Empty)
+                {
+                    string PageName = "Revenues";
+                    revenueResponse.rolePermissionEntity = Common.PagePermissions(PageName);
+
+                    return PartialView("_viewMissingRevenueTransaction", revenueResponse);
+                }
+                else
+                {
+                    TempData["LoginFailure"] = revenueResponse.Message;
+                    return RedirectToAction("Error", "Home");
+                }
+            }
+            else
+            {
+                TempData["LoginFailure"] = responseMessage.ToString();
+                return RedirectToAction("Error", "Home");
+            }
+        }
+
+        public async Task<ActionResult> EditMissingRevenueTransaction(long? id = 0)
+        {
+            if (!Common.SessionExists())
+                return RedirectToAction("Index", "Home");
+
+            if (id == 0)
+                return RedirectToAction("Index", "Home");
+            RevenueResponse revenueResponse = new RevenueResponse();
+            RevenueRequest revenueRequest = new RevenueRequest();
+
+            RevenueTransactionEntity revenueTransactionEntity = new RevenueTransactionEntity();
+
+            revenueTransactionEntity.RevenueTransactionId = Convert.ToInt64(id);
+            revenueRequest.revenueTransactionEntity = revenueTransactionEntity;
+
+            string url = strBaseURL + "Revenue/GetMissingRevenueTransaction";
+            client.BaseAddress = new Uri(url);
+            HttpResponseMessage responseMessage = await client.PostAsJsonAsync(url, revenueRequest);
+
+            if (responseMessage.IsSuccessStatusCode)
+            {
+                var responseData = responseMessage.Content.ReadAsStringAsync().Result;
+                revenueResponse = JsonConvert.DeserializeObject<RevenueResponse>(responseData);
+                if (revenueResponse.Message == string.Empty && revenueResponse.ErrorMessage == string.Empty)
+                {
+                    string PageName = "Revenues";
+                    revenueResponse.rolePermissionEntity = Common.PagePermissions(PageName);
+
+                    return PartialView("_editMissingRevenueTransaction", revenueResponse);
+                }
+                else
+                {
+                    TempData["LoginFailure"] = revenueResponse.Message;
+                    return RedirectToAction("Error", "Home");
+                }
+            }
+            else
+            {
+                TempData["LoginFailure"] = responseMessage.ToString();
+                return RedirectToAction("Error", "Home");
+            }
+        }
+
+
+        public async Task<ActionResult> ManageMissingRevenueTransactions(int? page)
+        {
+            if (!Common.SessionExists())
+                return RedirectToAction("Index", "Home");
+            int pageSize = Common.pageNumbers;
+            int pageIndex = 1;
+            pageIndex = page.HasValue ? Convert.ToInt32(page) : 1;
+            RevenueResponse revenueResponse = new RevenueResponse();
+            RevenueRequest revenueRequest = new RevenueRequest();
+
+            RevenueTransactionEntity revenueTransactionEntity = new RevenueTransactionEntity();
+            revenueTransactionEntity.ProjectName = string.Empty;
+            revenueTransactionEntity.RevenueTransactionNumber = string.Empty;
+            if (Common.GetSession("RTMProjectName") != "")
+                revenueTransactionEntity.ProjectName = Common.GetSession("RTMProjectName");
+
+            if (Common.GetSession("RTMRevenueTransactionNumber") != "")
+                revenueTransactionEntity.RevenueTransactionNumber = Common.GetSession("RTMRevenueTransactionNumber");
+
+            if (Common.GetSession("RTMRevenueTypeId") != "")
+                revenueTransactionEntity.RevenueTypeId = Convert.ToInt32(Common.GetSession("RTMRevenueTypeId"));
+
+            revenueRequest.revenueTransactionEntity = revenueTransactionEntity;
+
+            string url = strBaseURL + "Revenue/GetMissingRevenueTransactions";
+            client.BaseAddress = new Uri(url);
+            HttpResponseMessage responseMessage = await client.PostAsJsonAsync(url, revenueRequest);
+
+            if (responseMessage.IsSuccessStatusCode)
+            {
+                var responseData = responseMessage.Content.ReadAsStringAsync().Result;
+                revenueResponse = JsonConvert.DeserializeObject<RevenueResponse>(responseData);
+                if (revenueResponse.Message == string.Empty && revenueResponse.ErrorMessage == string.Empty)
+                {
+                    string PageName = "Revenues";
+                    revenueResponse.rolePermissionEntity = Common.PagePermissions(PageName);
+                    revenueResponse.revenueTransactionEntity = revenueTransactionEntity;
+                    revenueResponse.pagedrevenueTransactionEntities = revenueResponse.revenueTransactionEntities.ToPagedList(pageIndex, pageSize);
+                    return View(revenueResponse);
+                }
+                else
+                {
+                    TempData["LoginFailure"] = revenueResponse.Message;
+                    return RedirectToAction("Error", "Home");
+                }
+            }
+            else
+            {
+                TempData["LoginFailure"] = responseMessage.ToString();
+                return RedirectToAction("Error", "Home");
+            }
+        }
+
+        [HttpPost]
+        public async Task<ActionResult> ManageMissingRevenueTransactions(int? page, int? id = 0)
+        {
+            if (!Common.SessionExists())
+                return RedirectToAction("Index", "Home");
+            int pageSize = Common.pageNumbers;
+            int pageIndex = 1;
+            pageIndex = page.HasValue ? Convert.ToInt32(page) : 1;
+            RevenueResponse revenueResponse = new RevenueResponse();
+            RevenueRequest revenueRequest = new RevenueRequest();
+            RevenueTransactionEntity revenueTransactionEntity = new RevenueTransactionEntity();
+            revenueTransactionEntity.ProjectName = string.Empty;
+            revenueTransactionEntity.RevenueTransactionNumber = string.Empty;
+            if (Request["revenueTransactionEntity.ProjectName"] != "")
+                revenueTransactionEntity.ProjectName = Request["revenueTransactionEntity.ProjectName"];
+
+            if (Request["revenueTransactionEntity.RevenueTransactionNumber"] != "")
+                revenueTransactionEntity.RevenueTransactionNumber = Request["revenueTransactionEntity.RevenueTransactionNumber"];
+
+            if (Request["RevenueTypeId"] != "")
+                revenueTransactionEntity.RevenueTypeId = Convert.ToInt32(Request["RevenueTypeId"]);
+
+            Common.AddSession("RTMProjectName", revenueTransactionEntity.ProjectName);
+            Common.AddSession("RTMRevenueTransactionNumber", revenueTransactionEntity.RevenueTransactionNumber.ToString());
+            Common.AddSession("RTMRevenueTypeId", revenueTransactionEntity.RevenueTypeId.ToString());
+
+            revenueRequest.revenueTransactionEntity = revenueTransactionEntity;
+            string url = strBaseURL + "Revenue/GetMissingRevenueTransactions";
+            client.BaseAddress = new Uri(url);
+            HttpResponseMessage responseMessage = await client.PostAsJsonAsync(url, revenueRequest);
+
+            if (responseMessage.IsSuccessStatusCode)
+            {
+                var responseData = responseMessage.Content.ReadAsStringAsync().Result;
+                revenueResponse = JsonConvert.DeserializeObject<RevenueResponse>(responseData);
+                if (revenueResponse.Message == string.Empty && revenueResponse.ErrorMessage == string.Empty)
+                {
+                    string PageName = "Revenues";
+                    revenueResponse.revenueTransactionEntity = revenueTransactionEntity;
+                    revenueResponse.rolePermissionEntity = Common.PagePermissions(PageName);
+                    revenueResponse.pagedrevenueTransactionEntities = revenueResponse.revenueTransactionEntities.ToPagedList(pageIndex, pageSize);
+                    return View(revenueResponse);
+                }
+                else
+                {
+                    TempData["LoginFailure"] = revenueResponse.Message;
+                    return RedirectToAction("Error", "Home");
+                }
+            }
+            else
+            {
+                TempData["LoginFailure"] = responseMessage.ToString();
+                return RedirectToAction("Error", "Home");
+            }
+        }
     }
 }
