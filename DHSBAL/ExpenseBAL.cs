@@ -312,5 +312,48 @@ namespace DHSBAL
             }
             return expenseResponse;
         }
+
+        public ExpenseResponse GetMissingExpenseTransactions(ExpenseRequest expenseRequest)
+        {
+            try
+            {
+                expenseResponse = expenseDALRepository.GetMissingExpenseTransactions(expenseRequest);
+            }
+            catch (Exception ex)
+            {
+                expenseResponse.ErrorMessage = ex.Message;
+                expenseResponse.Exception = ex;
+            }
+            return expenseResponse;
+        }
+
+        public ExpenseResponse GetMissingExpenseTransaction(ExpenseRequest expenseRequest)
+        {
+            try
+            {
+                expenseResponse = expenseDALRepository.GetMissingExpenseTransaction(expenseRequest);
+            }
+            catch (Exception ex)
+            {
+                expenseResponse.ErrorMessage = ex.Message;
+                expenseResponse.Exception = ex;
+            }
+            return expenseResponse;
+        }
+
+        public ExpenseResponse SaveMissingExpenseTransaction(ExpenseRequest expenseRequest)
+        {
+            try
+            {
+                expenseResponse = expenseDALRepository.SaveMissingExpenseTransaction(expenseRequest);
+            }
+            catch (Exception ex)
+            {
+                expenseResponse.ErrorMessage = ex.Message;
+                expenseResponse.Exception = ex;
+            }
+            return expenseResponse;
+        }
+
     }
 }

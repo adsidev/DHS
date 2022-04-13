@@ -3,7 +3,7 @@
 @using DHS.Reconcilation.Models
 
 @{
-    ViewBag.Title = "DHS Reconcilation :: Manage Expense Transaction Details";
+    ViewBag.Title = "DHS Reconcilation :: Manage Missing Expense Transaction Details";
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 <title>@ViewBag.Title</title>
@@ -12,7 +12,7 @@
 {
     @Html.Partial("_menuCRPayments");
 }
-@using (Html.BeginForm("ManageExpenseTransactions", "Expense", FormMethod.Post, new { @id = "frmExpenses" }))
+@using (Html.BeginForm("ManageMissingExpenseTransactions", "Expense", FormMethod.Post, new { @id = "frmExpenses" }))
 {
     <title>@ViewBag.Title</title>
     <input type="hidden" id="hdnExpenseId" name="hdnExpenseId" />
@@ -22,7 +22,7 @@
             <div class="row ">
                 <div class="col-lg-12">
                     <div class="mrp_content">
-                        <h2>View Expense Transaction Details</h2>
+                        <h2>View Missing Expense Transaction Details</h2>
                         <form class="mrp_selectdetails form-inline">
                             <div class="row">
                                 <div class="form-group col-lg-1 col-xs-12 col-sm-6">
@@ -34,10 +34,10 @@
                                 <div class="form-group col-lg-2 col-xs-12 col-sm-6">
                                     <label for="SearchOn">Project:</label>
                                     <div class="form_modal">
-                                        @Html.DropDownList("ProjectId", new SelectList(Model.projectEntities, "ProjectId", "ProjectName", Model.transactionDetailEntity.ProjectId), "", new { @id = "ProjectId", @class = "form-control mrp_modalselect" })
+                                        @Html.TextBoxFor(m => m.transactionDetailEntity.TransProject, htmlAttributes: new { @id = "TransProject", @class = "form-control mrp_modalselect" })
                                     </div>
                                 </div>
-                                <div class="form-group col-lg-2 col-xs-12 col-sm-6">
+                                <div class="form-group col-lg-1 col-xs-12 col-sm-6">
                                     <label for="SearchOn">Status:</label>
                                     <div class="form_modal">
                                         @Html.DropDownList("StatusId", new SelectList(Model.statusEntities, "StatusId", "StatusName", Model.transactionDetailEntity.StatusId), "", new { @id = "StatusId", @class = "form-control mrp_modalselect" })
@@ -65,13 +65,23 @@
                                     <div class="form_modal">
                                         @if (Model.rolePermissionEntity.ViewBit)
                                         {
-                                            <img src="~/images/search.png" class="img-responsive" height="40" width="40" onclick="SelectedIndexChanged()" style="cursor:pointer;" alt="Search Expense Information" />
+                                            <img src="~/images/search.png" class="img-responsive" height="40" width="40" onclick="SelectedIndexChanged()" style="cursor:pointer;" alt="Search Missing Expense Transaction Information" title="Search Missing Expense Transaction Information" />
                                         }
                                         else
                                         {
-                                            <img src="~/images/search.png" class="disableButton" height="40" width="40" alt="Search Expense Information" />
+                                            <img src="~/images/search.png" class="disableButton" height="40" width="40" alt="Search Missing Expense Transaction Information" title="Search Missing Expense Transaction Information" />
                                         }
                                     </div>
+                                </div>
+                                <div class="form-group col-lg-1 col-xs-12 col-sm-7">
+                                    @if (Model.rolePermissionEntity.CreateBit)
+                                    {
+                                        <img src="~/images/create.png" class="img-responsive" height="40" width="40" onclick="CreateMissingTransaction()" style="cursor:pointer;" alt="Create missing expense transaction  Information" title="Create missing expense transaction  Information" />
+                                    }
+                                    else
+                                    {
+                                        <img src="~/images/create.png" style="cursor:pointer;" onclick="JavaScript:alert('You do not have permission to create missing expense transaction. Please contact administrator.')" class="disableButton" height="40" width="40" alt="Create missing expense transaction  Information" title="Create missing expense transaction  Information" />
+                                    }
                                 </div>
                             </div>
                         </form>
@@ -90,6 +100,9 @@
                                                 Action
                                             </th>
                                             <th nowrap>
+                                                Fiscal Year
+                                            </th>
+                                            <th nowrap>
                                                 Transaction No
                                             </th>
                                             <th nowrap>
@@ -101,9 +114,8 @@
                                             <th nowrap>
                                                 Correct Amount
                                             </th>
-                                            <th nowrap>
-                                                Expense No
-                                            </th>
+                                            <th nowrap>Related Trans</th>
+                                            <th nowrap>Other Batch #</th>
                                             <th nowrap>
                                                 Org
                                             </th>
@@ -112,9 +124,6 @@
                                             </th>
                                             <th nowrap>
                                                 Project
-                                            </th>
-                                            <th nowrap>
-                                                CFDA
                                             </th>
                                             <th nowrap>
                                                 Category 1
@@ -131,8 +140,6 @@
                                             <th nowrap>
                                                 Revenue Transaction
                                             </th>
-                                            <th nowrap>Related Trans</th>
-                                            <th nowrap>Other Batch #</th>
                                             <th nowrap style="text-align:left">
                                                 Notes
                                             </th>
@@ -150,18 +157,15 @@
                                                     <td nowrap style="text-align:left;">
                                                         @if (Model.rolePermissionEntity.ViewBit)
                                                         {
-                                                            <img src="~/images/view-icon.png" class="img-responsive" style="cursor:pointer;" alt="View Expense Information" onclick="ViewTransactionDetail('@item.TransactionDetailId')" />
-                                                            if (item.ExpenseCount == 0)
-                                                            {
-                                                                <img src="~/images/Delete.png" class="img-responsive" onclick="RemoveRevenueTransaction('@item.TransactionDetailId')" style="cursor:pointer;" alt="Remove Link between Expense Transaction to Revenue Transaction" height="20" width="20" />
-                                                            }
+                                                            <img src="~/images/view-icon.png" class="img-responsive" style="cursor:pointer;" alt="View Missing Expense Transaction Information" title="View Missing Expense Transaction Information" onclick="ViewMissingExpenseTransaction('@item.TransactionDetailId')" />
                                                         }
                                                         else
                                                         {
-                                                            <a class="mrp_popup disableButton" data-toggle="modal">
-                                                                <img src="~/images/view-icon.png" class="img-responsive disableButton" />
-                                                            </a>
+                                                            <img src="~/images/view-icon.png" title="View Missing Expense Transaction Information" class="img-responsive disableButton" alt="View Missing Expense Transaction Information" />
                                                         }
+                                                    </td>
+                                                    <td nowrap>
+                                                        @item.FiscalYear
                                                     </td>
                                                     <td nowrap>
                                                         @item.TransactionNumber
@@ -175,20 +179,16 @@
                                                     <td nowrap>
                                                         @String.Format("{0:$#,##0.00}", item.CorrectAmount)
                                                     </td>
+                                                    <td nowrap>@item.RelatedTrans</td>
+                                                    <td nowrap>@item.OtherBatchNumber</td>
                                                     <td nowrap>
-                                                        @item.ExpenseNumber
+                                                        @item.TransOrg
                                                     </td>
                                                     <td nowrap>
-                                                        @item.OrgName
+                                                        @item.TransObject
                                                     </td>
                                                     <td nowrap>
-                                                        @item.ObjectName
-                                                    </td>
-                                                    <td nowrap>
-                                                        @item.ProjectName
-                                                    </td>
-                                                    <td nowrap>
-                                                        @item.CFDA
+                                                        @item.TransProject
                                                     </td>
                                                     <td nowrap>
                                                         @item.FGTCategoryName1
@@ -207,7 +207,7 @@
                                                         <td nowrap>
                                                             @if (item.DocumentFile != "")
                                                             {
-                                                    <a href="javascript:void()" onclick="OpenDocument('@item.DocumentFile')" style="cursor:pointer;">@RevenueInfo</a>
+                                                                <a href="javascript:void()" onclick="OpenDocument('@item.DocumentFile')" style="cursor:pointer;">@RevenueInfo</a>
                                                             }
                                                             else
                                                             {
@@ -219,8 +219,6 @@
                                                     {
                                                         <td nowrap>&nbsp;</td>
                                                     }
-                                                    <td nowrap>@item.RelatedTrans</td>
-                                                    <td nowrap>@item.OtherBatchNumber</td>
                                                     <td style="text-align:left;" nowrap>
                                                         @item.TransactionDescription
                                                     </td>
@@ -231,7 +229,7 @@
                                 </table>
 
                                 <!-- popup -->
-                                <div class="modal fade mrp_modalpopup" id="TransactionDetailModal">
+                                <div class="modal fade mrp_modalpopup" id="MissingExpenseTransactionModal">
                                 </div>
                             </div>
                         </div>
@@ -242,15 +240,14 @@
             <!-- /page content -->
             <div id="container" class="mra_pagination">
                 <div class="pagination">
-                    @Html.PagedListPager(Model.pagedTransactionDetailEntity, page => Url.Action("ManageExpenseTransactions", new { page }))
+                    @Html.PagedListPager(Model.pagedTransactionDetailEntity, page => Url.Action("ManageMissingExpenseTransactions", new { page }))
                 </div>
             </div>
         </div>
     </div>
+}
 
-
-
-    <script type="text/javascript">
+<script type="text/javascript">
 
         function SelectedIndexChanged() {
             if ($("#SearchOn").val() != "" & $("#txtSearch").val() == "") {
@@ -273,19 +270,19 @@
         }
 
         $(document).ready(function () {
-            $('#mra_subliMET').addClass('active');
+            $('#mra_subliMMET').addClass('active');
         });
 
-        function ViewTransactionDetail(expenseId) {
+    function ViewMissingExpenseTransaction(transactionDetailId) {
             var options = { "backdrop": "static", keyboard: true };
             $.ajax({
                 type: "GET",
-                url: "/Expense/ViewTransactionDetail/" + expenseId,
+                url: "/Expense/ViewMissingExpenseTransaction/" + transactionDetailId,
                 dataType: "html",
                 success: function (evt) {
-                    $('#TransactionDetailModal').html(evt);
-                    $('#TransactionDetailModal').modal(options);
-                    $('#TransactionDetailModal').modal('show');
+                    $('#MissingExpenseTransactionModal').html(evt);
+                    $('#MissingExpenseTransactionModal').modal(options);
+                    $('#MissingExpenseTransactionModal').modal('show');
                 },
                 error: function (req, status, error) {
                     alert(error);
@@ -353,5 +350,8 @@
 
             })
         }
-    </script>
-}
+
+        function CreateMissingTransaction() {
+            location.href ="/Expense/CreateMissingExpenseTransaction"
+        }
+</script>

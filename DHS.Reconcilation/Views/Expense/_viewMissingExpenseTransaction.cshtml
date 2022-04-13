@@ -7,7 +7,7 @@
     <div class="modal-content">
         <div class="modal-header">
             <h5 class="modal-title" id="ExpenseModalLabel">
-                View Transaction Detail Information
+                View Missing Expense Transaction Information
             </h5>
 
             <button type="button" class="close" data-dismiss="modal" aria-label="Close">
@@ -15,14 +15,29 @@
             </button>
             @if (Model.rolePermissionEntity.EditBit)
             {
-                <span class="mrp_modaledit"> <strong><i class="fa fa-pencil" aria-hidden="true" onclick="EditTransaction('@Model.transactionDetailEntity.ExpenseId','@Model.transactionDetailEntity.TransactionDetailId')" title="Edit Expense Transaction"></i></strong></span>
+                <span class="mrp_modaledit"> <strong><i class="fa fa-pencil" aria-hidden="true" onclick="EditTransaction('@Model.transactionDetailEntity.TransactionDetailId')" title="Edit Missing Expense Transaction"></i></strong></span>
             }
         </div>
         <div class="modal-body">
             <div class="mrp_modalcontent">
                 <div class="row">
 
-                    <div class="col-lg-12">
+                    <div class="col-lg-6">
+                        <div class="row">
+                            <div class="col-lg-3 col-xs-12 col-sm-3 col-md-3">
+                                <div class="form_modal">
+                                    <label>Fiscal&nbsp;Year</label>
+                                </div>
+                            </div>
+                            <div class="col-lg-9 col-xs-12 col-sm-9 col-md-9">
+                                <div class="form_modal">
+                                    @Html.TextBoxFor(m => m.transactionDetailEntity.FiscalYear, htmlAttributes: new { @class = "form-control mrp_modalselect", @disabled = "disabled" })
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="col-lg-6">
                         <div class="row">
                             <div class="col-lg-3 col-xs-12 col-sm-3 col-md-3">
                                 <div class="form_modal">
@@ -37,7 +52,7 @@
                         </div>
                     </div>
 
-                    <div class="col-lg-12">
+                    <div class="col-lg-6">
                         <div class="row">
                             <div class="col-lg-3 col-xs-12 col-sm-3 col-md-3">
                                 <div class="form_modal">
@@ -52,7 +67,7 @@
                         </div>
                     </div>
 
-                    <div class="col-lg-12">
+                    <div class="col-lg-6">
                         <div class="row">
                             <div class="col-lg-3 col-xs-12 col-sm-3 col-md-3">
                                 <div class="form_modal">
@@ -67,7 +82,7 @@
                         </div>
                     </div>
 
-                    <div class="col-lg-12">
+                    <div class="col-lg-6">
                         <div class="row">
                             <div class="col-lg-3 col-xs-12 col-sm-3 col-md-3">
                                 <div class="form_modal">
@@ -82,7 +97,97 @@
                         </div>
                     </div>
 
-                    <div class="col-lg-12">
+                    <div class="col-lg-6">
+                        <div class="row">
+                            <div class="col-lg-3 col-xs-12 col-sm-3 col-md-3">
+                                <div class="form_modal">
+                                    <label>Related&nbsp;Transaction</label>
+                                </div>
+                            </div>
+                            <div class="col-lg-9 col-xs-12 col-sm-9 col-md-9">
+                                <div class="form_modal">
+                                    <input type="text" disabled="disabled" value="@Model.transactionDetailEntity.RelatedTrans" class="form-control mrp_modalselect" />
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="col-lg-6">
+                        <div class="row">
+                            <div class="col-lg-3 col-xs-12 col-sm-3 col-md-3">
+                                <div class="form_modal">
+                                    <label>Batch&nbsp;Number</label>
+                                </div>
+                            </div>
+                            <div class="col-lg-9 col-xs-12 col-sm-9 col-md-9">
+                                <div class="form_modal">
+                                    <input type="text" disabled="disabled" value="@Model.transactionDetailEntity.OtherBatchNumber" class="form-control mrp_modalselect" />
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="col-lg-6">
+                        <div class="row">
+                            <div class="col-lg-3 col-xs-12 col-sm-3 col-md-3">
+                                <div class="form_modal">
+                                    <label>Org</label>
+                                </div>
+                            </div>
+                            <div class="col-lg-9 col-xs-12 col-sm-9 col-md-9">
+                                <div class="form_modal">
+                                    <input type="text" disabled="disabled" value="@Model.transactionDetailEntity.TransOrg" class="form-control mrp_modalselect" />
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="col-lg-6">
+                        <div class="row">
+                            <div class="col-lg-3 col-xs-12 col-sm-3 col-md-3">
+                                <div class="form_modal">
+                                    <label>Object</label>
+                                </div>
+                            </div>
+                            <div class="col-lg-9 col-xs-12 col-sm-9 col-md-9">
+                                <div class="form_modal">
+                                    <input type="text" disabled="disabled" value="@Model.transactionDetailEntity.TransObject" class="form-control mrp_modalselect" />
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="col-lg-6">
+                        <div class="row">
+                            <div class="col-lg-3 col-xs-12 col-sm-3 col-md-3">
+                                <div class="form_modal">
+                                    <label>Project</label>
+                                </div>
+                            </div>
+                            <div class="col-lg-9 col-xs-12 col-sm-9 col-md-9">
+                                <div class="form_modal">
+                                    <input type="text" disabled="disabled" value="@Model.transactionDetailEntity.TransProject" class="form-control mrp_modalselect" />
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="col-lg-6">
+                        <div class="row">
+                            <div class="col-lg-3 col-xs-12 col-sm-3 col-md-3">
+                                <div class="form_modal">
+                                    <label>Source</label>
+                                </div>
+                            </div>
+                            <div class="col-lg-9 col-xs-12 col-sm-9 col-md-9">
+                                <div class="form_modal">
+                                    <input type="text" disabled="disabled" value="@Model.transactionDetailEntity.TransSource" class="form-control mrp_modalselect" />
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="col-lg-6">
                         <div class="row">
                             <div class="col-lg-3 col-xs-12 col-sm-3 col-md-3">
                                 <div class="form_modal">
@@ -97,7 +202,7 @@
                         </div>
                     </div>
 
-                    <div class="col-lg-12">
+                    <div class="col-lg-6">
                         <div class="row">
                             <div class="col-lg-3 col-xs-12 col-sm-3 col-md-3">
                                 <div class="form_modal">
@@ -112,7 +217,7 @@
                         </div>
                     </div>
 
-                    <div class="col-lg-12">
+                    <div class="col-lg-6">
                         <div class="row">
                             <div class="col-lg-3 col-xs-12 col-sm-3 col-md-3">
                                 <div class="form_modal">
@@ -130,7 +235,7 @@
                         string RevenueInfo = string.Empty;
                         RevenueInfo = Model.transactionDetailEntity.RevenueTransactionNumber + " - " + Model.transactionDetailEntity.RevenueTransactionDate + " - " + String.Format("{0:$#,##0.00}", Model.transactionDetailEntity.RevenueTransactionAmount) + " - " + Model.transactionDetailEntity.RevenueProjectName;
                     }
-                    <div class="col-lg-12">
+                    <div class="col-lg-6">
                         <div class="row">
                             <div class="col-lg-3 col-xs-12 col-sm-3 col-md-3">
                                 <div class="form_modal">
@@ -145,7 +250,7 @@
                         </div>
                     </div>
 
-                    <div class="col-lg-12">
+                    <div class="col-lg-6">
                         <div class="row">
                             <div class="col-lg-3 col-xs-12 col-sm-3 col-md-3">
                                 <div class="form_modal">
@@ -159,30 +264,17 @@
                             </div>
                         </div>
                     </div>
+                </div>
+                <div class="row">
 
                     <div class="col-lg-12">
                         <div class="row">
-                            <div class="col-lg-3 col-xs-12 col-sm-3 col-md-3">
-                                <div class="form_modal">
-                                    <label>Related&nbsp;Transaction</label>
-                                </div>
-                            </div>
-                            <div class="col-lg-9 col-xs-12 col-sm-9 col-md-9">
-                                <div class="form_modal">
-                                    <input type="text" disabled="disabled" value="@Model.transactionDetailEntity.RelatedTrans" class="form-control mrp_modalselect" />
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-
-                    <div class="col-lg-12">
-                        <div class="row">
-                            <div class="col-lg-3 col-xs-12 col-sm-3 col-md-3">
+                            <div class="col-lg-1 col-xs-12 col-sm-3 col-md-3">
                                 <div class="form_modal">
                                     <label>Notes</label>
                                 </div>
                             </div>
-                            <div class="col-lg-9 col-xs-12 col-sm-9 col-md-9">
+                            <div class="col-lg-11 col-xs-12 col-sm-9 col-md-9">
                                 <div class="form_modal">
                                     <textarea id="TransactionDescription" name="TransactionDescription" disabled="disabled" style="margin: 0px; width:100%; height: 120px;">@Model.transactionDetailEntity.TransactionDescription</textarea>
                                 </div>
@@ -195,3 +287,22 @@
         </div>
     </div>
 </div>
+<script language="JavaScript">
+    function EditTransaction(TransactionDetailId) {
+        var options = { "backdrop": "static", keyboard: true };
+        $.ajax({
+            type: "GET",
+            url: "/Expense/EditMissingExpenseTransaction/" + TransactionDetailId,
+            dataType: "html",
+            success: function (evt) {
+                $('#MissingExpenseTransactionModal').html(evt);
+                $('#MissingExpenseTransactionModal').modal(options);
+                $('#MissingExpenseTransactionModal').modal('show');
+            },
+            error: function (req, status, error) {
+                alert(error);
+                alert("Error!Occured");
+            }
+        });
+    }
+</script>

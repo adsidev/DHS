@@ -25,5 +25,8 @@ namespace DHSDAL
         ExpenseResponse GetExpExpTransCompare(ExpenseRequest expenseRequest);
         ExpenseResponse CheckRelatedTrans(ExpenseRequest expenseRequest);
         ExpenseResponse CheckBatchNumber(ExpenseRequest expenseRequest);
+        ExpenseResponse GetMissingExpenseTransactions(ExpenseRequest expenseRequest);
+        ExpenseResponse GetMissingExpenseTransaction(ExpenseRequest expenseRequest);
+        ExpenseResponse SaveMissingExpenseTransaction(ExpenseRequest expenseRequest);
     }
 }

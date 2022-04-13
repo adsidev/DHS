@@ -16,10 +16,12 @@ namespace DHS.Reconcilation.Controllers
     {
         HttpClient client;
         readonly string strBaseURL;
+        ExpenseResponse expenseResponse;
         //The URL of the WEB API Service
 
         public ExpenseController()
         {
+            expenseResponse = new ExpenseResponse();
             strBaseURL = ConfigurationManager.AppSettings["BaseURL"];
             client = new HttpClient();
             client.DefaultRequestHeaders.Accept.Clear();
@@ -33,15 +35,7 @@ namespace DHS.Reconcilation.Controllers
             int pageSize = Common.pageNumbers;
             int pageIndex = 1;
             pageIndex = page.HasValue ? Convert.ToInt32(page) : 1;
-            //if(pageIndex == 1)
-            //{
-            //    if (Common.GetSession("EPageIndex") != "")
-            //        pageIndex = Convert.ToInt32(Common.GetSession("EPageIndex"));
-            //}
-            //if (pageIndex > 1)
-            //    Common.AddSession("EPageIndex", pageIndex.ToString());
             
-            ExpenseResponse expenseResponse = new ExpenseResponse();
             ExpenseRequest expenseRequest = new ExpenseRequest();
             ExpenseEntity expenseEntity = new ExpenseEntity();
             expenseEntity.StatusId = 0;
@@ -105,7 +99,7 @@ namespace DHS.Reconcilation.Controllers
             int pageSize = Common.pageNumbers;
             int pageIndex = 1;
             pageIndex = page.HasValue ? Convert.ToInt32(page) : 1;
-            ExpenseResponse expenseResponse = new ExpenseResponse();
+           
             ExpenseRequest expenseRequest = new ExpenseRequest();
             ExpenseEntity expenseEntity = new ExpenseEntity();
             expenseEntity.StatusId = 0;
@@ -178,7 +172,7 @@ namespace DHS.Reconcilation.Controllers
         {
             if (!Common.SessionExists())
                 return RedirectToAction("Index", "Home");
-            ExpenseResponse expenseResponse = new ExpenseResponse();
+           
 
             ExpenseRequest expenseRequest = new ExpenseRequest();
             ExpenseEntity expenseEntity = new ExpenseEntity();
@@ -218,7 +212,7 @@ namespace DHS.Reconcilation.Controllers
                 return RedirectToAction("Index", "Home");
             if (id == 0)
                 return RedirectToAction("Index", "Home");
-            ExpenseResponse expenseResponse = new ExpenseResponse();
+           
 
             ExpenseRequest expenseRequest = new ExpenseRequest();
             ExpenseEntity expenseEntity = new ExpenseEntity();
@@ -259,7 +253,7 @@ namespace DHS.Reconcilation.Controllers
                 return RedirectToAction("Index", "Home");
             if (id == 0)
                 return RedirectToAction("Index", "Home");
-            ExpenseResponse expenseResponse = new ExpenseResponse();
+           
 
             ExpenseRequest expenseRequest = new ExpenseRequest();
             ExpenseEntity expenseEntity = new ExpenseEntity();
@@ -299,7 +293,7 @@ namespace DHS.Reconcilation.Controllers
                 return RedirectToAction("Index", "Home");
             if (id == 0)
                 return RedirectToAction("Index", "Home");
-            ExpenseResponse expenseResponse = new ExpenseResponse();
+           
 
             ExpenseRequest expenseRequest = new ExpenseRequest();
             ExpenseEntity expenseEntity = new ExpenseEntity();
@@ -342,7 +336,7 @@ namespace DHS.Reconcilation.Controllers
         //        return RedirectToAction("Index", "Home");
         //    if (id == 0)
         //        return RedirectToAction("Index", "Home");
-        //    ExpenseResponse expenseResponse = new ExpenseResponse();
+        //   
 
         //    ExpenseRequest expenseRequest = new ExpenseRequest();
         //    TransactionDetailEntity transactionDetailEntity = new TransactionDetailEntity();
@@ -383,7 +377,7 @@ namespace DHS.Reconcilation.Controllers
             if (id == 0)
                 return RedirectToAction("Index", "Home");
 
-            ExpenseResponse expenseResponse = new ExpenseResponse();
+           
             ExpenseRequest expenseRequest = new ExpenseRequest();
             TransactionDetailEntity transactionDetailEntity = new TransactionDetailEntity();
             transactionDetailEntity.ExpenseId = Convert.ToInt64(id);
@@ -422,7 +416,7 @@ namespace DHS.Reconcilation.Controllers
                 return RedirectToAction("Index", "Home");
             if (id == 0)
                 return RedirectToAction("Index", "Home");
-            ExpenseResponse expenseResponse = new ExpenseResponse();
+           
 
             ExpenseRequest expenseRequest = new ExpenseRequest();
             TransactionDetailEntity transactionDetailEntity = new TransactionDetailEntity();
@@ -463,7 +457,7 @@ namespace DHS.Reconcilation.Controllers
                 return RedirectToAction("Index", "Home");
             if (id == 0)
                 return RedirectToAction("Index", "Home");
-            ExpenseResponse expenseResponse = new ExpenseResponse();
+           
 
             ExpenseRequest expenseRequest = new ExpenseRequest();
             TransactionDetailEntity transactionDetailEntity = new TransactionDetailEntity();
@@ -503,7 +497,7 @@ namespace DHS.Reconcilation.Controllers
                 return RedirectToAction("Index", "Home");
             if (id == 0)
                 return RedirectToAction("Index", "Home");
-            ExpenseResponse expenseResponse = new ExpenseResponse();
+           
 
             ExpenseRequest expenseRequest = new ExpenseRequest();
             ExpenseEntity expenseEntity = new ExpenseEntity();
@@ -546,7 +540,7 @@ namespace DHS.Reconcilation.Controllers
                 return RedirectToAction("Index", "Home");
             if(id == 0)
                 return RedirectToAction("Index", "Home");
-            ExpenseResponse expenseResponse = new ExpenseResponse();
+           
 
             ExpenseRequest expenseRequest = new ExpenseRequest();
             ExpenseEntity expenseEntity = new ExpenseEntity();
@@ -584,7 +578,7 @@ namespace DHS.Reconcilation.Controllers
         {
             if (!Common.SessionExists())
                 return RedirectToAction("Index", "Home");
-            ExpenseResponse expenseResponse = new ExpenseResponse();
+           
 
             ExpenseRequest expenseRequest = new ExpenseRequest();
             ExpenseEntity expenseEntity = new ExpenseEntity();
@@ -624,7 +618,7 @@ namespace DHS.Reconcilation.Controllers
                 return RedirectToAction("Index", "Home");
             if (id == 0)
                 return RedirectToAction("Index", "Home");
-            ExpenseResponse expenseResponse = new ExpenseResponse();
+           
 
             ExpenseRequest expenseRequest = new ExpenseRequest();
             ExpenseEntity expenseEntity = new ExpenseEntity();
@@ -661,7 +655,7 @@ namespace DHS.Reconcilation.Controllers
         {
             if (!Common.SessionExists())
                 return RedirectToAction("Index", "Home");
-            ExpenseResponse expenseResponse = new ExpenseResponse();
+           
             ExpenseRequest expenseRequest = new ExpenseRequest();
             DocumentEntity documentEntity = new DocumentEntity();
 
@@ -703,7 +697,7 @@ namespace DHS.Reconcilation.Controllers
             if (!Common.SessionExists())
                 return RedirectToAction("Index", "Home");
 
-            ExpenseResponse expenseResponse = new ExpenseResponse();
+           
             ExpenseRequest expenseRequest = new ExpenseRequest();
 
             string fileName = string.Empty;
@@ -802,7 +796,7 @@ namespace DHS.Reconcilation.Controllers
                 return RedirectToAction("Index", "Home");
             if (id == 0)
                 return RedirectToAction("Index", "Home");
-            ExpenseResponse expenseResponse = new ExpenseResponse();
+           
 
             ExpenseRequest expenseRequest = new ExpenseRequest();
             TransactionDetailEntity transactionDetailEntity = new TransactionDetailEntity();
@@ -843,7 +837,7 @@ namespace DHS.Reconcilation.Controllers
             int pageSize = Common.pageNumbers;
             int pageIndex = 1;
             pageIndex = page.HasValue ? Convert.ToInt32(page) : 1;
-            ExpenseResponse expenseResponse = new ExpenseResponse();
+           
             ExpenseRequest expenseRequest = new ExpenseRequest();
             TransactionDetailEntity transactionDetailEntity = new TransactionDetailEntity();
             transactionDetailEntity.TransactionNumber = String.Empty;
@@ -909,7 +903,7 @@ namespace DHS.Reconcilation.Controllers
             int pageSize = Common.pageNumbers;
             int pageIndex = 1;
             pageIndex = page.HasValue ? Convert.ToInt32(page) : 1;
-            ExpenseResponse expenseResponse = new ExpenseResponse();
+           
             ExpenseRequest expenseRequest = new ExpenseRequest();
             TransactionDetailEntity transactionDetailEntity = new TransactionDetailEntity();
             transactionDetailEntity.TransactionNumber = String.Empty;
@@ -979,7 +973,7 @@ namespace DHS.Reconcilation.Controllers
                 return RedirectToAction("Index", "Home");
             if (id == 0)
                 return RedirectToAction("Index", "Home");
-            ExpenseResponse expenseResponse = new ExpenseResponse();
+           
 
             ExpenseRequest expenseRequest = new ExpenseRequest();
             ExpenseEntity expenseEntity = new ExpenseEntity();
@@ -1013,7 +1007,6 @@ namespace DHS.Reconcilation.Controllers
             }
         }
 
-
         public async Task<ActionResult> ManageExpExpCompare(int? page)
         {
             if (!Common.SessionExists())
@@ -1021,7 +1014,7 @@ namespace DHS.Reconcilation.Controllers
             int pageSize = Common.pageNumbers;
             int pageIndex = 1;
             pageIndex = page.HasValue ? Convert.ToInt32(page) : 1;
-            ExpenseResponse expenseResponse = new ExpenseResponse();
+           
             ExpenseRequest expenseRequest = new ExpenseRequest();
             ExpenseEntity expenseEntity = new ExpenseEntity();
             expenseEntity.ProjectId = 0;
@@ -1070,7 +1063,6 @@ namespace DHS.Reconcilation.Controllers
             }
         }
 
-
         [HttpPost]
         public async Task<ActionResult> ManageExpExpCompare(int? page, int? id = 0)
         {
@@ -1079,7 +1071,7 @@ namespace DHS.Reconcilation.Controllers
             int pageSize = Common.pageNumbers;
             int pageIndex = 1;
             pageIndex = page.HasValue ? Convert.ToInt32(page) : 1;
-            ExpenseResponse expenseResponse = new ExpenseResponse();
+           
             ExpenseRequest expenseRequest = new ExpenseRequest();
             ExpenseEntity expenseEntity = new ExpenseEntity();
             expenseEntity.ProjectId = 0;
@@ -1133,6 +1125,249 @@ namespace DHS.Reconcilation.Controllers
             }
         }
 
+        public async Task<ActionResult> ManageMissingExpenseTransactions(int? page)
+        {
+            if (!Common.SessionExists())
+                return RedirectToAction("Index", "Home");
+            int pageSize = Common.pageNumbers;
+            int pageIndex = 1;
+            pageIndex = page.HasValue ? Convert.ToInt32(page) : 1;
+           
+            ExpenseRequest expenseRequest = new ExpenseRequest();
+            TransactionDetailEntity transactionDetailEntity = new TransactionDetailEntity();
+            transactionDetailEntity.TransactionNumber = String.Empty;
+            transactionDetailEntity.TransProject = string.Empty;
+            transactionDetailEntity.FiscalYearId = 0;
+            transactionDetailEntity.StatusId = 0;
+            transactionDetailEntity.FGTCategoryId2 = 0;
+            transactionDetailEntity.RevenueTransactionNumber = String.Empty;
 
+            if (Common.GetSession("ETMTransProject") != "")
+                transactionDetailEntity.TransProject = Common.GetSession("ETMTransProject");
+
+            if (Common.GetSession("ETMFiscalYearId") != "")
+                transactionDetailEntity.FiscalYearId = Convert.ToInt32(Common.GetSession("ETMFiscalYearId"));
+
+            if (Common.GetSession("ETMStatusId") != "")
+                transactionDetailEntity.StatusId = Convert.ToInt32(Common.GetSession("ETMStatusId"));
+
+            if (Common.GetSession("ETMTransactionNumber") != "")
+                transactionDetailEntity.TransactionNumber = Common.GetSession("ETMTransactionNumber");
+
+            if (Common.GetSession("ETMRevenueTransactionNumber") != "")
+                transactionDetailEntity.RevenueTransactionNumber = Common.GetSession("ETMRevenueTransactionNumber");
+
+            if (Common.GetSession("ETMFGTCategoryId2") != "")
+                transactionDetailEntity.FGTCategoryId2= Convert.ToUInt32(Common.GetSession("ETMFGTCategoryId2"));
+
+            expenseRequest.transactionDetailEntity = transactionDetailEntity;
+            string url = strBaseURL + "Expense/GetMissingExpenseTransactions";
+            client.BaseAddress = new Uri(url);
+            HttpResponseMessage responseMessage = await client.PostAsJsonAsync(url, expenseRequest);
+
+            if (responseMessage.IsSuccessStatusCode)
+            {
+                var responseData = responseMessage.Content.ReadAsStringAsync().Result;
+                expenseResponse = JsonConvert.DeserializeObject<ExpenseResponse>(responseData);
+                if (expenseResponse.Message == string.Empty && expenseResponse.ErrorMessage == string.Empty)
+                {
+                    string PageName = "Expesnses";
+                    expenseResponse.transactionDetailEntity = transactionDetailEntity;
+                    expenseResponse.rolePermissionEntity = Common.PagePermissions(PageName);
+                    expenseResponse.pagedTransactionDetailEntity = expenseResponse.transactionDetailEntities.ToPagedList(pageIndex, pageSize);
+                    return View(expenseResponse);
+                }
+                else
+                {
+                    TempData["LoginFailure"] = expenseResponse.Message;
+                    return RedirectToAction("Error", "Home");
+                }
+            }
+            else
+            {
+                TempData["LoginFailure"] = responseMessage.ToString();
+                return RedirectToAction("Error", "Home");
+            }
+        }
+
+        [HttpPost]
+        public async Task<ActionResult> ManageMissingExpenseTransactions(int? page, int? id = 0)
+        {
+            if (!Common.SessionExists())
+                return RedirectToAction("Index", "Home");
+            int pageSize = Common.pageNumbers;
+            int pageIndex = 1;
+            pageIndex = page.HasValue ? Convert.ToInt32(page) : 1;
+           
+            ExpenseRequest expenseRequest = new ExpenseRequest();
+            TransactionDetailEntity transactionDetailEntity = new TransactionDetailEntity();
+            transactionDetailEntity.TransactionNumber = String.Empty;
+            transactionDetailEntity.TransProject = string.Empty;
+            transactionDetailEntity.StatusId = 0;
+            transactionDetailEntity.FiscalYearId = 0;
+            transactionDetailEntity.RevenueTransactionNumber = String.Empty;
+
+            if (Request["transactionDetailEntity.TransProject"] != "")
+                transactionDetailEntity.TransProject = Request["transactionDetailEntity.TransProject"];
+
+            if (Request["FiscalYearId"] != "")
+                transactionDetailEntity.FiscalYearId = Convert.ToInt32(Request["FiscalYearId"]);
+
+            if (Request["StatusId"] != "")
+                transactionDetailEntity.StatusId = Convert.ToInt32(Request["StatusId"]);
+
+            if (Request["transactionDetailEntity.TransactionNumber"] != "")
+                transactionDetailEntity.TransactionNumber = Request["transactionDetailEntity.TransactionNumber"];
+
+            if (Request["transactionDetailEntity.RevenueTransactionNumber"] != "")
+                transactionDetailEntity.RevenueTransactionNumber = Request["transactionDetailEntity.RevenueTransactionNumber"];
+
+            if (Request["CategoryId"] != "")
+                transactionDetailEntity.FGTCategoryId2 = Convert.ToInt32(Request["CategoryId"]);
+
+            Common.AddSession("ETMTransProject", transactionDetailEntity.TransProject.ToString());
+            Common.AddSession("ETMFiscalYearId", transactionDetailEntity.FiscalYearId.ToString());
+            Common.AddSession("ETMStatusId", transactionDetailEntity.StatusId.ToString());
+            Common.AddSession("ETMRevenueTransactionNumber", transactionDetailEntity.RevenueTransactionNumber.ToString());
+            Common.AddSession("ETMTransactionNumber", transactionDetailEntity.TransactionNumber.ToString());
+            Common.AddSession("ETMFGTCategoryId2", transactionDetailEntity.FGTCategoryId2.ToString());
+
+            expenseRequest.transactionDetailEntity = transactionDetailEntity;
+            string url = strBaseURL + "Expense/GetMissingExpenseTransactions";
+            client.BaseAddress = new Uri(url);
+            HttpResponseMessage responseMessage = await client.PostAsJsonAsync(url, expenseRequest);
+
+            if (responseMessage.IsSuccessStatusCode)
+            {
+                var responseData = responseMessage.Content.ReadAsStringAsync().Result;
+                expenseResponse = JsonConvert.DeserializeObject<ExpenseResponse>(responseData);
+                if (expenseResponse.Message == string.Empty && expenseResponse.ErrorMessage == string.Empty)
+                {
+                    string PageName = "Expesnses";
+                    expenseResponse.transactionDetailEntity = transactionDetailEntity;
+                    expenseResponse.rolePermissionEntity = Common.PagePermissions(PageName);
+                    expenseResponse.pagedTransactionDetailEntity = expenseResponse.transactionDetailEntities.ToPagedList(pageIndex, pageSize);
+                    return View(expenseResponse);
+                }
+                else
+                {
+                    TempData["LoginFailure"] = expenseResponse.Message;
+                    return RedirectToAction("Error", "Home");
+                }
+            }
+            else
+            {
+                TempData["LoginFailure"] = responseMessage.ToString();
+                return RedirectToAction("Error", "Home");
+            }
+        }
+
+        public async Task<ActionResult> CreateMissingExpenseTransaction()
+        {
+            if (!Common.SessionExists())
+                return RedirectToAction("Index", "Home");
+
+            ExpenseRequest expenseRequest = new ExpenseRequest();
+            TransactionDetailEntity transactionDetailEntity = new TransactionDetailEntity();
+            transactionDetailEntity.TransactionDetailId = 0;
+            expenseRequest.transactionDetailEntity = transactionDetailEntity;
+
+            string url = strBaseURL + "Expense/GetMissingExpenseTransaction";
+            client.BaseAddress = new Uri(url);
+            HttpResponseMessage responseMessage = await client.PostAsJsonAsync(url, expenseRequest);
+            if (responseMessage.IsSuccessStatusCode)
+            {
+                var responseData = responseMessage.Content.ReadAsStringAsync().Result;
+                expenseResponse = JsonConvert.DeserializeObject<ExpenseResponse>(responseData);
+                if (expenseResponse.Message == string.Empty && expenseResponse.ErrorMessage == string.Empty)
+                {
+                    string PageName = "Expesnses";
+                    expenseResponse.rolePermissionEntity = Common.PagePermissions(PageName);
+                    return View(expenseResponse);
+                }
+                else
+                {
+                    TempData["LoginFailure"] = expenseResponse.Message;
+                    return RedirectToAction("Error", "Home");
+                }
+            }
+            else
+            {
+                TempData["LoginFailure"] = responseMessage.ToString();
+                return RedirectToAction("Error", "Home");
+            }
+        }
+
+        public async Task<ActionResult> ViewMissingExpenseTransaction(long? id=0)
+        {
+            if (!Common.SessionExists())
+                return RedirectToAction("Index", "Home");
+
+            ExpenseRequest expenseRequest = new ExpenseRequest();
+            TransactionDetailEntity transactionDetailEntity = new TransactionDetailEntity();
+            transactionDetailEntity.TransactionDetailId = Convert.ToInt64(id);
+            expenseRequest.transactionDetailEntity = transactionDetailEntity;
+
+            string url = strBaseURL + "Expense/GetMissingExpenseTransaction";
+            client.BaseAddress = new Uri(url);
+            HttpResponseMessage responseMessage = await client.PostAsJsonAsync(url, expenseRequest);
+            if (responseMessage.IsSuccessStatusCode)
+            {
+                var responseData = responseMessage.Content.ReadAsStringAsync().Result;
+                expenseResponse = JsonConvert.DeserializeObject<ExpenseResponse>(responseData);
+                if (expenseResponse.Message == string.Empty && expenseResponse.ErrorMessage == string.Empty)
+                {
+                    string PageName = "Expesnses";
+                    expenseResponse.rolePermissionEntity = Common.PagePermissions(PageName);
+                    return PartialView("_viewMissingExpenseTransaction", expenseResponse);                    
+                }
+                else
+                {
+                    TempData["LoginFailure"] = expenseResponse.Message;
+                    return RedirectToAction("Error", "Home");
+                }
+            }
+            else
+            {
+                TempData["LoginFailure"] = responseMessage.ToString();
+                return RedirectToAction("Error", "Home");
+            }
+        }
+
+        public async Task<ActionResult> EditMissingExpenseTransaction(long? id = 0)
+        {
+            if (!Common.SessionExists())
+                return RedirectToAction("Index", "Home");
+
+            ExpenseRequest expenseRequest = new ExpenseRequest();
+            TransactionDetailEntity transactionDetailEntity = new TransactionDetailEntity();
+            transactionDetailEntity.TransactionDetailId = Convert.ToInt64(id);
+            expenseRequest.transactionDetailEntity = transactionDetailEntity;
+
+            string url = strBaseURL + "Expense/GetMissingExpenseTransaction";
+            client.BaseAddress = new Uri(url);
+            HttpResponseMessage responseMessage = await client.PostAsJsonAsync(url, expenseRequest);
+            if (responseMessage.IsSuccessStatusCode)
+            {
+                var responseData = responseMessage.Content.ReadAsStringAsync().Result;
+                expenseResponse = JsonConvert.DeserializeObject<ExpenseResponse>(responseData);
+                if (expenseResponse.Message == string.Empty && expenseResponse.ErrorMessage == string.Empty)
+                {
+                    string PageName = "Expesnses";
+                    expenseResponse.rolePermissionEntity = Common.PagePermissions(PageName);
+                    return PartialView("_editMissingExpenseTransaction", expenseResponse);
+                }
+                else
+                {
+                    TempData["LoginFailure"] = expenseResponse.Message;
+                    return RedirectToAction("Error", "Home");
+                }
+            }
+            else
+            {
+                TempData["LoginFailure"] = responseMessage.ToString();
+                return RedirectToAction("Error", "Home");
+            }
+        }
     }
 }

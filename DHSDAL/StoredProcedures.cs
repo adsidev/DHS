@@ -55,6 +55,9 @@ namespace DHSDAL
             public const string USPGETEXPEXPTRANSCOMPARE = "sp_GetExpExpTransCompare";
             public const string USPCHECKRELATEDTRANSACTION = "sp_CheckRelatedTransaction";
             public const string USPCHECKOTHERBATCHNUMBER = "sp_CheckOtherBatchNumber";
+            public const string USPGETMISSINGEXPENSETRANSACTIONS = "sp_GetMissingExpenseTransactions";
+            public const string USPGETMISSINGEXPENSETRANSACTION = "sp_GetMissingExpenseTransaction";
+            public const string USPSAVEMISSINGEXPENSETRANSACTION = "sp_SaveMissingExpenseTransaction";
         }
 
         public class Revenue

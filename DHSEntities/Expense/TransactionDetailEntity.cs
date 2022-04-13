@@ -11,6 +11,7 @@ namespace DHSEntities
         public long TransactionDetailId { get; set; }
         public long ExpenseId { get; set; }
         public long FiscalYearId { get; set; }
+        public string FiscalYear { get; set; }
         public string TransactionDate { get; set; }
         public string TransactionDescription { get; set; }
         public decimal TransactionAmount { get; set; }
@@ -47,5 +48,10 @@ namespace DHSEntities
         public string RelatedTrans { get; set; }
         public string OtherBatchNumber { get; set; }
         public decimal CorrectAmount { get; set; }
+        public bool IsMissingExpense { get; set; }
+        public string TransObject { get; set; }
+        public string TransOrg { get; set; }
+        public string TransProject { get; set; }
+        public string TransSource { get; set; }
     }
 }
