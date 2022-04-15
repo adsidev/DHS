@@ -833,7 +833,8 @@ namespace DHSDAL
             revenueResponse.Message = string.Empty;
             var transactionDetailEntities = new List<TransactionDetailEntity>();
             SqlObject.Parameters = new object[] {
-                    revenueRequest.transactionDetailEntity.ProjectId
+                    revenueRequest.transactionDetailEntity.FiscalYearId,
+                    revenueRequest.transactionDetailEntity.TransProject
             };
             var transactionDetailDataSet = SqlHelper.ExecuteDataset(_connectionString, StoredProcedures.Revenue.USPGETALLMANAGERECEIVABLES, SqlObject.Parameters);
             foreach (DataRow expenseDataRow in transactionDetailDataSet.Tables[0].Rows)
@@ -848,10 +849,9 @@ namespace DHSDAL
                     transactionDetailEntity.FGTCategoryName2 = expenseDataRow["FGTCategoryName2"].ToString();
                     transactionDetailEntity.TransactionDescription = expenseDataRow["TransactionDescription"].ToString();
                     transactionDetailEntity.TransactionAmount = Convert.ToDecimal(expenseDataRow["TransactionAmount"].ToString());
+                    transactionDetailEntity.CorrectAmount = Convert.ToDecimal(expenseDataRow["CorrectAmount"].ToString());
                     transactionDetailEntity.VendorAdjustments = expenseDataRow["VendorAdjustments"].ToString();
                     transactionDetailEntity.TransactionNumber = expenseDataRow["TransactionNumber"].ToString();
-                    transactionDetailEntity.ObjectDescription = expenseDataRow["ObjectDescription"].ToString();
-                    transactionDetailEntity.ActivityDescription = expenseDataRow["ActivityDescription"].ToString();
                     transactionDetailEntity.OrgName = expenseDataRow["OrgName"].ToString();
                     transactionDetailEntity.ObjectName = expenseDataRow["ObjectName"].ToString();
                     transactionDetailEntity.ProjectName = expenseDataRow["ProjectName"].ToString();
@@ -860,7 +860,10 @@ namespace DHSDAL
                     transactionDetailEntity.CFDA = expenseDataRow["CFDA"].ToString();
                     transactionDetailEntity.DrawAmount = Convert.ToDecimal(expenseDataRow["DrawAmount"].ToString());
                     transactionDetailEntity.BatchNumber = expenseDataRow["BatchNumber"].ToString();
+                    transactionDetailEntity.RelatedTrans = expenseDataRow["RelatedTrans"].ToString();
+                    transactionDetailEntity.OtherBatchNumber = expenseDataRow["OtherBatchNumber"].ToString();
                     transactionDetailEntity.DocumentFile = expenseDataRow["DocumentFile"].ToString();
+                    transactionDetailEntity.IsMissingExpense = Convert.ToBoolean(expenseDataRow["IsMissingExpense"].ToString());
                     try
                     {
                         transactionDetailEntity.DrawDate = Convert.ToDateTime(expenseDataRow["DrawDate"].ToString()).ToShortDateString();
@@ -869,14 +872,19 @@ namespace DHSDAL
                     {
                         transactionDetailEntity.DrawDate = expenseDataRow["DrawDate"].ToString();
                     }
-                    
-                    transactionDetailEntity.TransactionDate = Convert.ToDateTime(expenseDataRow["TransactionDate"].ToString()).ToShortDateString();
+                    try
+                    {
+                        transactionDetailEntity.TransactionDate = Convert.ToDateTime(expenseDataRow["TransactionDate"].ToString()).ToShortDateString();
+                    }
+                    catch (Exception)
+                    {
+                        transactionDetailEntity.TransactionDate = expenseDataRow["TransactionDate"].ToString();
+                    }
                 }
                 catch (Exception exception)
                 {
                     transactionDetailEntity.ErrorMessage = exception.Message;
                     transactionDetailEntity.Exception = exception;
-                    transactionDetailEntity.TransactionDate = expenseDataRow["TransactionDate"].ToString(); 
                 }
                 finally
                 {

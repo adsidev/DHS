@@ -17,11 +17,11 @@
 {
     <div class="tab-pane active" id="dashboard">
         <div class="container-fluid">
-           
+            <input type="hidden" id="hdnTransactionDetailId" value="@Model.transactionDetailEntity.TransactionDetailId" />
             <!-- top tiles -->
             <div class="mrp_content">
-                <h2>Adding Missing Expense Transaction Detail</h2>
-                
+                <h2>Create Missing Expense Transaction</h2>
+
                 <div class="row mra_createcost_report_payment">
                     <div class="col-lg-6">
                         <div class="row">
@@ -32,11 +32,36 @@
                             </div>
                             <div class="col-lg-8 col-xs-12 col-sm-8 col-md-8">
                                 <div class="form_modal">
-                                    @Html.DropDownList("FiscalYearId", new SelectList(Model.fiscalYearEntities, "FiscalYearId", "FiscalYear", Model.transactionDetailEntity.FiscalYearId), "", new { @id = "FiscalYearId", @class = "form-control mrp_modalselect" })
+                                    @if (Model.transactionDetailEntity.TransactionDetailId > 0)
+                                    {
+                                        @Html.DropDownList("FiscalYearId", new SelectList(Model.fiscalYearEntities, "FiscalYearId", "FiscalYear", Model.transactionDetailEntity.FiscalYearId), "", new { @id = "FiscalYearId", @class = "form-control mrp_modalselect", @disabled = "disabled" })
+                                    }
+                                    else
+                                    {
+                                        @Html.DropDownList("FiscalYearId", new SelectList(Model.fiscalYearEntities, "FiscalYearId", "FiscalYear", Model.transactionDetailEntity.FiscalYearId), "", new { @id = "FiscalYearId", @class = "form-control mrp_modalselect" })
+                                    }
+
                                 </div>
                             </div>
                         </div>
                     </div>
+                    @if (Model.transactionDetailEntity.TransactionDetailId > 0)
+                    {
+                        <div class="col-lg-6">
+                            <div class="row">
+                                <div class="col-lg-4 col-xs-12 col-sm-3 col-md-3">
+                                    <div class="form_modal">
+                                        <label>Transaction&nbsp;Number</label>
+                                    </div>
+                                </div>
+                                <div class="col-lg-8 col-xs-12 col-sm-9 col-md-9">
+                                    <div class="form_modal">
+                                        @Html.TextBoxFor(m => m.transactionDetailEntity.TransactionNumber, htmlAttributes: new { @class = "form-control mrp_modalselect", @disabled = "disabled" })
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    }
 
                     <div class="col-lg-6">
                         <div class="row">
@@ -47,7 +72,14 @@
                             </div>
                             <div class="col-lg-8 col-xs-12 col-sm-8 col-md-8">
                                 <div class="form_modal">
-                                    <input type="date" value="@Model.transactionDetailEntity.TransactionDate" id="TransactionDate" , class="form-control mrp_modalselect" />
+                                    @if (Model.transactionDetailEntity.TransactionDetailId > 0)
+                                    {
+                                        @Html.TextBoxFor(m => m.transactionDetailEntity.TransactionDate, htmlAttributes: new { @class = "form-control mrp_modalselect", @id = "TransactionDate" })
+                                    }
+                                    else
+                                    {
+                                        <input type="date" value="@Model.transactionDetailEntity.TransactionDate" id="TransactionDate" , class="form-control mrp_modalselect" />
+                                    }
                                 </div>
                             </div>
                         </div>
@@ -220,7 +252,7 @@
                                 </div>
                             </div>
                             <div class="col-lg-1 col-xs-12 col-sm-8 col-md-8">
-                                <img src="~/images/linking.png" class="img-responsive" onclick="ViewRevenueTransaction('@Model.transactionDetailEntity.ExpenseId')" style="cursor:pointer;" alt="Linking to Revenue" height="20" width="20" />
+                                <img src="~/images/linking.png" class="img-responsive" onclick="ViewMissingRevneueTransactions()" style="cursor:pointer;" alt="Linking to Revenue" height="20" width="20" />
                                 @if (Model.transactionDetailEntity.TransactionDetailId > 0)
                                 {
                                     <img src="~/images/Delete.png" class="img-responsive" onclick="RemoveRevenueTransaction()" style="cursor:pointer;" alt="Remove Link between Expense Transaction to Revenue Transaction" height="20" width="20" />
@@ -256,9 +288,21 @@
                             </div>
                         </div>
                     </div>
-
-
-
+                    <div class="col-lg-6">
+                        <div class="row">
+                            <div class="col-lg-4 col-xs-12 col-sm-4 col-md-4">
+                                <div class="form_modal">
+                                    <label>Expense</label>
+                                </div>
+                            </div>
+                            <div class="col-lg-8 col-xs-12 col-sm-8 col-md-8">
+                                <div class="form_modal">
+                                    <select class="form-control mrp_modalselect" id="ExpenseId">
+                                    </select>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
                 </div>
 
                 <div class="row">
@@ -277,182 +321,265 @@
 
                 <div class="modal-footer">
                     <input type="submit" title="Save missing transaction information" id="btnSubmit" class="btn btn-primary btn-updated" onclick="return SubmitValue()" value="Save Changes" />
-
                     <button type="button" title="Cancel saving missing transaction information" class="btn btn-secondary btn-close" data-dismiss="modal" onclick="JavaScript:location.href='/Expense/ManageMissingExpenseTransactions'">Cancel</button>
                 </div>
             </div>
-
-
             <!-- popup -->
             <div class="modal fade mrp_modalpopup" id="TransactionDetailModal">
             </div>
-
         </div>
     </div>
 
+}
 
-
-
-    <script type="text/javascript">
-        function SubmitValue() {
-            var IsRelatedCheck = false;
-            if (document.getElementById("TransactionDate").value == "") {
-                alert("Please enter transaction date.")
-                document.getElementById("TransactionDate").focus();
-                return false;
-            }
-            if (document.getElementById("FGTCategoryId1").value == "") {
-                alert("Please select fgt category.")
-                document.getElementById("FGTCategoryId1").focus();
-                return false;
-            }
-            if (document.getElementById("FGTCategoryId2").value == "") {
-                alert("Please select fgt category.")
-                document.getElementById("FGTCategoryId2").focus();
-                return false;
-            }
-
-            if (document.getElementById("StatusId").value == 11 && document.getElementById("OtherBatchNumber").value =="") {
-                alert("Please enter other batch number.");
-                document.getElementById("OtherBatchNumber").focus();
-                return false;
-            }
-
-            if (document.getElementById("RelatedTrans").value != '') {
-                var transactionDetailEntity = {
-                    TransactionDetailId: document.getElementById("TransactionDetailId").value,
-                    RelatedTrans: document.getElementById("RelatedTrans").value,
-                };
-                var expenseRequest = {
-                    TransactionDetailEntity: transactionDetailEntity
-                };
-                $.ajax({
-                    url: "/Expense/CheckRelatedTrans",
-                    type: "POST",
-                    data: expenseRequest,
-                    dataType: 'json',
-                    success: function (result) {
-                        if (document.getElementById("RelatedTrans").value == result.transactionDetailEntity.TransactionNumber) {
-                            IsRelatedCheck = true;
-                        }
-                        else {
-                            alert("Please check the Related Transaction number.");
-                            document.getElementById("RelatedTrans").focus();
-                            window.location.reload();
-                            return false;
-                        }
-                    }
-                });
-            }
-            else {
-                IsRelatedCheck = true;
-            }
-
-            if (document.getElementById("OtherBatchNumber").value != '') {
-                var transactionDetailEntity = {
-                    OtherBatchNumber: document.getElementById("OtherBatchNumber").value,
-                };
-                var expenseRequest = {
-                    TransactionDetailEntity: transactionDetailEntity
-                };
-                $.ajax({
-                    url: "/Expense/CheckBatchNumber",
-                    type: "POST",
-                    data: expenseRequest,
-                    dataType: 'json',
-                    success: function (result) {
-                        if (document.getElementById("OtherBatchNumber").value == result.transactionDetailEntity.OtherBatchNumber) {
-                            IsRelatedCheck = true;
-                        }
-                        else {
-                            alert("Please check the Other Batch number.");
-                            document.getElementById("OtherBatchNumber").focus();
-                            window.location.reload();
-                            return false;
-                        }
-                    }
-                });
-            }
-            else {
-                IsRelatedCheck = true;
-            }
-            if (IsRelatedCheck)
-                SaveTransaction();
-            return true;
+<script type="text/javascript">
+    function SubmitValue() {
+        var IsRelatedCheck = false;
+        if (document.getElementById("TransactionDate").value == "") {
+            alert("Please enter transaction date.")
+            document.getElementById("TransactionDate").focus();
+            return false;
+        }
+        if (document.getElementById("FGTCategoryId1").value == "") {
+            alert("Please select fgt category.")
+            document.getElementById("FGTCategoryId1").focus();
+            return false;
+        }
+        if (document.getElementById("FGTCategoryId2").value == "") {
+            alert("Please select fgt category.")
+            document.getElementById("FGTCategoryId2").focus();
+            return false;
         }
 
-        function SaveTransaction() {
+        if (document.getElementById("StatusId").value == 11 && document.getElementById("OtherBatchNumber").value == "") {
+            alert("Please enter other batch number.");
+            document.getElementById("OtherBatchNumber").focus();
+            return false;
+        }
+
+        if (document.getElementById("RelatedTrans").value != '') {
             var transactionDetailEntity = {
-                TransactionDate: document.getElementById("TransactionDate").value,
-                TransactionDetailId: 0,
-                FGTCategoryId1: document.getElementById("FGTCategoryId1").value,
-                FGTCategoryId2: document.getElementById("FGTCategoryId2").value,
-                TransactionDescription: document.getElementById("TransactionDescription").value,
-                TransactionAmount: parseFloat((document.getElementById("TransactionAmount").value).replace("$", "").replace(",", "")).toFixed(2),
-                VendorAdjustments: '',
-                DrawId: document.getElementById("hdnRevenueTransactionId").value,
-                VendorId: document.getElementById("VendorId").value,
-                StatusId: document.getElementById("StatusId").value,
+                TransactionDetailId: document.getElementById("TransactionDetailId").value,
                 RelatedTrans: document.getElementById("RelatedTrans").value,
-                CorrectAmount: document.getElementById("CorrectAmount").value,
-                OtherBatchNumber: document.getElementById("OtherBatchNumber").value,
-                TransOrg: document.getElementById("TransOrg").value,
-                TransObject: document.getElementById("TransObject").value,
-                TransProject: document.getElementById("TransProject").value,
-                TransSource: document.getElementById("TransSource").value,
-                FiscalYearId: document.getElementById("FiscalYearId").value,
             };
             var expenseRequest = {
                 TransactionDetailEntity: transactionDetailEntity
             };
             $.ajax({
-                url: "/Expense/SaveMissingExpenseTransaction",
+                url: "/Expense/CheckRelatedTrans",
                 type: "POST",
                 data: expenseRequest,
                 dataType: 'json',
                 success: function (result) {
-                    location.href = "/Expense/ManageMissingExpenseTransactions/";
-                },
-                complete: function () {
-
+                    if (document.getElementById("RelatedTrans").value == result.transactionDetailEntity.TransactionNumber) {
+                        IsRelatedCheck = true;
+                    }
+                    else {
+                        alert("Please check the Related Transaction number.");
+                        document.getElementById("RelatedTrans").focus();
+                        window.location.reload();
+                        return false;
+                    }
                 }
             });
         }
-
-        
-
-
-        $("#FGTCategoryId1").change(function () {
-            var x = $("#FGTCategoryId1").val();
-            fire_ajax(x);
-        });
-
-        function fire_ajax(s) {
-            var fGTCategoryEntity = {
-                FGTParentCategoryId: s
-            };
-            var fGTCategoryRequest = {
-                FGTCategoryEntity: fGTCategoryEntity
-            };
-            $.ajax({
-                url: "/FGTCategory/GetFGTCategoriesById",
-                type: "POST",
-                data: fGTCategoryRequest,
-                dataType: 'json',
-                success: function (data) {
-                    var s = '<option value="-1">Please Select Category</option>';
-                    for (var i = 0; i < data.fGTCategoryEntities.length; i++) {
-                        s += '<option value="' + data.fGTCategoryEntities[i].FGTCategoryId + '">' + data.fGTCategoryEntities[i].FGTCategoryName + '</option>';
-                    }
-                    $("#FGTCategoryId2").html(s);
-                }
-
-            })
+        else {
+            IsRelatedCheck = true;
         }
 
+        if (document.getElementById("OtherBatchNumber").value != '') {
+            var transactionDetailEntity = {
+                OtherBatchNumber: document.getElementById("OtherBatchNumber").value,
+            };
+            var expenseRequest = {
+                TransactionDetailEntity: transactionDetailEntity
+            };
+            $.ajax({
+                url: "/Expense/CheckBatchNumber",
+                type: "POST",
+                data: expenseRequest,
+                dataType: 'json',
+                success: function (result) {
+                    if (document.getElementById("OtherBatchNumber").value == result.transactionDetailEntity.OtherBatchNumber) {
+                        IsRelatedCheck = true;
+                    }
+                    else {
+                        alert("Please check the Other Batch number.");
+                        document.getElementById("OtherBatchNumber").focus();
+                        window.location.reload();
+                        return false;
+                    }
+                }
+            });
+        }
+        else {
+            IsRelatedCheck = true;
+        }
+        if (IsRelatedCheck)
+            SaveTransaction();
+        return true;
+    }
 
-        $(document).ready(function () {
-            $('#mra_subliMMET').addClass('active');
+    function SaveTransaction() {
+        var transactionDetailEntity = {
+            TransactionDate: document.getElementById("TransactionDate").value,
+            TransactionDetailId: document.getElementById("hdnTransactionDetailId").value,
+            FGTCategoryId1: document.getElementById("FGTCategoryId1").value,
+            FGTCategoryId2: document.getElementById("FGTCategoryId2").value,
+            TransactionDescription: document.getElementById("TransactionDescription").value,
+            TransactionAmount: parseFloat((document.getElementById("TransactionAmount").value).replace("$", "").replace(",", "")).toFixed(2),
+            VendorAdjustments: '',
+            DrawId: document.getElementById("hdnRevenueTransactionId").value,
+            VendorId: document.getElementById("VendorId").value,
+            StatusId: document.getElementById("StatusId").value,
+            RelatedTrans: document.getElementById("RelatedTrans").value,
+            CorrectAmount: document.getElementById("CorrectAmount").value,
+            OtherBatchNumber: document.getElementById("OtherBatchNumber").value,
+            TransOrg: document.getElementById("TransOrg").value,
+            TransObject: document.getElementById("TransObject").value,
+            TransProject: document.getElementById("TransProject").value,
+            TransSource: document.getElementById("TransSource").value,
+            FiscalYearId: document.getElementById("FiscalYearId").value,
+            ExpenseId: document.getElementById("ExpenseId").value,
+        };
+        var expenseRequest = {
+            TransactionDetailEntity: transactionDetailEntity
+        };
+        $.ajax({
+            url: "/Expense/SaveMissingExpenseTransaction",
+            type: "POST",
+            data: expenseRequest,
+            dataType: 'json',
+            success: function (result) {
+                location.href = "/Expense/ManageMissingExpenseTransactions/";
+            },
+            complete: function () {
+
+            }
         });
-    </script>
-}
+    }
+
+    $("#FGTCategoryId1").change(function () {
+        var x = $("#FGTCategoryId1").val();
+        populateCategory(x);
+    });
+
+    function populateCategory(s) {
+        var fGTCategoryEntity = {
+            FGTParentCategoryId: s
+        };
+        var fGTCategoryRequest = {
+            FGTCategoryEntity: fGTCategoryEntity
+        };
+        $.ajax({
+            url: "/FGTCategory/GetFGTCategoriesById",
+            type: "POST",
+            data: fGTCategoryRequest,
+            dataType: 'json',
+            success: function (data) {
+                var s = '<option value="-1">Please Select Category</option>';
+                for (var i = 0; i < data.fGTCategoryEntities.length; i++) {
+                    s += '<option value="' + data.fGTCategoryEntities[i].FGTCategoryId + '">' + data.fGTCategoryEntities[i].FGTCategoryName + '</option>';
+                }
+                $("#FGTCategoryId2").html(s);
+            }
+
+        })
+    }
+
+
+    $(document).ready(function () {
+        $('#mra_subliMMET').addClass('active');
+    });
+
+    function ViewMissingRevneueTransactions() {
+        if (document.getElementById("FiscalYearId").value == "") {
+            alert("Please select fiscal year to link revenue transactions")
+            document.getElementById("FiscalYearId").focus();
+            return false;
+        }
+        if (document.getElementById("TransProject").value == "") {
+            alert("Please enter project to link revenue transactions")
+            document.getElementById("TransProject").focus();
+            return false;
+        }
+        var fiscalYearId = document.getElementById("FiscalYearId").value;
+        var projectCode = document.getElementById("TransProject").value;
+        if (fiscalYearId != "" && projectCode != "") {
+            var options = { "backdrop": "static", keyboard: true };
+            $.ajax({
+                type: "GET",
+                url: "/Expense/ViewMissingRevneueTransaction/" + fiscalYearId + "?projectCode=" + projectCode,
+                dataType: "html",
+                success: function (evt) {
+                    $('#TransactionDetailModal').html(evt);
+                    $('#TransactionDetailModal').modal(options);
+                    $('#TransactionDetailModal').modal('show');
+                },
+                error: function (req, status, error) {
+                    alert("Error!Occured");
+                }
+            });
+        }
+        
+    }
+
+    function LinkToRevenueTransaction() {
+        var getSelectedValue = document.querySelector(
+            'input[name="RevenueTransaction"]:checked');
+        if (getSelectedValue != null) {
+            var RevenueTransactionNumber = document.getElementById("TN" + getSelectedValue.value).value;
+            var RevenueTransactionDate = document.getElementById("TD" + getSelectedValue.value).value;
+            var RevenueTransactionAmount = document.getElementById("TA" + getSelectedValue.value).value;
+            var ProjectName = document.getElementById("PN" + getSelectedValue.value).value;
+            var StringF = RevenueTransactionNumber + ' - ' + RevenueTransactionDate + ' - ' + RevenueTransactionAmount + ' - ' + ProjectName;
+            document.getElementById("hdnRevenueTransactionId").value = getSelectedValue.value;
+            document.getElementById("RevenueTransaction").value = StringF;
+            $('#TransactionDetailModal').modal('hide');
+        }
+        else {
+            alert("Please select record to link.")
+        }
+    }
+
+    $("#TransProject").blur(function () {
+        alert(document.getElementById("FiscalYearId").value);
+        if (document.getElementById("TransProject").value != "" && document.getElementById("FiscalYearId").value != "") {
+            populateExpense();
+        }
+        else {
+            var s = '<option value="0">Please Select Expense</option>';
+            $("#ExpenseId").html(s);
+        }
+    });
+
+    function populateExpense() {
+        var expenseEntity = {
+            ProjectName: document.getElementById("TransProject").value,
+            FiscalYearId: document.getElementById("FiscalYearId").value,
+        };
+        var expenseRequest = {
+            expenseEntity: expenseEntity
+        };
+        $.ajax({
+            url: "/Expense/GetMissingExpenses",
+            type: "POST",
+            data: expenseRequest,
+            dataType: 'json',
+            success: function (data) {
+                var s = '<option value="0">Please Select Expense</option>';
+                for (var i = 0; i < data.expenseEntities.length; i++) {
+                    s += '<option value="' + data.expenseEntities[i].ExpenseId + '">' + data.expenseEntities[i].ExpenseNumber + '</option>';
+                }
+                $("#ExpenseId").html(s);
+            }
+
+        })
+    }
+
+    function RemoveRevenueTransaction() {
+        document.getElementById("hdnRevenueTransactionId").value = 0;
+        document.getElementById("RevenueTransaction").value = "";
+    }
+
+</script>

@@ -1346,6 +1346,7 @@ namespace DHSDAL
                 expenseRequest.transactionDetailEntity.TransProject,
                 expenseRequest.transactionDetailEntity.TransSource,
                 expenseRequest.transactionDetailEntity.FiscalYearId,
+                expenseRequest.transactionDetailEntity.ExpenseId,
                 };
                 var intResult = SqlHelper.ExecuteScalar(_connectionString, StoredProcedures.Expense.USPSAVEMISSINGEXPENSETRANSACTION, SqlObject.Parameters);
                 expenseResponse.Message = string.Empty;
@@ -1358,6 +1359,104 @@ namespace DHSDAL
             }
             return expenseResponse;
 
+        }
+
+        public ExpenseResponse GetMissingRevenueTransaction(ExpenseRequest expenseRequest)
+        {
+            List<RevenueTransactionEntity> revenueTransactionEntities = new List<RevenueTransactionEntity>();
+            SqlObject.Parameters = new object[] {
+                expenseRequest.transactionDetailEntity.FiscalYearId,
+                expenseRequest.transactionDetailEntity.TransProject
+            };
+            var transactionDetailDataSet = SqlHelper.ExecuteDataset(_connectionString, StoredProcedures.Expense.USPLINKMISSINGREVENUETRANSACTION, SqlObject.Parameters);
+            foreach (DataRow revenueDataRow in transactionDetailDataSet.Tables[0].Rows)
+            {
+                RevenueTransactionEntity revenueTransactionEntity = new RevenueTransactionEntity();
+                try
+                {
+                    revenueTransactionEntity.RevenueTransactionId = Convert.ToInt64(revenueDataRow["RevenueTransactionId"].ToString());
+                    revenueTransactionEntity.RevenueTypeName = revenueDataRow["RevenueTypeName"].ToString();
+                    revenueTransactionEntity.RevenueTranscationDescription = revenueDataRow["RevenueTranscationDescription"].ToString();
+                    revenueTransactionEntity.RevenueTransactionAmount = Convert.ToDecimal(revenueDataRow["RevenueTransactionAmount"].ToString());
+                    revenueTransactionEntity.RevenueTransactionNumber = revenueDataRow["RevenueTransactionNumber"].ToString();
+                    revenueTransactionEntity.OrgName = revenueDataRow["OrgName"].ToString();
+                    revenueTransactionEntity.ObjectName = revenueDataRow["ObjectName"].ToString();
+                    revenueTransactionEntity.ProjectName = revenueDataRow["ProjectName"].ToString();
+                    revenueTransactionEntity.DrawNumber = revenueDataRow["DrawNumber"].ToString();
+                    revenueTransactionEntity.DrawAmount = Convert.ToDecimal(revenueDataRow["DarwDownAmount"].ToString());
+                    revenueTransactionEntity.BatchNumber = revenueDataRow["BatchNumber"].ToString();
+                    try
+                    {
+                        revenueTransactionEntity.RevenueTransactionDate = Convert.ToDateTime(revenueDataRow["RevenueTransactionDate"].ToString()).ToShortDateString();
+                    }
+                    catch (Exception)
+                    {
+                        revenueTransactionEntity.RevenueTransactionDate = revenueDataRow["RevenueTransactionDate"].ToString();
+                    }
+                    
+                    try
+                    {
+                        revenueTransactionEntity.DrawDate = Convert.ToDateTime(revenueDataRow["DrawDate"].ToString()).ToShortDateString();
+                    }
+                    catch (Exception)
+                    {
+                        revenueTransactionEntity.DrawDate = revenueDataRow["DrawDate"].ToString();
+                    }                    
+                }
+                catch (Exception exception)
+                {
+                    revenueTransactionEntity.ErrorMessage = exception.Message;
+                    revenueTransactionEntity.Exception = exception;
+                }
+                finally
+                {
+                    revenueTransactionEntities.Add(revenueTransactionEntity);
+                }
+            }
+            if (revenueTransactionEntities.Count >= 1 || revenueTransactionEntities.Count == 0)
+            {
+                expenseResponse.ErrorMessage = string.Empty;
+                expenseResponse.Message = string.Empty;
+            }
+            expenseResponse.revenueTransactionEntities = revenueTransactionEntities;
+            //CommonDAL commonDAL = new CommonDAL();
+            //expenseResponse.projectEntities = commonDAL.GetProjects();
+            return expenseResponse;
+        }
+
+        public ExpenseResponse GetMissingExpenses(ExpenseRequest expenseRequest)
+        {
+            List<ExpenseEntity> expenseEntities = new List<ExpenseEntity>();
+            SqlObject.Parameters = new object[] {
+                expenseRequest.expenseEntity.FiscalYearId,
+                expenseRequest.expenseEntity.ProjectName
+            };
+            var transactionDetailDataSet = SqlHelper.ExecuteDataset(_connectionString, StoredProcedures.Expense.USPGETMISSINGEXPENSES, SqlObject.Parameters);
+            foreach (DataRow revenueDataRow in transactionDetailDataSet.Tables[0].Rows)
+            {
+                ExpenseEntity expenseEntity = new ExpenseEntity();
+                try
+                {
+                    expenseEntity.ExpenseId = Convert.ToInt64(revenueDataRow["ExpenseId"].ToString());
+                    expenseEntity.ExpenseNumber = revenueDataRow["ExpenseNumber"].ToString();
+                }
+                catch (Exception exception)
+                {
+                    expenseEntity.ErrorMessage = exception.Message;
+                    expenseEntity.Exception = exception;
+                }
+                finally
+                {
+                    expenseEntities.Add(expenseEntity);
+                }
+            }
+            if (expenseEntities.Count >= 1 || expenseEntities.Count == 0)
+            {
+                expenseResponse.ErrorMessage = string.Empty;
+                expenseResponse.Message = string.Empty;
+            }
+            expenseResponse.expenseEntities = expenseEntities;
+            return expenseResponse;
         }
     }
 }

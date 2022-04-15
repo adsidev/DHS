@@ -884,12 +884,11 @@ namespace DHS.Reconcilation.Controllers
             RevenueResponse revenueResponse = new RevenueResponse();
             RevenueRequest revenueRequest = new RevenueRequest();
             TransactionDetailEntity transactionDetailEntity = new TransactionDetailEntity();
-            transactionDetailEntity.TransactionNumber = String.Empty;
-            transactionDetailEntity.ProjectId = 0;
-            transactionDetailEntity.RevenueTransactionNumber = String.Empty;
+            transactionDetailEntity.FiscalYearId = 0;
+            transactionDetailEntity.TransProject = String.Empty;
 
-            if (Common.GetSession("RMRProjectId") != "")
-                transactionDetailEntity.ProjectId = Convert.ToInt32(Common.GetSession("RMRProjectId"));
+            if (Common.GetSession("RMRTransProject") != "")
+                transactionDetailEntity.TransProject = Common.GetSession("RMRTransProject");
 
             if (Common.GetSession("RMRFiscalYearId") != "")
                 transactionDetailEntity.FiscalYearId = Convert.ToInt32(Common.GetSession("RMRFiscalYearId"));
@@ -935,16 +934,16 @@ namespace DHS.Reconcilation.Controllers
             RevenueResponse revenueResponse = new RevenueResponse();
             RevenueRequest revenueRequest = new RevenueRequest();
             TransactionDetailEntity transactionDetailEntity = new TransactionDetailEntity();
-            transactionDetailEntity.ProjectId = 0;
+            transactionDetailEntity.TransProject = string.Empty;
             
-            if (Request["ProjectId"] != "")
-                transactionDetailEntity.ProjectId = Convert.ToInt32(Request["ProjectId"]);
+            if (Request["transactionDetailEntity.TransProject"] != "")
+                transactionDetailEntity.TransProject =Request["transactionDetailEntity.TransProject"];
 
             if (Request["FiscalYearId"] != "")
                 transactionDetailEntity.FiscalYearId = Convert.ToInt32(Request["FiscalYearId"]);
 
 
-            Common.AddSession("RMRProjectId", transactionDetailEntity.ProjectId.ToString());
+            Common.AddSession("RMRTransProject", transactionDetailEntity.TransProject.ToString());
             Common.AddSession("RMRFiscalYearId", transactionDetailEntity.FiscalYearId.ToString());
 
             revenueRequest.transactionDetailEntity = transactionDetailEntity;

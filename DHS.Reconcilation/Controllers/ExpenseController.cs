@@ -1262,14 +1262,14 @@ namespace DHS.Reconcilation.Controllers
             }
         }
 
-        public async Task<ActionResult> CreateMissingExpenseTransaction()
+        public async Task<ActionResult> CreateMissingExpenseTransaction(int? id = 0)
         {
             if (!Common.SessionExists())
                 return RedirectToAction("Index", "Home");
 
             ExpenseRequest expenseRequest = new ExpenseRequest();
             TransactionDetailEntity transactionDetailEntity = new TransactionDetailEntity();
-            transactionDetailEntity.TransactionDetailId = 0;
+            transactionDetailEntity.TransactionDetailId = Convert.ToInt64(id);
             expenseRequest.transactionDetailEntity = transactionDetailEntity;
 
             string url = strBaseURL + "Expense/GetMissingExpenseTransaction";
@@ -1369,5 +1369,44 @@ namespace DHS.Reconcilation.Controllers
                 return RedirectToAction("Error", "Home");
             }
         }
+
+        public async Task<ActionResult> ViewMissingRevneueTransaction(long id, string projectCode)
+        {
+            if (!Common.SessionExists())
+                return RedirectToAction("Index", "Home");
+
+            ExpenseRequest expenseRequest = new ExpenseRequest();
+            TransactionDetailEntity transactionDetailEntity = new TransactionDetailEntity();
+            transactionDetailEntity.FiscalYearId = Convert.ToInt64(id);
+            transactionDetailEntity.TransProject = projectCode;
+            expenseRequest.transactionDetailEntity = transactionDetailEntity;
+            string url = strBaseURL + "Expense/GetMissingRevenueTransaction";
+            client.BaseAddress = new Uri(url);
+            HttpResponseMessage responseMessage = await client.PostAsJsonAsync(url, expenseRequest);
+
+            if (responseMessage.IsSuccessStatusCode)
+            {
+                var responseData = responseMessage.Content.ReadAsStringAsync().Result;
+                expenseResponse = JsonConvert.DeserializeObject<ExpenseResponse>(responseData);
+                if (expenseResponse.Message == string.Empty && expenseResponse.ErrorMessage == string.Empty)
+                {
+                    string PageName = "Expesnses";
+                    expenseResponse.rolePermissionEntity = Common.PagePermissions(PageName);
+                    return PartialView("_revenueMissingTransaction", expenseResponse);
+                }
+                else
+                {
+                    TempData["LoginFailure"] = expenseResponse.Message;
+                    return RedirectToAction("Error", "Home");
+                }
+            }
+            else
+            {
+                TempData["LoginFailure"] = responseMessage.ToString();
+                return RedirectToAction("Error", "Home");
+            }
+        }
+
+
     }
 }

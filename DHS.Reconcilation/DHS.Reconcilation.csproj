@@ -515,6 +515,7 @@
     <Content Include="Views\Revenue\CreateMissingRevenueTransaction.cshtml" />
     <Content Include="Views\Revenue\_viewMissingRevenueTransaction.cshtml" />
     <Content Include="Views\Revenue\_editMissingRevenueTransaction.cshtml" />
+    <Content Include="Views\Expense\_revenueMissingTransaction.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

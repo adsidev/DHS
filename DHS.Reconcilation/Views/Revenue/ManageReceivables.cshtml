@@ -34,7 +34,7 @@
                                 <div class="form-group col-lg-3 col-xs-12 col-sm-6">
                                     <label for="SearchOn">Project:</label>
                                     <div class="form_modal">
-                                        @Html.DropDownList("ProjectId", new SelectList(Model.projectEntities, "ProjectId", "ProjectName", Model.transactionDetailEntity.ProjectId), "", new { @id = "ProjectId", @class = "form-control mrp_modalselect" })
+                                        @Html.TextBoxFor(m => m.transactionDetailEntity.TransProject, htmlAttributes: new { @id = "TransProject", @class = "form-control mrp_modalselect", @autocomplete = "off" })
                                     </div>
                                 </div>
                                 <div class="form-group col-lg-5 col-xs-12 col-sm-7">
@@ -77,6 +77,15 @@
                                                 Transaction Amount
                                             </th>
                                             <th nowrap>
+                                                Correct Amount
+                                            </th>
+                                            <th nowrap>
+                                                Related Trans
+                                            </th>
+                                            <th nowrap>
+                                                Other Batch #
+                                            </th>
+                                            <th nowrap>
                                                 Expense No
                                             </th>
                                             <th nowrap>
@@ -105,6 +114,9 @@
                                             </th>
                                             <th nowrap>
                                                 Draw
+                                            </th>
+                                            <th nowrap>
+                                                Is Missing
                                             </th>
                                             <th nowrap style="text-align:left">
                                                 Notes
@@ -146,6 +158,15 @@
                                                         @String.Format("{0:$#,##0.00}", item.TransactionAmount)
                                                     </td>
                                                     <td nowrap>
+                                                        @String.Format("{0:$#,##0.00}", item.CorrectAmount)
+                                                    </td>
+                                                    <td nowrap>
+                                                        @item.RelatedTrans
+                                                    </td>
+                                                    <td nowrap>
+                                                        @item.OtherBatchNumber
+                                                    </td>
+                                                    <td nowrap>
                                                         @item.ExpenseNumber
                                                     </td>
                                                     <td nowrap>
@@ -182,6 +203,9 @@
                                                                 @RevenueInfo
                                                             }
                                                         </td>
+                                                    <td nowrap>
+                                                        @item.IsMissingExpense
+                                                    </td>
                                                     <td style="text-align:left;" nowrap>
                                                         @item.TransactionDescription
                                                     </td>

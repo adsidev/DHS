@@ -289,20 +289,23 @@
 </div>
 <script language="JavaScript">
     function EditTransaction(TransactionDetailId) {
-        var options = { "backdrop": "static", keyboard: true };
-        $.ajax({
-            type: "GET",
-            url: "/Expense/EditMissingExpenseTransaction/" + TransactionDetailId,
-            dataType: "html",
-            success: function (evt) {
-                $('#MissingExpenseTransactionModal').html(evt);
-                $('#MissingExpenseTransactionModal').modal(options);
-                $('#MissingExpenseTransactionModal').modal('show');
-            },
-            error: function (req, status, error) {
-                alert(error);
-                alert("Error!Occured");
-            }
-        });
+        $('#MissingExpenseTransactionModal').modal('hide');
+        var url = "/Expense/CreateMissingExpenseTransaction/" + TransactionDetailId;
+        location.href = url;
+        //var options = { "backdrop": "static", keyboard: true };
+        //$.ajax({
+        //    type: "GET",
+        //    url: "/Expense/EditMissingExpenseTransaction/" + TransactionDetailId,
+        //    dataType: "html",
+        //    success: function (evt) {
+        //        $('#MissingExpenseTransactionModal').html(evt);
+        //        $('#MissingExpenseTransactionModal').modal(options);
+        //        $('#MissingExpenseTransactionModal').modal('show');
+        //    },
+        //    error: function (req, status, error) {
+        //        alert(error);
+        //        alert("Error!Occured");
+        //    }
+        //});
     }
 </script>

@@ -58,6 +58,8 @@ namespace DHSDAL
             public const string USPGETMISSINGEXPENSETRANSACTIONS = "sp_GetMissingExpenseTransactions";
             public const string USPGETMISSINGEXPENSETRANSACTION = "sp_GetMissingExpenseTransaction";
             public const string USPSAVEMISSINGEXPENSETRANSACTION = "sp_SaveMissingExpenseTransaction";
+            public const string USPLINKMISSINGREVENUETRANSACTION = "sp_LinkMissingRevenueTransaction";
+            public const string USPGETMISSINGEXPENSES = "sp_GetMissingExpenses";
         }
 
         public class Revenue

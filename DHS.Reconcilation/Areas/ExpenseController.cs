@@ -416,5 +416,39 @@ namespace DHS.Reconcilation.Areas
             return expenseResponse;
         }
 
+
+        [HttpPost]
+        [Route("GetMissingRevenueTransaction")]
+        public ExpenseResponse GetMissingRevenueTransaction(ExpenseRequest expenseRequest)
+        {
+            try
+            {
+                expenseResponse = expenseRepository.GetMissingRevenueTransaction(expenseRequest);
+            }
+            catch (Exception ex)
+            {
+                expenseResponse.ErrorMessage = ex.Message;
+                expenseResponse.Exception = ex;
+            }
+            return expenseResponse;
+        }
+
+
+        [HttpPost]
+        [Route("GetMissingExpenses")]
+        public ExpenseResponse GetMissingExpenses(ExpenseRequest expenseRequest)
+        {
+            try
+            {
+                expenseResponse = expenseRepository.GetMissingExpenses(expenseRequest);
+            }
+            catch (Exception ex)
+            {
+                expenseResponse.ErrorMessage = ex.Message;
+                expenseResponse.Exception = ex;
+            }
+            return expenseResponse;
+        }
+        
     }
 }
