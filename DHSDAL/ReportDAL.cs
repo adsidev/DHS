@@ -411,7 +411,7 @@ namespace DHSDAL
                     reportEntity.OrgName = expenseDataRow["OrgName"].ToString();
                     reportEntity.ObjectName = expenseDataRow["ObjectName"].ToString();
                     reportEntity.ProjectName = expenseDataRow["ProjectName"].ToString();
-                    reportEntity.DrawProjectName = expenseDataRow["DrawProjectName  "].ToString();
+                    reportEntity.DrawProjectName = expenseDataRow["DrawProjectName"].ToString();
                     reportEntity.CFDA = expenseDataRow["CFDA"].ToString();
                     reportEntity.DrawDownAmount = Convert.ToDecimal(expenseDataRow["RevenueTransactionAmount"].ToString());
                     try
