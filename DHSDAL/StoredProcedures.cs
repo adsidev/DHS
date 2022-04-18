@@ -70,6 +70,8 @@ namespace DHSDAL
             public const string USPGETREVENUEEXPENSE = "sp_GetRevenueExpense";
             public const string USPSAVELINKTODRAW = "sp_SaveLinkToDraw";
             public const string USPGETREVENUEDRAWS = "sp_GetRevenueDraws";
+            public const string USPGETMISSINGREVENUEDRAWS = "sp_GetMissingRevenueDraws";
+            public const string USPGETMISSINGREVENUES = "sp_GetMissingRevenues";
             public const string USPGETLINKTODRAW = "sp_GetLinkToDraw";
             public const string USPGETREVENUETRANSACTIONS = "sp_GetRevenueTransactions";
             public const string USPGETREVENUETRANSACTION = "sp_GetRevenueTransaction";

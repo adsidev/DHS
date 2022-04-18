@@ -27,5 +27,7 @@ namespace DHSBAL
         RevenueResponse GetMissingRevenueTransactions(RevenueRequest revenueRequest);
         RevenueResponse GetMissingRevenueTransaction(RevenueRequest revenueRequest);
         RevenueResponse SaveMissingRevenueTransaction(RevenueRequest revenueRequest);
+        RevenueResponse DrawMissingRevenue(RevenueRequest revenueRequest);
+        RevenueResponse MissingRevenues(RevenueRequest revenueRequest);
     }
 }

@@ -149,7 +149,7 @@
                             </div>
                             <div class="col-lg-9 col-xs-12 col-sm-9 col-md-9">
                                 <div class="form_modal">
-                                    @*@Html.DropDownList("DrawId", new SelectList(Model.drawEntities, "DrawId", "DrawNumber", Model.revenueTransactionEntity.DrawId), "", new { @id = "DrawId", @class = "form-control mrp_modalselect" })*@
+                                    @Html.DropDownList("DrawId", new SelectList(Model.drawEntities, "DrawId", "DrawNumber", Model.revenueTransactionEntity.DrawId), "", new { @id = "DrawId", @class = "form-control mrp_modalselect" })
                                 </div>
                             </div>
                         </div>
@@ -165,6 +165,21 @@
                             <div class="col-lg-9 col-xs-12 col-sm-9 col-md-9">
                                 <div class="form_modal">
                                     @Html.TextBoxFor(m => m.revenueTransactionEntity.RelatedTrans, htmlAttributes: new { @id = "RelatedTrans", @class = "form-control mrp_modalselect" })
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="col-lg-12">
+                        <div class="row">
+                            <div class="col-lg-3 col-xs-12 col-sm-3 col-md-3">
+                                <div class="form_modal">
+                                    <label>Revenue Id</label>
+                                </div>
+                            </div>
+                            <div class="col-lg-9 col-xs-12 col-sm-9 col-md-9">
+                                <div class="form_modal">
+                                    <select id="RevenueId" class = "form-control mrp_modalselect"></select>
                                 </div>
                             </div>
                         </div>
@@ -239,9 +254,9 @@
 
     function SaveTransaction() {
         var Draw = 0
-        //if (document.getElementById("RevenueTTypeId").value == 1) {
-        //    Draw = document.getElementById("DrawId").value;
-        //}
+        if (document.getElementById("RevenueTTypeId").value == 1) {
+            Draw = document.getElementById("DrawId").value;
+        }
         var revenueAmount = (document.getElementById("RevenueTransactionAmount").value).replace("$", "").replace(",", "");
         if (document.getElementById("RevenueTTypeId").value == 1) {
             if (revenueAmount > 0)
@@ -261,6 +276,7 @@
             ModifiedBy: @Common.GetSession("UserID"),
             RelatedTrans: document.getElementById("RelatedTrans").value,
             FiscalYearId: document.getElementById("RFiscalYearId").value,
+            RevenueId: document.getElementById("RevenueId").value,
         };
         var revenueRequest = {
             RevenueTransactionEntity: revenueTransactionEntity
@@ -282,36 +298,68 @@
 
     $("#RevenueTTypeId").change(function () {
         var x = $("#RevenueTTypeId").val();
-        document.getElementById("DrawId").disabled = false;
-        if (x == 1) {
-            fire_ajax(document.getElementById("RevenueId").value);
+        if (x == 1 && document.getElementById("RFiscalYearId").value != "" && document.getElementById("RProjectName").value != "") {
+            LoadDraws();
         }
         else {
             var s = '';
             $("#DrawId").html(s);
         }
-
     });
 
-    function fire_ajax(s) {
+    function LoadDraws() {
         var revenueEntity = {
-            RevenueId: s
+            FiscalYearId: document.getElementById("RFiscalYearId").value,
+            ProjectName: document.getElementById("RProjectName").value
         };
         var revenueRequest = {
             revenueEntity: revenueEntity
         };
         $.ajax({
-            url: "/Revenue/DrawRevenue",
+            url: "/Revenue/DrawMissingRevenue",
             type: "POST",
             data: revenueRequest,
             dataType: 'json',
             success: function (data) {
-                $("#DrawId").html('');
                 var s = '<option value="-1">Please Select Draw</option>';
                 for (var i = 0; i < data.drawEntities.length; i++) {
                     s += '<option value="' + data.drawEntities[i].DrawId + '">' + data.drawEntities[i].DrawNumber + '</option>';
                 }
                 $("#DrawId").html(s);
+            }
+
+        })
+    }
+
+    $("#ProjectName").blur(function () {
+        if (document.getElementById("FiscalYearId").value != "" && document.getElementById("ProjectName").value != "") {
+            LoadDraws();
+        }
+        else {
+            var s = '';
+            $("#RevenueId").html(s);
+        }
+    });
+
+    function LoadDraws() {
+        var revenueEntity = {
+            FiscalYearId: document.getElementById("FiscalYearId").value,
+            ProjectName: document.getElementById("ProjectName").value
+        };
+        var revenueRequest = {
+            revenueEntity: revenueEntity
+        };
+        $.ajax({
+            url: "/Revenue/MissingRevenues",
+            type: "POST",
+            data: revenueRequest,
+            dataType: 'json',
+            success: function (data) {
+                var s = '<option value="-1">Please Select Revenue</option>';
+                for (var i = 0; i < data.revenueEntities.length; i++) {
+                    s += '<option value="' + data.revenueEntities[i].RevenueId + '">' + data.revenueEntities[i].RevenueNumber + '</option>';
+                }
+                $("#RevenueId").html(s);
             }
 
         })

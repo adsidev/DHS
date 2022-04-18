@@ -80,6 +80,9 @@
                                                 Transaction Amount
                                             </th>
                                             <th nowrap>
+                                                Correct Amount
+                                            </th>
+                                            <th nowrap>
                                                 Fund
                                             </th>
                                             <th nowrap>
@@ -99,9 +102,6 @@
                                             </th>
                                             <th nowrap>
                                                 CFDA
-                                            </th>
-                                            <th nowrap>
-                                                Total Amount
                                             </th>
                                             <th nowrap>
                                                 Draw Down Amount
@@ -126,10 +126,12 @@
                                     <tbody>
                                         @{ long RevenueTransactionId = 0;
                                             decimal TransactionAmountTotal = 0;
+                                            decimal CorrectedAmountTotal = 0;
                                             decimal DraDownAmountTotal = 0;}
                                         @{foreach (var item in Model.reportEntities)
                                             {
                                                 TransactionAmountTotal = TransactionAmountTotal + item.TransactionAmount;
+                                                CorrectedAmountTotal = CorrectedAmountTotal + item.CorrectAmount;
                                                 <tr>
                                                     <td nowrap>
                                                         @item.ExpenseDepositDate
@@ -142,6 +144,9 @@
                                                     </td>
                                                     <td nowrap>
                                                         @string.Format("{0:C}", item.TransactionAmount)
+                                                    </td>
+                                                    <td nowrap>
+                                                        @string.Format("{0:C}", item.CorrectAmount)
                                                     </td>
                                                     <td nowrap>
                                                         @item.Fund
@@ -163,9 +168,6 @@
                                                     </td>
                                                     <td nowrap>
                                                         @item.CFDA
-                                                    </td>
-                                                    <td nowrap>
-                                                        @string.Format("{0:C}", item.TransactionAmount)
                                                     </td>
                                                     @if (RevenueTransactionId == item.RevenueTransactionId)
                                                     {
@@ -194,7 +196,7 @@
                                                             @item.DatePosted
                                                         </td>
                                                     }
-                                                    <td nowrap>
+                                                    <td nowrap style="text-align:left">
                                                         @item.Remarks
                                                     </td>
                                                 </tr>
@@ -204,7 +206,8 @@
                                         <tr>
                                             <td colspan="3"><b>Transaction Amount Total:</b></td>
                                             <td>@string.Format("{0:C}", TransactionAmountTotal)</td>
-                                            <td colspan="8" style="text-align:right;"><b>Drawn Amount Total:</b></td>
+                                            <td>@string.Format("{0:C}", CorrectedAmountTotal)</td>
+                                            <td colspan="7" style="text-align:right;"><b>Drawn Amount Total:</b></td>
                                             <td>@string.Format("{0:C}", DraDownAmountTotal)</td>
                                             <td colspan="5"></td>
                                         </tr>
@@ -216,7 +219,7 @@
                                 <table class="table table-bordered table-striped">
                                     <thead>
                                         <tr>
-                                            <th colspan="12">EXPENSE ADJUSTMENTS</th>
+                                            <th colspan="13">EXPENSE ADJUSTMENTS</th>
                                         </tr>
                                         <tr>
                                             <th nowrap>
@@ -230,6 +233,9 @@
                                             </th>
                                             <th nowrap>
                                                 Transaction Amount
+                                            </th>
+                                            <th nowrap>
+                                                Correct Amount
                                             </th>
                                             <th nowrap>
                                                 Fund
@@ -258,10 +264,14 @@
                                         </tr>
                                     </thead>
                                     <tbody>
-                                        @{ decimal ExpenseTransactionAmount = 0;}
+                                        @{ 
+                                            decimal ExpenseTransactionAmount = 0;
+                                            decimal ExpenseCorrectedAmount = 0;
+                                            }
                                         @{foreach (var item in Model.expenseAdjustments)
                                             {
                                                 ExpenseTransactionAmount = ExpenseTransactionAmount + item.TransactionAmount;
+                                                ExpenseCorrectedAmount = ExpenseCorrectedAmount + item.CorrectAmount;
                                                 <tr>
                                                     <td nowrap>
                                                         @item.ExpenseAdjustmentDate
@@ -274,6 +284,9 @@
                                                     </td>
                                                     <td nowrap>
                                                         @string.Format("{0:C}", item.TransactionAmount)
+                                                    </td>
+                                                    <td nowrap>
+                                                        @string.Format("{0:C}", item.CorrectAmount)
                                                     </td>
                                                     <td nowrap>
                                                         @item.Fund
@@ -296,7 +309,7 @@
                                                     <td nowrap>
                                                         @item.CFDA
                                                     </td>
-                                                    <td nowrap>
+                                                    <td nowrap style="text-align:left;">
                                                         @item.Remarks
                                                     </td>
                                                 </tr>
@@ -305,7 +318,8 @@
                                         <tr>
                                             <td colspan="3"><b>Transaction Amount Total</b></td>
                                             <td>@string.Format("{0:C}", ExpenseTransactionAmount)</td>
-                                            <td colspan="10">&nbsp;</td>
+                                            <td>@string.Format("{0:C}", ExpenseCorrectedAmount)</td>
+                                            <td colspan="9">&nbsp;</td>
                                         </tr>
                                     </tbody>
                                 </table>
@@ -315,7 +329,7 @@
                                 <table class="table table-bordered table-striped">
                                     <thead>
                                         <tr>
-                                            <th colspan="18">PROJECT RECEIVABLES</th>
+                                            <th colspan="19">PROJECT RECEIVABLES</th>
                                         </tr>
                                         <tr>
                                             <th nowrap>
@@ -329,6 +343,9 @@
                                             </th>
                                             <th nowrap>
                                                 Transaction Amount
+                                            </th>
+                                            <th nowrap>
+                                                Correct Amount
                                             </th>
                                             <th nowrap>
                                                 Fund
@@ -377,10 +394,12 @@
                                     <tbody>
                                         @{ long DrawId = 0;
                                             decimal RTransactionAmountTotal = 0;
+                                            decimal RCorrectedAmountTotal = 0;
                                             decimal RDraDownAmountTotal = 0;}
                                         @{foreach (var item in Model.projectReceivables)
                                             {
                                                 RTransactionAmountTotal = RTransactionAmountTotal + item.TransactionAmount;
+                                                RCorrectedAmountTotal = RCorrectedAmountTotal + item.CorrectAmount;
                                                 <tr>
                                                     <td nowrap>
                                                         @item.ExpenseDepositDate
@@ -393,6 +412,9 @@
                                                     </td>
                                                     <td nowrap>
                                                         @string.Format("{0:C}", item.TransactionAmount)
+                                                    </td>
+                                                    <td nowrap>
+                                                        @string.Format("{0:C}", item.CorrectAmount)
                                                     </td>
                                                     <td nowrap>
                                                         @item.Fund
@@ -445,7 +467,7 @@
                                                             @item.DatePosted
                                                         </td>
                                                     }
-                                                    <td nowrap>
+                                                    <td nowrap style="text-align:left;">
                                                         @item.Remarks
                                                     </td>
                                                 </tr>
@@ -455,7 +477,8 @@
                                         <tr>
                                             <td colspan="3"><b>Transaction Amount Total:</b></td>
                                             <td>@string.Format("{0:C}", RTransactionAmountTotal)</td>
-                                            <td colspan="8" style="text-align:right;"><b>Drawn Amount Total:</b></td>
+                                            <td>@string.Format("{0:C}", RCorrectedAmountTotal)</td>
+                                            <td colspan="7" style="text-align:right;"><b>Drawn Amount Total:</b></td>
                                             <td>@string.Format("{0:C}", RDraDownAmountTotal)</td>
                                             <td colspan="5"></td>
                                         </tr>
@@ -469,7 +492,7 @@
                                 <table class="table table-bordered table-striped">
                                     <thead>
                                         <tr>
-                                            <th colspan="18">PROJECT PAYABLES</th>
+                                            <th colspan="19">PROJECT PAYABLES</th>
                                         </tr>
                                         <tr>
                                             <th nowrap>
@@ -483,6 +506,9 @@
                                             </th>
                                             <th nowrap>
                                                 Transaction Amount
+                                            </th>
+                                            <th nowrap>
+                                                Correct Amount
                                             </th>
                                             <th nowrap>
                                                 Fund
@@ -506,9 +532,6 @@
                                                 CFDA
                                             </th>
                                             <th nowrap>
-                                                Total Amount
-                                            </th>
-                                            <th nowrap>
                                                 Draw Down Amount
                                             </th>
                                             <th nowrap>
@@ -516,6 +539,9 @@
                                             </th>
                                             <th nowrap>
                                                 Batch Number
+                                            </th>
+                                            <th nowrap>
+                                                Draw Project
                                             </th>
                                             <th nowrap>
                                                 Cash Receipt
@@ -530,11 +556,14 @@
                                     </thead>
                                     <tbody>
                                         @{ long ppDrawId = 0;
+                                            string ppProject = string.Empty;
                                             decimal ppRTransactionAmountTotal = 0;
+                                            decimal ppRCorrectedAmountTotal = 0;
                                             decimal ppRDraDownAmountTotal = 0;}
                                         @{foreach (var item in Model.projectPayables)
                                             {
                                                 ppRTransactionAmountTotal = ppRTransactionAmountTotal + item.TransactionAmount;
+                                                ppRCorrectedAmountTotal = ppRCorrectedAmountTotal + item.CorrectAmount;
                                                 <tr>
                                                     <td nowrap>
                                                         @item.ExpenseDepositDate
@@ -547,6 +576,9 @@
                                                     </td>
                                                     <td nowrap>
                                                         @string.Format("{0:C}", item.TransactionAmount)
+                                                    </td>
+                                                    <td nowrap>
+                                                        @string.Format("{0:C}", item.CorrectAmount)
                                                     </td>
                                                     <td nowrap>
                                                         @item.Fund
@@ -569,11 +601,9 @@
                                                     <td nowrap>
                                                         @item.CFDA
                                                     </td>
-                                                    <td nowrap>
-                                                        @string.Format("{0:C}", item.TransactionAmount)
-                                                    </td>
-                                                    @if (ppDrawId == item.RevenueTransactionId)
+                                                    @if (ppDrawId == item.RevenueTransactionId && ppProject == item.DrawProjectName)
                                                     {
+                                                        <td nowrap>&nbsp;</td>
                                                         <td nowrap>&nbsp;</td>
                                                         <td nowrap>&nbsp;</td>
                                                         <td nowrap>&nbsp;</td>
@@ -593,27 +623,32 @@
                                                             @item.BatchNumber
                                                         </td>
                                                         <td nowrap>
+                                                            @item.DrawProjectName
+                                                        </td>
+                                                        <td nowrap>
                                                             @item.CashReceipt
                                                         </td>
                                                         <td nowrap>
                                                             @item.DatePosted
                                                         </td>
                                                     }
-                                                    <td nowrap>
+                                                    <td nowrap style="text-align:left;">
                                                         @item.Remarks
                                                     </td>
                                                 </tr>
-                                                ppDrawId = item.RevenueTransactionId;
+                                                    ppDrawId = item.RevenueTransactionId;
+                                                    ppProject = item.DrawProjectName;
+                                                }
                                             }
-                                        }
-                                        <tr>
-                                            <td colspan="3"><b>Payable Amount Total:</b></td>
-                                            <td>@string.Format("{0:C}", ppRTransactionAmountTotal)</td>
-                                            <td colspan="8" style="text-align:right;"><b>Drawn Amount Total:</b></td>
-                                            <td>@string.Format("{0:C}", ppRDraDownAmountTotal)</td>
-                                            <td colspan="5"></td>
-                                        </tr>
-                                    </tbody>
+                                            <tr>
+                                                <td colspan="3"><b>Payable Amount Total:</b></td>
+                                                <td>@string.Format("{0:C}", ppRTransactionAmountTotal)</td>
+                                                <td>@string.Format("{0:C}", ppRCorrectedAmountTotal)</td>
+                                                <td colspan="7" style="text-align:right;"><b>Drawn Amount Total:</b></td>
+                                                <td>@string.Format("{0:C}", ppRDraDownAmountTotal)</td>
+                                                <td colspan="6"></td>
+                                            </tr>
+                                        </tbody>
                                 </table>
 
                                 <table class="table table-bordered table-striped">

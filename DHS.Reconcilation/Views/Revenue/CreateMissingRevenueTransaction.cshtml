@@ -168,6 +168,20 @@
                             </div>
                         </div>
                     </div>
+                    <div class="col-lg-6">
+                        <div class="row">
+                            <div class="col-lg-4 col-xs-12 col-sm-4 col-md-4">
+                                <div class="form_modal">
+                                    <label>Revenue&nbsp;Id</label>
+                                </div>
+                            </div>
+                            <div class="col-lg-8 col-xs-12 col-sm-8 col-md-8">
+                                <div class="form_modal">
+                                    <select id="RevenueId" class="form-control mrp_modalselect"></select>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
                 </div>
 
                 <div class="row">
@@ -187,7 +201,7 @@
                 <div class="modal-footer">
                     <input type="button" id="btnSubmit" title="Save missing revenue transactions" class="btn btn-primary btn-updated" onclick="return SubmitValue()" value="Save Changes" />
 
-                    <button type="button" title="Cancel saving missing revenue transactions" class="btn btn-secondary btn-close" data-dismiss="modal" onclick="OpenPreviosPage()">Cancel</button>
+                    <button type="button" title="Cancel saving missing revenue transactions" class="btn btn-secondary btn-close" data-dismiss="modal" onclick="OpenPreviousPage()">Cancel</button>
                 </div>
             </div>
         </div>
@@ -267,6 +281,7 @@
                 ModifiedBy: @Common.GetSession("UserID"),
                 RelatedTrans: document.getElementById("RelatedTrans").value,
                 FiscalYearId: document.getElementById("FiscalYearId").value,
+                RevenueId: document.getElementById("RevenueId").value,
             };
             var revenueRequest = {
                 RevenueTransactionEntity: revenueTransactionEntity
@@ -289,30 +304,31 @@
             $('#mra_subliMMRT').addClass('active');
         });
 
-        function OpenPreviosPage() {
+        function OpenPreviousPage() {
             location.href = "/Revenue/ManageMissingRevenueTransactions/";
         }
 
-        //$("#RevenueTypeId").change(function () {
-        //    var x = $("#RevenueTypeId").val();
-        //    if (x == 1) {
-        //        fire_ajax(document.getElementById("RevenueId").value);
-        //    }
-        //    else {
-        //        var s = '';
-        //        $("#DrawId").html(s);
-        //    }
-        //});
+        $("#RevenueTypeId").change(function () {
+            var x = $("#RevenueTypeId").val();
+            if (x == 1 && document.getElementById("FiscalYearId").value != "" && document.getElementById("ProjectName").value!="") {
+                LoadDraws();
+            }
+            else {
+                var s = '';
+                $("#DrawId").html(s);
+            }
+        });
 
-        function fire_ajax(s) {
-            var revenueEntity = {
-                RevenueId: s
+    function LoadDraws() {
+        var revenueEntity = {
+            FiscalYearId: document.getElementById("FiscalYearId").value,
+            ProjectName: document.getElementById("ProjectName").value
             };
             var revenueRequest = {
                 revenueEntity: revenueEntity
             };
             $.ajax({
-                url: "/Revenue/DrawRevenue",
+                url: "/Revenue/DrawMissingRevenue",
                 type: "POST",
                 data: revenueRequest,
                 dataType: 'json',
@@ -325,6 +341,40 @@
                 }
 
             })
+    }
+
+    $("#ProjectName").blur(function () {
+        if (document.getElementById("FiscalYearId").value != "" && document.getElementById("ProjectName").value != "") {
+            LoadDraws();
         }
+        else {
+            var s = '';
+            $("#RevenueId").html(s);
+        }
+    });
+
+    function LoadDraws() {
+        var revenueEntity = {
+            FiscalYearId: document.getElementById("FiscalYearId").value,
+            ProjectName: document.getElementById("ProjectName").value
+        };
+        var revenueRequest = {
+            revenueEntity: revenueEntity
+        };
+        $.ajax({
+            url: "/Revenue/MissingRevenues",
+            type: "POST",
+            data: revenueRequest,
+            dataType: 'json',
+            success: function (data) {
+                var s = '<option value="-1">Please Select Revenue</option>';
+                for (var i = 0; i < data.revenueEntities.length; i++) {
+                    s += '<option value="' + data.revenueEntities[i].RevenueId + '">' + data.revenueEntities[i].RevenueNumber + '</option>';
+                }
+                $("#RevenueId").html(s);
+            }
+
+        })
+    }
 
 </script>

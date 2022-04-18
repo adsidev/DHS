@@ -666,7 +666,7 @@
         $("#RevenueTypeId").change(function () {
             var x = $("#RevenueTypeId").val();
             if (x == 1) {
-                fire_ajax(document.getElementById("RevenueId").value);
+                LoadDraws(document.getElementById("RevenueId").value);
             }
             else {
                 var s = '';
@@ -674,7 +674,7 @@
             }
         });
 
-        function fire_ajax(s) {
+        function LoadDraws(s) {
             var revenueEntity = {
                 RevenueId: s
             };

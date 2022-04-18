@@ -1218,6 +1218,16 @@ namespace DHSDAL
             revenueResponse.revenueTypeEntities = revenueTypeDAL.GetRevenueTypes().RevenueTypeEntities;
             CommonDAL commonDAL = new CommonDAL();
             revenueResponse.fiscalYearEntities = commonDAL.GetFiscalYears();
+            DrawRequest drawRequest = new DrawRequest();
+            DrawEntity drawEntity = new DrawEntity();
+            drawEntity.StatusId = 0;
+            drawEntity.AssignedTo = 0;
+            drawEntity.FiscalYearId = Convert.ToInt32(revenueTransactionEntity.FiscalYearId);
+            drawEntity.ProjectName = revenueTransactionEntity.ProjectName;
+            drawEntity.BatchNumber = String.Empty;
+            drawRequest.drawEntity = drawEntity;
+            DrawDAL drawDAL = new DrawDAL();
+            revenueResponse.drawEntities = drawDAL.GetDraws(drawRequest).drawEntities;
             return revenueResponse;
         }
 
@@ -1244,6 +1254,7 @@ namespace DHSDAL
                 revenueRequest.revenueTransactionEntity.DrawId,
                 revenueRequest.revenueTransactionEntity.RelatedTrans,
                 revenueRequest.revenueTransactionEntity.FiscalYearId,
+                revenueRequest.revenueTransactionEntity.RevenueId,
                 };
                 var intResult = SqlHelper.ExecuteScalar(_connectionString, StoredProcedures.Revenue.USPSAVEMISSINGREVENEUTRANSACTION, SqlObject.Parameters);
                 revenueResponse.Message = string.Empty;
@@ -1256,6 +1267,80 @@ namespace DHSDAL
             }
             return revenueResponse;
 
+        }
+
+        public RevenueResponse DrawMissingRevenue(RevenueRequest revenueRequest)
+        {
+
+            var drawEntities = new List<DrawEntity>();
+            SqlObject.Parameters = new object[] {
+                  revenueRequest.revenueEntity.FiscalYearId,
+                  revenueRequest.revenueEntity.ProjectName
+            };
+            var drawDataSet = SqlHelper.ExecuteDataset(_connectionString, StoredProcedures.Revenue.USPGETMISSINGREVENUEDRAWS, SqlObject.Parameters);
+            foreach (DataRow drawDataRow in drawDataSet.Tables[0].Rows)
+            {
+                DrawEntity drawEntity = new DrawEntity();
+                try
+                {
+                    drawEntity.DrawId = Convert.ToInt64(drawDataRow["DrawId"].ToString());
+                    drawEntity.DrawDownAmount = Convert.ToDecimal(drawDataRow["DarwDownAmount"].ToString());
+                    drawEntity.DrawDownDate = Convert.ToDateTime(drawDataRow["DrawDownDate"].ToString()).ToShortDateString();
+                    if (drawDataRow["DatePosted"].ToString() != "")
+                        drawEntity.DatePosted = Convert.ToDateTime(drawDataRow["DatePosted"].ToString()).ToShortDateString();
+                    drawEntity.BatchNumber = drawDataRow["BatchNumber"].ToString();
+                    drawEntity.StatusName = drawDataRow["StatusName"].ToString();
+                    drawEntity.FiscalYear = drawDataRow["FiscalYear"].ToString();
+                    drawEntity.DrawNumber = drawDataRow["DrawNumber"].ToString();
+                    drawEntity.CashReceipt = drawDataRow["CashReceipt"].ToString();
+                    drawEntity.OrgName = drawDataRow["OrgName"].ToString();
+                    drawEntity.ObjectName = drawDataRow["ObjectName"].ToString();
+                    drawEntity.ProjectName = drawDataRow["ProjectName"].ToString();
+                    drawEntity.DrawDescription = drawDataRow["DrawDescription"].ToString();
+                    drawEntity.AssignedToUser = drawDataRow["AssignedToUser"].ToString();
+                }
+                catch (Exception exception)
+                {
+                    drawEntity.ErrorMessage = exception.Message;
+                    drawEntity.Exception = exception;
+                }
+                finally
+                {
+                    drawEntities.Add(drawEntity);
+                }
+            }
+            revenueResponse.drawEntities = drawEntities;
+            return revenueResponse;
+        }
+
+        public RevenueResponse MissingRevenues(RevenueRequest revenueRequest)
+        {
+            List<RevenueEntity> revenueEntities = new List<RevenueEntity>();
+            SqlObject.Parameters = new object[] {
+                  revenueRequest.revenueEntity.FiscalYearId,
+                  revenueRequest.revenueEntity.ProjectName
+            };
+            var drawDataSet = SqlHelper.ExecuteDataset(_connectionString, StoredProcedures.Revenue.USPGETMISSINGREVENUES, SqlObject.Parameters);
+            foreach (DataRow drawDataRow in drawDataSet.Tables[0].Rows)
+            {
+                RevenueEntity revenueEntity = new RevenueEntity();
+                try
+                {
+                    revenueEntity.RevenueId = Convert.ToInt64(drawDataRow["RevenueId"].ToString());
+                    revenueEntity.RevenueNumber = drawDataRow["RevenueNumber"].ToString();
+                }
+                catch (Exception exception)
+                {
+                    revenueEntity.ErrorMessage = exception.Message;
+                    revenueEntity.Exception = exception;
+                }
+                finally
+                {
+                    revenueEntities.Add(revenueEntity);
+                }
+            }
+            revenueResponse.revenueEntities = revenueEntities;
+            return revenueResponse;
         }
     }
 }
