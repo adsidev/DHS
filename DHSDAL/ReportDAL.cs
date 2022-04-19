@@ -204,6 +204,7 @@ namespace DHSDAL
                     reportEntity.Category = expenseDataRow["FGTCategoryName"].ToString();
                     reportEntity.SubCategory = expenseDataRow["FGTCategoryName2"].ToString();
                     reportEntity.TransactionAmount = Convert.ToDecimal(expenseDataRow["TransactionAmount"].ToString());
+                    reportEntity.RelatedTrans = expenseDataRow["RelatedTrans"].ToString();
                     reportEntity.CorrectAmount = Convert.ToDecimal(expenseDataRow["CorrectAmount"].ToString());
                     reportEntity.Fund = expenseDataRow["Fund"].ToString();
                     reportEntity.VendorName = expenseDataRow["VendorName"].ToString();
