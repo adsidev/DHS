@@ -161,6 +161,9 @@ namespace DHSDAL
                     reportEntity.ObjectName = expenseDataRow["ObjectName"].ToString();
                     reportEntity.ProjectName = expenseDataRow["ProjectName"].ToString();
                     reportEntity.CFDA = expenseDataRow["CFDA"].ToString();
+                    reportEntity.RelatedTrans = expenseDataRow["RelatedTrans"].ToString();
+                    reportEntity.OtherBatchNumber = expenseDataRow["OtherBatchNumber"].ToString();
+                    reportEntity.StatusName = expenseDataRow["StatusName"].ToString();
                     reportEntity.Remarks = expenseDataRow["TransactionDescription"].ToString().Replace("Complete - ", "");
                 }
                 catch (Exception exception)
@@ -297,7 +300,7 @@ namespace DHSDAL
             var transactionDetailDataSet = SqlHelper.ExecuteDataset(_connectionString, StoredProcedures.Report.USPGETREVENUETRANSACTIONBYPROJECTIDFORREPORT, SqlObject.Parameters);
             foreach (DataRow expenseDataRow in transactionDetailDataSet.Tables[0].Rows)
             {
-                RevenueAdjustments reportEntity = new RevenueAdjustments    ();
+                RevenueAdjustments reportEntity = new RevenueAdjustments();
                 try
                 {
                     try
@@ -314,6 +317,8 @@ namespace DHSDAL
                     reportEntity.ObjectName = expenseDataRow["ObjectName"].ToString();
                     reportEntity.ProjectName = expenseDataRow["ProjectName"].ToString();
                     reportEntity.RevenueTypeName = expenseDataRow["RevenueTypeName"].ToString();
+                    reportEntity.RelatedTrans = expenseDataRow["RelatedTrans"].ToString();
+                    reportEntity.StatusName = expenseDataRow["StatusName"].ToString();
                     reportEntity.Remarks = expenseDataRow["RevenueTranscationDescription"].ToString();
                 }
                 catch (Exception exception)

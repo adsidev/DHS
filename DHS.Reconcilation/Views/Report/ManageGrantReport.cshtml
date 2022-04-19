@@ -238,6 +238,12 @@
                                                 Correct Amount
                                             </th>
                                             <th nowrap>
+                                                Related Trans
+                                            </th>
+                                            <th nowrap>
+                                                Status
+                                            </th>
+                                            <th nowrap>
                                                 Fund
                                             </th>
                                             <th nowrap>
@@ -287,6 +293,12 @@
                                                     </td>
                                                     <td nowrap>
                                                         @string.Format("{0:C}", item.CorrectAmount)
+                                                    </td>
+                                                    <td nowrap>
+                                                        @item.OtherBatchNumber
+                                                    </td>
+                                                    <td nowrap>
+                                                        @item.StatusName
                                                     </td>
                                                     <td nowrap>
                                                         @item.Fund
@@ -701,7 +713,7 @@
                                                     <td nowrap>
                                                         @item.RevenueTypeName
                                                     </td>
-                                                    <td>
+                                                    <td nowrap style="text-align:left;">
                                                         @item.Remarks
                                                     </td>
                                                 </tr>
@@ -741,6 +753,12 @@
                                                 Revenue Type Name
                                             </th>
                                             <th nowrap>
+                                                Status
+                                            </th>
+                                            <th nowrap>
+                                                Related Trans
+                                            </th>
+                                            <th nowrap>
                                                 Revenue Transaction Description
                                             </th>
                                         </tr>
@@ -769,7 +787,13 @@
                                                     <td nowrap>
                                                         @item.RevenueTypeName
                                                     </td>
-                                                    <td>
+                                                    <td nowrap>
+                                                        @item.StatusName
+                                                    </td>
+                                                    <td nowrap>
+                                                        @item.RelatedTrans
+                                                    </td>
+                                                    <td style="text-align:left;">
                                                         @item.Remarks
                                                     </td>
                                                 </tr>
@@ -844,7 +868,7 @@
                                                     <td nowrap>
                                                         @item.DatePosted
                                                     </td>
-                                                    <td nowrap>
+                                                    <td nowrap style="text-align:left;">
                                                         @item.DrawDescription
                                                     </td>
                                                 </tr>

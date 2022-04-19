@@ -62,6 +62,9 @@ namespace DHSEntities
         public string ProjectName { get; set; }
         public string CFDA { get; set; }
         public string Remarks { get; set; }
+        public string StatusName { get; set; }
+        public string OtherBatchNumber { get; set; }
+        public string RelatedTrans { get; set; }
     }
 
     public class RevenueDeposits
@@ -86,6 +89,8 @@ namespace DHSEntities
         public string BatchNumber { get; set; }
         public string RevenueTypeName { get; set; }
         public string Remarks { get; set; }
+        public string RelatedTrans { get; set; }
+        public string StatusName { get; set; }
     }
 
     public class ProjectPayables
