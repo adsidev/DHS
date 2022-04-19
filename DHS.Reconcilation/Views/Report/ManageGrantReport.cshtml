@@ -330,7 +330,7 @@
                                         <tr>
                                             <td colspan="3"><b>Transaction Amount Total</b></td>
                                             <td>@string.Format("{0:C}", ExpenseTransactionAmount)</td>
-                                            <td colspan="8"><b>Expense Adjustments:</b>@string.Format("{0:C}", (TransactionAmountTotal + ExpenseTransactionAmount))</td>
+                                            <td colspan="8"><b>Expense Total:</b>@string.Format("{0:C}", (TransactionAmountTotal + ExpenseTransactionAmount))</td>
                                             <td >&nbsp;</td>
                                         </tr>
                                     </tbody>
@@ -405,9 +405,7 @@
                                     </thead>
                                     <tbody>
                                         @{ long DrawId = 0;
-                                            decimal RTransactionAmountTotal = 0;
-                                            decimal RCorrectedAmountTotal = 0;
-                                            decimal RDraDownAmountTotal = 0;}
+                                            decimal RTransactionAmountTotal = 0;}
                                         @{foreach (var item in Model.projectReceivables)
                                             {
                                                 if (item.CorrectAmount > 0)
@@ -468,7 +466,6 @@
                                                     }
                                                     else
                                                     {
-                                                        RDraDownAmountTotal = RDraDownAmountTotal + item.DrawDownAmount;
                                                         <td nowrap>
                                                             @string.Format("{0:C}", item.DrawDownAmount)
                                                         </td>
@@ -841,6 +838,7 @@
                                         <tr>
                                             <td><b>Total</b></td>
                                             <td>@string.Format("{0:C}", rAdjustmentAmount)</td>
+                                            <td colspan="8"><b>Revenue Total:</b>@string.Format("{0:C}", (rDepositAmount + rAdjustmentAmount))</td>
                                         </tr>
                                     </tbody>
                                 </table>
