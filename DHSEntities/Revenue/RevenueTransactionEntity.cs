@@ -34,5 +34,7 @@ namespace DHSEntities
         public string ActivityDescription { get; set; }
         public string DocumentFile { get; set; }
         public string RelatedTrans { get; set; }
+        public int StatusId { get; set; }
+        public string StatusName { get; set; }
     }
 }

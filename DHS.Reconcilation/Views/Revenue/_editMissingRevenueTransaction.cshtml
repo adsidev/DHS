@@ -154,7 +154,20 @@
                             </div>
                         </div>
                     </div>
-
+                    <div class="col-lg-12">
+                        <div class="row">
+                            <div class="col-lg-3 col-xs-12 col-sm-3 col-md-3">
+                                <div class="form_modal">
+                                    <label>Status&nbsp;</label>
+                                </div>
+                            </div>
+                            <div class="col-lg-9 col-xs-12 col-sm-9 col-md-9">
+                                <div class="form_modal">
+                                    @Html.DropDownList("StatusId", new SelectList(Model.statusEntities, "StatusId", "StatusName", Model.revenueTransactionEntity.StatusId), "", new { @id = "HStatusId", @class = "form-control mrp_modalselect" })
+                                </div>
+                            </div>
+                        </div>
+                    </div>
                     <div class="col-lg-12">
                         <div class="row">
                             <div class="col-lg-3 col-xs-12 col-sm-3 col-md-3">
@@ -179,7 +192,7 @@
                             </div>
                             <div class="col-lg-9 col-xs-12 col-sm-9 col-md-9">
                                 <div class="form_modal">
-                                    <select id="RevenueId" class = "form-control mrp_modalselect"></select>
+                                    <select id="RevenueId" class="form-control mrp_modalselect"></select>
                                 </div>
                             </div>
                         </div>
@@ -277,6 +290,7 @@
             RelatedTrans: document.getElementById("RelatedTrans").value,
             FiscalYearId: document.getElementById("RFiscalYearId").value,
             RevenueId: document.getElementById("RevenueId").value,
+            StatusId: document.getElementById("HStatusId").value,
         };
         var revenueRequest = {
             RevenueTransactionEntity: revenueTransactionEntity

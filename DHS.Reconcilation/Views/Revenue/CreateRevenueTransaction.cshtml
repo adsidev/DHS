@@ -410,6 +410,7 @@
             <div class="mrp_content">
                 <h2>Revenue Transaction Information</h2>
                 <input type="hidden" id="RevenueId" name="RevenueId" value="@Model.revenueTransactionEntity.RevenueId" />
+                <input type="hidden" id="HFiscalYearId" name="HFiscalYearId" value="@Model.revenueTransactionEntity.FiscalYearId" />
                 <div class="row mra_createcost_report_payment">
                     <div class="col-lg-6">
                         <div class="row">
@@ -515,6 +516,21 @@
                                 <div class="form_modal">
                                     <select id="DrawId" name="DrawId" class="form-control mrp_modalselect">
                                     </select>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="col-lg-6">
+                        <div class="row">
+                            <div class="col-lg-4 col-xs-12 col-sm-4 col-md-4">
+                                <div class="form_modal">
+                                    <label>Status</label>
+                                </div>
+                            </div>
+                            <div class="col-lg-8 col-xs-12 col-sm-8 col-md-8">
+                                <div class="form_modal">
+                                    @Html.DropDownList("StatusId", new SelectList(Model.statusEntities, "StatusId", "StatusName", ""), "", new { @id = "HStatusId", @class = "form-control mrp_modalselect" })
                                 </div>
                             </div>
                         </div>
@@ -637,6 +653,8 @@
                 DrawId: Draw,
                 ModifiedBy: @Common.GetSession("UserID"),
                 RelatedTrans: document.getElementById("RelatedTrans").value,
+                FiscalYearId: document.getElementById("HFiscalYearId").value,
+                SatusId: document.getElementById("HStatusId").value,
             };
             var revenueRequest = {
                 RevenueTransactionEntity: revenueTransactionEntity

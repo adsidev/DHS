@@ -168,6 +168,22 @@
                             </div>
                         </div>
                     </div>
+
+                    <div class="col-lg-12">
+                        <div class="row">
+                            <div class="col-lg-3 col-xs-12 col-sm-3 col-md-3">
+                                <div class="form_modal">
+                                    <label>Status&nbsp;</label>
+                                </div>
+                            </div>
+                            <div class="col-lg-9 col-xs-12 col-sm-9 col-md-9">
+                                <div class="form_modal">
+                                    @Html.DropDownList("StatusId", new SelectList(Model.statusEntities, "StatusId", "StatusName", ""), "", new { @id = "HStatusId", @class = "form-control mrp_modalselect" })
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
                     <div class="col-lg-6">
                         <div class="row">
                             <div class="col-lg-4 col-xs-12 col-sm-4 col-md-4">
@@ -282,6 +298,7 @@
                 RelatedTrans: document.getElementById("RelatedTrans").value,
                 FiscalYearId: document.getElementById("FiscalYearId").value,
                 RevenueId: document.getElementById("RevenueId").value,
+                StatusId: document.getElementById("HStatusId").value,
             };
             var revenueRequest = {
                 RevenueTransactionEntity: revenueTransactionEntity

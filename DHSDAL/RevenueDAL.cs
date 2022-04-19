@@ -525,6 +525,8 @@ namespace DHSDAL
                 try
                 {
                     revenueTransactionEntity.RevenueTransactionId = Convert.ToInt64(revenueDataRow["RevenueTransactionId"].ToString());
+                    revenueTransactionEntity.FiscalYearId = Convert.ToInt64(revenueDataRow["FiscalYearId"].ToString());
+                    revenueTransactionEntity.StatusId = Convert.ToInt32(revenueDataRow["StatusId"].ToString());
                     revenueTransactionEntity.RevenueTypeName = revenueDataRow["RevenueTypeName"].ToString();
                     revenueTransactionEntity.RevenueTranscationDescription = revenueDataRow["RevenueTranscationDescription"].ToString();
                     revenueTransactionEntity.RevenueTransactionAmount = Convert.ToDecimal(revenueDataRow["RevenueTransactionAmount"].ToString());
@@ -532,6 +534,8 @@ namespace DHSDAL
                     revenueTransactionEntity.ActivityDescription = revenueDataRow["ActivityDescription"].ToString();
                     revenueTransactionEntity.ObjectDescription = revenueDataRow["ObjectDescription"].ToString();
                     revenueTransactionEntity.OrgName = revenueDataRow["OrgName"].ToString();
+                    revenueTransactionEntity.FiscalYear = revenueDataRow["FiscalYear"].ToString();
+                    revenueTransactionEntity.StatusName = revenueDataRow["StatusName"].ToString();
                     revenueTransactionEntity.ObjectName = revenueDataRow["ObjectName"].ToString();
                     revenueTransactionEntity.BatchNumber = revenueDataRow["BatchNumber"].ToString();
                     revenueTransactionEntity.ProjectName = revenueDataRow["ProjectName"].ToString();
@@ -540,13 +544,19 @@ namespace DHSDAL
                     revenueTransactionEntity.DocumentFile = revenueDataRow["DocumentFile"].ToString();
                     revenueTransactionEntity.DrawNumber = revenueDataRow["DrawNumber"].ToString();
                     revenueTransactionEntity.RelatedTrans = revenueDataRow["RelatedTrans"].ToString();
-                    revenueTransactionEntity.RevenueTransactionDate = Convert.ToDateTime(revenueDataRow["RevenueTransactionDate"].ToString()).ToShortDateString();
+                    try
+                    {
+                        revenueTransactionEntity.RevenueTransactionDate = Convert.ToDateTime(revenueDataRow["RevenueTransactionDate"].ToString()).ToShortDateString();
+                    }
+                    catch (Exception)
+                    {
+                        revenueTransactionEntity.RevenueTransactionDate = revenueDataRow["RevenueTransactionDate"].ToString();
+                    }
                 }
                 catch (Exception exception)
                 {
                     revenueTransactionEntity.ErrorMessage = exception.Message;
                     revenueTransactionEntity.Exception = exception;
-                    revenueTransactionEntity.RevenueTransactionDate = revenueDataRow["RevenueTransactionDate"].ToString();
                 }
                 finally
                 {
@@ -585,9 +595,13 @@ namespace DHSDAL
                         revenueTransactionEntity.RevenueTransactionId = Convert.ToInt64(revenueDataRow["RevenueTransactionId"].ToString());
                         revenueTransactionEntity.RevenueId = Convert.ToInt64(revenueDataRow["RevenueId"].ToString());
                         revenueTransactionEntity.DrawId = Convert.ToInt64(revenueDataRow["DrawId"].ToString());
+                        revenueTransactionEntity.FiscalYearId = Convert.ToInt64(revenueDataRow["FiscalYearId"].ToString());
+                        revenueTransactionEntity.StatusId = Convert.ToInt32(revenueDataRow["StatusId"].ToString());
                         revenueTransactionEntity.RevenueTypeId = Convert.ToInt32(revenueDataRow["RevenueTypeId"].ToString());
                         revenueTransactionEntity.RevenueTypeName = revenueDataRow["RevenueTypeName"].ToString();
                         revenueTransactionEntity.DrawNumber = revenueDataRow["DrawNumber"].ToString();
+                        revenueTransactionEntity.FiscalYear = revenueDataRow["FiscalYear"].ToString();
+                        revenueTransactionEntity.StatusName = revenueDataRow["StatusName"].ToString();
                         revenueTransactionEntity.RevenueTranscationDescription = revenueDataRow["RevenueTranscationDescription"].ToString();
                         revenueTransactionEntity.RevenueTransactionAmount = Convert.ToDecimal(revenueDataRow["RevenueTransactionAmount"].ToString());
                         revenueTransactionEntity.RevenueTransactionNumber = revenueDataRow["RevenueTransactionNumber"].ToString();
@@ -595,13 +609,19 @@ namespace DHSDAL
                         revenueTransactionEntity.ObjectName = revenueDataRow["ObjectName"].ToString();
                         revenueTransactionEntity.ProjectName = revenueDataRow["ProjectName"].ToString();
                         revenueTransactionEntity.RelatedTrans = revenueDataRow["RelatedTrans"].ToString();
-                        revenueTransactionEntity.RevenueTransactionDate = Convert.ToDateTime(revenueDataRow["RevenueTransactionDate"].ToString()).ToShortDateString();
+                        try
+                        {
+                            revenueTransactionEntity.RevenueTransactionDate = Convert.ToDateTime(revenueDataRow["RevenueTransactionDate"].ToString()).ToShortDateString();
+                        }
+                        catch (Exception)
+                        {
+                            revenueTransactionEntity.RevenueTransactionDate = revenueDataRow["RevenueTransactionDate"].ToString();
+                        }
                     }
                     catch (Exception exception)
                     {
                         revenueTransactionEntity.ErrorMessage = exception.Message;
                         revenueTransactionEntity.Exception = exception;
-                        revenueTransactionEntity.RevenueTransactionDate = revenueDataRow["RevenueTransactionDate"].ToString();
                     }
                     finally
                     {
@@ -615,6 +635,8 @@ namespace DHSDAL
                 revenueTransactionEntity.ObjectName = revenueEntity.ObjectName;
                 revenueTransactionEntity.ProjectName = revenueEntity.ProjectName;
                 revenueTransactionEntity.RevenueId = revenueRequest.revenueTransactionEntity.RevenueId;
+                revenueTransactionEntity.FiscalYearId = revenueEntity.FiscalYearId;
+                revenueTransactionEntity.StatusId = revenueEntity.StatusId;
             }
             revenueEntity.RevenueId = revenueTransactionEntity.RevenueId;
             revenueRequest.revenueEntity = revenueEntity;
@@ -625,7 +647,7 @@ namespace DHSDAL
             revenueResponse.orgEntities = commonDAL.GetOrgs();
             revenueResponse.objectEntities = commonDAL.GetObjects();
             revenueResponse.projectEntities = commonDAL.GetProjects();
-
+            revenueResponse.statusEntities = commonDAL.GetStatuses();
             RevenueTypeDAL revenueTypeDAL = new RevenueTypeDAL();
             revenueResponse.revenueTypeEntities = revenueTypeDAL.GetRevenueTypes().RevenueTypeEntities;
 
@@ -654,7 +676,9 @@ namespace DHSDAL
                 revenueRequest.revenueTransactionEntity.ModifiedBy,
                 revenueRequest.revenueTransactionEntity.ProjectName,
                 revenueRequest.revenueTransactionEntity.DrawId,
-                revenueRequest.revenueTransactionEntity.RelatedTrans
+                revenueRequest.revenueTransactionEntity.RelatedTrans,
+                revenueRequest.revenueTransactionEntity.FiscalYearId,
+                revenueRequest.revenueTransactionEntity.StatusId
                 };
                 var intResult = SqlHelper.ExecuteScalar(_connectionString, StoredProcedures.Revenue.USPSAVEREVENEUTRANSACTION, SqlObject.Parameters);
                 revenueResponse.Message = string.Empty;
@@ -1131,6 +1155,7 @@ namespace DHSDAL
                     revenueTransactionEntity.RevenueTranscationDescription = revenueDataRow["RevenueTranscationDescription"].ToString();
                     revenueTransactionEntity.RevenueTransactionAmount = Convert.ToDecimal(revenueDataRow["RevenueTransactionAmount"].ToString());
                     revenueTransactionEntity.FiscalYear = revenueDataRow["FiscalYear"].ToString();
+                    revenueTransactionEntity.StatusName = revenueDataRow["StatusName"].ToString();
                     revenueTransactionEntity.RevenueTransactionNumber = revenueDataRow["RevenueTransactionNumber"].ToString();
                     //revenueTransactionEntity.ActivityDescription = revenueDataRow["ActivityDescription"].ToString();
                     //revenueTransactionEntity.ObjectDescription = revenueDataRow["ObjectDescription"].ToString();
@@ -1143,13 +1168,19 @@ namespace DHSDAL
                     revenueTransactionEntity.DocumentFile = revenueDataRow["DocumentFile"].ToString();
                     revenueTransactionEntity.DrawNumber = revenueDataRow["DrawNumber"].ToString();
                     revenueTransactionEntity.RelatedTrans = revenueDataRow["RelatedTrans"].ToString();
-                    revenueTransactionEntity.RevenueTransactionDate = Convert.ToDateTime(revenueDataRow["RevenueTransactionDate"].ToString()).ToShortDateString();
+                    try
+                    {
+                        revenueTransactionEntity.RevenueTransactionDate = Convert.ToDateTime(revenueDataRow["RevenueTransactionDate"].ToString()).ToShortDateString();
+                    }
+                    catch (Exception)
+                    {
+                        revenueTransactionEntity.RevenueTransactionDate = revenueDataRow["RevenueTransactionDate"].ToString();
+                    }                    
                 }
                 catch (Exception exception)
                 {
                     revenueTransactionEntity.ErrorMessage = exception.Message;
                     revenueTransactionEntity.Exception = exception;
-                    revenueTransactionEntity.RevenueTransactionDate = revenueDataRow["RevenueTransactionDate"].ToString();
                 }
                 finally
                 {
@@ -1187,9 +1218,11 @@ namespace DHSDAL
                         revenueTransactionEntity.RevenueTransactionId = Convert.ToInt64(revenueDataRow["RevenueTransactionId"].ToString());
                         revenueTransactionEntity.DrawId = Convert.ToInt64(revenueDataRow["DrawId"].ToString());
                         revenueTransactionEntity.FiscalYearId = Convert.ToInt64(revenueDataRow["FiscalYearId"].ToString());
+                        revenueTransactionEntity.StatusId = Convert.ToInt32(revenueDataRow["StatusId"].ToString());
                         revenueTransactionEntity.RevenueTypeId = Convert.ToInt32(revenueDataRow["RevenueTypeId"].ToString());
                         revenueTransactionEntity.RevenueTypeName = revenueDataRow["RevenueTypeName"].ToString();
                         revenueTransactionEntity.FiscalYear = revenueDataRow["FiscalYear"].ToString();
+                        revenueTransactionEntity.StatusName = revenueDataRow["StatusName"].ToString();
                         revenueTransactionEntity.DrawNumber = revenueDataRow["DrawNumber"].ToString();
                         revenueTransactionEntity.RevenueTranscationDescription = revenueDataRow["RevenueTranscationDescription"].ToString();
                         revenueTransactionEntity.RevenueTransactionAmount = Convert.ToDecimal(revenueDataRow["RevenueTransactionAmount"].ToString());
@@ -1198,13 +1231,19 @@ namespace DHSDAL
                         revenueTransactionEntity.ObjectName = revenueDataRow["ObjectName"].ToString();
                         revenueTransactionEntity.ProjectName = revenueDataRow["ProjectName"].ToString();
                         revenueTransactionEntity.RelatedTrans = revenueDataRow["RelatedTrans"].ToString();
-                        revenueTransactionEntity.RevenueTransactionDate = Convert.ToDateTime(revenueDataRow["RevenueTransactionDate"].ToString()).ToShortDateString();
+                        try
+                        {
+                            revenueTransactionEntity.RevenueTransactionDate = Convert.ToDateTime(revenueDataRow["RevenueTransactionDate"].ToString()).ToShortDateString();
+                        }
+                        catch (Exception)
+                        {
+                            revenueTransactionEntity.RevenueTransactionDate = revenueDataRow["RevenueTransactionDate"].ToString();
+                        }
                     }
                     catch (Exception exception)
                     {
                         revenueTransactionEntity.ErrorMessage = exception.Message;
                         revenueTransactionEntity.Exception = exception;
-                        revenueTransactionEntity.RevenueTransactionDate = revenueDataRow["RevenueTransactionDate"].ToString();
                     }
                     finally
                     {
@@ -1255,6 +1294,7 @@ namespace DHSDAL
                 revenueRequest.revenueTransactionEntity.RelatedTrans,
                 revenueRequest.revenueTransactionEntity.FiscalYearId,
                 revenueRequest.revenueTransactionEntity.RevenueId,
+                revenueRequest.revenueTransactionEntity.StatusId,
                 };
                 var intResult = SqlHelper.ExecuteScalar(_connectionString, StoredProcedures.Revenue.USPSAVEMISSINGREVENEUTRANSACTION, SqlObject.Parameters);
                 revenueResponse.Message = string.Empty;
