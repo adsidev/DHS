@@ -369,9 +369,6 @@
                                                 CFDA
                                             </th>
                                             <th nowrap>
-                                                Total Amount
-                                            </th>
-                                            <th nowrap>
                                                 Draw Down Amount
                                             </th>
                                             <th nowrap>
@@ -436,9 +433,6 @@
                                                     </td>
                                                     <td nowrap>
                                                         @item.CFDA
-                                                    </td>
-                                                    <td nowrap>
-                                                        @string.Format("{0:C}", item.TransactionAmount)
                                                     </td>
                                                     @if (DrawId == item.RevenueTransactionId)
                                                     {
@@ -511,6 +505,9 @@
                                                 Correct Amount
                                             </th>
                                             <th nowrap>
+                                                Other Batch Number
+                                            </th>
+                                            <th nowrap>
                                                 Fund
                                             </th>
                                             <th nowrap>
@@ -579,6 +576,9 @@
                                                     </td>
                                                     <td nowrap>
                                                         @string.Format("{0:C}", item.CorrectAmount)
+                                                    </td>
+                                                    <td nowrap>
+                                                        @item.OtherBatchNumber
                                                     </td>
                                                     <td nowrap>
                                                         @item.Fund

@@ -110,5 +110,7 @@ namespace DHSEntities
         public string DatePosted { get; set; }
         public string Remarks { get; set; }
         public long RevenueTransactionId { get; set; }
+        public string OtherBatchNumber { get; set; }
+        public string RelatedTrans { get; set; }
     }
 }

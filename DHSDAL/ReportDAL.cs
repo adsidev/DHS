@@ -423,6 +423,8 @@ namespace DHSDAL
                         reportEntity.DrawDownDate = expenseDataRow["DrawDownDate"].ToString();
                     }
                     reportEntity.BatchNumber = expenseDataRow["BatchNumber"].ToString();
+                    reportEntity.OtherBatchNumber = expenseDataRow["OtherBatchNumber"].ToString();
+                    reportEntity.RelatedTrans = expenseDataRow["RelatedTrans"].ToString();
                     reportEntity.CashReceipt = expenseDataRow["CashReceipt"].ToString();
                     try
                     {
