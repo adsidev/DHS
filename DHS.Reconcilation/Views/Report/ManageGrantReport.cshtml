@@ -228,11 +228,11 @@
                                             }
                                         }
                                         <tr>
-                                            <td colspan="3"><b>Transaction Amount Total:</b></td>
+                                            <td colspan="4"><b>Transaction Amount Total:</b></td>
                                             <td>@string.Format("{0:C}", TransactionAmountTotal)</td>
                                             <td colspan="9" style="text-align:right;"><b>Drawn Amount Total:</b></td>
                                             <td>@string.Format("{0:C}", DraDownAmountTotal)</td>
-                                            <td colspan="5"></td>
+                                            <td colspan="6"></td>
                                         </tr>
                                     </tbody>
                                 </table>
@@ -352,9 +352,9 @@
                                             }
                                         }
                                         <tr>
-                                            <td colspan="3"><b>Transaction Amount Total</b></td>
+                                            <td colspan="4"><b>Transaction Amount Total</b></td>
                                             <td>@string.Format("{0:C}", ExpenseTransactionAmount)</td>
-                                            <td colspan="12"><b>Expense Total:</b>@string.Format("{0:C}", (TransactionAmountTotal + ExpenseTransactionAmount))</td>
+                                            <td colspan="14"><b>Expense Total:</b>@string.Format("{0:C}", (TransactionAmountTotal + ExpenseTransactionAmount))</td>
                                             <td >&nbsp;</td>
                                         </tr>
                                     </tbody>
@@ -526,9 +526,9 @@
                                             }
                                         }
                                         <tr>
-                                            <td colspan="3"><b>Transaction Amount Total:</b></td>
+                                            <td colspan="4"><b>Transaction Amount Total:</b></td>
                                             <td>@string.Format("{0:C}", RTransactionAmountTotal)</td>
-                                            <td colspan="13" style="text-align:right;">&nbsp;</td>
+                                            <td colspan="14" style="text-align:right;">&nbsp;</td>
                                         </tr>
                                     </tbody>
                                 </table>
@@ -540,7 +540,7 @@
                                 <table class="table table-bordered table-striped">
                                     <thead>
                                         <tr>
-                                            <th colspan="19">PROJECT PAYABLES</th>
+                                            <th colspan="20">PROJECT PAYABLES</th>
                                         </tr>
                                         <tr>
                                             <th nowrap>
@@ -635,8 +635,8 @@
                                                 else if (ppRSubTransactionAmountTotal > 0)
                                                 {
                                                     <tr>
-                                                        <td colspan="3"><b>@SubtotalProject</b></td>
-                                                        <td>@string.Format("{0:C}", ppRSubTransactionAmountTotal)</td>
+                                                        <td colspan="4"><b>@SubtotalProject</b></td>
+                                                        <td><b>@string.Format("{0:C}", ppRSubTransactionAmountTotal)</b></td>
                                                         <td colspan="16" style="text-align:right;">&nbsp;</td>
                                                     </tr>
                                                     ppRSubTransactionAmountTotal = 0;
@@ -734,12 +734,12 @@
                                             }
                                         }
                                         <tr>
-                                            <td colspan="3"><b>@SubtotalProject</b></td>
-                                            <td>@string.Format("{0:C}", ppRSubTransactionAmountTotal)</td>
+                                            <td colspan="4"><b>@SubtotalProject</b></td>
+                                            <td><b>@string.Format("{0:C}", ppRSubTransactionAmountTotal)</b></td>
                                             <td colspan="16" style="text-align:right;">&nbsp;</td>
                                         </tr>
                                         <tr>
-                                            <td colspan="3"><b>Payable Amount Total:</b></td>
+                                            <td colspan="4"><b>Payable Amount Total:</b></td>
                                             <td>@string.Format("{0:C}", ppRTransactionAmountTotal)</td>
                                             <td colspan="16" style="text-align:right;">&nbsp;</td>
                                         </tr>
@@ -809,7 +809,7 @@
                                             }
                                         }
                                         <tr>
-                                            <td colspan="2"><b>Total:</b></td>
+                                            <td colspan="2" style="text-align:right;"><b>Total:&nbsp;</b></td>
                                             <td>@string.Format("{0:C}", rDepositAmount)</td>
                                             <td colspan="8"></td>
                                         </tr>
@@ -899,7 +899,7 @@
                                             }
                                         }
                                         <tr>
-                                            <td colspan="2"><b>Total</b></td>
+                                            <td colspan="2" style="text-align:right;"><b>Total :&nbsp;</b></td>
                                             <td>@string.Format("{0:C}", rAdjustmentAmount)</td>
                                             <td colspan="8"><b>Revenue Total:</b>@string.Format("{0:C}", (rDepositAmount + rAdjustmentAmount))</td>
                                         </tr>
