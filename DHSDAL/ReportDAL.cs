@@ -87,6 +87,7 @@ namespace DHSDAL
                     reportEntity.TransactionAmount = Convert.ToDecimal(expenseDataRow["TransactionAmount"].ToString());
                     reportEntity.CorrectAmount = Convert.ToDecimal(expenseDataRow["CorrectAmount"].ToString());
                     reportEntity.Fund = expenseDataRow["Fund"].ToString();
+                    reportEntity.RelatedTrans = expenseDataRow["RelatedTrans"].ToString();
                     reportEntity.VendorName = expenseDataRow["VendorName"].ToString();
                     reportEntity.DepartmentName = expenseDataRow["DepartmentName"].ToString();
                     reportEntity.OrgName = expenseDataRow["OrgName"].ToString();

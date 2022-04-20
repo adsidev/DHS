@@ -8,6 +8,7 @@ namespace DHSEntities
         public string SubCategory { get; set; }
         public decimal TransactionAmount { get; set; }
         public decimal CorrectAmount { get; set; }
+        public string RelatedTrans { get; set; }
         public string Fund { get; set; }
         public string VendorName { get; set; }
         public string DepartmentName { get; set; }
