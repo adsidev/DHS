@@ -584,7 +584,7 @@
                                         }
                                         @{foreach (var item in Model.projectPayables)
                                             {
-                                                SubtotalProject = item.BatchNumber + ' - ' + item.DrawProjectName + " - Payable Amount Sub-Total:";
+                                                SubtotalProject = item.BatchNumber + " - " + item.DrawProjectName + " - Payable Amount Sub-Total:";
                                                   if (item.CorrectAmount > 0)
                                                 {
                                                     ppRTransactionAmountTotal = ppRTransactionAmountTotal + item.CorrectAmount;
