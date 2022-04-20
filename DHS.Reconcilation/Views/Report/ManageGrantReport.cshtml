@@ -63,12 +63,15 @@
                                 <table class="table table-bordered table-striped">
                                     <thead>
                                         <tr>
-                                            <th colspan="13">EXPENSES</th>
+                                            <th colspan="14">EXPENSES</th>
                                             <th colspan="6">REVENUES</th>
                                         </tr>
                                         <tr>
                                             <th nowrap>
                                                 Date
+                                            </th>
+                                            <th nowrap>
+                                                Transaction Number
                                             </th>
                                             <th nowrap>
                                                 Category
@@ -144,6 +147,9 @@
                                                 <tr>
                                                     <td nowrap>
                                                         @item.ExpenseDepositDate
+                                                    </td>
+                                                    <td nowrap>
+                                                        @item.TransactionNumber
                                                     </td>
                                                     <td nowrap>
                                                         @item.Category
@@ -237,6 +243,9 @@
                                                 Date
                                             </th>
                                             <th nowrap>
+                                                Transaction Number
+                                            </th>
+                                            <th nowrap>
                                                 Category
                                             </th>
                                             <th nowrap>
@@ -290,6 +299,9 @@
                                                 <tr>
                                                     <td nowrap>
                                                         @item.ExpenseAdjustmentDate
+                                                    </td>
+                                                    <td nowrap>
+                                                        @item.TransactionNumber
                                                     </td>
                                                     <td nowrap>
                                                         @item.Category
@@ -352,6 +364,9 @@
                                         <tr>
                                             <th nowrap>
                                                 Date
+                                            </th>
+                                            <th nowrap>
+                                                Transaction Number
                                             </th>
                                             <th nowrap>
                                                 Category
@@ -425,6 +440,9 @@
                                                 <tr>
                                                     <td nowrap>
                                                         @item.ExpenseDepositDate
+                                                    </td>
+                                                    <td nowrap>
+                                                        @item.TransactionNumber
                                                     </td>
                                                     <td nowrap>
                                                         @item.Category
@@ -515,6 +533,9 @@
                                         <tr>
                                             <th nowrap>
                                                 Date
+                                            </th>
+                                            <th nowrap>
+                                                Transaction Number
                                             </th>
                                             <th nowrap>
                                                 Category
@@ -608,6 +629,9 @@
                                                 <tr>
                                                     <td nowrap>
                                                         @item.ExpenseDepositDate
+                                                    </td>
+                                                    <td nowrap>
+                                                        @item.TransactionNumber
                                                     </td>
                                                     <td nowrap>
                                                         @item.Category
@@ -717,6 +741,9 @@
                                                 Revenue Transaction Date
                                             </th>
                                             <th nowrap>
+                                                Revenue Transaction Number
+                                            </th>
+                                            <th nowrap>
                                                 Revenue Transaction Amount
                                             </th>
                                             <th nowrap>
@@ -741,6 +768,9 @@
                                                 <tr>
                                                     <td nowrap>
                                                         @item.RevenueTransactionDate
+                                                    </td>
+                                                    <td nowrap>
+                                                        @item.RevenueTransactionNumber
                                                     </td>
                                                     <td nowrap>
                                                         @string.Format("{0:C}", item.RevenueTransactionAmount)
@@ -779,6 +809,9 @@
                                                 Revenue Transaction Date
                                             </th>
                                             <th nowrap>
+                                                Revenue Transaction Number
+                                            </th>
+                                            <th nowrap>
                                                 Revenue Transaction Amount
                                             </th>
                                             <th nowrap>
@@ -815,6 +848,9 @@
                                                 <tr>
                                                     <td nowrap>
                                                         @item.RevenueTransactionDate
+                                                    </td>
+                                                    <td nowrap>
+                                                        @item.RevenueTransactionNumber
                                                     </td>
                                                     <td nowrap>
                                                         @string.Format("{0:C}", item.RevenueTransactionAmount)

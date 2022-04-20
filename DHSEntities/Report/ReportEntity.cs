@@ -9,6 +9,7 @@ namespace DHSEntities
         public decimal TransactionAmount { get; set; }
         public decimal CorrectAmount { get; set; }
         public string RelatedTrans { get; set; }
+        public string TransactionNumber { get; set; }
         public string Fund { get; set; }
         public string VendorName { get; set; }
         public string DepartmentName { get; set; }
@@ -33,6 +34,7 @@ namespace DHSEntities
         public decimal TransactionAmount { get; set; }
         public decimal CorrectAmount { get; set; }
         public string Fund { get; set; }
+        public string TransactionNumber { get; set; }
         public string VendorName { get; set; }
         public string DepartmentName { get; set; }
         public string OrgName { get; set; }
@@ -57,6 +59,7 @@ namespace DHSEntities
         public decimal TransactionAmount { get; set; }
         public decimal CorrectAmount { get; set; }
         public string Fund { get; set; }
+        public string TransactionNumber { get; set; }
         public string VendorName { get; set; }
         public string DepartmentName { get; set; }
         public string OrgName { get; set; }
@@ -73,6 +76,7 @@ namespace DHSEntities
     {
         public string RevenueTransactionDate { get; set; }
         public decimal RevenueTransactionAmount { get; set; }
+        public string RevenueTransactionNumber { get; set; }
         public string ProjectName { get; set; }
         public string ObjectName { get; set; }
         public string OrgName { get; set; }
@@ -85,6 +89,7 @@ namespace DHSEntities
     {
         public string RevenueTransactionDate { get; set; }
         public decimal RevenueTransactionAmount { get; set; }
+        public string RevenueTransactionNumber { get; set; }
         public string ProjectName { get; set; }
         public string ObjectName { get; set; }
         public string OrgName { get; set; }
@@ -103,6 +108,7 @@ namespace DHSEntities
         public decimal TransactionAmount { get; set; }
         public decimal CorrectAmount { get; set; }
         public string Fund { get; set; }
+        public string TransactionNumber { get; set; }
         public string VendorName { get; set; }
         public string DepartmentName { get; set; }
         public string OrgName { get; set; }
