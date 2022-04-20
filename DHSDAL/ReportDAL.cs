@@ -88,6 +88,7 @@ namespace DHSDAL
                     reportEntity.CorrectAmount = Convert.ToDecimal(expenseDataRow["CorrectAmount"].ToString());
                     reportEntity.Fund = expenseDataRow["Fund"].ToString();
                     reportEntity.RelatedTrans = expenseDataRow["RelatedTrans"].ToString();
+                    reportEntity.OtherBatchNumber = expenseDataRow["OtherBatchNumber"].ToString();
                     reportEntity.TransactionNumber = expenseDataRow["TransactionNumber"].ToString();
                     reportEntity.VendorName = expenseDataRow["VendorName"].ToString();
                     reportEntity.DepartmentName = expenseDataRow["DepartmentName"].ToString();
@@ -208,6 +209,7 @@ namespace DHSDAL
                     reportEntity.SubCategory = expenseDataRow["FGTCategoryName2"].ToString();
                     reportEntity.TransactionAmount = Convert.ToDecimal(expenseDataRow["TransactionAmount"].ToString());
                     reportEntity.RelatedTrans = expenseDataRow["RelatedTrans"].ToString();
+                    reportEntity.OtherBatchNumber = expenseDataRow["OtherBatchNumber"].ToString();
                     reportEntity.CorrectAmount = Convert.ToDecimal(expenseDataRow["CorrectAmount"].ToString());
                     reportEntity.TransactionNumber = expenseDataRow["TransactionNumber"].ToString();
                     reportEntity.Fund = expenseDataRow["Fund"].ToString();

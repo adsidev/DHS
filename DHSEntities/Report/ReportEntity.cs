@@ -9,6 +9,7 @@ namespace DHSEntities
         public decimal TransactionAmount { get; set; }
         public decimal CorrectAmount { get; set; }
         public string RelatedTrans { get; set; }
+        public string OtherBatchNumber { get; set; }
         public string TransactionNumber { get; set; }
         public string Fund { get; set; }
         public string VendorName { get; set; }
@@ -49,6 +50,7 @@ namespace DHSEntities
         public string Remarks { get; set; }
         public long RevenueTransactionId { get; set; }
         public string RelatedTrans { get; set; }
+        public string OtherBatchNumber { get; set; }
     }
 
     public class ExpenseAdjustments

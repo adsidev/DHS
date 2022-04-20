@@ -89,6 +89,9 @@
                                                 Related Trans
                                             </th>
                                             <th nowrap>
+                                                Other Batch Number
+                                            </th>
+                                            <th nowrap>
                                                 Fund
                                             </th>
                                             <th nowrap>
@@ -167,6 +170,9 @@
                                                         @item.RelatedTrans
                                                     </td>
                                                     <td nowrap>
+                                                        @item.OtherBatchNumber
+                                                    </td>
+                                                    <td nowrap>
                                                         @item.Fund
                                                     </td>
                                                     <td nowrap>
@@ -236,7 +242,7 @@
                                 <table class="table table-bordered table-striped">
                                     <thead>
                                         <tr>
-                                            <th colspan="14">EXPENSE ADJUSTMENTS</th>
+                                            <th colspan="15">EXPENSE ADJUSTMENTS</th>
                                         </tr>
                                         <tr>
                                             <th nowrap>
@@ -256,6 +262,9 @@
                                             </th>
                                             <th nowrap>
                                                 Related Trans
+                                            </th>
+                                            <th nowrap>
+                                                Other Batch Number
                                             </th>
                                             <th nowrap>
                                                 Status
@@ -313,6 +322,9 @@
                                                         @string.Format("{0:C}", item.TransactionAmount)
                                                     </td>
                                                     <td nowrap>
+                                                        @item.RelatedTrans
+                                                    </td>
+                                                    <td nowrap>
                                                         @item.OtherBatchNumber
                                                     </td>
                                                     <td nowrap>
@@ -348,7 +360,7 @@
                                         <tr>
                                             <td colspan="3"><b>Transaction Amount Total</b></td>
                                             <td>@string.Format("{0:C}", ExpenseTransactionAmount)</td>
-                                            <td colspan="8"><b>Expense Total:</b>@string.Format("{0:C}", (TransactionAmountTotal + ExpenseTransactionAmount))</td>
+                                            <td colspan="12"><b>Expense Total:</b>@string.Format("{0:C}", (TransactionAmountTotal + ExpenseTransactionAmount))</td>
                                             <td >&nbsp;</td>
                                         </tr>
                                     </tbody>
@@ -382,6 +394,9 @@
                                             </th>
                                             <th nowrap>
                                                 Related Trans
+                                            </th>
+                                            <th nowrap>
+                                                Other Batch Number
                                             </th>
                                             <th nowrap>
                                                 Fund
@@ -458,6 +473,9 @@
                                                     </td>
                                                     <td nowrap>
                                                         @item.RelatedTrans
+                                                    </td>
+                                                    <td nowrap>
+                                                        @item.OtherBatchNumber
                                                     </td>
                                                     <td nowrap>
                                                         @item.Fund
@@ -551,6 +569,9 @@
                                             </th>
                                             <th nowrap>
                                                 Other Batch Number
+                                            </th>
+                                            <th nowrap>
+                                                Related Trans
                                             </th>
                                             <th nowrap>
                                                 Fund
@@ -647,6 +668,9 @@
                                                     </td>
                                                     <td nowrap>
                                                         @item.OtherBatchNumber
+                                                    </td>
+                                                    <td nowrap>
+                                                        @item.RelatedTrans
                                                     </td>
                                                     <td nowrap>
                                                         @item.Fund
