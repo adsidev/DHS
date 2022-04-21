@@ -15,7 +15,9 @@ namespace DHSEntities
         public string ProjectDescription { get; set; }
         public string CFDA { get; set; }
         public decimal ExpenseAmount { get; set; }
+        public decimal ProjectExpenseAmount { get; set; }
         public decimal RevenueAmount { get; set; }
+        public decimal ProjectRevenueAmount { get; set; }
         public decimal ExpenseTransactionAmount { get; set; }
         public decimal RevenueTransactionAmount { get; set; }
         public int ProjectGroupId { get; set; }

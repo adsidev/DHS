@@ -52,19 +52,31 @@
                                                 Expense Amount
                                             </th>
                                             <th nowrap>
-                                                Reconciled Expense Amount
+                                                Unreconciled Expense
                                             </th>
                                             <th nowrap>
-                                                Difference
+                                                Unreconciled Expense Difference
+                                            </th>
+                                            <th nowrap>
+                                                Reconciled Expense
+                                            </th>
+                                            <th nowrap>
+                                                Reconciled Expense Difference
                                             </th>
                                             <th nowrap>
                                                 Revenue Amount
                                             </th>
                                             <th nowrap>
-                                                Reconciled Revenue Amount
+                                                Unreconciled Revenue
                                             </th>
                                             <th nowrap>
-                                                Difference
+                                                Unreconciled Revenue Difference
+                                            </th>
+                                            <th nowrap>
+                                                Reconciled Revenue
+                                            </th>
+                                            <th nowrap>
+                                                Reconciled Revenue Difference
                                             </th>
                                         </tr>
                                     </thead>
@@ -78,22 +90,34 @@
                                                         </a>
                                                     </td>
                                                     <td>
+                                                        @string.Format("{0:C}", item.ProjectExpenseAmount)
+                                                    </td>
+                                                    <td>
                                                         @string.Format("{0:C}", item.ExpenseAmount)
+                                                    </td>
+                                                    <td>
+                                                        @string.Format("{0:C}", (item.ProjectExpenseAmount - item.ExpenseAmount))
                                                     </td>
                                                     <td>
                                                         @string.Format("{0:C}", item.ExpenseTransactionAmount)
                                                     </td>
                                                     <td>
-                                                        @string.Format("{0:C}", (item.ExpenseAmount - item.ExpenseTransactionAmount))
+                                                        @string.Format("{0:C}", (item.ProjectExpenseAmount - item.ExpenseTransactionAmount))
+                                                    </td>
+                                                    <td>
+                                                        @string.Format("{0:C}", item.ProjectRevenueAmount)
                                                     </td>
                                                     <td>
                                                         @string.Format("{0:C}", item.RevenueAmount)
                                                     </td>
                                                     <td>
+                                                        @string.Format("{0:C}", (item.ProjectRevenueAmount - item.RevenueAmount))
+                                                    </td>
+                                                    <td>
                                                         @string.Format("{0:C}", item.RevenueTransactionAmount)
                                                     </td>
                                                     <td>
-                                                        @string.Format("{0:C}", (item.RevenueAmount - item.RevenueTransactionAmount))
+                                                        @string.Format("{0:C}", (item.ProjectRevenueAmount - item.RevenueTransactionAmount))
                                                     </td>
                                                 </tr>
                                             }

@@ -64,7 +64,7 @@
                                     <thead>
                                         <tr>
                                             <th colspan="14">EXPENSES</th>
-                                            <th colspan="6">REVENUES</th>
+                                            <th colspan="7">REVENUES</th>
                                         </tr>
                                         <tr>
                                             <th nowrap>
@@ -540,7 +540,7 @@
                                 <table class="table table-bordered table-striped">
                                     <thead>
                                         <tr>
-                                            <th colspan="20">PROJECT PAYABLES</th>
+                                            <th colspan="20">DUE TO</th>
                                         </tr>
                                         <tr>
                                             <th nowrap>
@@ -620,7 +620,7 @@
                                         }
                                         @{foreach (var item in Model.projectPayables)
                                             {
-                                                SubtotalProject = item.BatchNumber + " - " + item.DrawProjectName + " - Payable Amount Sub-Total:";
+                                                SubtotalProject = "Due To - " + item.DrawProjectName + " Sub-Total:";
                                                   if (item.CorrectAmount > 0)
                                                 {
                                                     ppRTransactionAmountTotal = ppRTransactionAmountTotal + item.CorrectAmount;
@@ -629,7 +629,7 @@
                                                 {
                                                     ppRTransactionAmountTotal = ppRTransactionAmountTotal + item.TransactionAmount;
                                                 }
-                                                if (ppDrawId == item.RevenueTransactionId && ppProject == item.DrawProjectName)
+                                                if (ppProject == item.DrawProjectName)
                                                 {
                                                 }
                                                 else if (ppRSubTransactionAmountTotal > 0)
@@ -739,7 +739,7 @@
                                             <td colspan="16" style="text-align:right;">&nbsp;</td>
                                         </tr>
                                         <tr>
-                                            <td colspan="4"><b>Payable Amount Total:</b></td>
+                                            <td colspan="4"><b>Due To Total:</b></td>
                                             <td>@string.Format("{0:C}", ppRTransactionAmountTotal)</td>
                                             <td colspan="16" style="text-align:right;">&nbsp;</td>
                                         </tr>
