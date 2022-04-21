@@ -81,7 +81,6 @@ namespace DHSDAL
                     {
                         reportEntity.ExpenseDepositDate = expenseDataRow["TransactionDate"].ToString();
                     }
-
                     reportEntity.Category = expenseDataRow["FGTCategoryName"].ToString();
                     reportEntity.SubCategory = expenseDataRow["FGTCategoryName2"].ToString();
                     reportEntity.TransactionAmount = Convert.ToDecimal(expenseDataRow["TransactionAmount"].ToString());

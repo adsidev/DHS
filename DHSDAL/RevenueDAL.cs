@@ -1257,6 +1257,7 @@ namespace DHSDAL
             revenueResponse.revenueTypeEntities = revenueTypeDAL.GetRevenueTypes().RevenueTypeEntities;
             CommonDAL commonDAL = new CommonDAL();
             revenueResponse.fiscalYearEntities = commonDAL.GetFiscalYears();
+            revenueResponse.statusEntities = commonDAL.GetStatuses();
             DrawRequest drawRequest = new DrawRequest();
             DrawEntity drawEntity = new DrawEntity();
             drawEntity.StatusId = 0;
