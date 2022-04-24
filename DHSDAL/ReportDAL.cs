@@ -51,6 +51,7 @@ namespace DHSDAL
             reportResponse.expenseAdjustments = GetExpenseAdjustments(reportRequest);
             reportResponse.projectReceivables = GetProjectReceivables(reportRequest);
             reportResponse.projectPayables = GetProjectPayables(reportRequest);
+            reportResponse.projectDueFrom = GetProjectDueFrom(reportRequest);
             reportResponse.revenueDeposits = GetRevenueDeposits(reportRequest);
             reportResponse.revenueAdjustments = GetRevenueAdjustments(reportRequest);
             reportResponse.drawEntities = GetDraws(reportRequest);
@@ -393,6 +394,78 @@ namespace DHSDAL
         }
 
         private List<ProjectPayables> GetProjectPayables(ReportRequest reportRequest)
+        {
+            List<ProjectPayables> reportEntities = new List<ProjectPayables>();
+            SqlObject.Parameters = new object[] {
+                    reportRequest.FiscalYearId,
+                    reportRequest.ProjectId,
+            };
+            var transactionDetailDataSet = SqlHelper.ExecuteDataset(_connectionString, StoredProcedures.Report.USPGETFGTPROJECTPAYABLES, SqlObject.Parameters);
+            foreach (DataRow expenseDataRow in transactionDetailDataSet.Tables[0].Rows)
+            {
+                ProjectPayables reportEntity = new ProjectPayables();
+                try
+                {
+                    try
+                    {
+                        reportEntity.ExpenseDepositDate = Convert.ToDateTime(expenseDataRow["TransactionDate"].ToString()).ToShortDateString();
+                    }
+                    catch (Exception)
+                    {
+                        reportEntity.ExpenseDepositDate = expenseDataRow["TransactionDate"].ToString();
+                    }
+
+                    reportEntity.Category = expenseDataRow["FGTCategoryName"].ToString();
+                    reportEntity.SubCategory = expenseDataRow["FGTCategoryName2"].ToString();
+                    reportEntity.TransactionAmount = Convert.ToDecimal(expenseDataRow["TransactionAmount"].ToString());
+                    reportEntity.CorrectAmount = Convert.ToDecimal(expenseDataRow["CorrectAmount"].ToString());
+                    reportEntity.Fund = expenseDataRow["Fund"].ToString();
+                    reportEntity.TransactionNumber = expenseDataRow["TransactionNumber"].ToString();
+                    reportEntity.VendorName = expenseDataRow["VendorName"].ToString();
+                    reportEntity.DepartmentName = expenseDataRow["DepartmentName"].ToString();
+                    reportEntity.OrgName = expenseDataRow["OrgName"].ToString();
+                    reportEntity.ObjectName = expenseDataRow["ObjectName"].ToString();
+                    reportEntity.ProjectName = expenseDataRow["ProjectName"].ToString();
+                    reportEntity.DrawProjectName = expenseDataRow["DrawProjectName"].ToString();
+                    reportEntity.CFDA = expenseDataRow["CFDA"].ToString();
+                    reportEntity.DrawDownAmount = Convert.ToDecimal(expenseDataRow["RevenueTransactionAmount"].ToString());
+                    try
+                    {
+                        reportEntity.DrawDownDate = Convert.ToDateTime(expenseDataRow["DrawDownDate"].ToString()).ToShortDateString();
+                    }
+                    catch (Exception)
+                    {
+                        reportEntity.DrawDownDate = expenseDataRow["DrawDownDate"].ToString();
+                    }
+                    reportEntity.BatchNumber = expenseDataRow["BatchNumber"].ToString();
+                    reportEntity.OtherBatchNumber = expenseDataRow["OtherBatchNumber"].ToString();
+                    reportEntity.RelatedTrans = expenseDataRow["RelatedTrans"].ToString();
+                    reportEntity.CashReceipt = expenseDataRow["CashReceipt"].ToString();
+                    try
+                    {
+                        reportEntity.DatePosted = Convert.ToDateTime(expenseDataRow["DatePosted"].ToString()).ToShortDateString();
+                    }
+                    catch (Exception)
+                    {
+                        reportEntity.DatePosted = expenseDataRow["DatePosted"].ToString();
+                    }
+                    reportEntity.Remarks = expenseDataRow["DrawDescription"].ToString().Replace("Complete - ", "");
+                    reportEntity.RevenueTransactionId = Convert.ToInt64(expenseDataRow["RevenueTransactionId"].ToString());
+                }
+                catch (Exception exception)
+                {
+                    reportResponse.Message = exception.Message;
+                    reportResponse.ErrorMessage = exception.Message;
+                }
+                finally
+                {
+                    reportEntities.Add(reportEntity);
+                }
+            }
+            return reportEntities;
+        }
+
+        private List<ProjectPayables> GetProjectDueFrom(ReportRequest reportRequest)
         {
             List<ProjectPayables> reportEntities = new List<ProjectPayables>();
             SqlObject.Parameters = new object[] {

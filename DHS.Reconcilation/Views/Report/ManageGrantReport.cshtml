@@ -138,7 +138,7 @@
                                             decimal DraDownAmountTotal = 0;}
                                         @{foreach (var item in Model.reportEntities)
                                             {
-                                                if(item.CorrectAmount>0)
+                                                if (item.CorrectAmount > 0)
                                                 {
                                                     TransactionAmountTotal = TransactionAmountTotal + item.CorrectAmount;
                                                 }
@@ -293,9 +293,9 @@
                                         </tr>
                                     </thead>
                                     <tbody>
-                                        @{ 
+                                        @{
                                             decimal ExpenseTransactionAmount = 0;
-                                            }
+                                        }
                                         @{foreach (var item in Model.expenseAdjustments)
                                             {
                                                 if (item.SubCategory != "Account Changed")
@@ -355,7 +355,7 @@
                                             <td colspan="4"><b>Transaction Amount Total</b></td>
                                             <td>@string.Format("{0:C}", ExpenseTransactionAmount)</td>
                                             <td colspan="14"><b>Expense Total:</b>@string.Format("{0:C}", (TransactionAmountTotal + ExpenseTransactionAmount))</td>
-                                            <td >&nbsp;</td>
+                                            <td>&nbsp;</td>
                                         </tr>
                                     </tbody>
                                 </table>
@@ -540,6 +540,219 @@
                                 <table class="table table-bordered table-striped">
                                     <thead>
                                         <tr>
+                                            <th colspan="20">DUE FROM</th>
+                                        </tr>
+                                        <tr>
+                                            <th nowrap>
+                                                Date
+                                            </th>
+                                            <th nowrap>
+                                                Transaction Number
+                                            </th>
+                                            <th nowrap>
+                                                Category
+                                            </th>
+                                            <th nowrap>
+                                                Sub Category
+                                            </th>
+                                            <th nowrap>
+                                                Transaction Amount
+                                            </th>
+                                            <th nowrap>
+                                                Correct Amount
+                                            </th>
+                                            <th nowrap>
+                                                Other Batch Number
+                                            </th>
+                                            <th nowrap>
+                                                Related Trans
+                                            </th>
+                                            <th nowrap>
+                                                Fund
+                                            </th>
+                                            <th nowrap>
+                                                Vendor
+                                            </th>
+                                            <th nowrap>
+                                                Department
+                                            </th>
+                                            <th nowrap>
+                                                Org
+                                            </th>
+                                            <th nowrap>
+                                                Object
+                                            </th>
+                                            <th nowrap>
+                                                Project
+                                            </th>
+                                            <th nowrap>
+                                                CFDA
+                                            </th>
+                                            <th nowrap>
+                                                Draw Down Amount
+                                            </th>
+                                            <th nowrap>
+                                                Draw Down Date
+                                            </th>
+                                            <th nowrap>
+                                                Batch Number
+                                            </th>
+                                            <th nowrap>
+                                                Draw Project
+                                            </th>
+                                            <th nowrap>
+                                                Cash Receipt
+                                            </th>
+                                            <th nowrap>
+                                                Date Posted
+                                            </th>
+                                            <th nowrap>
+                                                Remarks
+                                            </th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        @{ long ppDDrawId = 0;
+                                            string ppDProject = string.Empty;
+                                            decimal ppDRTransactionAmountTotal = 0;
+                                            decimal ppDRSubTransactionAmountTotal = 0;
+                                            string DSubtotalProject = string.Empty;
+                                        }
+                                        @{foreach (var item in Model.projectDueFrom)
+                                            {
+                                                DSubtotalProject = "Due From - " + item.DrawProjectName + " Sub-Total:";
+                                                if (item.CorrectAmount > 0)
+                                                {
+                                                    ppDRTransactionAmountTotal = ppDRTransactionAmountTotal + item.CorrectAmount;
+                                                }
+                                                else
+                                                {
+                                                    ppDRTransactionAmountTotal = ppDRTransactionAmountTotal + item.TransactionAmount;
+                                                }
+                                                if (ppDProject == item.DrawProjectName)
+                                                {
+                                                }
+                                                else if (ppDRSubTransactionAmountTotal > 0)
+                                                {
+                                                    <tr>
+                                                        <td colspan="4"><b>@DSubtotalProject</b></td>
+                                                        <td><b>@string.Format("{0:C}", ppDRSubTransactionAmountTotal)</b></td>
+                                                        <td colspan="16" style="text-align:right;">&nbsp;</td>
+                                                    </tr>
+                                                    ppDRSubTransactionAmountTotal = 0;
+                                                }
+                                                <tr>
+                                                    <td nowrap>
+                                                        @item.ExpenseDepositDate
+                                                    </td>
+                                                    <td nowrap>
+                                                        @item.TransactionNumber
+                                                    </td>
+                                                    <td nowrap>
+                                                        @item.Category
+                                                    </td>
+                                                    <td nowrap>
+                                                        @item.SubCategory
+                                                    </td>
+                                                    <td nowrap>
+                                                        @string.Format("{0:C}", item.TransactionAmount)
+                                                    </td>
+                                                    <td nowrap>
+                                                        @string.Format("{0:C}", item.CorrectAmount)
+                                                    </td>
+                                                    <td nowrap>
+                                                        @item.OtherBatchNumber
+                                                    </td>
+                                                    <td nowrap>
+                                                        @item.RelatedTrans
+                                                    </td>
+                                                    <td nowrap>
+                                                        @item.Fund
+                                                    </td>
+                                                    <td nowrap>
+                                                        @item.VendorName
+                                                    </td>
+                                                    <td nowrap>
+                                                        @item.DepartmentName
+                                                    </td>
+                                                    <td>
+                                                        @item.OrgName
+                                                    </td>
+                                                    <td>
+                                                        @item.ObjectName
+                                                    </td>
+                                                    <td nowrap>
+                                                        @item.ProjectName
+                                                    </td>
+                                                    <td nowrap>
+                                                        @item.CFDA
+                                                    </td>
+                                                    @if (ppDDrawId == item.RevenueTransactionId && ppDProject == item.DrawProjectName)
+                                                    {
+                                                        <td nowrap>&nbsp;</td>
+                                                        <td nowrap>&nbsp;</td>
+                                                        <td nowrap>&nbsp;</td>
+                                                        <td nowrap>&nbsp;</td>
+                                                        <td nowrap>&nbsp;</td>
+                                                        <td nowrap>&nbsp;</td>
+                                                    }
+                                                    else
+                                                    {
+                                                        <td nowrap>
+                                                            @string.Format("{0:C}", item.DrawDownAmount)
+                                                        </td>
+                                                        <td nowrap>
+                                                            @item.DrawDownDate
+                                                        </td>
+                                                        <td nowrap>
+                                                            @item.BatchNumber
+                                                        </td>
+                                                        <td nowrap>
+                                                            @item.DrawProjectName
+                                                        </td>
+                                                        <td nowrap>
+                                                            @item.CashReceipt
+                                                        </td>
+                                                        <td nowrap>
+                                                            @item.DatePosted
+                                                        </td>
+                                                    }
+                                                    <td nowrap style="text-align:left;">
+                                                        @item.Remarks
+                                                    </td>
+                                                </tr>
+                                                if (item.CorrectAmount > 0)
+                                                {
+                                                    ppDRSubTransactionAmountTotal = ppDRSubTransactionAmountTotal + item.CorrectAmount;
+                                                }
+                                                else
+                                                {
+                                                    ppDRSubTransactionAmountTotal = ppDRSubTransactionAmountTotal + item.TransactionAmount;
+                                                }
+                                                ppDDrawId = item.RevenueTransactionId;
+                                                ppDProject = item.DrawProjectName;
+                                            }
+                                        }
+                                        <tr>
+                                            <td colspan="4"><b>@DSubtotalProject</b></td>
+                                            <td><b>@string.Format("{0:C}", ppDRSubTransactionAmountTotal)</b></td>
+                                            <td colspan="16" style="text-align:right;">&nbsp;</td>
+                                        </tr>
+                                        <tr>
+                                            <td colspan="4"><b>Due To Total:</b></td>
+                                            <td>@string.Format("{0:C}", ppDRTransactionAmountTotal)</td>
+                                            <td colspan="16" style="text-align:right;">&nbsp;</td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+
+
+                                <table class="table table-bordered table-striped">
+                                    <tr><td>&nbsp;</td></tr>
+                                </table>
+                                <table class="table table-bordered table-striped">
+                                    <thead>
+                                        <tr>
                                             <th colspan="20">DUE TO</th>
                                         </tr>
                                         <tr>
@@ -621,7 +834,7 @@
                                         @{foreach (var item in Model.projectPayables)
                                             {
                                                 SubtotalProject = "Due To - " + item.DrawProjectName + " Sub-Total:";
-                                                  if (item.CorrectAmount > 0)
+                                                if (item.CorrectAmount > 0)
                                                 {
                                                     ppRTransactionAmountTotal = ppRTransactionAmountTotal + item.CorrectAmount;
                                                 }
@@ -860,7 +1073,7 @@
                                         @{ decimal rAdjustmentAmount = 0;}
                                         @{foreach (var item in Model.revenueAdjustments)
                                             {
-                                                if(item.RevenueTypeName!= "Account Changed")
+                                                if (item.RevenueTypeName != "Account Changed")
                                                 {
                                                     rAdjustmentAmount = rAdjustmentAmount + item.RevenueTransactionAmount;
                                                 }
