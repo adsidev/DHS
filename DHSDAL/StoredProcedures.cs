@@ -188,6 +188,7 @@ namespace DHSDAL
             public const string USPFGTREPORT = "sp_FGTReport";
             public const string USPGETFGTPROJECTRECEIBABLES = "sp_GetFGTReportProjectReceivables";
             public const string USPGETFGTPROJECTPAYABLES = "sp_GetFGTReportProjectPayables";
+            public const string USPGETFGTPROJECTDUEFROM = "sp_GetFGTReportDueFrom";
             public const string USPGETREVENUETRANSACTIONFORREPORT = "sp_GetRevenueTransactionForReport";
             public const string USPGETREVENUETRANSACTIONBYPROJECTIDFORREPORT = "sp_GetRevenueTransactionByProjectIdForReport";
             public const string USPGETDRAWSBYPROJECTID = "sp_GetDrawsByProjectId";

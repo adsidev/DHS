@@ -472,7 +472,7 @@ namespace DHSDAL
                     reportRequest.FiscalYearId,
                     reportRequest.ProjectId,
             };
-            var transactionDetailDataSet = SqlHelper.ExecuteDataset(_connectionString, StoredProcedures.Report.USPGETFGTPROJECTPAYABLES, SqlObject.Parameters);
+            var transactionDetailDataSet = SqlHelper.ExecuteDataset(_connectionString, StoredProcedures.Report.USPGETFGTPROJECTDUEFROM, SqlObject.Parameters);
             foreach (DataRow expenseDataRow in transactionDetailDataSet.Tables[0].Rows)
             {
                 ProjectPayables reportEntity = new ProjectPayables();
