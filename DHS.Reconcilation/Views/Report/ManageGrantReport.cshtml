@@ -135,7 +135,8 @@
                                     <tbody>
                                         @{ long RevenueTransactionId = 0;
                                             decimal TransactionAmountTotal = 0;
-                                            decimal DraDownAmountTotal = 0;}
+                                            decimal DraDownAmountTotal = 0;
+                                            string BatchNumber = string.Empty;}
                                         @{foreach (var item in Model.reportEntities)
                                             {
                                                 if (item.CorrectAmount > 0)
@@ -193,7 +194,7 @@
                                                     <td nowrap>
                                                         @item.CFDA
                                                     </td>
-                                                    @if (RevenueTransactionId == item.RevenueTransactionId)
+                                                    @if (BatchNumber == item.BatchNumber)
                                                     {
                                                         <td nowrap>&nbsp;</td>
                                                         <td nowrap>&nbsp;</td>
@@ -224,7 +225,7 @@
                                                         @item.Remarks
                                                     </td>
                                                 </tr>
-                                                RevenueTransactionId = item.RevenueTransactionId;
+                                                BatchNumber = item.BatchNumber;
                                             }
                                         }
                                         <tr>
