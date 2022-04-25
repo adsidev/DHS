@@ -565,5 +565,88 @@ namespace DHS.Reconcilation.Controllers
                 return RedirectToAction("Error", "Home");
             }
         }
+
+        [HttpGet]
+        public async Task<ActionResult> ManageProjectReceivableReport()
+        {
+            if (!Common.SessionExists())
+                return RedirectToAction("Index", "Home");
+            Session["FGReport"] = "0";
+            ReportResponse reportResponse = new ReportResponse();
+            string url = strBaseURL + "Report/GetProjectReceivablesReport";
+            // string url = strBaseURL + "AuditReport/GetCRSummaryReport";
+            client.BaseAddress = new Uri(url);
+            ReportRequest reportRequest = new ReportRequest();
+            reportRequest.FiscalYearId = 0;
+            HttpResponseMessage responseMessage = await client.PostAsJsonAsync(url, reportRequest);
+
+            if (responseMessage.IsSuccessStatusCode)
+            {
+                var responseData = responseMessage.Content.ReadAsStringAsync().Result;
+                reportResponse = JsonConvert.DeserializeObject<ReportResponse>(responseData);
+                if (reportResponse.Message == string.Empty && reportResponse.ErrorMessage == string.Empty)
+                {
+                    reportResponse.ProjectId = reportRequest.ProjectId;
+                    reportResponse.FiscalYearId = reportRequest.FiscalYearId;
+                    string PageName = "Reports";
+                    reportResponse.rolePermissionEntity = Common.PagePermissions(PageName); bool PageHasPermissionsOrNot = CheckPagePermissionHeadders.PageHasPermission(PageName);
+                    if (!PageHasPermissionsOrNot)
+                        return RedirectToAction("Index", new { ErrorMsg = "You do not have access to this activity. Please contact your administrator." });
+                    return View(reportResponse);
+                }
+                else
+                {
+                    TempData["LoginFailure"] = reportResponse.Message;
+                    return RedirectToAction("Error", "Home");
+                }
+            }
+            else
+            {
+                TempData["LoginFailure"] = responseMessage.ToString();
+                return RedirectToAction("Error", "Home");
+            }
+        }
+
+        [HttpPost]
+        public async Task<ActionResult> ManageProjectReceivableReport(ReportResponse reportResponse)
+        {
+            if (!Common.SessionExists())
+                return RedirectToAction("Index", "Home");
+            ReportRequest reportRequest = new ReportRequest();
+            if (Request.Form["FiscalYearId"] == "")
+                reportRequest.FiscalYearId = 0;
+            else
+                reportRequest.FiscalYearId = Convert.ToInt32(Request.Form["FiscalYearId"]);
+
+            string url = strBaseURL + "Report/GetProjectReceivablesReport";
+            client.BaseAddress = new Uri(url);
+            HttpResponseMessage responseMessage = await client.PostAsJsonAsync(url, reportRequest);
+
+            if (responseMessage.IsSuccessStatusCode)
+            {
+                var responseData = responseMessage.Content.ReadAsStringAsync().Result;
+                reportResponse = JsonConvert.DeserializeObject<ReportResponse>(responseData);
+                if (reportResponse.Message == string.Empty && reportResponse.ErrorMessage == string.Empty)
+                {
+                    string PageName = "Reports";
+                    reportResponse.FiscalYearId = reportRequest.FiscalYearId;
+                    reportResponse.rolePermissionEntity = Common.PagePermissions(PageName); bool PageHasPermissionsOrNot = CheckPagePermissionHeadders.PageHasPermission(PageName);
+                    if (!PageHasPermissionsOrNot)
+                        return RedirectToAction("Index", new { ErrorMsg = "You do not have access to this activity. Please contact your administrator." });
+
+                    return View(reportResponse);
+                }
+                else
+                {
+                    TempData["LoginFailure"] = reportResponse.Message;
+                    return RedirectToAction("Error", "Home");
+                }
+            }
+            else
+            {
+                TempData["LoginFailure"] = responseMessage.ToString();
+                return RedirectToAction("Error", "Home");
+            }
+        }
     }
 }

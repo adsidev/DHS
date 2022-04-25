@@ -6,5 +6,6 @@ namespace DHSDAL
     {
         ReportResponse GetGrantProjectReport();
         ReportResponse GetGrantReport(ReportRequest reportRequest);
+        ReportResponse GetProjectReceivablesReport(ReportRequest reportRequest);
     }
 }

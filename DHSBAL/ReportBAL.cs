@@ -46,5 +46,18 @@ namespace DHSBAL
             return reportResponse;
         }
 
+        public ReportResponse GetProjectReceivablesReport(ReportRequest reportRequest)
+        {
+            try
+            {
+                reportResponse = reportDALRepository.GetProjectReceivablesReport(reportRequest);
+            }
+            catch (Exception ex)
+            {
+                reportResponse.ErrorMessage = ex.Message;
+                reportResponse.Exception = ex;
+            }
+            return reportResponse;
+        }
     }
 }

@@ -48,6 +48,24 @@ namespace DHS.Reconcilation.Areas
             }
             return reportResponse;
         }
+
+        [HttpPost]
+        [Route("GetProjectReceivablesReport")]
+        public ReportResponse GetProjectReceivablesReport(ReportRequest reportRequest)
+        {
+            try
+            {
+                reportResponse = reportRepository.GetProjectReceivablesReport(reportRequest);
+            }
+            catch (Exception ex)
+            {
+                reportResponse.ErrorMessage = ex.Message;
+                reportResponse.Exception = ex;
+            }
+            return reportResponse;
+        }
+
         
+
     }
 }
