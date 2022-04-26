@@ -107,7 +107,7 @@ namespace DHSDAL
             return projectResponse;
         }
 
-        private List<ProjectStatusEntity> GetProjectStatus()
+        public List<ProjectStatusEntity> GetProjectStatus()
         {
             var periodDataSet = SqlHelper.ExecuteDataset(_connectionString, StoredProcedures.Project.USPGETPROJECTSTATUSES);
             List<ProjectStatusEntity> sourceEntities = new List<ProjectStatusEntity>();
