@@ -21,7 +21,7 @@
             <div class="row ">
                 <div class="col-lg-12">
                     <div class="mrp_content">
-                        <h2>View Reports</h2>
+                        <h2>Print Reports</h2>
                         <form class="mrp_selectdetails form-inline">
                            
                         </form>
@@ -46,33 +46,32 @@
                                     </thead>
                                     <tbody>
                                         <tr>
-                                            <td headers="Action" style="text-align:left;"> <b><u>@Html.ActionLink("Detailed FY Federal Receivables Reconciled Report", "ManageGrantProjectReport", new { controller = "Report" })</u></b></td>
+                                            <td headers="Action" style="text-align:left;"> <b><u>@Html.ActionLink("Detailed FY Reconciled Project Report", "ManageGrantProjectReport", new { controller = "Report" })</u></b></td>
                                             <td style="text-align:left;">
                                                 Detailed report following OMB standardized template for reconciled revenues and expenses in a fiscal year by project.
                                             </td>
                                         </tr>
                                         <tr>
-                                            <td headers="Action" style="text-align:left;"> <b><u>@Html.ActionLink(" Report	Summary FY Federal Receivables Report for all Projects ", "ManageDHSSummaryReport", new { controller = "Report" })</u></b></td>
+                                            <td headers="Action" style="text-align:left;"> <b><u>@Html.ActionLink("Summary FY Federal Report for all Projects", "ManageDHSSummaryReport", new { controller = "Report" })</u></b></td>
                                             <td style="text-align:left;">
                                                 Summary report showing Agency reported expenses and revenues versus reconciled expenses, revenues and differences by fiscal year for all agency projects.
                                             </td>
                                         </tr>
-                                        <tr>
+                                        @*<tr>
                                             <td headers="Action" style="text-align:left;"> <b><u>@Html.ActionLink("Summary FY Federal Receivables D.E.R.  Report", "ManageDERSummaryReport", new { controller = "Report" })</u></b></td>
                                             <td style="text-align:left;">
                                                 Summary report of Reconciled Draws, Expenses and Revenues for all projects by fiscal year.
                                             </td>
-                                        </tr>
+                                        </tr>*@
                                         <tr>
-                                            <td headers="Action" style="text-align:left;"> <b><u>@Html.ActionLink("Manage Receivables Report", "ManageReceivablesReport", new { controller = "Report" })</u></b></td>
+                                            <td headers="Action" style="text-align:left;"> <b><u>@Html.ActionLink("Detailed Receivables Report for all Projects", "ManageReceivablesReport", new { controller = "Report" })</u></b></td>
                                             <td style="text-align:left;">
-                                                Summary report of Receivables for all projects by fiscal year.
+                                                Detailed report of Receivables for all projects by fiscal year.
                                             </td>
                                         </tr>
                                         <tr>
-                                            <td headers="Action" style="text-align:left;"> <b><u>@Html.ActionLink("Manage Project Summaries Report", "ManageProjectSummaries", new { controller = "Report" })</u></b></td>
+                                            <td headers="Action" style="text-align:left;"> <b><u>@Html.ActionLink("Reconciled Project Summaries Report", "ManageProjectSummaries", new { controller = "Report" })</u></b></td>
                                             <td style="text-align:left;">
-                                                Summary report of all projects by fiscal year.
                                             </td>
                                         </tr>
                                     </tbody>
