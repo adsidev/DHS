@@ -545,7 +545,8 @@ namespace DHSDAL
         {
             List<ProjectReceivables> reportEntities = new List<ProjectReceivables>();
             SqlObject.Parameters = new object[] {
-                    reportRequest.FiscalYearId
+                    reportRequest.FiscalYearId,
+                    reportRequest.ProjectStatusId
             };
             var transactionDetailDataSet = SqlHelper.ExecuteDataset(_connectionString, StoredProcedures.Report.USPREPORTPROJECTRECEIVABLES, SqlObject.Parameters);
             foreach (DataRow expenseDataRow in transactionDetailDataSet.Tables[0].Rows)

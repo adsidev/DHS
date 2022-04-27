@@ -578,6 +578,7 @@ namespace DHS.Reconcilation.Controllers
             client.BaseAddress = new Uri(url);
             ReportRequest reportRequest = new ReportRequest();
             reportRequest.FiscalYearId = 0;
+            reportRequest.ProjectStatusId = 0;
             HttpResponseMessage responseMessage = await client.PostAsJsonAsync(url, reportRequest);
 
             if (responseMessage.IsSuccessStatusCode)
@@ -617,6 +618,7 @@ namespace DHS.Reconcilation.Controllers
                 reportRequest.FiscalYearId = 0;
             else
                 reportRequest.FiscalYearId = Convert.ToInt32(Request.Form["FiscalYearId"]);
+            reportRequest.ProjectStatusId = 0;
 
             string url = strBaseURL + "Report/GetProjectReceivablesReport";
             client.BaseAddress = new Uri(url);
