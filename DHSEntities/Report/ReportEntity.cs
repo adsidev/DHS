@@ -25,6 +25,7 @@ namespace DHSEntities
         public string DatePosted { get; set; }
         public string Remarks { get; set; }
         public long RevenueTransactionId { get; set; }
+        public int StatusId { get; set; }
     }
 
     public class ProjectReceivables
