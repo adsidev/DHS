@@ -23,5 +23,6 @@ namespace DHSEntities
         public List<RevenueAdjustments> revenueAdjustments { get; set; }
         public List<DrawEntity> drawEntities { get; set; }
         public List<ProjectStatusEntity> projectStatusEntities { get; set; }
+        public List<StatusEntity> statusEntities { get; set; }
     }
 }

@@ -396,7 +396,7 @@ namespace DHS.Reconcilation.Controllers
             client.BaseAddress = new Uri(url);
             ReportRequest reportRequest = new ReportRequest();
             reportRequest.FiscalYearId = 0;
-            reportRequest.ProjectId = 0;
+            reportRequest.ProjectStatusId = 0;
             HttpResponseMessage responseMessage = await client.PostAsJsonAsync(url, reportRequest);
 
             if (responseMessage.IsSuccessStatusCode)
@@ -409,7 +409,7 @@ namespace DHS.Reconcilation.Controllers
                     reportResponse.rolePermissionEntity = Common.PagePermissions(PageName); bool PageHasPermissionsOrNot = CheckPagePermissionHeadders.PageHasPermission(PageName);
                     if (!PageHasPermissionsOrNot)
                         return RedirectToAction("Index", new { ErrorMsg = "You do not have access to this activity. Please contact your administrator." });
-                    ViewData["Project"] = "0";
+                    ViewData["StatusName"] = "0";
                     ViewData["FiscalYear"] = "0";
                     return View(reportResponse);
                 }
@@ -432,10 +432,10 @@ namespace DHS.Reconcilation.Controllers
             if (!Common.SessionExists())
                 return RedirectToAction("Index", "Home");
 
-            if (Request.Form["ProjectId"] == "")
-                ViewData["Project"] = "0";
+            if (Request.Form["ProjectStatusId"] == "")
+                ViewData["StatusName"] = "0";
             else
-                ViewData["Project"] = Convert.ToInt32(Request.Form["ProjectId"]);
+                ViewData["StatusName"] = Convert.ToInt32(Request.Form["ProjectStatusId"]);
             if (Request.Form["FiscalYearId"] == "")
                 ViewData["FiscalYear"] = "0";
             else
