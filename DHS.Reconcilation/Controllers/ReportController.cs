@@ -432,17 +432,17 @@ namespace DHS.Reconcilation.Controllers
             if (!Common.SessionExists())
                 return RedirectToAction("Index", "Home");
 
-            if (Request.Form["ProjectStatusId"] == "")
+            if (Request.Form["StatusId"] == "")
                 ViewData["StatusName"] = "0";
             else
-                ViewData["StatusName"] = Convert.ToInt32(Request.Form["ProjectStatusId"]);
+                ViewData["StatusName"] = Convert.ToInt32(Request.Form["StatusId"]);
             if (Request.Form["FiscalYearId"] == "")
                 ViewData["FiscalYear"] = "0";
             else
                 ViewData["FiscalYear"] = Convert.ToInt32(Request.Form["FiscalYearId"]);
             Session["FGReport"] = "0";
             ReportRequest reportRequest = new ReportRequest();
-            reportRequest.ProjectId = Convert.ToInt32(ViewData["Project"]);
+            reportRequest.ProjectStatusId = Convert.ToInt32(ViewData["StatusName"]);
             reportRequest.FiscalYearId = Convert.ToInt32(ViewData["FiscalYear"]);
 
             string url = strBaseURL + "Report/GetGrantProjectReport";

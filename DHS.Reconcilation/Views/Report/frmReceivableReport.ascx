@@ -12,7 +12,7 @@
                 ReportViewer1.ServerReport.ReportServerUrl = uri;
                 Microsoft.Reporting.WebForms.ReportParameter[] Param = new Microsoft.Reporting.WebForms.ReportParameter[2];
                 Param[0] = new Microsoft.Reporting.WebForms.ReportParameter("FiscalYearId", ViewData["FiscalYear"].ToString());
-                Param[1] = new Microsoft.Reporting.WebForms.ReportParameter("ProjectStatusId", ViewData["ProjectStatus"].ToString());
+                Param[1] = new Microsoft.Reporting.WebForms.ReportParameter("StatusId", ViewData["StatusName"].ToString());
                 ReportViewer1.ShowParameterPrompts = false;
                 ReportViewer1.ServerReport.SetParameters(Param);
                 ReportViewer1.ServerReport.Refresh();
