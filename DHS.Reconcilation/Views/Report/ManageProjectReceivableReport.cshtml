@@ -25,19 +25,25 @@
                         <h2>View Project Receivables Report</h2>
                         <form class="mrp_selectdetails form-inline">
                             <div class="row">
-                                <div class="form-group col-lg-4 col-xs-12 col-sm-6">
+                                <div class="form-group col-lg-3 col-xs-12 col-sm-6">
                                     <label for="SearchOn">Fiscal&nbsp;Year:</label>
                                     <div class="form_modal">
                                         @Html.DropDownList("FiscalYearId", new SelectList(Model.fiscalYearEntities, "FiscalYearId", "FiscalYear", Model.FiscalYearId), "", new { @id = "FiscalYearId", @class = "form-control mrp_modalselect" })
                                     </div>
                                 </div>
-                                <div class="form-group col-lg-4 col-xs-12 col-sm-6">
+                                <div class="form-group col-lg-3 col-xs-12 col-sm-6">
                                     <label for="SearchOn">Status:</label>
                                     <div class="form_modal">
-                                        @Html.DropDownList("StatusId", new SelectList(Model.statusEntities, "StatusId", "StatusName", Model.ProjectId), "", new {@id= "StatusId", @class = "form-control mrp_modalselect" })
+                                        @Html.DropDownList("StatusId", new SelectList(Model.statusEntities, "StatusId", "StatusName", Model.ProjectStatusId), "", new { @id = "StatusId", @class = "form-control mrp_modalselect" })
                                     </div>
                                 </div>
-                                <div class="form-group col-lg-4 col-xs-12 col-sm-7">
+                                <div class="form-group col-lg-3 col-xs-12 col-sm-6">
+                                    <label for="SearchOn">Project:</label>
+                                    <div class="form_modal">
+                                        @Html.DropDownList("ProjectId", new SelectList(Model.projectEntities, "ProjectId", "ProjectName", Model.ProjectId), "", new { @id = "ProjectId", @class = "form-control mrp_modalselect" })
+                                    </div>
+                                </div>
+                                <div class="form-group col-lg-3 col-xs-12 col-sm-6">
                                     <div class="form_modal">
                                         @if (Model.rolePermissionEntity.ViewBit)
                                         {
@@ -131,14 +137,14 @@
                                         </tr>
                                     </thead>
                                     <tbody>
-                                        @{ 
+                                        @{
                                             decimal RTransactionAmountTotal = 0;
                                             string ProjectName = string.Empty;
                                             decimal ppDRSubTransactionAmountTotal = 0;
                                             string DSubtotalProject = string.Empty;}
                                         @{foreach (var item in Model.projectReceivables)
                                             {
-                                                DSubtotalProject = item.ProjectName + " Sub-Total:";
+                                                DSubtotalProject = ProjectName + " Sub-Total:";
                                                 if (item.CorrectAmount > 0)
                                                 {
                                                     RTransactionAmountTotal = RTransactionAmountTotal + item.CorrectAmount;
@@ -236,12 +242,12 @@
                                             }
                                         }
                                         <tr>
-                                            <td colspan="5"  style="text-align:right;"><b>@DSubtotalProject</b></td>
+                                            <td colspan="5" style="text-align:right;"><b>@DSubtotalProject</b></td>
                                             <td><b>@string.Format("{0:C}", ppDRSubTransactionAmountTotal)</b></td>
                                             <td colspan="16" style="text-align:right;">&nbsp;</td>
                                         </tr>
                                         <tr>
-                                            <td colspan="5"  style="text-align:right;"><b>Transaction Amount Total:</b></td>
+                                            <td colspan="5" style="text-align:right;"><b>Transaction Amount Total:</b></td>
                                             <td>@string.Format("{0:C}", RTransactionAmountTotal)</td>
                                             <td colspan="16" style="text-align:right;">&nbsp;</td>
                                         </tr>

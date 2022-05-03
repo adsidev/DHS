@@ -397,6 +397,7 @@ namespace DHS.Reconcilation.Controllers
             ReportRequest reportRequest = new ReportRequest();
             reportRequest.FiscalYearId = 0;
             reportRequest.ProjectStatusId = 0;
+            reportRequest.ProjectId = 0;
             HttpResponseMessage responseMessage = await client.PostAsJsonAsync(url, reportRequest);
 
             if (responseMessage.IsSuccessStatusCode)
@@ -436,6 +437,13 @@ namespace DHS.Reconcilation.Controllers
                 ViewData["StatusName"] = "0";
             else
                 ViewData["StatusName"] = Convert.ToInt32(Request.Form["StatusId"]);
+
+            if (Request.Form["ProjectId"] == "")
+                ViewData["ProjectName"] = "0";
+            else
+                ViewData["ProjectName"] = Convert.ToInt32(Request.Form["ProjectId"]);
+
+
             if (Request.Form["FiscalYearId"] == "")
                 ViewData["FiscalYear"] = "0";
             else
@@ -443,6 +451,7 @@ namespace DHS.Reconcilation.Controllers
             Session["FGReport"] = "0";
             ReportRequest reportRequest = new ReportRequest();
             reportRequest.ProjectStatusId = Convert.ToInt32(ViewData["StatusName"]);
+            reportRequest.ProjectId = Convert.ToInt32(ViewData["ProjectName"]);
             reportRequest.FiscalYearId = Convert.ToInt32(ViewData["FiscalYear"]);
 
             string url = strBaseURL + "Report/GetGrantProjectReport";
@@ -579,6 +588,7 @@ namespace DHS.Reconcilation.Controllers
             ReportRequest reportRequest = new ReportRequest();
             reportRequest.FiscalYearId = 0;
             reportRequest.ProjectStatusId = 0;
+            reportRequest.ProjectId = 0;
             HttpResponseMessage responseMessage = await client.PostAsJsonAsync(url, reportRequest);
 
             if (responseMessage.IsSuccessStatusCode)
@@ -587,7 +597,8 @@ namespace DHS.Reconcilation.Controllers
                 reportResponse = JsonConvert.DeserializeObject<ReportResponse>(responseData);
                 if (reportResponse.Message == string.Empty && reportResponse.ErrorMessage == string.Empty)
                 {
-                    reportResponse.ProjectId = reportRequest.ProjectStatusId;
+                    reportResponse.ProjectStatusId = reportRequest.ProjectStatusId;
+                    reportResponse.ProjectId = reportRequest.ProjectId;
                     reportResponse.FiscalYearId = reportRequest.FiscalYearId;
                     string PageName = "Reports";
                     reportResponse.rolePermissionEntity = Common.PagePermissions(PageName); bool PageHasPermissionsOrNot = CheckPagePermissionHeadders.PageHasPermission(PageName);
@@ -625,6 +636,11 @@ namespace DHS.Reconcilation.Controllers
             else
                 reportRequest.ProjectStatusId = Convert.ToInt32(Request.Form["StatusId"]);
 
+            if (Request.Form["ProjectId"] == "")
+                reportRequest.ProjectId = 0;
+            else
+                reportRequest.ProjectId = Convert.ToInt32(Request.Form["ProjectId"]);
+
             string url = strBaseURL + "Report/GetProjectReceivablesReport";
             client.BaseAddress = new Uri(url);
             HttpResponseMessage responseMessage = await client.PostAsJsonAsync(url, reportRequest);
@@ -637,7 +653,8 @@ namespace DHS.Reconcilation.Controllers
                 {
                     string PageName = "Reports";
                     reportResponse.FiscalYearId = reportRequest.FiscalYearId;
-                    reportResponse.ProjectId = reportRequest.ProjectStatusId;
+                    reportResponse.ProjectStatusId = reportRequest.ProjectStatusId;
+                    reportResponse.ProjectId = reportRequest.ProjectId;
                     reportResponse.rolePermissionEntity = Common.PagePermissions(PageName); bool PageHasPermissionsOrNot = CheckPagePermissionHeadders.PageHasPermission(PageName);
                     if (!PageHasPermissionsOrNot)
                         return RedirectToAction("Index", new { ErrorMsg = "You do not have access to this activity. Please contact your administrator." });

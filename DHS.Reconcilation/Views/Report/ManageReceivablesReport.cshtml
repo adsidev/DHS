@@ -41,15 +41,19 @@
                 <h2>Detailed Receivables Report for all Projects</h2>
             </div>
             <div class="mra_manage_settlement_report">
-                <div class="form-group col-lg-4">
+                <div class="form-group col-lg-3">
                     <label for="Facility">Select&nbsp;Fiscal Year</label>
                     @Html.DropDownList("FiscalYearId", new SelectList(Model.fiscalYearEntities, "FiscalYearId", "FiscalYear", @ViewData["FiscalYear"]), "", new { @class = "form-control mrp_modalselect" })
                 </div>
-                <div class="form-group col-lg-4">
+                <div class="form-group col-lg-3">
                     <label for="Facility">Select&nbsp;Status</label>
                     @Html.DropDownList("StatusId", new SelectList(Model.statusEntities, "StatusId", "StatusName", @ViewData["StatusName"]), "", new { @class = "form-control mrp_modalselect" })
                 </div>
-                <div class="col-md-4">
+                <div class="form-group col-lg-3">
+                    <label for="Facility">Select&nbsp;Project</label>
+                    @Html.DropDownList("ProjectID", new SelectList(Model.projectEntities, "ProjectId", "ProjectName", @ViewData["ProjectName"]), "", new { @class = "form-control mrp_modalselect" })
+                </div>
+                <div class="col-md-3">
                     @if (Model.rolePermissionEntity.ViewBit)
                     {
                         <input type="submit" value=" Get Report " class="btn btn-primary btn-updated" onclick="return ValidateFields();" />

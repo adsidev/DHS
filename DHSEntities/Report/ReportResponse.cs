@@ -10,6 +10,7 @@ namespace DHSEntities
     {
         public int ProjectId { get; set; }
         public int FiscalYearId { get; set; }
+        public int ProjectStatusId { get; set; }
         public List<FiscalYearEntity> fiscalYearEntities { get; set; }
         public List<ProjectEntity> projectEntities { get; set; }
         public RolePermissionEntity rolePermissionEntity { get; set; }
