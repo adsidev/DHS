@@ -614,7 +614,8 @@ namespace DHSDAL
             CommonDAL commonDAL = new CommonDAL();
             reportResponse.fiscalYearEntities = commonDAL.GetFiscalYears();
             reportResponse.statusEntities = commonDAL.GetStatuses();
-            reportResponse.projectEntities = commonDAL.GetProjects();
+            ProjectDAL projectDAL = new ProjectDAL();
+            reportResponse.projectStatusEntities = projectDAL.GetProjectStatus();
             return reportResponse;
         }
     }

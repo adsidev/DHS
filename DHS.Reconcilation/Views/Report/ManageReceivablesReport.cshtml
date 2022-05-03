@@ -46,12 +46,12 @@
                     @Html.DropDownList("FiscalYearId", new SelectList(Model.fiscalYearEntities, "FiscalYearId", "FiscalYear", @ViewData["FiscalYear"]), "", new { @class = "form-control mrp_modalselect" })
                 </div>
                 <div class="form-group col-lg-3">
-                    <label for="Facility">Select&nbsp;Status</label>
+                    <label for="Facility">Expense&nbsp;Status</label>
                     @Html.DropDownList("StatusId", new SelectList(Model.statusEntities, "StatusId", "StatusName", @ViewData["StatusName"]), "", new { @class = "form-control mrp_modalselect" })
                 </div>
                 <div class="form-group col-lg-3">
-                    <label for="Facility">Select&nbsp;Project</label>
-                    @Html.DropDownList("ProjectID", new SelectList(Model.projectEntities, "ProjectId", "ProjectName", @ViewData["ProjectName"]), "", new { @class = "form-control mrp_modalselect" })
+                    <label for="Facility">Proejct&nbsp;Status</label>
+                    @Html.DropDownList("ProjectID", new SelectList(Model.projectStatusEntities, "ProjectStatusId", "ProjectStatus", @ViewData["ProjectName"]), "", new { @class = "form-control mrp_modalselect" })
                 </div>
                 <div class="col-md-3">
                     @if (Model.rolePermissionEntity.ViewBit)
