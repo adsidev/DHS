@@ -587,7 +587,7 @@ namespace DHS.Reconcilation.Controllers
                 reportResponse = JsonConvert.DeserializeObject<ReportResponse>(responseData);
                 if (reportResponse.Message == string.Empty && reportResponse.ErrorMessage == string.Empty)
                 {
-                    reportResponse.ProjectId = reportRequest.ProjectId;
+                    reportResponse.ProjectId = reportRequest.ProjectStatusId;
                     reportResponse.FiscalYearId = reportRequest.FiscalYearId;
                     string PageName = "Reports";
                     reportResponse.rolePermissionEntity = Common.PagePermissions(PageName); bool PageHasPermissionsOrNot = CheckPagePermissionHeadders.PageHasPermission(PageName);
@@ -618,7 +618,12 @@ namespace DHS.Reconcilation.Controllers
                 reportRequest.FiscalYearId = 0;
             else
                 reportRequest.FiscalYearId = Convert.ToInt32(Request.Form["FiscalYearId"]);
-            reportRequest.ProjectStatusId = 0;
+
+
+            if (Request.Form["StatusId"] == "")
+                reportRequest.ProjectStatusId = 0;
+            else
+                reportRequest.ProjectStatusId = Convert.ToInt32(Request.Form["StatusId"]);
 
             string url = strBaseURL + "Report/GetProjectReceivablesReport";
             client.BaseAddress = new Uri(url);
@@ -632,6 +637,7 @@ namespace DHS.Reconcilation.Controllers
                 {
                     string PageName = "Reports";
                     reportResponse.FiscalYearId = reportRequest.FiscalYearId;
+                    reportResponse.ProjectId = reportRequest.ProjectStatusId;
                     reportResponse.rolePermissionEntity = Common.PagePermissions(PageName); bool PageHasPermissionsOrNot = CheckPagePermissionHeadders.PageHasPermission(PageName);
                     if (!PageHasPermissionsOrNot)
                         return RedirectToAction("Index", new { ErrorMsg = "You do not have access to this activity. Please contact your administrator." });
