@@ -35,6 +35,8 @@ namespace DHSEntities
         public string SubCategory { get; set; }
         public decimal TransactionAmount { get; set; }
         public decimal CorrectAmount { get; set; }
+        public decimal ReceivablesDrawNextYear { get; set; }
+        public decimal ReceivablesDrawPending { get; set; }
         public string Fund { get; set; }
         public string TransactionNumber { get; set; }
         public string VendorName { get; set; }

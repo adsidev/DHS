@@ -93,6 +93,12 @@
                                                 Correct Amount
                                             </th>
                                             <th nowrap>
+                                                Draw Next Year
+                                            </th>
+                                            <th nowrap>
+                                                Draw Pending
+                                            </th>
+                                            <th nowrap>
                                                 Related Trans
                                             </th>
                                             <th nowrap>
@@ -186,6 +192,12 @@
                                                     </td>
                                                     <td nowrap>
                                                         @string.Format("{0:C}", item.CorrectAmount)
+                                                    </td>
+                                                    <td nowrap>
+                                                        @string.Format("{0:C}", item.ReceivablesDrawNextYear)
+                                                    </td>
+                                                    <td nowrap>
+                                                        @string.Format("{0:C}", item.ReceivablesDrawPending)
                                                     </td>
                                                     <td nowrap>
                                                         @item.RelatedTrans

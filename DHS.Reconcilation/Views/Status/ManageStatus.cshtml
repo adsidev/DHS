@@ -26,11 +26,11 @@
                     <div class="col-lg-1">
                         @if (Model.rolePermissionEntity.CreateBit)
                         {
-                            <img src="~/images/Create.png" class="img-responsive" height="40" width="40" onclick="CreateStatus()" style="cursor:pointer;" alt="Create Status Information" />
+                            <img src="~/images/Create.png" class="img-responsive" height="40" width="40" onclick="CreateStatus()" style="cursor:pointer;" alt="Create Status Information"  title="Create Status Information" />
                         }
                         else
                         {
-                            <img src="~/images/Create.png" class="disableButton" style="cursor:pointer;" onclick="JavaScript:alert('You do not have permission to create status. Please contact administrator.')" height="40" width="40" alt="Create Status Information" />
+                            <img src="~/images/Create.png" class="disableButton" style="cursor:pointer;" onclick="JavaScript:alert('You do not have permission to create status. Please contact administrator.')" height="40" width="40" alt="Create Status Information" title="Create Status Information"/>
                         }
                     </div>
                 </div>
@@ -58,11 +58,11 @@
                                                     <td nowrap>
                                                         @if (Model.rolePermissionEntity.ViewBit)
                                                         {
-                                                            <img src="~/images/view-icon.png" class="img-responsive" onclick="ViewStatusInformation('@item.StatusId')" style="cursor:pointer;" alt="View Status Information" />
+                                                            <img src="~/images/view-icon.png" class="img-responsive" onclick="ViewStatusInformation('@item.StatusId')" style="cursor:pointer;" alt="View Status Information" title="View Status Information"/>
                                                         }
                                                         else
                                                         {
-                                                                <img src="~/images/view-icon.png" alt="View Status Information"  class="img-responsive disableButton" onclick="JavaScript:alert('You do not have permission to View status information. Contact Administrator for access.')" />                      
+                                                                <img src="~/images/view-icon.png" alt="View Status Information"  class="img-responsive disableButton" onclick="JavaScript:alert('You do not have permission to View status information. Contact Administrator for access.')" title="View Status Information"/>                      
                                                         }                                                        
                                                     </td>
                                                     <td nowrap>

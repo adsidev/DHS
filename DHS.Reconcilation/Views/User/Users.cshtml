@@ -22,11 +22,11 @@
                 <div class="col-lg-1">
                     @if (Model.rolePermissionEntity.CreateBit)
                     {
-                        <img src="~/images/Create.png" class="img-responsive" height="40" width="40" onclick="CreateUser()" style="cursor:pointer;" alt="Create User Information" />
+                        <img src="~/images/Create.png" class="img-responsive" height="40" width="40" onclick="CreateUser()" style="cursor:pointer;" alt="Create User Information" title="Create User Information" />
                     }
                     else
                     {
-                        <img src="~/images/Create.png" class="disableButton" style="cursor:pointer;" onclick="JavaScript:alert('You do not have permission to create user. Please contact administrator.')" height="40" width="40" alt="Create User Information" />
+                        <img src="~/images/Create.png" class="disableButton" style="cursor:pointer;" onclick="JavaScript:alert('You do not have permission to create user. Please contact administrator.')" height="40" width="40" alt="Create User Information" title="Create User Information" />
                     }
                 </div>
             </div>
@@ -57,7 +57,7 @@
                                                         }
                                                         else
                                                         {
-                                                    <img src="~/images/view-icon.png" class="img-responsive" onclick="OpenCreateUser('@item.UserId')" style="cursor:pointer;" title="View User Information" /><img src="~/images/view-icon.png" class="img-responsive disableButton" onclick="JavaScript:alert('You don not permission to view users. Please contact administrator.')" style="cursor:pointer;" title="View User Information" />
+                                                            <img src="~/images/view-icon.png" class="img-responsive disableButton" onclick="JavaScript:alert('You don not permission to view users. Please contact administrator.')" style="cursor:pointer;" title="View User Information" />
                                                         }
                                                     </td>
                                                     <td>

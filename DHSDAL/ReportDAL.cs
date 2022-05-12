@@ -212,6 +212,8 @@ namespace DHSDAL
                     reportEntity.Category = expenseDataRow["FGTCategoryName"].ToString();
                     reportEntity.SubCategory = expenseDataRow["FGTCategoryName2"].ToString();
                     reportEntity.TransactionAmount = Convert.ToDecimal(expenseDataRow["TransactionAmount"].ToString());
+                    reportEntity.ReceivablesDrawNextYear = Convert.ToDecimal(expenseDataRow["ReceivablesDrawNextYear"].ToString());
+                    reportEntity.ReceivablesDrawPending = Convert.ToDecimal(expenseDataRow["ReceivablesDrawPending"].ToString());
                     reportEntity.RelatedTrans = expenseDataRow["RelatedTrans"].ToString();
                     reportEntity.OtherBatchNumber = expenseDataRow["OtherBatchNumber"].ToString();
                     reportEntity.CorrectAmount = Convert.ToDecimal(expenseDataRow["CorrectAmount"].ToString());
@@ -569,6 +571,8 @@ namespace DHSDAL
                     reportEntity.RelatedTrans = expenseDataRow["RelatedTrans"].ToString();
                     reportEntity.OtherBatchNumber = expenseDataRow["OtherBatchNumber"].ToString();
                     reportEntity.CorrectAmount = Convert.ToDecimal(expenseDataRow["CorrectAmount"].ToString());
+                    reportEntity.ReceivablesDrawNextYear = Convert.ToDecimal(expenseDataRow["ReceivablesDrawNextYear"].ToString());
+                    reportEntity.ReceivablesDrawPending = Convert.ToDecimal(expenseDataRow["ReceivablesDrawPending"].ToString());
                     reportEntity.TransactionNumber = expenseDataRow["TransactionNumber"].ToString();
                     reportEntity.Fund = expenseDataRow["Fund"].ToString();
                     reportEntity.VendorName = expenseDataRow["VendorName"].ToString();
