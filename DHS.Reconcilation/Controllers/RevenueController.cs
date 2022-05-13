@@ -318,7 +318,7 @@ namespace DHS.Reconcilation.Controllers
                 revenueResponse = JsonConvert.DeserializeObject<RevenueResponse>(responseData);
                 if (revenueResponse.Message == string.Empty && revenueResponse.ErrorMessage == string.Empty)
                 {
-                    string PageName = "Expesnses";
+                    string PageName = "Revenues";
                     revenueResponse.rolePermissionEntity = Common.PagePermissions(PageName);
                     revenueResponse.revenueEntity = revenueEntity;
                     return View(revenueResponse);
@@ -358,7 +358,7 @@ namespace DHS.Reconcilation.Controllers
                 revenueResponse = JsonConvert.DeserializeObject<RevenueResponse>(responseData);
                 if (revenueResponse.Message == string.Empty && revenueResponse.ErrorMessage == string.Empty)
                 {
-                    string PageName = "Expesnses";
+                    string PageName = "Revenues";
                     revenueResponse.rolePermissionEntity = Common.PagePermissions(PageName);
                     return View(revenueResponse);
                 }
@@ -398,7 +398,7 @@ namespace DHS.Reconcilation.Controllers
                 {
                     if (id == 0)
                         revenueResponse.documentEntity = documentEntity;
-                    string PageName = "Expesnses";
+                    string PageName = "Revenues";
                     revenueResponse.rolePermissionEntity = Common.PagePermissions(PageName);
                     return View(revenueResponse);
                 }
@@ -500,7 +500,7 @@ namespace DHS.Reconcilation.Controllers
                 revenueResponse = JsonConvert.DeserializeObject<RevenueResponse>(responseData);
                 if (revenueResponse.Message == string.Empty && revenueResponse.ErrorMessage == string.Empty)
                 {
-                    string PageName = "Expesnses";
+                    string PageName = "Revenues";
                     revenueResponse.rolePermissionEntity = Common.PagePermissions(PageName);
                     return View(revenueResponse);
                 }
@@ -662,7 +662,7 @@ namespace DHS.Reconcilation.Controllers
                 revenueResponse = JsonConvert.DeserializeObject<RevenueResponse>(responseData);
                 if (revenueResponse.Message == string.Empty && revenueResponse.ErrorMessage == string.Empty)
                 {
-                    string PageName = "Expesnses";
+                    string PageName = "Revenues";
                     revenueResponse.rolePermissionEntity = Common.PagePermissions(PageName);
                     return View(revenueResponse);
                 }
@@ -703,7 +703,7 @@ namespace DHS.Reconcilation.Controllers
                 revenueResponse = JsonConvert.DeserializeObject<RevenueResponse>(responseData);
                 if (revenueResponse.Message == string.Empty && revenueResponse.ErrorMessage == string.Empty)
                 {
-                    string PageName = "Expesnses";
+                    string PageName = "Revenues";
                     revenueResponse.rolePermissionEntity = Common.PagePermissions(PageName);
 
                     return PartialView("_viewRevenueTransaction", revenueResponse);
@@ -746,7 +746,7 @@ namespace DHS.Reconcilation.Controllers
                 revenueResponse = JsonConvert.DeserializeObject<RevenueResponse>(responseData);
                 if (revenueResponse.Message == string.Empty && revenueResponse.ErrorMessage == string.Empty)
                 {
-                    string PageName = "Expesnses";
+                    string PageName = "Revenues";
                     revenueResponse.rolePermissionEntity = Common.PagePermissions(PageName);
 
                     return PartialView("_editRevenueTransaction", revenueResponse);
@@ -904,7 +904,7 @@ namespace DHS.Reconcilation.Controllers
                 revenueResponse = JsonConvert.DeserializeObject<RevenueResponse>(responseData);
                 if (revenueResponse.Message == string.Empty && revenueResponse.ErrorMessage == string.Empty)
                 {
-                    string PageName = "Expesnses";
+                    string PageName = "Revenues";
                     revenueResponse.transactionDetailEntity = transactionDetailEntity;
                     revenueResponse.rolePermissionEntity = Common.PagePermissions(PageName);
                     revenueResponse.pagedTransactionDetailEntities = revenueResponse.transactionDetailEntities.ToPagedList(pageIndex, pageSize);
@@ -957,7 +957,7 @@ namespace DHS.Reconcilation.Controllers
                 revenueResponse = JsonConvert.DeserializeObject<RevenueResponse>(responseData);
                 if (revenueResponse.Message == string.Empty && revenueResponse.ErrorMessage == string.Empty)
                 {
-                    string PageName = "Expesnses";
+                    string PageName = "Revenues";
                     revenueResponse.transactionDetailEntity = transactionDetailEntity;
                     revenueResponse.rolePermissionEntity = Common.PagePermissions(PageName);
                     revenueResponse.pagedTransactionDetailEntities = revenueResponse.transactionDetailEntities.ToPagedList(pageIndex, pageSize);
@@ -999,7 +999,7 @@ namespace DHS.Reconcilation.Controllers
                 revenueResponse = JsonConvert.DeserializeObject<RevenueResponse>(responseData);
                 if (revenueResponse.Message == string.Empty && revenueResponse.ErrorMessage == string.Empty)
                 {
-                    string PageName = "Expesnses";
+                    string PageName = "Revenues";
                     revenueResponse.rolePermissionEntity = Common.PagePermissions(PageName);
 
                     return PartialView("_viewTransactionDetail", revenueResponse);
@@ -1040,7 +1040,7 @@ namespace DHS.Reconcilation.Controllers
                 revenueResponse = JsonConvert.DeserializeObject<RevenueResponse>(responseData);
                 if (revenueResponse.Message == string.Empty && revenueResponse.ErrorMessage == string.Empty)
                 {
-                    string PageName = "Expesnses";
+                    string PageName = "Revenues";
                     revenueResponse.rolePermissionEntity = Common.PagePermissions(PageName);
 
                     return PartialView("_editTransactionDetail", revenueResponse);
@@ -1180,7 +1180,6 @@ namespace DHS.Reconcilation.Controllers
             }
         }
 
-
         public async Task<ActionResult> ManageMissingRevenueTransactions(int? page)
         {
             if (!Common.SessionExists())
@@ -1289,5 +1288,47 @@ namespace DHS.Reconcilation.Controllers
                 return RedirectToAction("Error", "Home");
             }
         }
+
+        public async Task<ActionResult> ViewRevenueTransactions(long? id = 0)
+        {
+            if (!Common.SessionExists())
+                return RedirectToAction("Index", "Home");
+            if (id == 0)
+                return RedirectToAction("Index", "Home");
+
+            RevenueResponse revenueResponse = new RevenueResponse();
+
+            RevenueRequest revenueRequest = new RevenueRequest();
+            RevenueTransactionEntity revenueTransactionEntity = new RevenueTransactionEntity();
+            revenueTransactionEntity.RevenueTransactionId = Convert.ToInt64(id);
+            revenueRequest.revenueTransactionEntity = revenueTransactionEntity;
+            string url = strBaseURL + "Revenue/GetExpenseRevenueTransactions";
+            client.BaseAddress = new Uri(url);
+
+            HttpResponseMessage responseMessage = await client.PostAsJsonAsync(url, revenueRequest);
+
+            if (responseMessage.IsSuccessStatusCode)
+            {
+                var responseData = responseMessage.Content.ReadAsStringAsync().Result;
+                revenueResponse = JsonConvert.DeserializeObject<RevenueResponse>(responseData);
+                if (revenueResponse.Message == string.Empty && revenueResponse.ErrorMessage == string.Empty)
+                {
+                    string PageName = "Revenues";
+                    revenueResponse.rolePermissionEntity = Common.PagePermissions(PageName);
+                    return View(revenueResponse);
+                }
+                else
+                {
+                    TempData["LoginFailure"] = revenueResponse.Message;
+                    return RedirectToAction("Error", "Home");
+                }
+            }
+            else
+            {
+                TempData["LoginFailure"] = responseMessage.ToString();
+                return RedirectToAction("Error", "Home");
+            }
+        }
+
     }
 }

@@ -1,0 +1,397 @@
+﻿@model DHSEntities.RevenueResponse
+
+@{
+    ViewBag.Title = "DHS Reconcilation Application :: View Revenue Documents";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+<script src="~/js/jquery.min.js"></script>
+<title>@ViewBag.Title</title>
+@section LeftMenuSection
+{
+    @Html.Partial("_menuCRPayments")
+}
+
+<div class="tab-pane active" id="dashboard">
+    <div class="container-fluid mra_settlement_view">
+        <!-- top tiles -->
+        <div class="row ">
+            <div class="col-lg-10">
+                <div class="mrp_modalcontent">
+                    <h2>View Revenue Transaction Information</h2>
+                    <form class="mrp_selectdetails form-inline"></form>
+                </div>
+            </div>
+            <div class="col-lg-2">
+                @if (Model.rolePermissionEntity.EditBit)
+                {
+                    <img src="~/images/edit.png" class="img-responsive" height="40" width="40" onclick="EditRevenueTransaction('@Model.revenueTransactionEntity.RevenueTransactionId')" style="cursor:pointer;" alt="Edit Revenue Transaction Information" title="Edit Revenue Transaction Information" />
+
+                }
+                else
+                {
+                    <a class="mrp_popup disableButton" data-toggle="modal">
+                        <img src="~/images/edit.png" class="img-responsive disableButton" height="40" width="40" title="Edit Revenue Transaction Information" alt="Edit Revenue Transaction Information" />
+                    </a>
+                }
+            </div>
+        </div>
+
+        <div class="row">
+
+            <div class="col-lg-6">
+                <div class="row">
+                    <div class="col-lg-3 col-xs-12 col-sm-3 col-md-3">
+                        <div class="form_modal">
+                            <label>Fiscal&nbsp;Year</label>
+                        </div>
+                    </div>
+                    <div class="col-lg-9 col-xs-12 col-sm-9 col-md-9">
+                        <div class="form_modal">
+                            @Html.TextBoxFor(m => m.revenueTransactionEntity.FiscalYear, htmlAttributes: new { @class = "form-control mrp_modalselect", @disabled = "disabled" })
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-lg-6">
+                <div class="row">
+                    <div class="col-lg-3 col-xs-12 col-sm-3 col-md-3">
+                        <div class="form_modal">
+                            <label>Transaction&nbsp;Number</label>
+                        </div>
+                    </div>
+                    <div class="col-lg-9 col-xs-12 col-sm-9 col-md-9">
+                        <div class="form_modal">
+                            @Html.TextBoxFor(m => m.revenueTransactionEntity.RevenueTransactionNumber, htmlAttributes: new { @class = "form-control mrp_modalselect", @disabled = "disabled" })
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-lg-6">
+                <div class="row">
+                    <div class="col-lg-3 col-xs-12 col-sm-3 col-md-3">
+                        <div class="form_modal">
+                            <label>Revenue&nbsp;Transaction&nbsp;Date</label>
+                        </div>
+                    </div>
+                    <div class="col-lg-9 col-xs-12 col-sm-9 col-md-9">
+                        <div class="form_modal">
+                            @Html.TextBoxFor(m => m.revenueTransactionEntity.RevenueTransactionDate, htmlAttributes: new { @class = "form-control mrp_modalselect", @disabled = "disabled" })
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-lg-6">
+                <div class="row">
+                    <div class="col-lg-3 col-xs-12 col-sm-3 col-md-3">
+                        <div class="form_modal">
+                            <label>Revenue&nbsp;Transaction&nbsp;Amount</label>
+                        </div>
+                    </div>
+                    <div class="col-lg-9 col-xs-12 col-sm-9 col-md-9">
+                        <div class="form_modal">
+                            <input type="text" disabled="disabled" value="@String.Format("{0:$#,##0.00}", Model.revenueTransactionEntity.RevenueTransactionAmount)" class="form-control mrp_modalselect" />
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-lg-6">
+                <div class="row">
+                    <div class="col-lg-3 col-xs-12 col-sm-3 col-md-3">
+                        <div class="form_modal">
+                            <label>Org</label>
+                        </div>
+                    </div>
+                    <div class="col-lg-9 col-xs-12 col-sm-9 col-md-9">
+                        <div class="form_modal">
+                            @Html.TextBoxFor(m => m.revenueTransactionEntity.OrgName, htmlAttributes: new { @class = "form-control mrp_modalselect", @disabled = "disabled" })
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-lg-6">
+                <div class="row">
+                    <div class="col-lg-3 col-xs-12 col-sm-3 col-md-3">
+                        <div class="form_modal">
+                            <label>Object</label>
+                        </div>
+                    </div>
+                    <div class="col-lg-9 col-xs-12 col-sm-9 col-md-9">
+                        <div class="form_modal">
+                            @Html.TextBoxFor(m => m.revenueTransactionEntity.ObjectName, htmlAttributes: new { @class = "form-control mrp_modalselect", @disabled = "disabled" })
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+
+            <div class="col-lg-6">
+                <div class="row">
+                    <div class="col-lg-3 col-xs-12 col-sm-3 col-md-3">
+                        <div class="form_modal">
+                            <label>Project</label>
+                        </div>
+                    </div>
+                    <div class="col-lg-9 col-xs-12 col-sm-9 col-md-9">
+                        <div class="form_modal">
+                            @Html.TextBoxFor(m => m.revenueTransactionEntity.ProjectName, htmlAttributes: new { @class = "form-control mrp_modalselect", @disabled = "disabled" })
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-lg-6">
+                <div class="row">
+                    <div class="col-lg-3 col-xs-12 col-sm-3 col-md-3">
+                        <div class="form_modal">
+                            <label>Revenue&nbsp;Type</label>
+                        </div>
+                    </div>
+                    <div class="col-lg-9 col-xs-12 col-sm-9 col-md-9">
+                        <div class="form_modal">
+                            <input type="text" disabled="disabled" value="@Model.revenueTransactionEntity.RevenueTypeName" class="form-control mrp_modalselect" />
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-lg-6">
+                <div class="row">
+                    <div class="col-lg-3 col-xs-12 col-sm-3 col-md-3">
+                        <div class="form_modal">
+                            <label>Revenue&nbsp;Deposit</label>
+                        </div>
+                    </div>
+                    <div class="col-lg-9 col-xs-12 col-sm-9 col-md-9">
+                        <div class="form_modal">
+                            <input type="text" disabled="disabled" value="@Model.revenueTransactionEntity.DrawNumber" class="form-control mrp_modalselect" />
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-lg-6">
+                <div class="row">
+                    <div class="col-lg-3 col-xs-12 col-sm-3 col-md-3">
+                        <div class="form_modal">
+                            <label>Status</label>
+                        </div>
+                    </div>
+                    <div class="col-lg-9 col-xs-12 col-sm-9 col-md-9">
+                        <div class="form_modal">
+                            <input type="text" disabled="disabled" value="@Model.revenueTransactionEntity.StatusName" class="form-control mrp_modalselect" />
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-lg-6">
+                <div class="row">
+                    <div class="col-lg-3 col-xs-12 col-sm-3 col-md-3">
+                        <div class="form_modal">
+                            <label>Related&nbsp;Trans</label>
+                        </div>
+                    </div>
+                    <div class="col-lg-9 col-xs-12 col-sm-9 col-md-9">
+                        <div class="form_modal">
+                            <input type="text" disabled="disabled" value="@Model.revenueTransactionEntity.RelatedTrans" class="form-control mrp_modalselect" />
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-lg-12">
+                <div class="row">
+                    <div class="col-lg-12 col-xs-12 col-sm-3 col-md-3">
+                        <div class="form_modal">
+                            <label>Notes: @Model.revenueTransactionEntity.RevenueTranscationDescription</label>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="row ">
+            <div class="col-lg-6">
+                <div class="mrp_modalcontent">
+                    <h2>Expense Transaction Details</h2>
+                    <form class="mrp_selectdetails form-inline"></form>
+                </div>
+            </div>
+        </div>
+
+        <div class="row mrp_table-row">
+            <div class="col-lg-12 col-xs-12">
+                <div class="table-responsive">
+                    <div class="mrp_contentbody mrp_contenttable">
+                        <div class="mrp_table">
+
+                            <table class="table table-bordered table-striped">
+                                <thead>
+                                    <tr>
+                                        <th nowrap>
+                                            Transaction No
+                                        </th>
+                                        <th nowrap>
+                                            Transaction Date
+                                        </th>
+                                        <th nowrap>
+                                            Transaction Amount
+                                        </th>
+                                        <th nowrap>
+                                            Correct Amount
+                                        </th>
+                                        <th nowrap>
+                                            Org
+                                        </th>
+                                        <th nowrap>
+                                            Object
+                                        </th>
+                                        <th nowrap>
+                                            Project
+                                        </th>
+                                        <th nowrap>
+                                            CFDA
+                                        </th>
+                                        <th nowrap>
+                                            Category 1
+                                        </th>
+                                        <th nowrap>
+                                            Category 2
+                                        </th>
+                                        <th nowrap>
+                                            Status
+                                        </th>
+                                        <th nowrap>
+                                            Vendor Name
+                                        </th>
+                                        <th nowrap>
+                                            Revenue Transaction
+                                        </th>
+                                        <th nowrap>
+                                            Related Transaction
+                                        </th>
+                                        <th nowrap>
+                                            Other Batch Number
+                                        </th>
+                                        <th nowrap style="text-align:left">
+                                            Notes
+                                        </th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    @{
+                                        decimal Total = 0;
+                                        string RevenueInfo = string.Empty;
+                                        foreach (var item in Model.transactionDetailEntities)
+                                        {
+                                            Total = Total + item.TransactionAmount;
+                                            RevenueInfo = item.RevenueTransactionNumber + " - " + item.RevenueTransactionDate + " - " + String.Format("{0:$#,##0.00}", item.RevenueTransactionAmount) + " - " + item.RevenueProjectName + " - " + item.BatchNumber + " - " + String.Format("{0:$#,##0.00}", item.DrawAmount) + " - " + item.DrawDate;
+                                            <tr>
+                                                <td nowrap>
+                                                    @item.TransactionNumber
+                                                </td>
+                                                <td nowrap>
+                                                    @item.TransactionDate
+                                                </td>
+                                                <td nowrap>
+                                                    @String.Format("{0:$#,##0.00}", item.TransactionAmount)
+                                                </td>
+                                                <td nowrap>
+                                                    @String.Format("{0:$#,##0.00}", item.CorrectAmount)
+                                                </td>
+                                                <td nowrap>
+                                                    @item.OrgName
+                                                </td>
+                                                <td nowrap>
+                                                    @item.ObjectName
+                                                </td>
+                                                <td nowrap>
+                                                    @item.ProjectName
+                                                </td>
+                                                <td nowrap>
+                                                    @item.CFDA
+                                                </td>
+                                                <td nowrap>
+                                                    @item.FGTCategoryName1
+                                                </td>
+                                                <td nowrap>
+                                                    @item.FGTCategoryName2
+                                                </td>
+                                                <td nowrap>
+                                                    @item.StatusName
+                                                </td>
+                                                <td nowrap>
+                                                    @item.VendorName
+                                                </td>
+                                                @if (item.RevenueTransactionNumber != "")
+                                                {
+                                                    <td nowrap>
+                                                        @if (item.DocumentFile != "")
+                                                        {
+                                                            <a href="javascript:void()" onclick="OpenDocument('@item.DocumentFile')" style="cursor:pointer;">@RevenueInfo</a>
+                                                        }
+                                                        else
+                                                        {
+                                                            @RevenueInfo
+                                                        }
+                                                    </td>
+                                                }
+                                                else
+                                                {
+                                                    <td nowrap>&nbsp;</td>
+                                                }
+                                                <td nowrap>
+                                                    @item.RelatedTrans
+                                                </td>
+                                                <td nowrap>
+                                                    @item.OtherBatchNumber
+                                                </td>
+                                                <td style="text-align:left;" nowrap>
+                                                    @item.TransactionDescription
+                                                </td>
+                                            </tr>
+                                        }
+                                        if (Model.transactionDetailEntities.Count > 0)
+                                        {
+                                            <tr>
+                                                <td colspan="2" style="text-align:right"><b>Total: </b></td>
+                                                <td colspan="14" style="text-align:left;"><b>@String.Format("{0:$#,##0.00}", Total)</b></td>
+                                            </tr>
+                                        }
+                                    }
+                                </tbody>
+                            </table>
+
+                            <!-- popup -->
+                            <div class="modal fade mrp_modalpopup" id="RevenueTransactionModal">
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <!-- /top tiles -->
+            </div>
+        </div>
+    </div>
+</div>
+<script language="JavaScript">
+    function EditRevenueTransaction(revenueId) {
+        var options = { "backdrop": "static", keyboard: true };
+        $.ajax({
+            type: "GET",
+            url: "/Revenue/EditRevenueTransaction/" + revenueId,
+            dataType: "html",
+            success: function (evt) {
+                $('#RevenueTransactionModal').html(evt);
+                $('#RevenueTransactionModal').modal(options);
+                $('#RevenueTransactionModal').modal('show');
+            },
+            error: function (req, status, error) {
+                alert("Error!Occured");
+            }
+        });
+    }
+</script>

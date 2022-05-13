@@ -521,6 +521,7 @@
     <Content Include="Views\Report\ManageReceivablesReport.cshtml" />
     <Content Include="Views\Report\ManageProjectSummaries.cshtml" />
     <Content Include="Views\Report\ManageProjectReceivableReport.cshtml" />
+    <Content Include="Views\Revenue\ViewRevenueTransactions.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

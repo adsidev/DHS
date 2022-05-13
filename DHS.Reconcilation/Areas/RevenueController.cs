@@ -19,11 +19,11 @@ namespace DHS.Reconcilation.Areas
 
         [HttpPost]
         [Route("GetRevenues")]
-        public RevenueResponse GetRevenues(RevenueRequest expenseRequest)
+        public RevenueResponse GetRevenues(RevenueRequest revenueRequest)
         {
             try
             {
-                expenseResponse = expenseRepository.GetRevenues(expenseRequest);
+                expenseResponse = expenseRepository.GetRevenues(revenueRequest);
             }
             catch (Exception ex)
             {
@@ -35,11 +35,11 @@ namespace DHS.Reconcilation.Areas
 
         [HttpPost]
         [Route("GetRevenue")]
-        public RevenueResponse GetRevenue(RevenueRequest expenseRequest)
+        public RevenueResponse GetRevenue(RevenueRequest revenueRequest)
         {
             try
             {
-                expenseResponse = expenseRepository.GetRevenue(expenseRequest);
+                expenseResponse = expenseRepository.GetRevenue(revenueRequest);
             }
             catch (Exception ex)
             {
@@ -51,11 +51,11 @@ namespace DHS.Reconcilation.Areas
 
         [HttpPost]
         [Route("SaveRevenue")]
-        public RevenueResponse SaveRevenue(RevenueRequest expenseRequest)
+        public RevenueResponse SaveRevenue(RevenueRequest revenueRequest)
         {
             try
             {
-                expenseResponse = expenseRepository.SaveRevenue(expenseRequest);
+                expenseResponse = expenseRepository.SaveRevenue(revenueRequest);
             }
             catch (Exception ex)
             {
@@ -67,11 +67,11 @@ namespace DHS.Reconcilation.Areas
 
         [HttpPost]
         [Route("GetRevenueExpense")]
-        public RevenueResponse GetRevenueExpense(RevenueRequest expenseRequest)
+        public RevenueResponse GetRevenueExpense(RevenueRequest revenueRequest)
         {
             try
             {
-                expenseResponse = expenseRepository.GetRevenueExpense(expenseRequest);
+                expenseResponse = expenseRepository.GetRevenueExpense(revenueRequest);
             }
             catch (Exception ex)
             {
@@ -84,11 +84,11 @@ namespace DHS.Reconcilation.Areas
 
         [HttpPost]
         [Route("GetRevenueDocuments")]
-        public RevenueResponse GetRevenueDocuments(RevenueRequest expenseRequest)
+        public RevenueResponse GetRevenueDocuments(RevenueRequest revenueRequest)
         {
             try
             {
-                expenseResponse = expenseRepository.GetRevenueDocuments(expenseRequest);
+                expenseResponse = expenseRepository.GetRevenueDocuments(revenueRequest);
             }
             catch (Exception ex)
             {
@@ -100,11 +100,11 @@ namespace DHS.Reconcilation.Areas
 
         [HttpPost]
         [Route("GetRevenueDocument")]
-        public RevenueResponse GetRevenueDocument(RevenueRequest expenseRequest)
+        public RevenueResponse GetRevenueDocument(RevenueRequest revenueRequest)
         {
             try
             {
-                expenseResponse = expenseRepository.GetRevenueDocument(expenseRequest);
+                expenseResponse = expenseRepository.GetRevenueDocument(revenueRequest);
             }
             catch (Exception ex)
             {
@@ -116,11 +116,11 @@ namespace DHS.Reconcilation.Areas
 
         [HttpPost]
         [Route("SaveRevenueDocument")]
-        public RevenueResponse SaveRevenueDocument(RevenueRequest expenseRequest)
+        public RevenueResponse SaveRevenueDocument(RevenueRequest revenueRequest)
         {
             try
             {
-                expenseResponse = expenseRepository.SaveRevenueDocument(expenseRequest);
+                expenseResponse = expenseRepository.SaveRevenueDocument(revenueRequest);
             }
             catch (Exception ex)
             {
@@ -133,11 +133,11 @@ namespace DHS.Reconcilation.Areas
 
         [HttpPost]
         [Route("LinkToDraw")]
-        public RevenueResponse LinkToDraw(RevenueRequest expenseRequest)
+        public RevenueResponse LinkToDraw(RevenueRequest revenueRequest)
         {
             try
             {
-                expenseResponse = expenseRepository.LinkToDraw(expenseRequest);
+                expenseResponse = expenseRepository.LinkToDraw(revenueRequest);
             }
             catch (Exception ex)
             {
@@ -149,11 +149,11 @@ namespace DHS.Reconcilation.Areas
 
         [HttpPost]
         [Route("SaveLinkToDraw")]
-        public RevenueResponse SaveLinkToDraw(RevenueRequest expenseRequest)
+        public RevenueResponse SaveLinkToDraw(RevenueRequest revenueRequest)
         {
             try
             {
-                expenseResponse = expenseRepository.SaveLinkToDraw(expenseRequest);
+                expenseResponse = expenseRepository.SaveLinkToDraw(revenueRequest);
             }
             catch (Exception ex)
             {
@@ -166,11 +166,11 @@ namespace DHS.Reconcilation.Areas
 
         [HttpPost]
         [Route("DrawRevenue")]
-        public RevenueResponse DrawRevenue(RevenueRequest expenseRequest)
+        public RevenueResponse DrawRevenue(RevenueRequest revenueRequest)
         {
             try
             {
-                expenseResponse = expenseRepository.DrawRevenue(expenseRequest);
+                expenseResponse = expenseRepository.DrawRevenue(revenueRequest);
             }
             catch (Exception ex)
             {
@@ -183,11 +183,11 @@ namespace DHS.Reconcilation.Areas
 
         [HttpPost]
         [Route("GetRevenueTransactions")]
-        public RevenueResponse GetRevenueTransactions(RevenueRequest expenseRequest)
+        public RevenueResponse GetRevenueTransactions(RevenueRequest revenueRequest)
         {
             try
             {
-                expenseResponse = expenseRepository.GetRevenueTransactions(expenseRequest);
+                expenseResponse = expenseRepository.GetRevenueTransactions(revenueRequest);
             }
             catch (Exception ex)
             {
@@ -200,11 +200,11 @@ namespace DHS.Reconcilation.Areas
 
         [HttpPost]
         [Route("GetRevenueTransaction")]
-        public RevenueResponse GetRevenueTransaction(RevenueRequest expenseRequest)
+        public RevenueResponse GetRevenueTransaction(RevenueRequest revenueRequest)
         {
             try
             {
-                expenseResponse = expenseRepository.GetRevenueTransaction(expenseRequest);
+                expenseResponse = expenseRepository.GetRevenueTransaction(revenueRequest);
             }
             catch (Exception ex)
             {
@@ -217,11 +217,11 @@ namespace DHS.Reconcilation.Areas
 
         [HttpPost]
         [Route("SaveRevenueTransaction")]
-        public RevenueResponse SaveRevenueTransaction(RevenueRequest expenseRequest)
+        public RevenueResponse SaveRevenueTransaction(RevenueRequest revenueRequest)
         {
             try
             {
-                expenseResponse = expenseRepository.SaveRevenueTransaction(expenseRequest);
+                expenseResponse = expenseRepository.SaveRevenueTransaction(revenueRequest);
             }
             catch (Exception ex)
             {
@@ -233,11 +233,11 @@ namespace DHS.Reconcilation.Areas
 
         [HttpPost]
         [Route("GetRevenueInformation")]
-        public RevenueResponse GetRevenueInformation(RevenueRequest expenseRequest)
+        public RevenueResponse GetRevenueInformation(RevenueRequest revenueRequest)
         {
             try
             {
-                expenseResponse = expenseRepository.GetRevenueInformation(expenseRequest);
+                expenseResponse = expenseRepository.GetRevenueInformation(revenueRequest);
             }
             catch (Exception ex)
             {
@@ -249,11 +249,11 @@ namespace DHS.Reconcilation.Areas
 
         [HttpPost]
         [Route("GetRevenueTransactionDetails")]
-        public RevenueResponse GetRevenueTransactionDetails(RevenueRequest expenseRequest)
+        public RevenueResponse GetRevenueTransactionDetails(RevenueRequest revenueRequest)
         {
             try
             {
-                expenseResponse = expenseRepository.GetRevenueTransactionDetails(expenseRequest);
+                expenseResponse = expenseRepository.GetRevenueTransactionDetails(revenueRequest);
             }
             catch (Exception ex)
             {
@@ -348,11 +348,11 @@ namespace DHS.Reconcilation.Areas
 
         [HttpPost]
         [Route("GetMissingRevenueTransactions")]
-        public RevenueResponse GetMissingRevenueTransactions(RevenueRequest expenseRequest)
+        public RevenueResponse GetMissingRevenueTransactions(RevenueRequest revenueRequest)
         {
             try
             {
-                expenseResponse = expenseRepository.GetMissingRevenueTransactions(expenseRequest);
+                expenseResponse = expenseRepository.GetMissingRevenueTransactions(revenueRequest);
             }
             catch (Exception ex)
             {
@@ -365,11 +365,11 @@ namespace DHS.Reconcilation.Areas
 
         [HttpPost]
         [Route("GetMissingRevenueTransaction")]
-        public RevenueResponse GetMissingRevenueTransaction(RevenueRequest expenseRequest)
+        public RevenueResponse GetMissingRevenueTransaction(RevenueRequest revenueRequest)
         {
             try
             {
-                expenseResponse = expenseRepository.GetMissingRevenueTransaction(expenseRequest);
+                expenseResponse = expenseRepository.GetMissingRevenueTransaction(revenueRequest);
             }
             catch (Exception ex)
             {
@@ -382,11 +382,11 @@ namespace DHS.Reconcilation.Areas
 
         [HttpPost]
         [Route("SaveMissingRevenueTransaction")]
-        public RevenueResponse SaveMissingRevenueTransaction(RevenueRequest expenseRequest)
+        public RevenueResponse SaveMissingRevenueTransaction(RevenueRequest revenueRequest)
         {
             try
             {
-                expenseResponse = expenseRepository.SaveMissingRevenueTransaction(expenseRequest);
+                expenseResponse = expenseRepository.SaveMissingRevenueTransaction(revenueRequest);
             }
             catch (Exception ex)
             {
@@ -398,11 +398,11 @@ namespace DHS.Reconcilation.Areas
 
         [HttpPost]
         [Route("DrawMissingRevenue")]
-        public RevenueResponse DrawMissingRevenue(RevenueRequest expenseRequest)
+        public RevenueResponse DrawMissingRevenue(RevenueRequest revenueRequest)
         {
             try
             {
-                expenseResponse = expenseRepository.DrawMissingRevenue(expenseRequest);
+                expenseResponse = expenseRepository.DrawMissingRevenue(revenueRequest);
             }
             catch (Exception ex)
             {
@@ -414,11 +414,28 @@ namespace DHS.Reconcilation.Areas
 
         [HttpPost]
         [Route("MissingRevenues")]
-        public RevenueResponse MissingRevenues(RevenueRequest expenseRequest)
+        public RevenueResponse MissingRevenues(RevenueRequest revenueRequest)
         {
             try
             {
-                expenseResponse = expenseRepository.MissingRevenues(expenseRequest);
+                expenseResponse = expenseRepository.MissingRevenues(revenueRequest);
+            }
+            catch (Exception ex)
+            {
+                expenseResponse.ErrorMessage = ex.Message;
+                expenseResponse.Exception = ex;
+            }
+            return expenseResponse;
+        }
+
+
+        [HttpPost]
+        [Route("GetExpenseRevenueTransactions")]
+        public RevenueResponse GetExpenseRevenueTransactions(RevenueRequest revenueRequest)
+        {
+            try
+            {
+                expenseResponse = expenseRepository.GetExpenseRevenueTransactions(revenueRequest);
             }
             catch (Exception ex)
             {

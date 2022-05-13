@@ -796,21 +796,22 @@
         }
 
         function ViewRevenueTransaction(revenueId) {
-            var options = { "backdrop": "static", keyboard: true };
-            $.ajax({
-                type: "GET",
-                url: "/Revenue/ViewRevenueTransaction/" + revenueId,
-                dataType: "html",
-                success: function (evt) {
-                    $('#RevenueTransactionModal').html(evt);
-                    $('#RevenueTransactionModal').modal(options);
-                    $('#RevenueTransactionModal').modal('show');
-                },
-                error: function (req, status, error) {
-                    alert(error);
-                    alert("Error!Occured");
-                }
-            });
+            location.href = "/Revenue/ViewRevenueTransactions/" + revenueId;
+            //var options = { "backdrop": "static", keyboard: true };
+            //$.ajax({
+            //    type: "GET",
+            //    url: "/Revenue/ViewRevenueTransaction/" + revenueId,
+            //    dataType: "html",
+            //    success: function (evt) {
+            //        $('#RevenueTransactionModal').html(evt);
+            //        $('#RevenueTransactionModal').modal(options);
+            //        $('#RevenueTransactionModal').modal('show');
+            //    },
+            //    error: function (req, status, error) {
+            //        alert(error);
+            //        alert("Error!Occured");
+            //    }
+            //});
         }
 
         function EditRevenueTransaction(revenueId) {

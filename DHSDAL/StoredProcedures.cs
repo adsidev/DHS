@@ -87,6 +87,7 @@ namespace DHSDAL
             public const string USPGETMISSINGREVENUETRANSACTIONS = "sp_GetMissingRevenueTransactions";
             public const string USPGETMISSINGREVENUETRANSACTION = "sp_GetMissingRevenueTransaction";
             public const string USPSAVEMISSINGREVENEUTRANSACTION = "sp_SaveMissingRevenueTransaction";
+            public const string USPGETTRANSACTIONSBYREVENUETRANSACTIONID = "sp_GetTransactionsByRevenueTransactionId";
         }
 
         public class Draw
