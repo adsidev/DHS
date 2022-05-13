@@ -19,6 +19,7 @@ namespace DHSEntities
         public List<ProjectReceivables> projectReceivables { get; set; }
         public List<ProjectPayables> projectPayables { get; set; }
         public List<ProjectPayables> projectDueFrom { get; set; }
+        public List<ProjectPayables> projectDrawNotFound { get; set; }
         public List<ExpenseAdjustments> expenseAdjustments { get; set; }
         public List<RevenueDeposits> revenueDeposits { get; set; }
         public List<RevenueAdjustments> revenueAdjustments { get; set; }
