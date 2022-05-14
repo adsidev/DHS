@@ -449,6 +449,23 @@ namespace DHS.Reconcilation.Areas
             }
             return expenseResponse;
         }
+
+
+        [HttpPost]
+        [Route("GetPriorYearExpenseTransactions")]
+        public ExpenseResponse GetPriorYearExpenseTransactions(ExpenseRequest expenseRequest)
+        {
+            try
+            {
+                expenseResponse = expenseRepository.GetPriorYearExpenseTransactions(expenseRequest);
+            }
+            catch (Exception ex)
+            {
+                expenseResponse.ErrorMessage = ex.Message;
+                expenseResponse.Exception = ex;
+            }
+            return expenseResponse;
+        }
         
     }
 }

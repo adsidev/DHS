@@ -1407,6 +1407,141 @@ namespace DHS.Reconcilation.Controllers
             }
         }
 
+        public async Task<ActionResult> ManagePriorYearExpenseTransactions(int? page)
+        {
+            if (!Common.SessionExists())
+                return RedirectToAction("Index", "Home");
+            int pageSize = Common.pageNumbers;
+            int pageIndex = 1;
+            pageIndex = page.HasValue ? Convert.ToInt32(page) : 1;
 
+            ExpenseRequest expenseRequest = new ExpenseRequest();
+            TransactionDetailEntity transactionDetailEntity = new TransactionDetailEntity();
+            transactionDetailEntity.TransactionNumber = String.Empty;
+            transactionDetailEntity.ProjectId = 0;
+            transactionDetailEntity.FiscalYearId = 5;
+            transactionDetailEntity.StatusId = 0;
+            transactionDetailEntity.FGTCategoryId2 = 0;
+            transactionDetailEntity.RevenueTransactionNumber = String.Empty;
+
+            if (Common.GetSession("ETProjectId") != "")
+                transactionDetailEntity.ProjectId = Convert.ToInt32(Common.GetSession("ETProjectId"));
+
+            if (Common.GetSession("ETFiscalYearId") != "")
+                transactionDetailEntity.FiscalYearId = Convert.ToInt32(Common.GetSession("ETFiscalYearId"));
+
+            if (Common.GetSession("ETStatusId") != "")
+                transactionDetailEntity.StatusId = Convert.ToInt32(Common.GetSession("ETStatusId"));
+
+            if (Common.GetSession("ETTransactionNumber") != "")
+                transactionDetailEntity.TransactionNumber = Common.GetSession("ETTransactionNumber");
+
+            if (Common.GetSession("ETRevenueTransactionNumber") != "")
+                transactionDetailEntity.RevenueTransactionNumber = Common.GetSession("ETRevenueTransactionNumber");
+
+            if (Common.GetSession("ETFGTCategoryId2") != "")
+                transactionDetailEntity.FGTCategoryId2 = Convert.ToUInt32(Common.GetSession("ETFGTCategoryId2"));
+
+            expenseRequest.transactionDetailEntity = transactionDetailEntity;
+            string url = strBaseURL + "Expense/GetPriorYearExpenseTransactions";
+            client.BaseAddress = new Uri(url);
+            HttpResponseMessage responseMessage = await client.PostAsJsonAsync(url, expenseRequest);
+
+            if (responseMessage.IsSuccessStatusCode)
+            {
+                var responseData = responseMessage.Content.ReadAsStringAsync().Result;
+                expenseResponse = JsonConvert.DeserializeObject<ExpenseResponse>(responseData);
+                if (expenseResponse.Message == string.Empty && expenseResponse.ErrorMessage == string.Empty)
+                {
+                    string PageName = "Expesnses";
+                    expenseResponse.transactionDetailEntity = transactionDetailEntity;
+                    expenseResponse.rolePermissionEntity = Common.PagePermissions(PageName);
+                    expenseResponse.pagedTransactionDetailEntity = expenseResponse.transactionDetailEntities.ToPagedList(pageIndex, pageSize);
+                    return View(expenseResponse);
+                }
+                else
+                {
+                    TempData["LoginFailure"] = expenseResponse.Message;
+                    return RedirectToAction("Error", "Home");
+                }
+            }
+            else
+            {
+                TempData["LoginFailure"] = responseMessage.ToString();
+                return RedirectToAction("Error", "Home");
+            }
+        }
+
+        [HttpPost]
+        public async Task<ActionResult> ManagePriorYearExpenseTransactions(int? page, int? id = 0)
+        {
+            if (!Common.SessionExists())
+                return RedirectToAction("Index", "Home");
+            int pageSize = Common.pageNumbers;
+            int pageIndex = 1;
+            pageIndex = page.HasValue ? Convert.ToInt32(page) : 1;
+
+            ExpenseRequest expenseRequest = new ExpenseRequest();
+            TransactionDetailEntity transactionDetailEntity = new TransactionDetailEntity();
+            transactionDetailEntity.TransactionNumber = String.Empty;
+            transactionDetailEntity.ProjectId = 0;
+            transactionDetailEntity.StatusId = 0;
+            transactionDetailEntity.FiscalYearId = 0;
+            transactionDetailEntity.RevenueTransactionNumber = String.Empty;
+
+            if (Request["ProjectId"] != "")
+                transactionDetailEntity.ProjectId = Convert.ToInt32(Request["ProjectId"]);
+
+            if (Request["FiscalYearId"] != "")
+                transactionDetailEntity.FiscalYearId = Convert.ToInt32(Request["FiscalYearId"]);
+
+            if (Request["StatusId"] != "")
+                transactionDetailEntity.StatusId = Convert.ToInt32(Request["StatusId"]);
+
+            if (Request["transactionDetailEntity.TransactionNumber"] != "")
+                transactionDetailEntity.TransactionNumber = Request["transactionDetailEntity.TransactionNumber"];
+
+            if (Request["transactionDetailEntity.RevenueTransactionNumber"] != "")
+                transactionDetailEntity.RevenueTransactionNumber = Request["transactionDetailEntity.RevenueTransactionNumber"];
+
+            if (Request["CategoryId"] != "")
+                transactionDetailEntity.FGTCategoryId2 = Convert.ToInt32(Request["CategoryId"]);
+
+            Common.AddSession("ETProjectId", transactionDetailEntity.ProjectId.ToString());
+            Common.AddSession("ETFiscalYearId", transactionDetailEntity.FiscalYearId.ToString());
+            Common.AddSession("ETStatusId", transactionDetailEntity.StatusId.ToString());
+            Common.AddSession("ETRevenueTransactionNumber", transactionDetailEntity.RevenueTransactionNumber.ToString());
+            Common.AddSession("ETTransactionNumber", transactionDetailEntity.TransactionNumber.ToString());
+            Common.AddSession("ETFGTCategoryId2", transactionDetailEntity.FGTCategoryId2.ToString());
+
+            expenseRequest.transactionDetailEntity = transactionDetailEntity;
+            string url = strBaseURL + "Expense/GetPriorYearExpenseTransactions";
+            client.BaseAddress = new Uri(url);
+            HttpResponseMessage responseMessage = await client.PostAsJsonAsync(url, expenseRequest);
+
+            if (responseMessage.IsSuccessStatusCode)
+            {
+                var responseData = responseMessage.Content.ReadAsStringAsync().Result;
+                expenseResponse = JsonConvert.DeserializeObject<ExpenseResponse>(responseData);
+                if (expenseResponse.Message == string.Empty && expenseResponse.ErrorMessage == string.Empty)
+                {
+                    string PageName = "Expesnses";
+                    expenseResponse.transactionDetailEntity = transactionDetailEntity;
+                    expenseResponse.rolePermissionEntity = Common.PagePermissions(PageName);
+                    expenseResponse.pagedTransactionDetailEntity = expenseResponse.transactionDetailEntities.ToPagedList(pageIndex, pageSize);
+                    return View(expenseResponse);
+                }
+                else
+                {
+                    TempData["LoginFailure"] = expenseResponse.Message;
+                    return RedirectToAction("Error", "Home");
+                }
+            }
+            else
+            {
+                TempData["LoginFailure"] = responseMessage.ToString();
+                return RedirectToAction("Error", "Home");
+            }
+        }
     }
 }

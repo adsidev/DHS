@@ -858,13 +858,19 @@ namespace DHSDAL
                     {
                         transactionDetailEntity.RevenueTransactionDate = expenseDataRow["RevenueTransactionDate"].ToString();
                     }
-                    transactionDetailEntity.TransactionDate = Convert.ToDateTime(expenseDataRow["TransactionDate"].ToString()).ToShortDateString();
+                    try
+                    {
+                        transactionDetailEntity.TransactionDate = Convert.ToDateTime(expenseDataRow["TransactionDate"].ToString()).ToShortDateString();
+                    }
+                    catch (Exception)
+                    {
+                        transactionDetailEntity.TransactionDate = expenseDataRow["TransactionDate"].ToString();
+                    }
                 }
                 catch (Exception exception)
                 {
                     transactionDetailEntity.ErrorMessage = exception.Message;
                     transactionDetailEntity.Exception = exception;
-                    transactionDetailEntity.TransactionDate = expenseDataRow["TransactionDate"].ToString(); 
                 }
                 finally
                 {
@@ -1456,6 +1462,97 @@ namespace DHSDAL
                 expenseResponse.Message = string.Empty;
             }
             expenseResponse.expenseEntities = expenseEntities;
+            return expenseResponse;
+        }
+
+
+        public ExpenseResponse GetPriorYearExpenseTransactions(ExpenseRequest expenseRequest)
+        {
+            var transactionDetailEntities = new List<TransactionDetailEntity>();
+            SqlObject.Parameters = new object[] {
+                    expenseRequest.transactionDetailEntity.ProjectId,
+                    expenseRequest.transactionDetailEntity.TransactionNumber,
+                    expenseRequest.transactionDetailEntity.RevenueTransactionNumber,
+                    expenseRequest.transactionDetailEntity.StatusId,
+                    expenseRequest.transactionDetailEntity.FGTCategoryId2,
+                    expenseRequest.transactionDetailEntity.FiscalYearId,
+            };
+            var transactionDetailDataSet = SqlHelper.ExecuteDataset(_connectionString, StoredProcedures.Expense.USPGETPRIORYEAREXPENSETRANSACTIONS, SqlObject.Parameters);
+            foreach (DataRow expenseDataRow in transactionDetailDataSet.Tables[0].Rows)
+            {
+                TransactionDetailEntity transactionDetailEntity = new TransactionDetailEntity();
+                try
+                {
+                    transactionDetailEntity.ExpenseNumber = expenseDataRow["ExpenseNumber"].ToString();
+                    transactionDetailEntity.TransactionDetailId = Convert.ToInt64(expenseDataRow["ExpenseTransactionPriorYearId"].ToString());
+                    transactionDetailEntity.ExpenseCount = Convert.ToInt32(expenseDataRow["ExpenseCount"].ToString());
+                    transactionDetailEntity.FGTCategoryName1 = expenseDataRow["FGTCategoryName1"].ToString();
+                    transactionDetailEntity.FGTCategoryName2 = expenseDataRow["FGTCategoryName2"].ToString();
+                    transactionDetailEntity.TransactionDescription = expenseDataRow["TransactionDescription"].ToString();
+                    transactionDetailEntity.TransactionAmount = Convert.ToDecimal(expenseDataRow["TransactionAmount"].ToString());
+                    transactionDetailEntity.CorrectAmount = Convert.ToDecimal(expenseDataRow["CorrectAmount"].ToString());
+                    transactionDetailEntity.TransactionNumber = expenseDataRow["TransactionNumber"].ToString();
+                    transactionDetailEntity.OrgName = expenseDataRow["OrgName"].ToString();
+                    transactionDetailEntity.ObjectName = expenseDataRow["ObjectName"].ToString();
+                    transactionDetailEntity.ProjectName = expenseDataRow["ProjectName"].ToString();
+                    transactionDetailEntity.VendorName = expenseDataRow["VendorName"].ToString();
+                    transactionDetailEntity.StatusName = expenseDataRow["StatusName"].ToString();
+                    transactionDetailEntity.CFDA = expenseDataRow["CFDA"].ToString();
+                    transactionDetailEntity.RevenueTransactionAmount = Convert.ToDecimal(expenseDataRow["RevenueTransactionAmount"].ToString());
+                    transactionDetailEntity.DrawAmount = Convert.ToDecimal(expenseDataRow["DrawAmount"].ToString());
+                    transactionDetailEntity.BatchNumber = expenseDataRow["BatchNumber"].ToString();
+                    transactionDetailEntity.DocumentFile = expenseDataRow["DocumentFile"].ToString();
+                    transactionDetailEntity.RevenueTransactionNumber = expenseDataRow["RevenueTransactionNumber"].ToString();
+                    transactionDetailEntity.RevenueProjectName = expenseDataRow["RevenueProjectName"].ToString();
+                    transactionDetailEntity.RelatedTrans = expenseDataRow["RelatedTrans"].ToString();
+                    transactionDetailEntity.OtherBatchNumber = expenseDataRow["OtherBatchNumber"].ToString();
+                    try
+                    {
+                        transactionDetailEntity.DrawDate = Convert.ToDateTime(expenseDataRow["DrawDate"].ToString()).ToShortDateString();
+                    }
+                    catch (Exception)
+                    {
+                        transactionDetailEntity.DrawDate = expenseDataRow["DrawDate"].ToString();
+                    }
+                    try
+                    {
+                        transactionDetailEntity.RevenueTransactionDate = Convert.ToDateTime(expenseDataRow["RevenueTransactionDate"].ToString()).ToShortDateString();
+                    }
+                    catch (Exception)
+                    {
+                        transactionDetailEntity.RevenueTransactionDate = expenseDataRow["RevenueTransactionDate"].ToString();
+                    }
+                    try
+                    {
+                        transactionDetailEntity.TransactionDate = Convert.ToDateTime(expenseDataRow["TransactionDate"].ToString()).ToShortDateString();
+                    }
+                    catch (Exception)
+                    {
+                        transactionDetailEntity.TransactionDate = expenseDataRow["TransactionDate"].ToString();
+                    }
+                }
+                catch (Exception exception)
+                {
+                    transactionDetailEntity.ErrorMessage = exception.Message;
+                    transactionDetailEntity.Exception = exception;
+                }
+                finally
+                {
+                    transactionDetailEntities.Add(transactionDetailEntity);
+                }
+            }
+            if (transactionDetailEntities.Count >= 1 || transactionDetailEntities.Count == 0)
+            {
+                expenseResponse.ErrorMessage = string.Empty;
+                expenseResponse.Message = string.Empty;
+            }
+            expenseResponse.transactionDetailEntities = transactionDetailEntities;
+            CommonDAL commonDAL = new CommonDAL();
+            expenseResponse.projectEntities = commonDAL.GetProjects();
+            expenseResponse.statusEntities = commonDAL.GetStatuses();
+            expenseResponse.fiscalYearEntities = commonDAL.GetFiscalYears();
+            FGTCategoryDAL fGTCategoryDAL = new FGTCategoryDAL();
+            expenseResponse.fgtCategoryEntities2 = fGTCategoryDAL.GetFGTCategories().fGTCategoryEntities;
             return expenseResponse;
         }
     }
