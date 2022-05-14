@@ -311,5 +311,76 @@ namespace DHSDAL
             }
             return errorMessages;
         }
+
+        public ErrorMessages ImportPriorYearExpenseTransaction(ImportRequest importRequest)
+        {
+            ErrorMessages errorMessages = new ErrorMessages();
+            errorMessages.Message = string.Empty;
+            var expenseDataSet = importRequest.dataset;
+            try
+            {
+                foreach (DataRow expenseDataRow in expenseDataSet.Tables[0].Rows)
+                {
+                    var EffectiveDate = expenseDataRow["EFFECTIVE DATE"].ToString();
+                    string[] Effd = EffectiveDate.Split(' ')[0].Split('-');
+                    if (Effd.Length > 1)
+                        EffectiveDate = Effd[1] + "/" + Effd[0] + "/" + Effd[2];
+                    else
+                        EffectiveDate = Effd[0];
+                    var PostDate = expenseDataRow["POST DATE"].ToString();
+                    string[] PostD = PostDate.Split(' ')[0].Split('-');
+                    if (PostD.Length > 1)
+                        PostDate = PostD[1] + "/" + PostD[0] + "/" + PostD[2];
+                    else
+                        PostDate = PostD[0];
+                    var EntryDate = expenseDataRow["ENTRY DATE"].ToString();
+                    string[] EntD = EntryDate.Split(' ')[0].Split('-');
+                    if (EntD.Length > 1)
+                        EntryDate = EntD[1] + "/" + EntD[0] + "/" + EntD[2];
+                    else
+                        EntryDate = EntD[0];
+                    var BatchTotal = expenseDataRow["GROSS AMOUNT"].ToString();
+                    if (BatchTotal == "")
+                        BatchTotal = "0";
+                    SqlObject.Parameters = new object[] {
+                        expenseDataRow["YEAR"].ToString(),
+                        expenseDataRow["PERIOD"].ToString(),
+                        expenseDataRow["JOURNAL"].ToString(),
+                        expenseDataRow["LINE"].ToString(),
+                        expenseDataRow["FUND"].ToString(),
+                        expenseDataRow["ORG"].ToString(),
+                        expenseDataRow["OBJECT"].ToString(),
+                        expenseDataRow["PROJECT"].ToString(),
+                        expenseDataRow["CLERK"].ToString(),
+                        expenseDataRow["REF 1/VENDOR"].ToString(),
+                        expenseDataRow["REF 2/PO"].ToString(),
+                        expenseDataRow["REF 3/DOCUMENT"].ToString(),
+                        expenseDataRow["REF 4"].ToString(),
+                        expenseDataRow["SOURCE"].ToString(),
+                        expenseDataRow["COMMENT"].ToString(),
+                        expenseDataRow["D/c"].ToString(),
+                        EffectiveDate,
+                        EntryDate,
+                        expenseDataRow["POST CLERK"].ToString(),
+                        PostDate,
+                        BatchTotal,
+                        expenseDataRow["CHECK"].ToString(),
+                        expenseDataRow["VOUCHER"].ToString(),
+                        expenseDataRow["WARRANT"].ToString().Trim(),
+                        expenseDataRow["CFDA"].ToString().Trim(),
+                        expenseDataRow["VENDOR"].ToString().Trim(),
+                        expenseDataRow["VENDOR NAME"].ToString().Trim(),
+                        importRequest.CreatedBy,
+                        };
+                    var intResult = SqlHelper.ExecuteScalar(_connectionString, StoredProcedures.Import.USPIMPORTEXPENSESTRANSACTIONPRIORYEAR, SqlObject.Parameters);
+                }
+            }
+            catch (System.Exception ex)
+            {
+                errorMessages.Message = ex.Message;
+                errorMessages.Exception = ex;
+            }
+            return errorMessages;
+        }
     }
 }

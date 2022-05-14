@@ -134,7 +134,25 @@ namespace DHS.Reconcilation.Areas
             }
             return errorMessages;
         }
-        
 
+
+        [HttpPost]
+        [Route("ImportPriorYearExpenseTransaction")]
+        public ErrorMessages ImportPriorYearExpenseTransaction(ImportRequest ImportRequest)
+        {
+            ErrorMessages errorMessages = new ErrorMessages();
+            try
+            {
+                errorMessages = importRepository.ImportPriorYearExpenseTransaction(ImportRequest);
+            }
+            catch (Exception ex)
+            {
+                errorMessages.ErrorMessage = ex.Message;
+                errorMessages.Exception = ex;
+            }
+            return errorMessages;
+        }
+
+        
     }
 }

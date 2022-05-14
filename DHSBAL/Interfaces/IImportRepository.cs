@@ -11,5 +11,6 @@ namespace DHSBAL
         ErrorMessages ImportExpenseTransaction(ImportRequest importRequest);
         ErrorMessages ImportDrawRevenueTransaction(ImportRequest importRequest);
         ErrorMessages ImportExpensesTransaction(ImportRequest importRequest);
+        ErrorMessages ImportPriorYearExpenseTransaction(ImportRequest importRequest);
     }
 }
