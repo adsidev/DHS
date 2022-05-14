@@ -42,11 +42,11 @@
             </div>
             <div class="mra_manage_settlement_report">
                 <div class="form-group col-lg-4">
-                    <label for="Facility">Select&nbsp;Fiscal Year</label>
+                    <label for="Facility">Fiscal Year</label>
                     @Html.DropDownList("FiscalYearId", new SelectList(Model.fiscalYearEntities, "FiscalYearId", "FiscalYear", @ViewData["FiscalYear"]), "", new { @class = "form-control mrp_modalselect" })
                 </div>
                 <div class="form-group col-lg-4">
-                    <label for="Facility">Select&nbsp;Project Status</label>
+                    <label for="Facility">Project Status</label>
                     @Html.DropDownList("ProjectStatusId", new SelectList(Model.projectStatusEntities, "ProjectStatusId", "ProjectStatus", @ViewData["ProjectStatus"]), "", new { @class = "form-control mrp_modalselect" })
                 </div>
                 <div class="col-md-4">
