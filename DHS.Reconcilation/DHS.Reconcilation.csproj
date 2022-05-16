@@ -524,6 +524,7 @@
     <Content Include="Views\Revenue\ViewRevenueTransactions.cshtml" />
     <Content Include="Views\Tools\ImportExpensesTransactionPriorYear.cshtml" />
     <Content Include="Views\Expense\ManagePriorYearExpenseTransactions.cshtml" />
+    <Content Include="Views\Expense\_viewPriorYearTransactionDetail.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

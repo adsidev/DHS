@@ -466,6 +466,22 @@ namespace DHS.Reconcilation.Areas
             }
             return expenseResponse;
         }
+
+        [HttpPost]
+        [Route("GetPriorYearTransactionDetail")]
+        public ExpenseResponse GetPriorYearTransactionDetail(ExpenseRequest expenseRequest)
+        {
+            try
+            {
+                expenseResponse = expenseRepository.GetPriorYearTransactionDetail(expenseRequest);
+            }
+            catch (Exception ex)
+            {
+                expenseResponse.ErrorMessage = ex.Message;
+                expenseResponse.Exception = ex;
+            }
+            return expenseResponse;
+        }
         
     }
 }

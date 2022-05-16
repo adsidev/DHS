@@ -280,7 +280,7 @@
             var options = { "backdrop": "static", keyboard: true };
             $.ajax({
                 type: "GET",
-                url: "/Expense/ViewTransactionDetail/" + expenseId,
+                url: "/Expense/ViewPriorYearTransactionDetail/" + expenseId,
                 dataType: "html",
                 success: function (evt) {
                     $('#TransactionDetailModal').html(evt);

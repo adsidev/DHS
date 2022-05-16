@@ -31,5 +31,6 @@ namespace DHSDAL
         ExpenseResponse GetMissingRevenueTransaction(ExpenseRequest expenseRequest);
         ExpenseResponse GetMissingExpenses(ExpenseRequest expenseRequest);
         ExpenseResponse GetPriorYearExpenseTransactions(ExpenseRequest expenseRequest);
+        ExpenseResponse GetPriorYearTransactionDetail(ExpenseRequest expenseRequest);
     }
 }

@@ -396,5 +396,19 @@ namespace DHSBAL
             }
             return expenseResponse;
         }
+
+        public ExpenseResponse GetPriorYearTransactionDetail(ExpenseRequest expenseRequest)
+        {
+            try
+            {
+                expenseResponse = expenseDALRepository.GetPriorYearTransactionDetail(expenseRequest);
+            }
+            catch (Exception ex)
+            {
+                expenseResponse.ErrorMessage = ex.Message;
+                expenseResponse.Exception = ex;
+            }
+            return expenseResponse;
+        }
     }
 }

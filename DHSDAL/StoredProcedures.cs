@@ -43,6 +43,7 @@ namespace DHSDAL
             public const string USPGETTRANSACTIONDETAILS = "sp_GetTransactionDetails";
             public const string USPGETALLTRANSACTIONDETAILS = "sp_GetAllTransactionDetails";
             public const string USPGETTRANSACTIONDETAIL = "sp_GetTransactionDetail";
+            public const string USPGETPRIORYEARTRANSACTIONDETAIL = "sp_GetPriorYearTransactionDetail";
             public const string USPSAVETRANSACTIONDETAIL = "sp_SaveTransactionDetail";
             public const string USPGETEXPENSEREVENUE = "sp_GetExpenseRevenue";
             public const string USPGETLINKTOREVENUE = "sp_GetLinkToRevenue";
