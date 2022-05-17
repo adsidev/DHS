@@ -92,6 +92,7 @@ namespace DHSDAL
             public const string USPGETMISSINGREVENUETRANSACTION = "sp_GetMissingRevenueTransaction";
             public const string USPSAVEMISSINGREVENEUTRANSACTION = "sp_SaveMissingRevenueTransaction";
             public const string USPGETTRANSACTIONSBYREVENUETRANSACTIONID = "sp_GetTransactionsByRevenueTransactionId";
+            public const string USPGETPRIORYEAREXPENSETRANSACTIONSBYREVENUETRANSACTIONID = "sp_GetPriorYearExpenseTransactionsByRevenueTransactionId";
         }
 
         public class Draw
@@ -99,6 +100,7 @@ namespace DHSDAL
             public const string USPGETDRAWS = "sp_GetDraws";
             public const string USPGETDRAW = "sp_GetDraw";
             public const string USPGETTRANSACTIONBYDRAWID = "sp_GetTransactionByDrawId";
+            public const string USPGETPRIORYEARTRANSACTIONBYDRAWID = "sp_GetPriorYearTransactionByDrawId";
             public const string USPGETREVENUESBYDRAWID = "sp_GetRevenuesByDrawId";
             public const string USPGETEXPENSESBYDRAWID = "sp_GetExpensesByDrawId";
             public const string USPCHECKDRAWBYBATCHNUMBER = "sp_CheckDrawByBatchNumber";

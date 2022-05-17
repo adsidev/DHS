@@ -375,6 +375,168 @@
                 <!-- /top tiles -->
             </div>
         </div>
+
+        <div class="row ">
+            <div class="col-lg-6">
+                <div class="mrp_modalcontent">
+                    <h2>Prior Year Expense Transaction Details</h2>
+                    <form class="mrp_selectdetails form-inline"></form>
+                </div>
+            </div>
+        </div>
+
+        <div class="row mrp_table-row">
+            <div class="col-lg-12 col-xs-12">
+                <div class="table-responsive">
+                    <div class="mrp_contentbody mrp_contenttable">
+                        <div class="mrp_table">
+
+                            <table class="table table-bordered table-striped">
+                                <thead>
+                                    <tr>
+                                        <th nowrap>
+                                            Transaction No
+                                        </th>
+                                        <th nowrap>
+                                            Transaction Date
+                                        </th>
+                                        <th nowrap>
+                                            Transaction Amount
+                                        </th>
+                                        <th nowrap>
+                                            Correct Amount
+                                        </th>
+                                        <th nowrap>
+                                            Org
+                                        </th>
+                                        <th nowrap>
+                                            Object
+                                        </th>
+                                        <th nowrap>
+                                            Project
+                                        </th>
+                                        <th nowrap>
+                                            CFDA
+                                        </th>
+                                        <th nowrap>
+                                            Category 1
+                                        </th>
+                                        <th nowrap>
+                                            Category 2
+                                        </th>
+                                        <th nowrap>
+                                            Status
+                                        </th>
+                                        <th nowrap>
+                                            Vendor Name
+                                        </th>
+                                        <th nowrap>
+                                            Revenue Transaction
+                                        </th>
+                                        <th nowrap>
+                                            Related Transaction
+                                        </th>
+                                        <th nowrap>
+                                            Other Batch Number
+                                        </th>
+                                        <th nowrap style="text-align:left">
+                                            Notes
+                                        </th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    @{
+                                        decimal pTotal = 0;
+                                        string pRevenueInfo = string.Empty;
+                                        foreach (var item in Model.priorYearTransactionDetailEntities)
+                                        {
+                                            pTotal = pTotal + item.TransactionAmount;
+                                            pRevenueInfo = item.RevenueTransactionNumber + " - " + item.RevenueTransactionDate + " - " + String.Format("{0:$#,##0.00}", item.RevenueTransactionAmount) + " - " + item.RevenueProjectName + " - " + item.BatchNumber + " - " + String.Format("{0:$#,##0.00}", item.DrawAmount) + " - " + item.DrawDate;
+                                            <tr>
+                                                <td nowrap>
+                                                    @item.TransactionNumber
+                                                </td>
+                                                <td nowrap>
+                                                    @item.TransactionDate
+                                                </td>
+                                                <td nowrap>
+                                                    @String.Format("{0:$#,##0.00}", item.TransactionAmount)
+                                                </td>
+                                                <td nowrap>
+                                                    @String.Format("{0:$#,##0.00}", item.CorrectAmount)
+                                                </td>
+                                                <td nowrap>
+                                                    @item.OrgName
+                                                </td>
+                                                <td nowrap>
+                                                    @item.ObjectName
+                                                </td>
+                                                <td nowrap>
+                                                    @item.ProjectName
+                                                </td>
+                                                <td nowrap>
+                                                    @item.CFDA
+                                                </td>
+                                                <td nowrap>
+                                                    @item.FGTCategoryName1
+                                                </td>
+                                                <td nowrap>
+                                                    @item.FGTCategoryName2
+                                                </td>
+                                                <td nowrap>
+                                                    @item.StatusName
+                                                </td>
+                                                <td nowrap>
+                                                    @item.VendorName
+                                                </td>
+                                                @if (item.RevenueTransactionNumber != "")
+                                                {
+                                                    <td nowrap>
+                                                        @if (item.DocumentFile != "")
+                                                        {
+                                                            <a href="javascript:void()" onclick="OpenDocument('@item.DocumentFile')" style="cursor:pointer;">@pRevenueInfo</a>
+                                                        }
+                                                        else
+                                                        {
+                                                            @pRevenueInfo
+                                                        }
+                                                    </td>
+                                                }
+                                                else
+                                                {
+                                                    <td nowrap>&nbsp;</td>
+                                                }
+                                                <td nowrap>
+                                                    @item.RelatedTrans
+                                                </td>
+                                                <td nowrap>
+                                                    @item.OtherBatchNumber
+                                                </td>
+                                                <td style="text-align:left;" nowrap>
+                                                    @item.TransactionDescription
+                                                </td>
+                                            </tr>
+                                        }
+                                        if (Model.transactionDetailEntities.Count > 0)
+                                        {
+                                            <tr>
+                                                <td colspan="2" style="text-align:right"><b>Total: </b></td>
+                                                <td colspan="14" style="text-align:left;"><b>@String.Format("{0:$#,##0.00}", pTotal)</b></td>
+                                            </tr>
+                                        }
+                                    }
+                                </tbody>
+                            </table>
+
+                            <!-- popup -->
+                            <div class="modal fade mrp_modalpopup" id="RevenueTransactionModal">
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <!-- /top tiles -->
+            </div>
+        </div>
     </div>
 </div>
 <script language="JavaScript">

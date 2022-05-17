@@ -15,6 +15,7 @@ namespace DHSEntities
         public DocumentEntity documentEntity { get; set; }
         public List<DocumentCategoryEntity> documentCategoryEntities { get; set; }
         public List<TransactionDetailEntity> transactionDetailEntities { get; set; }
+        public List<TransactionDetailEntity> priorYearTransactionDetailEntities { get; set; }
         public List<ExpenseEntity> expenseEntities{ get; set; }
         public List<RevenueEntity> revenueEntities{ get; set; }
         public List<FiscalYearEntity> fiscalYearEntities{ get; set; }
