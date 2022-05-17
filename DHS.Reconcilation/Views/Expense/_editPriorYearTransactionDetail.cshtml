@@ -1,0 +1,359 @@
+﻿@model DHSEntities.ExpenseResponse
+@{
+    ViewBag.Title = "Edit Transaction Detail";
+}
+@Html.HiddenFor(m => m.transactionDetailEntity.ExpenseId, htmlAttributes: new { @id = "ExpenseId" })
+@Html.HiddenFor(m => m.transactionDetailEntity.TransactionDetailId, htmlAttributes: new { @id = "TransactionDetailId" })
+<div class="modal-dialog" role="document">
+    <div class="modal-content">
+        <div class="modal-header">
+            <h5 class="modal-title" id="exampleModalLabel">Edit Prior Year Expense Transaction Detail Information</h5>
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+            </button>
+            <div class="modal-footer mra_edit_footer">
+                <a href="Javascript:void()" title="Save" onclick="return SubmitValue()" id="btnSubmit" class="mra_edit_save">
+                    <i class="fa fa-floppy-o" aria-hidden="true"></i>
+                </a>
+            </div>
+            <div class="modal-body">
+
+                <div class="mrp_modalcontent">
+                    <div class="row">
+
+                        <div class="col-lg-12">
+                            <div class="row">
+                                <div class="col-lg-3 col-xs-12 col-sm-3 col-md-3">
+                                    <div class="form_modal">
+                                        <label>Transaction&nbsp;Number</label>
+                                    </div>
+                                </div>
+                                <div class="col-lg-9 col-xs-12 col-sm-9 col-md-9">
+                                    <div class="form_modal">
+                                        @Html.TextBoxFor(m => m.transactionDetailEntity.TransactionNumber, htmlAttributes: new { @class = "form-control mrp_modalselect", @disabled = "disabled" })
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="col-lg-12">
+                            <div class="row">
+                                <div class="col-lg-3 col-xs-12 col-sm-3 col-md-3">
+                                    <div class="form_modal">
+                                        <label>Object</label>
+                                    </div>
+                                </div>
+                                <div class="col-lg-9 col-xs-12 col-sm-9 col-md-9">
+                                    <div class="form_modal">
+                                        @Html.TextBoxFor(m => m.transactionDetailEntity.TransObject, htmlAttributes: new { @class = "form-control mrp_modalselect", @disabled = "disabled" })
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="col-lg-12">
+                            <div class="row">
+                                <div class="col-lg-3 col-xs-12 col-sm-3 col-md-3">
+                                    <div class="form_modal">
+                                        <label>Org</label>
+                                    </div>
+                                </div>
+                                <div class="col-lg-9 col-xs-12 col-sm-9 col-md-9">
+                                    <div class="form_modal">
+                                        @Html.TextBoxFor(m => m.transactionDetailEntity.TransOrg, htmlAttributes: new { @class = "form-control mrp_modalselect", @disabled = "disabled" })
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="col-lg-12">
+                            <div class="row">
+                                <div class="col-lg-3 col-xs-12 col-sm-3 col-md-3">
+                                    <div class="form_modal">
+                                        <label>Project</label>
+                                    </div>
+                                </div>
+                                <div class="col-lg-9 col-xs-12 col-sm-9 col-md-9">
+                                    <div class="form_modal">
+                                        @Html.TextBoxFor(m => m.transactionDetailEntity.TransProject, htmlAttributes: new { @class = "form-control mrp_modalselect", @disabled = "disabled" })
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="col-lg-12">
+                            <div class="row">
+                                <div class="col-lg-3 col-xs-12 col-sm-3 col-md-3">
+                                    <div class="form_modal">
+                                        <label>Source</label>
+                                    </div>
+                                </div>
+                                <div class="col-lg-9 col-xs-12 col-sm-9 col-md-9">
+                                    <div class="form_modal">
+                                        @Html.TextBoxFor(m => m.transactionDetailEntity.TransSource, htmlAttributes: new { @class = "form-control mrp_modalselect", @disabled = "disabled" })
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="col-lg-12">
+                            <div class="row">
+                                <div class="col-lg-3 col-xs-12 col-sm-3 col-md-3">
+                                    <div class="form_modal">
+                                        <label>Transaction&nbsp;Details&nbsp;Date</label>
+                                    </div>
+                                </div>
+                                <div class="col-lg-9 col-xs-12 col-sm-9 col-md-9">
+                                    <div class="form_modal">
+                                        <input type="text" class="form-control mrp_modalselect" id="TransactionDate" value="@Model.transactionDetailEntity.TransactionDate" />
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="col-lg-12">
+                            <div class="row">
+                                <div class="col-lg-3 col-xs-12 col-sm-3 col-md-3">
+                                    <div class="form_modal">
+                                        <label>Transaction&nbsp;Amount</label>
+                                    </div>
+                                </div>
+                                <div class="col-lg-9 col-xs-12 col-sm-9 col-md-9">
+                                    <div class="form_modal">
+                                        <input type="text" value="@String.Format("{0:$#,##0.00}", Model.transactionDetailEntity.TransactionAmount)" class="form-control mrp_modalselect" />
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="col-lg-12">
+                            <div class="row">
+                                <div class="col-lg-3 col-xs-12 col-sm-3 col-md-3">
+                                    <div class="form_modal">
+                                        <label>Correct&nbsp;Amount</label>
+                                    </div>
+                                </div>
+                                <div class="col-lg-9 col-xs-12 col-sm-9 col-md-9">
+                                    <div class="form_modal">
+                                        <input type="text" value="@String.Format("{0:$#,##0.00}", Model.transactionDetailEntity.CorrectAmount)" class="form-control mrp_modalselect" />
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="col-lg-12">
+                            <div class="row">
+                                <div class="col-lg-3 col-xs-12 col-sm-3 col-md-3">
+                                    <div class="form_modal">
+                                        <label>FGT&nbsp;Category&nbsp;1</label>
+                                    </div>
+                                </div>
+                                <div class="col-lg-9 col-xs-12 col-sm-9 col-md-9">
+                                    <div class="form_modal">
+                                        @Html.DropDownList("FGTCategoryId1", new SelectList(Model.fgtCategoryEntities, "FGTCategoryId", "FGTCategoryName", Model.transactionDetailEntity.FGTCategoryId1), "", new { @id = "FGTCategoryId1", @class = "form-control mrp_modalselect" })
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="col-lg-12">
+                            <div class="row">
+                                <div class="col-lg-3 col-xs-12 col-sm-3 col-md-3">
+                                    <div class="form_modal">
+                                        <label>FGT&nbsp;Category&nbsp;2</label>
+                                    </div>
+                                </div>
+                                <div class="col-lg-9 col-xs-12 col-sm-9 col-md-9">
+                                    <div class="form_modal">
+                                        @Html.DropDownList("FGTCategoryId2", new SelectList(Model.fgtCategoryEntities2, "FGTCategoryId", "FGTCategoryName", Model.transactionDetailEntity.FGTCategoryId2), "", new { @id = "FGTCategoryId2", @class = "form-control mrp_modalselect" })
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="col-lg-12">
+                            <div class="row">
+                                <div class="col-lg-3 col-xs-12 col-sm-3 col-md-3">
+                                    <div class="form_modal">
+                                        <label>Status</label>
+                                    </div>
+                                </div>
+                                <div class="col-lg-9 col-xs-12 col-sm-9 col-md-9">
+                                    <div class="form_modal">
+                                        @Html.DropDownList("StatusId", new SelectList(Model.statusEntities, "StatusId", "StatusName", Model.transactionDetailEntity.StatusId), "", new { @id = "StatusId", @class = "form-control mrp_modalselect" })
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        @{
+                            string CRevenueInfo = string.Empty;
+                            CRevenueInfo = Model.transactionDetailEntity.RevenueTransactionNumber + " - " + Model.transactionDetailEntity.RevenueTransactionDate + " - " + String.Format("{0:$#,##0.00}", Model.transactionDetailEntity.RevenueTransactionAmount) + " - " + Model.transactionDetailEntity.RevenueProjectName + " - " + Model.transactionDetailEntity.BatchNumber + " - " + String.Format("{0:$#,##0.00}", Model.transactionDetailEntity.DrawAmount) + " - " + Model.transactionDetailEntity.DrawDate;
+                        }
+                        <div class="col-lg-12">
+                            <div class="row">
+                                <div class="col-lg-3 col-xs-12 col-sm-4 col-md-4">
+                                    <div class="form_modal">
+                                        <label>Revenue&nbsp;Transaction</label>
+                                    </div>
+                                </div>
+                                <div class="col-lg-8 col-xs-12 col-sm-8 col-md-8">
+                                    <div class="form-group">
+                                        <input type="hidden" id="hdnRevenueTransactionId" name="hdnRevenueTransactionId" value="@Model.transactionDetailEntity.DrawId" />
+                                        <input type="text" readonly id="RevenueTransaction" value="@CRevenueInfo" class="form-control mrp_modalselect" />
+                                    </div>
+                                </div>
+                                <div class="col-lg-1 col-xs-12 col-sm-8 col-md-8">
+                                    <img src="~/images/linking.png" class="img-responsive" onclick="ViewRevenueTransaction('@Model.transactionDetailEntity.ExpenseId')" style="cursor:pointer;" alt="Linking to Revenue" height="20" width="20" />
+                                    @if (Model.transactionDetailEntity.TransactionDetailId > 0)
+                                    {
+                                        <img src="~/images/Delete.png" class="img-responsive" onclick="RemoveRevenueTransaction()" style="cursor:pointer;" alt="Remove Link between Expense Transaction to Revenue Transaction" height="20" width="20" />
+                                    }
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="col-lg-12">
+                            <div class="row">
+                                <div class="col-lg-3 col-xs-12 col-sm-3 col-md-3">
+                                    <div class="form_modal">
+                                        <label>Vendor&nbsp;Name</label>
+                                    </div>
+                                </div>
+                                <div class="col-lg-9 col-xs-12 col-sm-9 col-md-9">
+                                    <div class="form_modal">
+                                        @Html.DropDownList("VendorId", new SelectList(Model.vendorEntities, "VendorId", "VendorName", Model.transactionDetailEntity.VendorId), "", new { @id = "VendorId", @class = "form-control mrp_modalselect" })
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="col-lg-12">
+                            <div class="row">
+                                <div class="col-lg-3 col-xs-12 col-sm-3 col-md-3">
+                                    <div class="form_modal">
+                                        <label>Related&nbsp;Transaction</label>
+                                    </div>
+                                </div>
+                                <div class="col-lg-9 col-xs-12 col-sm-9 col-md-9">
+                                    <div class="form_modal">
+                                        <input type="text" value="@Model.transactionDetailEntity.RelatedTrans" class="form-control mrp_modalselect" />
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="col-lg-12">
+                            <div class="row">
+                                <div class="col-lg-3 col-xs-12 col-sm-4 col-md-4">
+                                    <div class="form_modal">
+                                        <label>Batch&nbsp;Number</label>
+                                    </div>
+                                </div>
+                                <div class="col-lg-9 col-xs-12 col-sm-8 col-md-8">
+                                    <div class="form_modal">
+                                        @Html.TextBoxFor(m => m.transactionDetailEntity.OtherBatchNumber, htmlAttributes: new { @id = "OtherBatchNumber", @class = "form-control mrp_modalselect" })
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="col-lg-12">
+                            <div class="row">
+                                <div class="col-lg-3 col-xs-12 col-sm-3 col-md-3">
+                                    <div class="form_modal">
+                                        <label>Notes</label>
+                                    </div>
+                                </div>
+                                <div class="col-lg-9 col-xs-12 col-sm-9 col-md-9">
+                                    <div class="form_modal">
+                                        <textarea id="TransactionDescription" name="TransactionDescription" disabled="disabled" style="margin: 0px; width:100%; height: 120px;">@Model.transactionDetailEntity.TransactionDescription</textarea>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<script language="JavaScript">
+
+
+    $("#FGTCategoryId1").change(function () {
+        var x = $("#FGTCategoryId1").val();
+        fire_ajax(x);
+    });
+
+    function fire_ajax(s) {
+        var fGTCategoryEntity = {
+            FGTParentCategoryId: s
+        };
+        var fGTCategoryRequest = {
+            FGTCategoryEntity: fGTCategoryEntity
+        };
+        $.ajax({
+            url: "/FGTCategory/GetFGTCategoriesById",
+            type: "POST",
+            data: fGTCategoryRequest,
+            dataType: 'json',
+            success: function (data) {
+                var s = '<option value="-1">Please Select Category</option>';
+                for (var i = 0; i < data.fGTCategoryEntities.length; i++) {
+                    s += '<option value="' + data.fGTCategoryEntities[i].FGTCategoryId + '">' + data.fGTCategoryEntities[i].FGTCategoryName + '</option>';
+                }
+                $("#FGTCategoryId2").html(s);
+            }
+
+        })
+    }
+
+
+    function SubmitValueTransaction() {
+
+        if (document.getElementById("TransactionDate").value == "") {
+            alert("Please enter transaction date.")
+            document.getElementById("TransactionDate").focus();
+            return false;
+        }
+        if (document.getElementById("FGTCategoryId1").value == "") {
+            alert("Please select fgt category.")
+            document.getElementById("FGTCategoryId1").focus();
+            return false;
+        }
+        if (document.getElementById("FGTCategoryId2").value == "") {
+            alert("Please select fgt category.")
+            document.getElementById("FGTCategoryId2").focus();
+            return false;
+        }
+        var transactionDetailEntity = {
+            TransactionDate: document.getElementById("TransactionDate").value,
+            ExpenseId: document.getElementById("ExpenseId").value,
+            TransactionDetailId: document.getElementById("TransactionDetailId").value,
+            DrawId: document.getElementById("DrawId").value,
+            VendorId: document.getElementById("VendorId").value,
+            FGTCategoryId1: document.getElementById("FGTCategoryId1").value,
+            FGTCategoryId2: document.getElementById("FGTCategoryId2").value,
+            TransactionDescription: document.getElementById("TransactionDescription").value,
+            TransactionAmount: parseFloat((document.getElementById("TransactionAmount").value).replace("$", "").replace(",", "")).toFixed(2),
+            VendorAdjustments: document.getElementById("VendorAdjustments").value
+        };
+        var expenseRequest = {
+            TransactionDetailEntity: transactionDetailEntity
+        };
+        $.ajax({
+            url: "/Expense/SaveTransactionDetail",
+            type: "POST",
+            data: expenseRequest,
+            dataType: 'json',
+            success: function (result) {
+                location.href = "/Expense/ManageExpenses";
+            },
+            complete: function () {
+
+            }
+        });
+        return true;
+    }
+</script>

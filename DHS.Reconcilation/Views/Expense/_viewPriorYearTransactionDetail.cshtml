@@ -7,7 +7,7 @@
     <div class="modal-content">
         <div class="modal-header">
             <h5 class="modal-title" id="ExpenseModalLabel">
-                View Transaction Detail Information
+                View Prior Year Expense Transaction Detail Information
             </h5>
 
             <button type="button" class="close" data-dismiss="modal" aria-label="Close">
@@ -15,7 +15,7 @@
             </button>
             @if (Model.rolePermissionEntity.EditBit)
             {
-                <span class="mrp_modaledit"> <strong><i class="fa fa-pencil" aria-hidden="true" onclick="EditTransaction('@Model.transactionDetailEntity.ExpenseId','@Model.transactionDetailEntity.TransactionDetailId')" title="Edit Expense Transaction"></i></strong></span>
+                <span class="mrp_modaledit"> <strong><i class="fa fa-pencil" aria-hidden="true" onclick="EditTransaction('@Model.transactionDetailEntity.TransactionDetailId')" title="Edit Expense Transaction"></i></strong></span>
             }
         </div>
         <div class="modal-body">

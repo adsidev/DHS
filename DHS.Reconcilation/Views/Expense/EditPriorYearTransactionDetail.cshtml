@@ -1,0 +1,581 @@
+﻿@model DHSEntities.ExpenseResponse
+@using PagedList.Mvc
+@using DHS.Reconcilation.Models
+
+@{
+    ViewBag.Title = "DHS Reconcilation Application :: Edit Prior Year Expense Transaction Detail Information";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+<script src="~/Scripts/jquery-1.10.2.min.js"></script>
+<title>@ViewBag.Title</title>
+@section LeftMenuSection
+{
+    @Html.Partial("_menuCRPayments");
+}
+
+@using (Html.BeginForm("EditPriorYearTransactionDetail", "Expense", FormMethod.Post, new { @id = "frmExpense" }))
+{
+    <div class="tab-pane active" id="dashboard">
+        <div class="container-fluid">
+            <input type="hidden" id="hdnTransactionDetailId" value="@Model.transactionDetailEntity.TransactionDetailId" />
+            <!-- top tiles -->
+            <div class="mrp_content">
+                <h2>Edit Prior Year Expense Transaction Detail Information</h2>
+
+                <div class="row mra_createcost_report_payment">
+                    <div class="col-lg-6">
+                        <div class="row">
+                            <div class="col-lg-3 col-xs-12 col-sm-4 col-md-4">
+                                <div class="form_modal">
+                                    <label>Fiscal&nbsp;Year</label>
+                                </div>
+                            </div>
+                            <div class="col-lg-9 col-xs-12 col-sm-8 col-md-8">
+                                <div class="form_modal">
+                                    @if (Model.transactionDetailEntity.TransactionDetailId > 0)
+                                    {
+                                        @Html.DropDownList("FiscalYearId", new SelectList(Model.fiscalYearEntities, "FiscalYearId", "FiscalYear", Model.transactionDetailEntity.FiscalYearId), "", new { @id = "FiscalYearId", @class = "form-control mrp_modalselect", @disabled = "disabled" })
+                                    }
+                                    else
+                                    {
+                                        @Html.DropDownList("FiscalYearId", new SelectList(Model.fiscalYearEntities, "FiscalYearId", "FiscalYear", Model.transactionDetailEntity.FiscalYearId), "", new { @id = "FiscalYearId", @class = "form-control mrp_modalselect" })
+                                    }
+
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-lg-6">
+                        <div class="row">
+                            <div class="col-lg-3 col-xs-12 col-sm-3 col-md-3">
+                                <div class="form_modal">
+                                    <label>Transaction&nbsp;Number</label>
+                                </div>
+                            </div>
+                            <div class="col-lg-9 col-xs-12 col-sm-9 col-md-9">
+                                <div class="form_modal">
+                                    @Html.TextBoxFor(m => m.transactionDetailEntity.TransactionNumber, htmlAttributes: new { @class = "form-control mrp_modalselect", @disabled = "disabled" })
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="col-lg-6">
+                        <div class="row">
+                            <div class="col-lg-3 col-xs-12 col-sm-3 col-md-3">
+                                <div class="form_modal">
+                                    <label>Object</label>
+                                </div>
+                            </div>
+                            <div class="col-lg-9 col-xs-12 col-sm-9 col-md-9">
+                                <div class="form_modal">
+                                    @Html.TextBoxFor(m => m.transactionDetailEntity.TransObject, htmlAttributes: new { @class = "form-control mrp_modalselect", @disabled = "disabled", @id= "TransObject" })
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="col-lg-6">
+                        <div class="row">
+                            <div class="col-lg-3 col-xs-12 col-sm-3 col-md-3">
+                                <div class="form_modal">
+                                    <label>Org</label>
+                                </div>
+                            </div>
+                            <div class="col-lg-9 col-xs-12 col-sm-9 col-md-9">
+                                <div class="form_modal">
+                                    @Html.TextBoxFor(m => m.transactionDetailEntity.TransOrg, htmlAttributes: new { @class = "form-control mrp_modalselect", @disabled = "disabled", @id= "TransOrg" })
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="col-lg-6">
+                        <div class="row">
+                            <div class="col-lg-3 col-xs-12 col-sm-3 col-md-3">
+                                <div class="form_modal">
+                                    <label>Project</label>
+                                </div>
+                            </div>
+                            <div class="col-lg-9 col-xs-12 col-sm-9 col-md-9">
+                                <div class="form_modal">
+                                    @Html.TextBoxFor(m => m.transactionDetailEntity.TransProject, htmlAttributes: new { @class = "form-control mrp_modalselect", @disabled = "disabled" , @id= "TransProject" })
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="col-lg-6">
+                        <div class="row">
+                            <div class="col-lg-3 col-xs-12 col-sm-3 col-md-3">
+                                <div class="form_modal">
+                                    <label>Source</label>
+                                </div>
+                            </div>
+                            <div class="col-lg-9 col-xs-12 col-sm-9 col-md-9">
+                                <div class="form_modal">
+                                    @Html.TextBoxFor(m => m.transactionDetailEntity.TransSource, htmlAttributes: new { @class = "form-control mrp_modalselect", @disabled = "disabled", @id= "TransSource" })
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="col-lg-6">
+                        <div class="row">
+                            <div class="col-lg-3 col-xs-12 col-sm-3 col-md-3">
+                                <div class="form_modal">
+                                    <label>Transaction&nbsp;Details&nbsp;Date</label>
+                                </div>
+                            </div>
+                            <div class="col-lg-9 col-xs-12 col-sm-9 col-md-9">
+                                <div class="form_modal">
+                                    <input type="text" class="form-control mrp_modalselect" id="TransactionDate" value="@Model.transactionDetailEntity.TransactionDate" />
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="col-lg-6">
+                        <div class="row">
+                            <div class="col-lg-3 col-xs-12 col-sm-3 col-md-3">
+                                <div class="form_modal">
+                                    <label>Transaction&nbsp;Amount</label>
+                                </div>
+                            </div>
+                            <div class="col-lg-9 col-xs-12 col-sm-9 col-md-9">
+                                <div class="form_modal">
+                                    <input type="text" value="@String.Format("{0:$#,##0.00}", Model.transactionDetailEntity.TransactionAmount)" id="TransactionAmount" class="form-control mrp_modalselect" />
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="col-lg-6">
+                        <div class="row">
+                            <div class="col-lg-3 col-xs-12 col-sm-3 col-md-3">
+                                <div class="form_modal">
+                                    <label>Correct&nbsp;Amount</label>
+                                </div>
+                            </div>
+                            <div class="col-lg-9 col-xs-12 col-sm-9 col-md-9">
+                                <div class="form_modal">
+                                    <input type="text" value="@String.Format("{0:$#,##0.00}", Model.transactionDetailEntity.CorrectAmount)" id="CorrectAmount" class="form-control mrp_modalselect" />
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="col-lg-6">
+                        <div class="row">
+                            <div class="col-lg-3 col-xs-12 col-sm-3 col-md-3">
+                                <div class="form_modal">
+                                    <label>FGT&nbsp;Category&nbsp;1</label>
+                                </div>
+                            </div>
+                            <div class="col-lg-9 col-xs-12 col-sm-9 col-md-9">
+                                <div class="form_modal">
+                                    @Html.DropDownList("FGTCategoryId1", new SelectList(Model.fgtCategoryEntities, "FGTCategoryId", "FGTCategoryName", Model.transactionDetailEntity.FGTCategoryId1), "", new { @id = "FGTCategoryId1", @class = "form-control mrp_modalselect" })
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="col-lg-6">
+                        <div class="row">
+                            <div class="col-lg-3 col-xs-12 col-sm-3 col-md-3">
+                                <div class="form_modal">
+                                    <label>FGT&nbsp;Category&nbsp;2</label>
+                                </div>
+                            </div>
+                            <div class="col-lg-9 col-xs-12 col-sm-9 col-md-9">
+                                <div class="form_modal">
+                                    @Html.DropDownList("FGTCategoryId2", new SelectList(Model.fgtCategoryEntities2, "FGTCategoryId", "FGTCategoryName", Model.transactionDetailEntity.FGTCategoryId2), "", new { @id = "FGTCategoryId2", @class = "form-control mrp_modalselect" })
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="col-lg-6">
+                        <div class="row">
+                            <div class="col-lg-3 col-xs-12 col-sm-3 col-md-3">
+                                <div class="form_modal">
+                                    <label>Status</label>
+                                </div>
+                            </div>
+                            <div class="col-lg-9 col-xs-12 col-sm-9 col-md-9">
+                                <div class="form_modal">
+                                    @Html.DropDownList("StatusId", new SelectList(Model.statusEntities, "StatusId", "StatusName", Model.transactionDetailEntity.StatusId), "", new { @id = "StatusId", @class = "form-control mrp_modalselect" })
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    @{
+                        string CRevenueInfo = string.Empty;
+                        CRevenueInfo = Model.transactionDetailEntity.RevenueTransactionNumber + " - " + Model.transactionDetailEntity.RevenueTransactionDate + " - " + String.Format("{0:$#,##0.00}", Model.transactionDetailEntity.RevenueTransactionAmount) + " - " + Model.transactionDetailEntity.RevenueProjectName + " - " + Model.transactionDetailEntity.BatchNumber + " - " + String.Format("{0:$#,##0.00}", Model.transactionDetailEntity.DrawAmount) + " - " + Model.transactionDetailEntity.DrawDate;
+                    }
+                    <div class="col-lg-6">
+                        <div class="row">
+                            <div class="col-lg-3 col-xs-12 col-sm-4 col-md-4">
+                                <div class="form_modal">
+                                    <label>Revenue&nbsp;Transaction</label>
+                                </div>
+                            </div>
+                            <div class="col-lg-8 col-xs-12 col-sm-8 col-md-8">
+                                <div class="form-group">
+                                    <input type="hidden" id="hdnRevenueTransactionId" name="hdnRevenueTransactionId" value="@Model.transactionDetailEntity.DrawId" />
+                                    <input type="text" readonly id="RevenueTransaction" value="@CRevenueInfo" class="form-control mrp_modalselect" />
+                                </div>
+                            </div>
+                            <div class="col-lg-1 col-xs-12 col-sm-8 col-md-8">
+                                <img src="~/images/linking.png" class="img-responsive" onclick="ViewRevenueTransaction('@Model.transactionDetailEntity.TransactionDetailId')" style="cursor:pointer;" alt="Linking to Revenue" height="20" width="20" />
+                                @if (Model.transactionDetailEntity.TransactionDetailId > 0)
+                                {
+                                    <img src="~/images/Delete.png" class="img-responsive" onclick="RemoveRevenueTransaction()" style="cursor:pointer;" alt="Remove Link between Expense Transaction to Revenue Transaction" height="20" width="20" />
+                                }
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="col-lg-6">
+                        <div class="row">
+                            <div class="col-lg-3 col-xs-12 col-sm-3 col-md-3">
+                                <div class="form_modal">
+                                    <label>Vendor&nbsp;Name</label>
+                                </div>
+                            </div>
+                            <div class="col-lg-9 col-xs-12 col-sm-9 col-md-9">
+                                <div class="form_modal">
+                                    @Html.DropDownList("VendorId", new SelectList(Model.vendorEntities, "VendorId", "VendorName", Model.transactionDetailEntity.VendorId), "", new { @id = "VendorId", @class = "form-control mrp_modalselect" })
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="col-lg-6">
+                        <div class="row">
+                            <div class="col-lg-3 col-xs-12 col-sm-3 col-md-3">
+                                <div class="form_modal">
+                                    <label>Related&nbsp;Transaction</label>
+                                </div>
+                            </div>
+                            <div class="col-lg-9 col-xs-12 col-sm-9 col-md-9">
+                                <div class="form_modal">
+                                    <input type="text" id="RelatedTrans" value="@Model.transactionDetailEntity.RelatedTrans" class="form-control mrp_modalselect" />
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="col-lg-6">
+                        <div class="row">
+                            <div class="col-lg-3 col-xs-12 col-sm-4 col-md-4">
+                                <div class="form_modal">
+                                    <label>Batch&nbsp;Number</label>
+                                </div>
+                            </div>
+                            <div class="col-lg-9 col-xs-12 col-sm-8 col-md-8">
+                                <div class="form_modal">
+                                    @Html.TextBoxFor(m => m.transactionDetailEntity.OtherBatchNumber, htmlAttributes: new { @id = "OtherBatchNumber", @class = "form-control mrp_modalselect" })
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+                <div class="row">
+                    <div class="col-lg-12">
+                        <div class="row">
+                        <div class="col-lg-1 col-xs-12 col-sm-4 col-md-2">
+                            <div class="form_modal">
+                                <label>Notes</label>
+                            </div>
+                        </div>
+                        <div class="col-lg-11 col-xs-12 col-sm-8 col-md-10">
+                            <div class="form_modal">
+                                <textarea id="TransactionDescription" name="TransactionDescription" style="margin: 0px; width: 100%; height: 80px;">@Model.transactionDetailEntity.TransactionDescription</textarea>
+                            </div>
+                        </div>
+                        </div>
+                    </div>
+                </div>
+
+
+                <div class="modal-footer">
+                    <input type="button" title="Save prior year expense transaction information" id="btnSubmit" class="btn btn-primary btn-updated" onclick="return SubmitValue()" value="Save Changes" />
+                    <button type="button" title="Cancel saving prior year expense transaction information" class="btn btn-secondary btn-close" data-dismiss="modal" onclick="JavaScript:location.href='/Expense/ManagePriorYearExpenseTransactions'">Cancel</button>
+                </div>
+            </div>
+            <!-- popup -->
+            <div class="modal fade mrp_modalpopup" id="PriorYearTransactionDetailModal">
+            </div>
+        </div>
+    </div>
+
+}
+
+<script type="text/javascript">
+    function SubmitValue() {
+        var IsRelatedCheck = false;
+        if (document.getElementById("TransactionDate").value == "") {
+            alert("Please enter transaction date.")
+            document.getElementById("TransactionDate").focus();
+            return false;
+        }
+        if (document.getElementById("FGTCategoryId1").value == "") {
+            alert("Please select fgt category.")
+            document.getElementById("FGTCategoryId1").focus();
+            return false;
+        }
+        if (document.getElementById("FGTCategoryId2").value == "") {
+            alert("Please select fgt category.")
+            document.getElementById("FGTCategoryId2").focus();
+            return false;
+        }
+
+        //if (document.getElementById("StatusId").value == 11 && document.getElementById("OtherBatchNumber").value == "") {
+        //    alert("Please enter other batch number.");
+        //    document.getElementById("OtherBatchNumber").focus();
+        //    return false;
+        //}
+
+        //if (document.getElementById("RelatedTrans").value != '') {
+        //    var transactionDetailEntity = {
+        //        TransactionDetailId: document.getElementById("TransactionDetailId").value,
+        //        RelatedTrans: document.getElementById("RelatedTrans").value,
+        //    };
+        //    var expenseRequest = {
+        //        TransactionDetailEntity: transactionDetailEntity
+        //    };
+        //    $.ajax({
+        //        url: "/Expense/CheckRelatedTrans",
+        //        type: "POST",
+        //        data: expenseRequest,
+        //        dataType: 'json',
+        //        success: function (result) {
+        //            if (document.getElementById("RelatedTrans").value == result.transactionDetailEntity.TransactionNumber) {
+        //                IsRelatedCheck = true;
+        //            }
+        //            else {
+        //                alert("Please check the Related Transaction number.");
+        //                document.getElementById("RelatedTrans").focus();
+        //                window.location.reload();
+        //                return false;
+        //            }
+        //        }
+        //    });
+        //}
+        //else {
+        //    IsRelatedCheck = true;
+        //}
+
+        //if (document.getElementById("OtherBatchNumber").value != '') {
+        //    var transactionDetailEntity = {
+        //        OtherBatchNumber: document.getElementById("OtherBatchNumber").value,
+        //    };
+        //    var expenseRequest = {
+        //        TransactionDetailEntity: transactionDetailEntity
+        //    };
+        //    $.ajax({
+        //        url: "/Expense/CheckBatchNumber",
+        //        type: "POST",
+        //        data: expenseRequest,
+        //        dataType: 'json',
+        //        success: function (result) {
+        //            if (document.getElementById("OtherBatchNumber").value == result.transactionDetailEntity.OtherBatchNumber) {
+        //                IsRelatedCheck = true;
+        //            }
+        //            else {
+        //                alert("Please check the Other Batch number.");
+        //                document.getElementById("OtherBatchNumber").focus();
+        //                window.location.reload();
+        //                return false;
+        //            }
+        //        }
+        //    });
+        //}
+        //else {
+        //    IsRelatedCheck = true;
+        //}
+        //if (IsRelatedCheck)
+            SaveTransaction();
+        return true;
+    }
+
+    function SaveTransaction() {
+        var transactionDetailEntity = {
+            TransactionDate: document.getElementById("TransactionDate").value,
+            TransactionDetailId: document.getElementById("hdnTransactionDetailId").value,
+            FGTCategoryId1: document.getElementById("FGTCategoryId1").value,
+            FGTCategoryId2: document.getElementById("FGTCategoryId2").value,
+            TransactionDescription: document.getElementById("TransactionDescription").value,
+            TransactionAmount: parseFloat((document.getElementById("TransactionAmount").value).replace("$", "").replace(",", "")).toFixed(2),
+            VendorAdjustments: '',
+            DrawId: document.getElementById("hdnRevenueTransactionId").value,
+            VendorId: document.getElementById("VendorId").value,
+            StatusId: document.getElementById("StatusId").value,
+            RelatedTrans: document.getElementById("RelatedTrans").value,
+            CorrectAmount: document.getElementById("CorrectAmount").value,
+            OtherBatchNumber: document.getElementById("OtherBatchNumber").value,
+            TransOrg: document.getElementById("TransOrg").value,
+            TransObject: document.getElementById("TransObject").value,
+            TransProject: document.getElementById("TransProject").value,
+            TransSource: document.getElementById("TransSource").value,
+            FiscalYearId: document.getElementById("FiscalYearId").value,
+        };
+        var expenseRequest = {
+            TransactionDetailEntity: transactionDetailEntity
+        };
+        $.ajax({
+            url: "/Expense/SavePriorYearExpenseTransaction",
+            type: "POST",
+            data: expenseRequest,
+            dataType: 'json',
+            success: function (result) {
+                location.href = "/Expense/ManagePriorYearExpenseTransactions/";
+            },
+            complete: function () {
+
+            }
+        });
+    }
+
+    $("#FGTCategoryId1").change(function () {
+        var x = $("#FGTCategoryId1").val();
+        populateCategory(x);
+    });
+
+    function populateCategory(s) {
+        var fGTCategoryEntity = {
+            FGTParentCategoryId: s
+        };
+        var fGTCategoryRequest = {
+            FGTCategoryEntity: fGTCategoryEntity
+        };
+        $.ajax({
+            url: "/FGTCategory/GetFGTCategoriesById",
+            type: "POST",
+            data: fGTCategoryRequest,
+            dataType: 'json',
+            success: function (data) {
+                var s = '<option value="-1">Please Select Category</option>';
+                for (var i = 0; i < data.fGTCategoryEntities.length; i++) {
+                    s += '<option value="' + data.fGTCategoryEntities[i].FGTCategoryId + '">' + data.fGTCategoryEntities[i].FGTCategoryName + '</option>';
+                }
+                $("#FGTCategoryId2").html(s);
+            }
+
+        })
+    }
+
+
+    $(document).ready(function () {
+        $('#mra_subliPYET').addClass('active');
+    });
+
+    function ViewMissingRevneueTransactions() {
+        if (document.getElementById("FiscalYearId").value == "") {
+            alert("Please select fiscal year to link revenue transactions")
+            document.getElementById("FiscalYearId").focus();
+            return false;
+        }
+        if (document.getElementById("TransProject").value == "") {
+            alert("Please enter project to link revenue transactions")
+            document.getElementById("TransProject").focus();
+            return false;
+        }
+        var fiscalYearId = document.getElementById("FiscalYearId").value;
+        var projectCode = document.getElementById("TransProject").value;
+        if (fiscalYearId != "" && projectCode != "") {
+            var options = { "backdrop": "static", keyboard: true };
+            $.ajax({
+                type: "GET",
+                url: "/Expense/ViewMissingRevneueTransaction/" + fiscalYearId + "?projectCode=" + projectCode,
+                dataType: "html",
+                success: function (evt) {
+                    $('#PriorYearTransactionDetailModal').html(evt);
+                    $('#PriorYearTransactionDetailModal').modal(options);
+                    $('#PriorYearTransactionDetailModal').modal('show');
+                },
+                error: function (req, status, error) {
+                    alert("Error!Occured");
+                }
+            });
+        }
+        
+    }
+
+    function LinkToRevenueTransaction() {
+        var getSelectedValue = document.querySelector(
+            'input[name="RevenueTransaction"]:checked');
+        if (getSelectedValue != null) {
+            var RevenueTransactionNumber = document.getElementById("TN" + getSelectedValue.value).value;
+            var RevenueTransactionDate = document.getElementById("TD" + getSelectedValue.value).value;
+            var RevenueTransactionAmount = document.getElementById("TA" + getSelectedValue.value).value;
+            var ProjectName = document.getElementById("PN" + getSelectedValue.value).value;
+            var StringF = RevenueTransactionNumber + ' - ' + RevenueTransactionDate + ' - ' + RevenueTransactionAmount + ' - ' + ProjectName;
+            document.getElementById("hdnRevenueTransactionId").value = getSelectedValue.value;
+            document.getElementById("RevenueTransaction").value = StringF;
+            $('#PriorYearTransactionDetailModal').modal('hide');
+        }
+        else {
+            alert("Please select record to link.")
+        }
+    }
+
+    $("#TransProject").blur(function () {
+        alert(document.getElementById("FiscalYearId").value);
+        if (document.getElementById("TransProject").value != "" && document.getElementById("FiscalYearId").value != "") {
+            populateExpense();
+        }
+        else {
+            var s = '<option value="0">Please Select Expense</option>';
+            $("#ExpenseId").html(s);
+        }
+    });
+
+    function populateExpense() {
+        var expenseEntity = {
+            ProjectName: document.getElementById("TransProject").value,
+            FiscalYearId: document.getElementById("FiscalYearId").value,
+        };
+        var expenseRequest = {
+            expenseEntity: expenseEntity
+        };
+        $.ajax({
+            url: "/Expense/GetMissingExpenses",
+            type: "POST",
+            data: expenseRequest,
+            dataType: 'json',
+            success: function (data) {
+                var s = '<option value="0">Please Select Expense</option>';
+                for (var i = 0; i < data.expenseEntities.length; i++) {
+                    s += '<option value="' + data.expenseEntities[i].ExpenseId + '">' + data.expenseEntities[i].ExpenseNumber + '</option>';
+                }
+                $("#ExpenseId").html(s);
+            }
+
+        })
+    }
+
+    function RemoveRevenueTransaction() {
+        document.getElementById("hdnRevenueTransactionId").value = 0;
+        document.getElementById("RevenueTransaction").value = "";
+    }
+
+    function ViewRevenueTransaction(expenseId) {
+        var options = { "backdrop": "static", keyboard: true };
+        $.ajax({
+            type: "GET",
+            url: "/Expense/RevenueTransaction/" + expenseId,
+            dataType: "html",
+            success: function (evt) {
+                $('#PriorYearTransactionDetailModal').html(evt);
+                $('#PriorYearTransactionDetailModal').modal(options);
+                $('#PriorYearTransactionDetailModal').modal('show');
+            },
+            error: function (req, status, error) {
+                alert("Error!Occured");
+            }
+        });
+    }
+</script>

@@ -32,5 +32,7 @@ namespace DHSBAL
         ExpenseResponse GetMissingExpenses(ExpenseRequest expenseRequest);
         ExpenseResponse GetPriorYearExpenseTransactions(ExpenseRequest expenseRequest);
         ExpenseResponse GetPriorYearTransactionDetail(ExpenseRequest expenseRequest);
+        ExpenseResponse SavePriorYearExpenseTransaction(ExpenseRequest expenseRequest);
+        ExpenseResponse RemovePriorYearRevenueTranscation(ExpenseRequest expenseRequest);
     }
 }

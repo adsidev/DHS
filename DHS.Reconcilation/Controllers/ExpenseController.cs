@@ -1559,7 +1559,6 @@ namespace DHS.Reconcilation.Controllers
             expenseRequest.transactionDetailEntity = transactionDetailEntity;
             string url = strBaseURL + "Expense/GetPriorYearTransactionDetail";
             client.BaseAddress = new Uri(url);
-            Common.AddSession("ExpenseId", id.ToString());
             HttpResponseMessage responseMessage = await client.PostAsJsonAsync(url, expenseRequest);
 
             if (responseMessage.IsSuccessStatusCode)
@@ -1585,6 +1584,47 @@ namespace DHS.Reconcilation.Controllers
                 return RedirectToAction("Error", "Home");
             }
         }
-        
+
+
+        public async Task<ActionResult> EditPriorYearTransactionDetail(long? id = 0)
+        {
+            if (!Common.SessionExists())
+                return RedirectToAction("Index", "Home");
+            if (id == 0)
+                return RedirectToAction("Index", "Home");
+
+
+            ExpenseRequest expenseRequest = new ExpenseRequest();
+            TransactionDetailEntity transactionDetailEntity = new TransactionDetailEntity();
+            transactionDetailEntity.TransactionDetailId = Convert.ToInt64(id);
+            expenseRequest.transactionDetailEntity = transactionDetailEntity;
+            string url = strBaseURL + "Expense/GetPriorYearTransactionDetail";
+            client.BaseAddress = new Uri(url);
+            HttpResponseMessage responseMessage = await client.PostAsJsonAsync(url, expenseRequest);
+
+            if (responseMessage.IsSuccessStatusCode)
+            {
+                var responseData = responseMessage.Content.ReadAsStringAsync().Result;
+                expenseResponse = JsonConvert.DeserializeObject<ExpenseResponse>(responseData);
+                if (expenseResponse.Message == string.Empty && expenseResponse.ErrorMessage == string.Empty)
+                {
+                    string PageName = "Expesnses";
+                    expenseResponse.rolePermissionEntity = Common.PagePermissions(PageName);
+
+                    return View(expenseResponse);
+                }
+                else
+                {
+                    TempData["LoginFailure"] = expenseResponse.Message;
+                    return RedirectToAction("Error", "Home");
+                }
+            }
+            else
+            {
+                TempData["LoginFailure"] = responseMessage.ToString();
+                return RedirectToAction("Error", "Home");
+            }
+        }
+
     }
 }

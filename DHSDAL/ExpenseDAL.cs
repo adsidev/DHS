@@ -1578,6 +1578,7 @@ namespace DHSDAL
                         transactionDetailEntity.TransactionDetailId = Convert.ToInt64(expenseDataRow["TransactionDetailId"].ToString());
                         transactionDetailEntity.DrawId = Convert.ToInt64(expenseDataRow["DrawId"].ToString());
                         transactionDetailEntity.ExpenseId = Convert.ToInt64(expenseDataRow["ExpenseId"].ToString());
+                        transactionDetailEntity.FiscalYearId = Convert.ToInt64(expenseDataRow["FiscalYearId"].ToString());
                         transactionDetailEntity.VendorId = Convert.ToInt64(expenseDataRow["VendorId"].ToString());
                         transactionDetailEntity.StatusId = Convert.ToInt32(expenseDataRow["StatusId"].ToString());
                         transactionDetailEntity.FGTCategoryId1 = Convert.ToInt64(expenseDataRow["FGTCategoryId1"].ToString());
@@ -1677,7 +1678,72 @@ namespace DHSDAL
 
             CommonDAL commonDAL = new CommonDAL();
             expenseResponse.statusEntities = commonDAL.GetStatuses();
+            expenseResponse.fiscalYearEntities = commonDAL.GetFiscalYears();
 
+            return expenseResponse;
+        }
+
+        public ExpenseResponse SavePriorYearExpenseTransaction(ExpenseRequest expenseRequest)
+        {
+            try
+            {
+                if (expenseRequest.transactionDetailEntity.TransactionDetailId > 0)
+                    expenseRequest.transactionDetailEntity.SaveString = "U";
+                else
+                    expenseRequest.transactionDetailEntity.SaveString = "I";
+                expenseRequest.transactionDetailEntity.IsMissingExpense = true;
+                SqlObject.Parameters = new object[] {
+                expenseRequest.transactionDetailEntity.SaveString,
+                expenseRequest.transactionDetailEntity.TransactionDetailId,
+                expenseRequest.transactionDetailEntity.TransactionDate,
+                expenseRequest.transactionDetailEntity.FGTCategoryId1,
+                expenseRequest.transactionDetailEntity.FGTCategoryId2,
+                expenseRequest.transactionDetailEntity.TransactionDescription,
+                expenseRequest.transactionDetailEntity.ModifiedBy,
+                expenseRequest.transactionDetailEntity.TransactionAmount,
+                expenseRequest.transactionDetailEntity.DrawId,
+                expenseRequest.transactionDetailEntity.VendorId,
+                expenseRequest.transactionDetailEntity.StatusId,
+                expenseRequest.transactionDetailEntity.RelatedTrans,
+                expenseRequest.transactionDetailEntity.CorrectAmount,
+                expenseRequest.transactionDetailEntity.OtherBatchNumber,
+                expenseRequest.transactionDetailEntity.TransOrg,
+                expenseRequest.transactionDetailEntity.TransObject,
+                expenseRequest.transactionDetailEntity.TransProject,
+                expenseRequest.transactionDetailEntity.TransSource,
+                expenseRequest.transactionDetailEntity.FiscalYearId,
+                };
+                var intResult = SqlHelper.ExecuteScalar(_connectionString, StoredProcedures.Expense.USPSAVEPRIORYEAREXPENSETRANSACTION, SqlObject.Parameters);
+                expenseResponse.Message = string.Empty;
+                expenseResponse.ErrorMessage = string.Empty;
+            }
+            catch (Exception ex)
+            {
+                expenseResponse.ErrorMessage = ex.Message;
+                expenseResponse.Exception = ex;
+            }
+            return expenseResponse;
+
+        }
+
+
+        public ExpenseResponse RemovePriorYearRevenueTranscation(ExpenseRequest expenseRequest)
+        {
+            expenseResponse.ErrorMessage = string.Empty;
+            expenseResponse.Message = string.Empty;
+            try
+            {
+                SqlObject.Parameters = new object[] {
+                    expenseRequest.transactionDetailEntity.TransactionDetailId,
+                    expenseRequest.transactionDetailEntity.ModifiedBy
+                };
+                var transactionDetailDataSet = SqlHelper.ExecuteScalar(_connectionString, StoredProcedures.Expense.USPREMOVEPRIORYEARREVENUETRANSACTION, SqlObject.Parameters);
+            }
+            catch (Exception ex)
+            {
+                expenseResponse.Exception = ex;
+                expenseResponse.ErrorMessage = ex.Message;
+            }
             return expenseResponse;
         }
     }

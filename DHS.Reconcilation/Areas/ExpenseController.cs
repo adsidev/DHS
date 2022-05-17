@@ -482,6 +482,41 @@ namespace DHS.Reconcilation.Areas
             }
             return expenseResponse;
         }
+
+
+        [HttpPost]
+        [Route("SavePriorYearExpenseTransaction")]
+        public ExpenseResponse SavePriorYearExpenseTransaction(ExpenseRequest expenseRequest)
+        {
+            try
+            {
+                expenseResponse = expenseRepository.SavePriorYearExpenseTransaction(expenseRequest);
+            }
+            catch (Exception ex)
+            {
+                expenseResponse.ErrorMessage = ex.Message;
+                expenseResponse.Exception = ex;
+            }
+            return expenseResponse;
+        }
+
+
+
+        [HttpPost]
+        [Route("RemovePriorYearRevenueTranscation")]
+        public ExpenseResponse RemovePriorYearRevenueTranscation(ExpenseRequest expenseRequest)
+        {
+            try
+            {
+                expenseResponse = expenseRepository.RemovePriorYearRevenueTranscation(expenseRequest);
+            }
+            catch (Exception ex)
+            {
+                expenseResponse.ErrorMessage = ex.Message;
+                expenseResponse.Exception = ex;
+            }
+            return expenseResponse;
+        }
         
     }
 }
