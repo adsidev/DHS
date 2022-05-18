@@ -75,6 +75,9 @@
                                                 Project
                                             </th>
                                             <th nowrap>
+                                                Status Name
+                                            </th>
+                                            <th nowrap>
                                                 Date
                                             </th>
                                             <th nowrap>
@@ -91,12 +94,6 @@
                                             </th>
                                             <th nowrap>
                                                 Correct Amount
-                                            </th>
-                                            <th nowrap>
-                                                Draw Next Year
-                                            </th>
-                                            <th nowrap>
-                                                Draw Pending
                                             </th>
                                             <th nowrap>
                                                 Related Trans
@@ -176,6 +173,9 @@
                                                         @item.ProjectName
                                                     </td>
                                                     <td nowrap>
+                                                        @item.StatusName
+                                                    </td>
+                                                    <td nowrap>
                                                         @item.ExpenseDepositDate
                                                     </td>
                                                     <td nowrap>
@@ -192,12 +192,6 @@
                                                     </td>
                                                     <td nowrap>
                                                         @string.Format("{0:C}", item.CorrectAmount)
-                                                    </td>
-                                                    <td nowrap>
-                                                        @string.Format("{0:C}", item.ReceivablesDrawNextYear)
-                                                    </td>
-                                                    <td nowrap>
-                                                        @string.Format("{0:C}", item.ReceivablesDrawPending)
                                                     </td>
                                                     <td nowrap>
                                                         @item.RelatedTrans

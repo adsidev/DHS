@@ -627,7 +627,7 @@ namespace DHSDAL
                     reportRequest.ProjectId
             };
             var transactionDetailDataSet = SqlHelper.ExecuteDataset(_connectionString, StoredProcedures.Report.USPREPORTPROJECTRECEIVABLES, SqlObject.Parameters);
-            foreach (DataRow expenseDataRow in transactionDetailDataSet.Tables[0].Rows)
+            foreach (DataRow expenseDataRow in transactionDetailDataSet.Tables[0].DefaultView.ToTable().Rows)
             {
                 ProjectReceivables reportEntity = new ProjectReceivables();
                 try
@@ -644,6 +644,7 @@ namespace DHSDAL
                     reportEntity.SubCategory = expenseDataRow["FGTCategoryName2"].ToString();
                     reportEntity.TransactionAmount = Convert.ToDecimal(expenseDataRow["TransactionAmount"].ToString());
                     reportEntity.RelatedTrans = expenseDataRow["RelatedTrans"].ToString();
+                    reportEntity.StatusName = expenseDataRow["StatusName"].ToString();
                     reportEntity.OtherBatchNumber = expenseDataRow["OtherBatchNumber"].ToString();
                     reportEntity.CorrectAmount = Convert.ToDecimal(expenseDataRow["CorrectAmount"].ToString());
                     reportEntity.ReceivablesDrawNextYear = Convert.ToDecimal(expenseDataRow["ReceivablesDrawNextYear"].ToString());
