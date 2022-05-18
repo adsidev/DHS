@@ -385,6 +385,7 @@
     <Content Include="Scripts\respond.js" />
     <Content Include="Scripts\respond.min.js" />
     <Content Include="Views\Report\frmDERSummaryReport.ascx" />
+    <Content Include="Views\Report\frmDifferenceRevenueExpenseTransactions.ascx" />
     <Content Include="Views\Report\frmProjectSummariesReport.ascx" />
     <Content Include="Views\Report\frmReceivableReport.ascx" />
     <Content Include="Views\Report\frmDHSSummaryReport.ascx" />
@@ -527,6 +528,7 @@
     <Content Include="Views\Expense\_viewPriorYearTransactionDetail.cshtml" />
     <Content Include="Views\Expense\_editPriorYearTransactionDetail.cshtml" />
     <Content Include="Views\Expense\EditPriorYearTransactionDetail.cshtml" />
+    <Content Include="Views\Report\ManageDifferenceRevenueExpenseTransactions.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

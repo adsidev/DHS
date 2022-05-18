@@ -58,11 +58,11 @@
                                             </td>
                                         </tr>
                                         @*<tr>
-                                            <td headers="Action" style="text-align:left;"> <b><u>@Html.ActionLink("Summary FY Federal Receivables D.E.R.  Report", "ManageDERSummaryReport", new { controller = "Report" })</u></b></td>
-                                            <td style="text-align:left;">
-                                                Summary report of Reconciled Draws, Expenses and Revenues for all projects by fiscal year.
-                                            </td>
-                                        </tr>*@
+            <td headers="Action" style="text-align:left;"> <b><u>@Html.ActionLink("Summary FY Federal Receivables D.E.R.  Report", "ManageDERSummaryReport", new { controller = "Report" })</u></b></td>
+            <td style="text-align:left;">
+                Summary report of Reconciled Draws, Expenses and Revenues for all projects by fiscal year.
+            </td>
+        </tr>*@
                                         <tr>
                                             <td headers="Action" style="text-align:left;"> <b><u>@Html.ActionLink("Detailed Receivables Report for all Projects", "ManageReceivablesReport", new { controller = "Report" })</u></b></td>
                                             <td style="text-align:left;">
@@ -72,6 +72,12 @@
                                         <tr>
                                             <td headers="Action" style="text-align:left;"> <b><u>@Html.ActionLink("Reconciled Project Summaries Report", "ManageProjectSummaries", new { controller = "Report" })</u></b></td>
                                             <td style="text-align:left;">
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td headers="Action" style="text-align:left;"> <b><u>@Html.ActionLink("Difference Revenue Vs Expense Transactions", "ManageDifferenceRevenueExpenseTransactions", new { controller = "Report" })</u></b></td>
+                                            <td style="text-align:left;">
+                                                Difference Report between Revenue Transactions to Total Expense Transactions for that Revenue Transaction.
                                             </td>
                                         </tr>
                                     </tbody>
