@@ -139,6 +139,7 @@
                                             string BatchNumber = string.Empty;}
                                         @{foreach (var item in Model.reportEntities)
                                             {
+                                                DraDownAmountTotal = DraDownAmountTotal + item.DrawDownAmount;
                                                 if (item.StatusId != 14)
                                                 {
                                                     if (item.CorrectAmount > 0)
@@ -195,18 +196,8 @@
                                                     </td>
                                                     <td nowrap>
                                                         @item.CFDA
-                                                    </td>
-                                                    @if (BatchNumber == item.BatchNumber)
-                                                    {
-                                                        <td nowrap>&nbsp;</td>
-                                                        <td nowrap>&nbsp;</td>
-                                                        <td nowrap>&nbsp;</td>
-                                                        <td nowrap>&nbsp;</td>
-                                                        <td nowrap>&nbsp;</td>
-                                                    }
-                                                    else
-                                                    {
-                                                        DraDownAmountTotal = DraDownAmountTotal + item.DrawDownAmount;
+                                                    
+                                                        
                                                         <td nowrap>
                                                             @string.Format("{0:C}", item.DrawDownAmount)
                                                         </td>
@@ -222,7 +213,6 @@
                                                         <td nowrap>
                                                             @item.DatePosted
                                                         </td>
-                                                    }
                                                     <td nowrap style="text-align:left">
                                                         @item.Remarks
                                                     </td>
@@ -233,7 +223,7 @@
                                         <tr>
                                             <td colspan="4"><b>Transaction Amount Total:</b></td>
                                             <td>@string.Format("{0:C}", TransactionAmountTotal)</td>
-                                            <td colspan="9" style="text-align:right;"><b>Drawn Amount Total:</b></td>
+                                            <td colspan="10" style="text-align:right;"><b>Drawn Amount Total:</b></td>
                                             <td>@string.Format("{0:C}", DraDownAmountTotal)</td>
                                             <td colspan="6"></td>
                                         </tr>
@@ -374,6 +364,9 @@
                                         </tr>
                                         <tr>
                                             <th nowrap>
+                                                Status
+                                            </th>
+                                            <th nowrap>
                                                 Date
                                             </th>
                                             <th nowrap>
@@ -390,12 +383,6 @@
                                             </th>
                                             <th nowrap>
                                                 Correct Amount
-                                            </th>
-                                            <th nowrap>
-                                                Draw Next Year
-                                            </th>
-                                            <th nowrap>
-                                                Draw Pending
                                             </th>
                                             <th nowrap>
                                                 Related Trans
@@ -459,6 +446,9 @@
                                                 }
                                                 <tr>
                                                     <td nowrap>
+                                                        @item.StatusName
+                                                    </td>
+                                                    <td nowrap>
                                                         @item.ExpenseDepositDate
                                                     </td>
                                                     <td nowrap>
@@ -475,12 +465,6 @@
                                                     </td>
                                                     <td nowrap>
                                                         @string.Format("{0:C}", item.CorrectAmount)
-                                                    </td>
-                                                    <td nowrap>
-                                                        @string.Format("{0:C}", item.ReceivablesDrawNextYear)
-                                                    </td>
-                                                    <td nowrap>
-                                                        @string.Format("{0:C}", item.ReceivablesDrawPending)
                                                     </td>
                                                     <td nowrap>
                                                         @item.RelatedTrans
@@ -543,7 +527,7 @@
                                             }
                                         }
                                         <tr>
-                                            <td colspan="4"><b>Transaction Amount Total:</b></td>
+                                            <td colspan="5"><b>Transaction Amount Total:</b></td>
                                             <td>@string.Format("{0:C}", RTransactionAmountTotal)</td>
                                             <td colspan="14" style="text-align:right;">&nbsp;</td>
                                         </tr>
@@ -637,7 +621,7 @@
                                         }
                                         @{foreach (var item in Model.projectDueFrom)
                                             {
-                                                DnSubtotalProject = "Draws Not Found - " + item.DrawProjectName + " Sub-Total:";
+                                                DnSubtotalProject = "Draws Research - " + item.DrawProjectName + " Sub-Total:";
                                                 if (item.CorrectAmount > 0)
                                                 {
                                                     ppnDRTransactionAmountTotal = ppnDRTransactionAmountTotal + item.CorrectAmount;
@@ -756,7 +740,7 @@
                                             <td colspan="16" style="text-align:right;">&nbsp;</td>
                                         </tr>
                                         <tr>
-                                            <td colspan="4"><b>Draws Not Found Total:</b></td>
+                                            <td colspan="4"><b>Draws Research Total:</b></td>
                                             <td>@string.Format("{0:C}", ppnDRTransactionAmountTotal)</td>
                                             <td colspan="16" style="text-align:right;">&nbsp;</td>
                                         </tr>

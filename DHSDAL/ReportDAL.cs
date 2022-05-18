@@ -196,7 +196,8 @@ namespace DHSDAL
                     reportRequest.ProjectId,
             };
             var transactionDetailDataSet = SqlHelper.ExecuteDataset(_connectionString, StoredProcedures.Report.USPGETFGTPROJECTRECEIBABLES, SqlObject.Parameters);
-            foreach (DataRow expenseDataRow in transactionDetailDataSet.Tables[0].Rows)
+            transactionDetailDataSet.Tables[0].DefaultView.Sort = "StatusName";
+            foreach (DataRow expenseDataRow in transactionDetailDataSet.Tables[0].DefaultView.ToTable().Rows)
             {
                 ProjectReceivables reportEntity = new ProjectReceivables();
                 try
@@ -221,6 +222,7 @@ namespace DHSDAL
                     reportEntity.TransactionNumber = expenseDataRow["TransactionNumber"].ToString();
                     reportEntity.Fund = expenseDataRow["Fund"].ToString();
                     reportEntity.VendorName = expenseDataRow["VendorName"].ToString();
+                    reportEntity.StatusName = expenseDataRow["StatusName"].ToString();
                     reportEntity.DepartmentName = expenseDataRow["DepartmentName"].ToString();
                     reportEntity.OrgName = expenseDataRow["OrgName"].ToString();
                     reportEntity.ObjectName = expenseDataRow["ObjectName"].ToString();
