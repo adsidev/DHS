@@ -43,6 +43,7 @@ namespace DHSEntities
         public string DepartmentName { get; set; }
         public string OrgName { get; set; }
         public string ObjectName { get; set; }
+        public string StatusName { get; set; }
         public string ProjectName { get; set; }
         public string CFDA { get; set; }
         public decimal DrawDownAmount { get; set; }
