@@ -9,6 +9,7 @@
     @Html.Partial("_menuCRPayments");
 
 }
+<title>@ViewBag.Title</title>
 <form method="post" action="Users" name="frmUser" id="frmUser">
     <div class="tab-pane active" id="dashboard">
         <div class="container-fluid">
@@ -99,7 +100,7 @@
     </div>
 </form>
 <script type="text/javascript">
-    
+
     function OpenCreateUser(userId) {
         var options = { "backdrop": "static", keyboard: true };
         $.ajax({
