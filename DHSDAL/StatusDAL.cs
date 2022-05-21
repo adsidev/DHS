@@ -30,7 +30,7 @@ namespace DHSDAL
                 try
                 {
                     statusEntity.StatusId = Convert.ToInt32(expenseDataRow["StatusId"]);
-                    statusEntity.StatusName = expenseDataRow["Status"].ToString();
+                    statusEntity.StatusName = expenseDataRow["StatusName"].ToString();
                 }
                 catch (Exception exception)
                 {
