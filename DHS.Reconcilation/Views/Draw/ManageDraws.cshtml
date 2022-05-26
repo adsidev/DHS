@@ -55,6 +55,12 @@
                                         @Html.TextBoxFor(m => m.drawEntity.BatchNumber, htmlAttributes: new { @id = "BatchNumber", @class = "form-control mrp_modalselect" })
                                     </div>
                                 </div>
+                                <div class="form-group col-lg-2 col-xs-12 col-sm-7">
+                                    <label for="SearchOn">Drawn&nbsp;Amount:</label>
+                                    <div class="form_modal">
+                                        @Html.TextBoxFor(m => m.drawEntity.DrawAmount, htmlAttributes: new { @id = "DrawAmount", @class = "form-control mrp_modalselect" })
+                                    </div>
+                                </div>
                                 <div class="form-group col-lg-1 col-xs-12 col-sm-7">
                                     @if (Model.rolePermissionEntity.ViewBit)
                                     {

@@ -48,6 +48,7 @@ namespace DHS.Reconcilation.Controllers
             drawEntity.FiscalYearId = 0;
             drawEntity.ProjectName = string.Empty;
             drawEntity.BatchNumber = string.Empty;
+            drawEntity.DrawAmount = 0;
             if (Common.GetSession("DAssignedTo") != "")
                 drawEntity.AssignedTo = Convert.ToInt32(Common.GetSession("DAssignedTo"));
 
@@ -63,6 +64,9 @@ namespace DHS.Reconcilation.Controllers
             if (Common.GetSession("DBatchNumber") != "")
                 drawEntity.BatchNumber = Common.GetSession("DBatchNumber");
 
+            if (Common.GetSession("DDrawAmount") != "")
+                drawEntity.DrawAmount = Convert.ToDecimal(Common.GetSession("DDrawAmount"));
+            
             drawRequest.drawEntity = drawEntity;
             string url = strBaseURL + "Draw/GetDraws";
             client.BaseAddress = new Uri(url);
@@ -109,6 +113,7 @@ namespace DHS.Reconcilation.Controllers
             drawEntity.FiscalYearId = 0;
             drawEntity.ProjectName = string.Empty;
             drawEntity.BatchNumber = string.Empty;
+            drawEntity.DrawAmount = 0;
 
             if (Request["AssignedTo"] != "")
                 drawEntity.AssignedTo = Convert.ToInt32(Request["AssignedTo"]);
@@ -124,12 +129,17 @@ namespace DHS.Reconcilation.Controllers
 
             if (Request["drawEntity.BatchNumber"] != "")
                 drawEntity.BatchNumber = Request["drawEntity.BatchNumber"];
+
+
+            if (Request["drawEntity.DrawAmount"] != "")
+                drawEntity.DrawAmount = Convert.ToDecimal(Request["drawEntity.DrawAmount"]);
             
             Common.AddSession("DAssignedTo", drawEntity.AssignedTo.ToString());
             Common.AddSession("DStatusId", drawEntity.StatusId.ToString());
             Common.AddSession("DProjectName", drawEntity.ProjectName.ToString());
             Common.AddSession("DBatchNumber", drawEntity.BatchNumber.ToString());
             Common.AddSession("DFiscalYearId", drawEntity.FiscalYearId.ToString());
+            Common.AddSession("DDrawAmount", drawEntity.DrawAmount.ToString());
             //if (pageIndex == 1)
             //{
             //    if (Common.GetSession("DPageIndex") != "")

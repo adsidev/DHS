@@ -32,7 +32,8 @@ namespace DHSDAL
                 drawRequest.drawEntity.AssignedTo,
                 drawRequest.drawEntity.FiscalYearId,
                 drawRequest.drawEntity.ProjectName,
-                drawRequest.drawEntity.BatchNumber
+                drawRequest.drawEntity.BatchNumber,
+                drawRequest.drawEntity.DrawAmount,
             };
             var drawDataSet= SqlHelper.ExecuteDataset(_connectionString, StoredProcedures.Draw.USPGETDRAWS, SqlObject.Parameters);
             foreach (DataRow drawDataRow in drawDataSet.Tables[0].Rows)
