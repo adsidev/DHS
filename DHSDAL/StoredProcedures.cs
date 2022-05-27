@@ -202,6 +202,7 @@ namespace DHSDAL
             public const string USPGETREVENUETRANSACTIONFORREPORT = "sp_GetRevenueTransactionForReport";
             public const string USPGETREVENUETRANSACTIONBYPROJECTIDFORREPORT = "sp_GetRevenueTransactionByProjectIdForReport";
             public const string USPGETDRAWSBYPROJECTID = "sp_GetDrawsByProjectId";
+            public const string USPGETFGTPRIORYEAREXPENSETRANSACTIONS = "sp_GetFGTReportPriorYearExpenseTransactions";
         }
 
         public class Payroll

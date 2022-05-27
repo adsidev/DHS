@@ -196,23 +196,23 @@
                                                     </td>
                                                     <td nowrap>
                                                         @item.CFDA
-                                                    
-                                                        
-                                                        <td nowrap>
-                                                            @string.Format("{0:C}", item.DrawDownAmount)
-                                                        </td>
-                                                        <td nowrap>
-                                                            @item.DrawDownDate
-                                                        </td>
-                                                        <td nowrap>
-                                                            @item.BatchNumber
-                                                        </td>
-                                                        <td nowrap>
-                                                            @item.CashReceipt
-                                                        </td>
-                                                        <td nowrap>
-                                                            @item.DatePosted
-                                                        </td>
+
+
+                                                    <td nowrap>
+                                                        @string.Format("{0:C}", item.DrawDownAmount)
+                                                    </td>
+                                                    <td nowrap>
+                                                        @item.DrawDownDate
+                                                    </td>
+                                                    <td nowrap>
+                                                        @item.BatchNumber
+                                                    </td>
+                                                    <td nowrap>
+                                                        @item.CashReceipt
+                                                    </td>
+                                                    <td nowrap>
+                                                        @item.DatePosted
+                                                    </td>
                                                     <td nowrap style="text-align:left">
                                                         @item.Remarks
                                                     </td>
@@ -229,7 +229,7 @@
                                         </tr>
                                     </tbody>
                                 </table>
-                                
+
                                 <table class="table table-bordered table-striped">
                                     <tr><td>&nbsp;</td></tr>
                                 </table>
@@ -353,7 +353,7 @@
                                         </tr>
                                     </tbody>
                                 </table>
-                                
+
                                 <table class="table table-bordered table-striped">
                                     <tr><td>&nbsp;</td></tr>
                                 </table>
@@ -1172,6 +1172,172 @@
                                     </tbody>
                                 </table>
 
+                                <!-- Prior Year Transactions Start-->
+
+                                <table class="table table-bordered table-striped">
+                                    <tr><td>&nbsp;</td></tr>
+                                </table>
+                                <table class="table table-bordered table-striped">
+                                    <thead>
+                                        <tr>
+                                            <th colspan="19">Prior Year Expense Transactions</th>
+                                        </tr>
+                                        <tr>
+                                            <th nowrap>
+                                                Status
+                                            </th>
+                                            <th nowrap>
+                                                Date
+                                            </th>
+                                            <th nowrap>
+                                                Transaction Number
+                                            </th>
+                                            <th nowrap>
+                                                Category
+                                            </th>
+                                            <th nowrap>
+                                                Sub Category
+                                            </th>
+                                            <th nowrap>
+                                                Transaction Amount
+                                            </th>
+                                            <th nowrap>
+                                                Correct Amount
+                                            </th>
+                                            <th nowrap>
+                                                Related Trans
+                                            </th>
+                                            <th nowrap>
+                                                Other Batch Number
+                                            </th>
+                                            <th nowrap>
+                                                Fund
+                                            </th>
+                                            <th nowrap>
+                                                Vendor
+                                            </th>
+                                            <th nowrap>
+                                                Org
+                                            </th>
+                                            <th nowrap>
+                                                Object
+                                            </th>
+                                            <th nowrap>
+                                                Project
+                                            </th>
+                                            <th nowrap>
+                                                CFDA
+                                            </th>
+                                            <th nowrap>
+                                                Draw Down Amount
+                                            </th>
+                                            <th nowrap>
+                                                Draw Down Date
+                                            </th>
+                                            <th nowrap>
+                                                Batch Number
+                                            </th>
+                                            <th nowrap>
+                                                Cash Receipt
+                                            </th>
+                                            <th nowrap>
+                                                Date Posted
+                                            </th>
+                                            <th nowrap>
+                                                Remarks
+                                            </th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        @{ 
+                                            decimal PRTransactionAmountTotal = 0;}
+                                        @{foreach (var item in Model.priorYearExpenseTransactions)
+                                            {
+                                                if (item.CorrectAmount > 0)
+                                                {
+                                                    PRTransactionAmountTotal = PRTransactionAmountTotal + item.CorrectAmount;
+                                                }
+                                                else
+                                                {
+                                                    PRTransactionAmountTotal = PRTransactionAmountTotal + item.TransactionAmount;
+                                                }
+                                                <tr>
+                                                    <td nowrap>
+                                                        @item.StatusName
+                                                    </td>
+                                                    <td nowrap>
+                                                        @item.ExpenseDepositDate
+                                                    </td>
+                                                    <td nowrap>
+                                                        @item.TransactionNumber
+                                                    </td>
+                                                    <td nowrap>
+                                                        @item.Category
+                                                    </td>
+                                                    <td nowrap>
+                                                        @item.SubCategory
+                                                    </td>
+                                                    <td nowrap>
+                                                        @string.Format("{0:C}", item.TransactionAmount)
+                                                    </td>
+                                                    <td nowrap>
+                                                        @string.Format("{0:C}", item.CorrectAmount)
+                                                    </td>
+                                                    <td nowrap>
+                                                        @item.RelatedTrans
+                                                    </td>
+                                                    <td nowrap>
+                                                        @item.OtherBatchNumber
+                                                    </td>
+                                                    <td nowrap>
+                                                        @item.Fund
+                                                    </td>
+                                                    <td nowrap>
+                                                        @item.VendorName
+                                                    </td>
+                                                    <td>
+                                                        @item.OrgName
+                                                    </td>
+                                                    <td>
+                                                        @item.ObjectName
+                                                    </td>
+                                                    <td nowrap>
+                                                        @item.ProjectName
+                                                    </td>
+                                                    <td nowrap>
+                                                        @item.CFDA
+                                                    </td>
+                                                    <td nowrap>
+                                                            @string.Format("{0:C}", item.DrawDownAmount)
+                                                        </td>
+                                                        <td nowrap>
+                                                            @item.DrawDownDate
+                                                        </td>
+                                                        <td nowrap>
+                                                            @item.BatchNumber
+                                                        </td>
+                                                        <td nowrap>
+                                                            @item.CashReceipt
+                                                        </td>
+                                                        <td nowrap>
+                                                            @item.DatePosted
+                                                        </td>
+                                                    <td nowrap style="text-align:left;">
+                                                        @item.Remarks
+                                                    </td>
+                                                </tr>
+                                            }
+                                        }
+                                        <tr>
+                                            <td colspan="5"><b>Prior Year Expense Transaction Total:</b></td>
+                                            <td>@string.Format("{0:C}", PRTransactionAmountTotal)</td>
+                                            <td colspan="14" style="text-align:right;">&nbsp;</td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+
+                                <!-- Prior Year Transactions End-->
+
                                 <table class="table table-bordered table-striped">
                                     <tr><td>&nbsp;</td></tr>
                                 </table>
@@ -1241,7 +1407,7 @@
                                         </tr>
                                     </tbody>
                                 </table>
-                                
+
                                 <table class="table table-bordered table-striped">
                                     <tr><td>&nbsp;</td></tr>
                                 </table>
@@ -1407,9 +1573,9 @@
                                         </tr>
                                     </tbody>
                                 </table>
-                                
-    <!-- popup -->
-                                
+
+                                <!-- popup -->
+
                                 <div class="modal fade mrp_modalpopup" id="CostReportInvoiceModal">
                                 </div>
                             </div>
