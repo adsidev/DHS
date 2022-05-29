@@ -97,13 +97,19 @@ namespace DHSDAL
 
         public FiscalYearResponse CheckFiscalYear(FiscalYearRequest fiscalYearRequest)
         {
+            FiscalYearEntity fiscalYearEntity = new FiscalYearEntity();
             try
             {
                 SqlObject.Parameters = new object[] {
                 fiscalYearRequest.fiscalYearEntity.FiscalYearId,
                 fiscalYearRequest.fiscalYearEntity.FiscalYear
                 };
-                var intResult = SqlHelper.ExecuteScalar(_connectionString, StoredProcedures.FiscalYear.USPCHECKFISCALYEAR, SqlObject.Parameters);
+                var periodDataSet = SqlHelper.ExecuteDataset(_connectionString, StoredProcedures.FiscalYear.USPCHECKFISCALYEAR, SqlObject.Parameters);
+                
+                foreach (DataRow expenseDataRow in periodDataSet.Tables[0].Rows)
+                {
+                    fiscalYearEntity.FiscaYearCount = Convert.ToInt32(expenseDataRow["FiscaYearCount"]);
+                }
                 fiscalYearResponse.Message = string.Empty;
                 fiscalYearResponse.ErrorMessage = string.Empty;
             }
@@ -112,6 +118,7 @@ namespace DHSDAL
                 fiscalYearResponse.ErrorMessage = ex.Message;
                 fiscalYearResponse.Exception = ex;
             }
+            fiscalYearResponse.fiscalYearEntity = fiscalYearEntity;
             return fiscalYearResponse;
         }
     }

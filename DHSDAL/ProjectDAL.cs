@@ -598,13 +598,18 @@ namespace DHSDAL
 
         public ProjectResponse CheckProjectStatus(ProjectRequest projectRequest)
         {
+            ProjectStatusEntity projectStatusEntity = new ProjectStatusEntity();
             try
             {
                 SqlObject.Parameters = new object[] {
                 projectRequest.projectStatusEntity.ProjectStatusId,
                 projectRequest.projectStatusEntity.ProjectStatus
                 };
-                var intResult = SqlHelper.ExecuteScalar(_connectionString, StoredProcedures.Project.USPCHECKPROJECTSTATUS, SqlObject.Parameters);
+                var periodDataSet = SqlHelper.ExecuteDataset(_connectionString, StoredProcedures.Project.USPCHECKPROJECTSTATUS, SqlObject.Parameters);
+                foreach (DataRow expenseDataRow in periodDataSet.Tables[0].Rows)
+                { 
+                    projectStatusEntity.ProjectStatusCount = Convert.ToInt32(expenseDataRow["ProjectStatusCount"]);
+                }
                 projectResponse.Message = string.Empty;
                 projectResponse.ErrorMessage = string.Empty;
             }
@@ -613,6 +618,7 @@ namespace DHSDAL
                 projectResponse.ErrorMessage = ex.Message;
                 projectResponse.Exception = ex;
             }
+            projectResponse.projectStatusEntity = projectStatusEntity;
             return projectResponse;
         }
     }

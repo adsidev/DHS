@@ -10,5 +10,6 @@ namespace DHSEntities
     {
         public int FiscalYearId { get; set; }
         public string FiscalYear { get; set;}
+        public int FiscaYearCount { get; set; }
     }
 }

@@ -1,8 +1,8 @@
-﻿@model DHSEntities.FiscalYearResponse
+﻿@model DHSEntities.ProjectResponse
 @using DHS.Reconcilation.Models
 
 @{
-    ViewBag.Title = "DHS Reconcilation Application :: Create Fiscal Years";
+    ViewBag.Title = "DHS Reconcilation Application :: Create Project Status";
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 <script src="~/Scripts/jquery-1.10.2.min.js"></script>
@@ -11,7 +11,7 @@
     @Html.Partial("_menuCRPayments");
 }
 
-@using (Html.BeginForm("CreateFiscalYear", "FiscalYear", FormMethod.Post, new { @id = "frmFiscalYear" }))
+@using (Html.BeginForm("CreateProjectStatus", "ProjectStatus", FormMethod.Post, new { @id = "frmStatus" }))
 {
 
     <title>@ViewBag.Title</title>
@@ -19,7 +19,7 @@
         <div class="container-fluid">
             <!-- top tiles -->
             <div class="mrp_content">
-                <h2>Create Fiscal Year Information</h2>
+                <h2>Create Project Status Information</h2>
 
                 <div class="row mra_createcost_report_payment">
                     <div class="col-lg-6">
@@ -27,12 +27,12 @@
                         <div class="row">
                             <div class="col-lg-4 col-xs-12 col-sm-4 col-md-4">
                                 <div class="form_modal">
-                                    <label>Fiscal&nbsp;Year</label>
+                                    <label>Project Status</label>
                                 </div>
                             </div>
                             <div class="col-lg-8 col-xs-12 col-sm-8 col-md-8">
                                 <div class="form_modal">
-                                    @Html.TextBoxFor(m => m.fiscalYearEntity.FiscalYear, htmlAttributes: new { @id = "FiscalYear", @class = "form-control mrp_modalselect" })
+                                    @Html.TextBoxFor(m => m.projectStatusEntity.ProjectStatus, htmlAttributes: new { @id = "ProjectStatus", @class = "form-control mrp_modalselect" })
                                 </div>
                             </div>
                         </div>
@@ -43,7 +43,7 @@
 
 
                 <div class="modal-footer">
-                    <input type="submit" id="btnSubmit" class="btn btn-primary btn-updated" onclick="return SubmitValue()" value="Save Changes" />
+                    <input type="submit" id="btnSubmit" class="btn btn-primary btn-updated" onclick="return SubmitValue()" value="Save Changes" title="Save Project Status Information"/>
                 </div>
             </div>
         </div>
@@ -51,34 +51,34 @@
 
     <script type="text/javascript">
         var IsExists = false;
-          var IsExists = false;
         function SubmitValue() {
-            if (document.getElementById("FiscalYear").value == "") {
-                alert("Please enter fiscal year.");
-                document.getElementById("FiscalYear").focus();
+            if (document.getElementById("ProjectStatus").value == "") {
+                alert("Please enter project status.");
+                document.getElementById("ProjectStatus").focus();
                 return false;
             }
             else {
-                var fiscalYearEntity = {
-                    FiscalYearId: document.getElementById("FiscalYearId").value,
-                    FiscalYear: document.getElementById("FiscalYear").value
+                var projectStatusEntity = {
+                    ProjectStatusId: 0,
+                    ProjectStatus: document.getElementById("ProjectStatus").value
                 };
-                var fiscalYearRequest = {
-                    fiscalYearEntity: fiscalYearEntity
+                var statusRequest = {
+                    projectStatusEntity: projectStatusEntity
                 };
 
                 $.ajax({
-                    url: "/FiscalYear/CheckFiscalYear",
+                    url: "/ProjectStatus/CheckProjectStatus",
                     type: "POST",
-                    data: fiscalYearRequest,
+                    data: statusRequest,
                     dataType: 'json',
                     success: function (result) {
-                        if (result.fiscalYearEntity.FiscaYearCount != 0) {
-                            alert("This Fiscal Year is already exists in the System. Please enter the other one.");
+                        if (result.projectStatusEntity.ProjectStatusCount != 0) {
+                            alert("This project status is already exists in the System. Please enter the other one.");
                             return false;
                         }
                         else {
-                            IsExists = true;
+                              IsExists = true;
+                            //SaveValues();
                         }
                     },
                     complete: function () {
@@ -92,22 +92,22 @@
         }
 
         function SaveValues() {
-            var fiscalYearEntity = {
-                FiscalYearId: 0,
-                FiscalYear: document.getElementById("FiscalYear").value,
+            var projectStatusEntity = {
+                ProjectStatusId: 0,
+                ProjectStatus: document.getElementById("ProjectStatus").value,
                 ModifiedBy:@Common.GetSession("UserID"),
             };
-            var fiscalYearRequest = {
-                fiscalYearEntity: fiscalYearEntity
+            var projectRequest = {
+                projectStatusEntity: projectStatusEntity
             };
 
             $.ajax({
-                url: "/FiscalYear/SaveFiscalYear",
+                url: "/ProjectStatus/SaveProjectStatus",
                 type: "POST",
-                data: fiscalYearRequest,
+                data: projectRequest,
                 dataType: 'json',
                 success: function (result) {
-                    window.location.reload();
+                    location.href = "ProjectStatus/ManageProjectStatus";
                 },
                 complete: function () {
 
@@ -116,7 +116,7 @@
         }
 
         $(document).ready(function () {
-            $('#mra_subliFY').addClass('active');
+            $('#mra_subliPS').addClass('active');
         });
     </script>
 }

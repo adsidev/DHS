@@ -165,6 +165,15 @@
                     </ul>
                 </li>
             }
+            @if (Common.AdminPageHasPermission(18))
+            {
+                <li>
+                    <a href="#">PROJECT STATUS</a>
+                    <ul>
+                        <li id="mra_subliPS">@Html.ActionLink("Project Statuses", "ManageProjectStatus", "ProjectStatus")</li>
+                    </ul>
+                </li>
+            }
         </ul>
     </div>
 </div>

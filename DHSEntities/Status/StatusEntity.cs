@@ -10,5 +10,6 @@ namespace DHSEntities
     {
         public int StatusId { get; set; }
         public string StatusName { get; set; }
+        public int StatusCount { get; set; }
     }
 }

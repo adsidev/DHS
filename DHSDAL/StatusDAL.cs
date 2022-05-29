@@ -97,13 +97,18 @@ namespace DHSDAL
 
         public StatusResponse CheckStatus(StatusRequest statusRequest)
         {
+            StatusEntity statusEntity = new StatusEntity();
             try
             {
                 SqlObject.Parameters = new object[] {
                 statusRequest.statusEntity.StatusId,
                 statusRequest.statusEntity.StatusName
                 };
-                var intResult = SqlHelper.ExecuteScalar(_connectionString, StoredProcedures.Status.USPCHECKSTATUS, SqlObject.Parameters);
+                var periodDataSet = SqlHelper.ExecuteDataset(_connectionString, StoredProcedures.Status.USPCHECKSTATUS, SqlObject.Parameters);
+                foreach (DataRow expenseDataRow in periodDataSet.Tables[0].Rows)
+                {
+                    statusEntity.StatusCount = Convert.ToInt32(expenseDataRow["StatusCount"]);
+                }
                 statusResponse.Message = string.Empty;
                 statusResponse.ErrorMessage = string.Empty;
             }
@@ -112,6 +117,7 @@ namespace DHSDAL
                 statusResponse.ErrorMessage = ex.Message;
                 statusResponse.Exception = ex;
             }
+            statusResponse.statusEntity = statusEntity;
             return statusResponse;
         }
     }

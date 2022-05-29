@@ -72,12 +72,12 @@
                     data: statusRequest,
                     dataType: 'json',
                     success: function (result) {
-                        if (result.statusEntity.FiscaYearCount != 0) {
+                        if (result.statusEntity.StatusCount != 0) {
                             alert("This status is already exists in the System. Please enter the other one.");
                             return false;
                         }
                         else {
-                            SaveValues();
+                            IsExists = true;
                         }
                     },
                     complete: function () {
@@ -85,7 +85,8 @@
                     }
                 });
             }
-            SaveValues();
+            if (IsExists)
+                SaveValues();
             return true;
         }
 
@@ -114,7 +115,7 @@
         }
 
         $(document).ready(function () {
-            $('#mra_subliSC').addClass('active');
+            $('#mra_subliS').addClass('active');
         });
     </script>
 }

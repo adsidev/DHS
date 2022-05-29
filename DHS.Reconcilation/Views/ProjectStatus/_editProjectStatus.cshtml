@@ -1,13 +1,13 @@
-﻿@model DHSEntities.StatusResponse
+﻿@model DHSEntities.ProjectResponse
 @using DHS.Reconcilation.Models
 @{
-    ViewBag.Title = "Edit Status";
+    ViewBag.Title = "Edit Project Status";
 }
-@Html.HiddenFor(m => m.statusEntity.StatusId, htmlAttributes: new { @id = "StatusId" })
+@Html.HiddenFor(m => m.projectStatusEntity.ProjectStatusId, htmlAttributes: new { @id = "ProjectStatusId" })
 <div class="modal-dialog" role="document">
     <div class="modal-content">
         <div class="modal-header">
-            <h5 class="modal-title" id="exampleModalLabel">Edit Status Information</h5>
+            <h5 class="modal-title" id="exampleModalLabel">Edit Project Status Information</h5>
             <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                 <span aria-hidden="true">&times;</span>
             </button>
@@ -23,12 +23,12 @@
                             <div class="row">
                                 <div class="col-lg-2 col-xs-12 col-sm-3 col-md-3">
                                     <div class="form_modal">
-                                        <label>Status&nbsp;Name</label>
+                                        <label>Project&nbsp;Status</label>
                                     </div>
                                 </div>
                                 <div class="col-lg-10 col-xs-12 col-sm-9 col-md-9">
                                     <div class="form_modal">
-                                        @Html.TextBoxFor(m => m.statusEntity.StatusName, htmlAttributes: new { @class = "form-control mrp_modalselect", @id = "StatusName" })
+                                        @Html.TextBoxFor(m => m.projectStatusEntity.ProjectStatus, htmlAttributes: new { @class = "form-control mrp_modalselect", @id = "ProjectStatus" })
                                     </div>
                                 </div>
                             </div>
@@ -41,33 +41,33 @@
     <script type="text/javascript">
         var IsExists = false;
         function SubmitValue() {
-            if (document.getElementById("StatusName").value == "") {
-                alert("Please enter fiscal year.");
-                document.getElementById("StatusName").focus();
+            if (document.getElementById("ProjectStatus").value == "") {
+                alert("Please enter project status.");
+                document.getElementById("ProjectStatus").focus();
                 return false;
             }
             else {
-                var statusEntity = {
-                    StatusId: document.getElementById("StatusId").value,
-                    StatusName: document.getElementById("StatusName").value
+                var projectStatusEntity = {
+                    ProjectStatusId: document.getElementById("ProjectStatusId").value,
+                    ProjectStatus: document.getElementById("ProjectStatus").value
                 };
-                var statusRequest = {
-                    statusEntity: statusEntity
+                var projectRequest = {
+                    projectStatusEntity: projectStatusEntity
                 };
 
                 $.ajax({
-                    url: "/Status/CheckStatus",
+                    url: "/ProjectStatus/CheckProjectStatus",
                     type: "POST",
-                    data: statusRequest,
+                    data: projectRequest,
                     dataType: 'json',
                     success: function (result) {
-                        alert(result.statusEntity.StatusCount)
-                        if (result.statusEntity.StatusCount == 0) {
-                            IsExists = true;
+                        if (result.projectStatusEntity.ProjectStatusCount != 0) {
+                            alert("This project status is already exists in the System. Please enter the other one.");
+                            return false;
                         }
                         else {
-                            alert("This status is already exists in the System. Please enter the other one.");
-                            return false;
+                            IsExists = true;
+                            //SaveValues();
                         }
                     },
                     complete: function () {
@@ -81,19 +81,19 @@
         }
 
         function SaveValues() {
-            var statusEntity = {
-                StatusId: document.getElementById("StatusId").value,
-                StatusName: document.getElementById("StatusName").value,
+            var projectStatusEntity = {
+                ProjectStatusId: document.getElementById("ProjectStatusId").value,
+                ProjectStatus: document.getElementById("ProjectStatus").value,
                 ModifiedBy:@Common.GetSession("UserID"),
             };
-            var statusRequest = {
-                statusEntity: statusEntity
+            var projectRequest = {
+                projectStatusEntity: projectStatusEntity
             };
 
             $.ajax({
-                url: "/Status/SaveStatus",
+                url: "/ProjectStatus/SaveProjectStatus",
                 type: "POST",
-                data: statusRequest,
+                data: projectRequest,
                 dataType: 'json',
                 success: function (result) {
                     window.location.reload();

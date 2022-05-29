@@ -5,25 +5,25 @@ using System.Web.Http;
 
 namespace DHS.Reconcilation.Areas
 {
-    [RoutePrefix("Project")]
-    public class ProjectController : ApiController
+    [RoutePrefix("ProjectStatus")]
+    public class ProjectStatusController : ApiController
     {
         IProjectRepository ProjectRepository;
         ProjectResponse ProjectResponse;
 
-        public ProjectController()
+        public ProjectStatusController()
         {
             ProjectRepository = new ProjectBAL();
             ProjectResponse = new ProjectResponse();
         }
 
-        [HttpPost]
-        [Route("GetProjects")]
-        public ProjectResponse GetProjects(ProjectRequest projectRequest)
+        [HttpGet]
+        [Route("GetProjectStatuses")]
+        public ProjectResponse GetProjectStatuses()
         {
             try
             {
-                ProjectResponse = ProjectRepository.GetProjects(projectRequest);
+                ProjectResponse = ProjectRepository.GetProjectStatuses();
             }
             catch (Exception ex)
             {
@@ -35,12 +35,12 @@ namespace DHS.Reconcilation.Areas
 
 
         [HttpPost]
-        [Route("GetProject")]
-        public ProjectResponse GetProject(ProjectRequest projectRequest)
+        [Route("GetProjectStatus")]
+        public ProjectResponse GetProjectStatus(ProjectRequest projectRequest)
         {
             try
             {
-                ProjectResponse = ProjectRepository.GetProject(projectRequest);
+                ProjectResponse = ProjectRepository.GetProjectStatus(projectRequest);
             }
             catch (Exception ex)
             {
@@ -52,12 +52,12 @@ namespace DHS.Reconcilation.Areas
 
 
         [HttpPost]
-        [Route("SaveProject")]
-        public ProjectResponse SaveProject(ProjectRequest projectRequest)
+        [Route("SaveProjectStatus")]
+        public ProjectResponse SaveProjectStatus(ProjectRequest projectRequest)
         {
             try
             {
-                ProjectResponse = ProjectRepository.SaveProject(projectRequest);
+                ProjectResponse = ProjectRepository.SaveProjectStatus(projectRequest);
             }
             catch (Exception ex)
             {
@@ -68,12 +68,12 @@ namespace DHS.Reconcilation.Areas
         }
 
         [HttpPost]
-        [Route("GetProjectDetails")]
-        public ProjectResponse GetProjectDetails(ProjectRequest projectRequest)
+        [Route("CheckProjectStatus")]
+        public ProjectResponse CheckProjectStatus(ProjectRequest projectRequest)
         {
             try
             {
-                ProjectResponse = ProjectRepository.GetProjectDetails(projectRequest);
+                ProjectResponse = ProjectRepository.CheckProjectStatus(projectRequest);
             }
             catch (Exception ex)
             {
@@ -83,22 +83,5 @@ namespace DHS.Reconcilation.Areas
             return ProjectResponse;
         }
 
-        [HttpPost]
-        [Route("GetProjectResponse")]
-        public ProjectResponse GetProjectResponse(ProjectRequest projectRequest)
-        {
-            try
-            {
-                ProjectResponse = ProjectRepository.GetProjectResponse(projectRequest);
-            }
-            catch (Exception ex)
-            {
-                ProjectResponse.ErrorMessage = ex.Message;
-                ProjectResponse.Exception = ex;
-            }
-            return ProjectResponse;
-        }
-
-        
     }
 }
