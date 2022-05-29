@@ -61,7 +61,6 @@
                     data: statusRequest,
                     dataType: 'json',
                     success: function (result) {
-                        alert(result.statusEntity.StatusCount)
                         if (result.statusEntity.StatusCount == 0) {
                             IsExists = true;
                         }
