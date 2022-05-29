@@ -13,5 +13,9 @@ namespace DHSBAL
         ProjectResponse GetProjectStatus(ProjectRequest projectRequest);
         ProjectResponse SaveProjectStatus(ProjectRequest projectRequest);
         ProjectResponse CheckProjectStatus(ProjectRequest projectRequest);
+        ProjectResponse GetProjectGroups();
+        ProjectResponse GetProjectGroup(ProjectRequest projectRequest);
+        ProjectResponse SaveProjectGroup(ProjectRequest projectRequest);
+        ProjectResponse CheckProjectGroup(ProjectRequest projectRequest);
     }
 }

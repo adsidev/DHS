@@ -130,12 +130,67 @@ namespace DHSBAL
             return ProjectResponse;
         }
 
-
         public ProjectResponse CheckProjectStatus(ProjectRequest projectRequest)
         {
             try
             {
                 ProjectResponse = ProjectDALRepository.CheckProjectStatus(projectRequest);
+            }
+            catch (Exception ex)
+            {
+                ProjectResponse.ErrorMessage = ex.Message;
+                ProjectResponse.Exception = ex;
+            }
+            return ProjectResponse;
+        }
+
+        public ProjectResponse GetProjectGroups()
+        {
+            try
+            {
+                ProjectResponse = ProjectDALRepository.GetProjectGroups();
+            }
+            catch (Exception ex)
+            {
+                ProjectResponse.ErrorMessage = ex.Message;
+                ProjectResponse.Exception = ex;
+            }
+            return ProjectResponse;
+        }
+
+        public ProjectResponse GetProjectGroup(ProjectRequest projectRequest)
+        {
+            try
+            {
+                ProjectResponse = ProjectDALRepository.GetProjectGroup(projectRequest);
+            }
+            catch (Exception ex)
+            {
+                ProjectResponse.ErrorMessage = ex.Message;
+                ProjectResponse.Exception = ex;
+            }
+            return ProjectResponse;
+        }
+
+        public ProjectResponse SaveProjectGroup(ProjectRequest projectRequest)
+        {
+            try
+            {
+                ProjectResponse = ProjectDALRepository.SaveProjectGroup(projectRequest);
+            }
+            catch (Exception ex)
+            {
+                ProjectResponse.ErrorMessage = ex.Message;
+                ProjectResponse.Exception = ex;
+            }
+            return ProjectResponse;
+        }
+
+        public ProjectResponse CheckProjectGroup(ProjectRequest projectRequest)
+        {
+            try
+            {
+                ProjectResponse = ProjectDALRepository.CheckProjectGroup(projectRequest);
             }
             catch (Exception ex)
             {

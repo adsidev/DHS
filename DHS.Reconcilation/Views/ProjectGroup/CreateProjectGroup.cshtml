@@ -1,0 +1,122 @@
+﻿@model DHSEntities.ProjectResponse
+@using DHS.Reconcilation.Models
+
+@{
+    ViewBag.Title = "DHS Reconcilation Application :: Create Project Group";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+<script src="~/Scripts/jquery-1.10.2.min.js"></script>
+@section LeftMenuSection
+{
+    @Html.Partial("_menuCRPayments");
+}
+
+@using (Html.BeginForm("CreateProjectGroup", "ProjectGroup", FormMethod.Post, new { @id = "frmGroup" }))
+{
+
+    <title>@ViewBag.Title</title>
+    <div class="tab-pane active" id="dashboard">
+        <div class="container-fluid">
+            <!-- top tiles -->
+            <div class="mrp_content">
+                <h2>Create Project Group Information</h2>
+
+                <div class="row mra_createcost_report_payment">
+                    <div class="col-lg-6">
+
+                        <div class="row">
+                            <div class="col-lg-4 col-xs-12 col-sm-4 col-md-4">
+                                <div class="form_modal">
+                                    <label>Project Group</label>
+                                </div>
+                            </div>
+                            <div class="col-lg-8 col-xs-12 col-sm-8 col-md-8">
+                                <div class="form_modal">
+                                    @Html.TextBoxFor(m => m.projectGroupEntity.ProjectGroup, htmlAttributes: new { @id = "ProjectGroup", @class = "form-control mrp_modalselect" })
+                                </div>
+                            </div>
+                        </div>
+
+                    </div>
+
+                </div>
+
+
+                <div class="modal-footer">
+                    <input type="submit" id="btnSubmit" class="btn btn-primary btn-updated" onclick="return SubmitValue()" value="Save Changes" title="Save Project Group Information"/>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script type="text/javascript">
+        var IsExists = false;
+        function SubmitValue() {
+            if (document.getElementById("ProjectGroup").value == "") {
+                alert("Please enter project status.");
+                document.getElementById("ProjectGroup").focus();
+                return false;
+            }
+            else {
+                var projectGroupEntity = {
+                    ProjectGroupId: 0,
+                    ProjectGroup: document.getElementById("ProjectGroup").value
+                };
+                var statusRequest = {
+                    projectGroupEntity: projectGroupEntity
+                };
+
+                $.ajax({
+                    url: "/ProjectGroup/CheckProjectGroup",
+                    type: "POST",
+                    data: statusRequest,
+                    dataType: 'json',
+                    success: function (result) {
+                        if (result.projectGroupEntity.ProjectGroupCount != 0) {
+                            alert("This project status is already exists in the System. Please enter the other one.");
+                            return false;
+                        }
+                        else {
+                              IsExists = true;
+                            //SaveValues();
+                        }
+                    },
+                    complete: function () {
+
+                    }
+                });
+            }
+            if (IsExists)
+                SaveValues();
+            return true;
+        }
+
+        function SaveValues() {
+            var projectGroupEntity = {
+                ProjectGroupId: 0,
+                ProjectGroup: document.getElementById("ProjectGroup").value,
+                ModifiedBy:@Common.GetSession("UserID"),
+            };
+            var projectRequest = {
+                projectGroupEntity: projectGroupEntity
+            };
+
+            $.ajax({
+                url: "/ProjectGroup/SaveProjectGroup",
+                type: "POST",
+                data: projectRequest,
+                dataType: 'json',
+                success: function (result) {
+                    location.href = "ProjectGroup/ManageProjectGroup";
+                },
+                complete: function () {
+
+                }
+            });
+        }
+
+        $(document).ready(function () {
+            $('#mra_subliPS').addClass('active');
+        });
+    </script>
+}

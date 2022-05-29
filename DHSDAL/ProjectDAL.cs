@@ -132,7 +132,6 @@ namespace DHSDAL
             return sourceEntities;
         }
 
-
         private List<ProjectGroupEntity> GetProjectGroup()
         {
             var periodDataSet = SqlHelper.ExecuteDataset(_connectionString, StoredProcedures.Project.USPGETPROJECTGROUPS);
@@ -621,5 +620,107 @@ namespace DHSDAL
             projectResponse.projectStatusEntity = projectStatusEntity;
             return projectResponse;
         }
+
+        public ProjectResponse GetProjectGroups()
+        {
+            var periodDataSet = SqlHelper.ExecuteDataset(_connectionString, StoredProcedures.Project.USPGETPROJECTGROUPS);
+            List<ProjectGroupEntity> projectGroupEntities = new List<ProjectGroupEntity>();
+            foreach (DataRow expenseDataRow in periodDataSet.Tables[0].Rows)
+            {
+                ProjectGroupEntity projectGroupEntity = new ProjectGroupEntity();
+                try
+                {
+                    projectGroupEntity.ProjectGroupId = Convert.ToInt32(expenseDataRow["ProjectGroupId"]);
+                    projectGroupEntity.ProjectGroup = expenseDataRow["ProjectGroup"].ToString();
+                }
+                catch (Exception exception)
+                {
+                    projectResponse.ErrorMessage = exception.Message;
+                    projectResponse.Exception = exception;
+                }
+                finally
+                {
+                    projectGroupEntities.Add(projectGroupEntity);
+                }
+            }
+            projectResponse.projectGroupEntities = projectGroupEntities;
+            return projectResponse;
+        }
+
+        public ProjectResponse GetProjectGroup(ProjectRequest projectRequest)
+        {
+            SqlObject.Parameters = new object[] {
+                   projectRequest.projectGroupEntity.ProjectGroupId
+                };
+            var periodDataSet = SqlHelper.ExecuteDataset(_connectionString, StoredProcedures.Project.USPGETPROJECTGROUP, SqlObject.Parameters);
+            ProjectGroupEntity projectGroupEntity = new ProjectGroupEntity();
+            foreach (DataRow expenseDataRow in periodDataSet.Tables[0].Rows)
+            {
+                try
+                {
+                    projectGroupEntity.ProjectGroupId = Convert.ToInt32(expenseDataRow["ProjectGroupId"]);
+                    projectGroupEntity.ProjectGroup = expenseDataRow["ProjectGroup"].ToString();
+                }
+                catch (Exception exception)
+                {
+                    projectResponse.ErrorMessage = exception.Message;
+                    projectResponse.Exception = exception;
+                }
+                finally
+                {
+
+                }
+            }
+            projectResponse.projectGroupEntity = projectGroupEntity;
+            return projectResponse;
+        }
+
+        public ProjectResponse SaveProjectGroup(ProjectRequest projectRequest)
+        {
+            try
+            {
+                SqlObject.Parameters = new object[] {
+                projectRequest.projectGroupEntity.ProjectGroupId,
+                projectRequest.projectGroupEntity.ProjectGroup,
+                projectRequest.projectGroupEntity.ModifiedBy,
+                };
+                var intResult = SqlHelper.ExecuteScalar(_connectionString, StoredProcedures.Project.USPSAVEPROJECTGROUP, SqlObject.Parameters);
+                projectResponse.Message = string.Empty;
+                projectResponse.ErrorMessage = string.Empty;
+            }
+            catch (Exception ex)
+            {
+                projectResponse.ErrorMessage = ex.Message;
+                projectResponse.Exception = ex;
+            }
+            return projectResponse;
+        }
+
+        public ProjectResponse CheckProjectGroup(ProjectRequest projectRequest)
+        {
+            ProjectGroupEntity projectGroupEntity = new ProjectGroupEntity();
+            try
+            {
+                SqlObject.Parameters = new object[] {
+                projectRequest.projectGroupEntity.ProjectGroupId,
+                projectRequest.projectGroupEntity.ProjectGroup
+                };
+                var periodDataSet = SqlHelper.ExecuteDataset(_connectionString, StoredProcedures.Project.USPCHECKPROJECTGROUP, SqlObject.Parameters);
+                foreach (DataRow expenseDataRow in periodDataSet.Tables[0].Rows)
+                {
+                    projectGroupEntity.ProjectGroupCount = Convert.ToInt32(expenseDataRow["ProjectGroupCount"]);
+                }
+                projectResponse.Message = string.Empty;
+                projectResponse.ErrorMessage = string.Empty;
+            }
+            catch (Exception ex)
+            {
+                projectResponse.ErrorMessage = ex.Message;
+                projectResponse.Exception = ex;
+            }
+            projectResponse.projectGroupEntity = projectGroupEntity;
+            return projectResponse;
+        }
+
     }
 }

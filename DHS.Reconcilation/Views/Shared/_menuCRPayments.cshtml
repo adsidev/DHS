@@ -173,6 +173,14 @@
                         <li id="mra_subliPS">@Html.ActionLink("Project Statuses", "ManageProjectStatus", "ProjectStatus")</li>
                     </ul>
                 </li>
+            }@if (Common.AdminPageHasPermission(19))
+            {
+                <li>
+                    <a href="#">PROJECT GROUP</a>
+                    <ul>
+                        <li id="mra_subliPS">@Html.ActionLink("Project Groups", "ManageProjectGroup", "ProjectGroup")</li>
+                    </ul>
+                </li>
             }
         </ul>
     </div>

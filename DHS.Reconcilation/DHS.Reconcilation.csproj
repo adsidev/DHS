@@ -158,6 +158,7 @@
     <Compile Include="App_Start\WebApiConfig.cs" />
     <Compile Include="Areas\AuditReportController.cs" />
     <Compile Include="Areas\FGTCategoryController.cs" />
+    <Compile Include="Areas\ProjectGroupController.cs" />
     <Compile Include="Areas\ProjectStatusController.cs" />
     <Compile Include="Areas\StatusController.cs" />
     <Compile Include="Areas\ImportController.cs" />
@@ -202,6 +203,7 @@
     <Compile Include="Areas\RoleController.cs" />
     <Compile Include="Areas\UserController.cs" />
     <Compile Include="Controllers\FGTCategoryController.cs" />
+    <Compile Include="Controllers\ProjectGroupController.cs" />
     <Compile Include="Controllers\ProjectStatusController.cs" />
     <Compile Include="Controllers\StatusController .cs" />
     <Compile Include="Controllers\PayrollController.cs" />
@@ -535,6 +537,10 @@
     <Content Include="Views\ProjectStatus\_viewProjectStatus.cshtml" />
     <Content Include="Views\ProjectStatus\CreateProjectStatus.cshtml" />
     <Content Include="Views\ProjectStatus\ManageProjectStatus.cshtml" />
+    <Content Include="Views\ProjectGroup\_editProjectGroup.cshtml" />
+    <Content Include="Views\ProjectGroup\_viewProjectGroup.cshtml" />
+    <Content Include="Views\ProjectGroup\CreateProjectGroup.cshtml" />
+    <Content Include="Views\ProjectGroup\ManageProjectGroup.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

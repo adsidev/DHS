@@ -10,5 +10,6 @@ namespace DHSEntities
     {
         public ProjectEntity projectEntity { get; set; }
         public ProjectStatusEntity projectStatusEntity { get; set; }
+        public ProjectGroupEntity projectGroupEntity { get; set; }
     }
 }
