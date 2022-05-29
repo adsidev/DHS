@@ -24,6 +24,8 @@ namespace DHSDAL
         {
             _connectionString = Constant.MRAConnectionString;
             roleResponse = new RoleResponse();
+            roleResponse.ErrorMessage = string.Empty;
+            roleResponse.Message = string.Empty;
         }
 
         public RoleResponse SaveRolePermission(RoleRequest roleRequest)

@@ -7,8 +7,8 @@
 <div class="modal-dialog" role="document">
     <div class="modal-content">
         <div class="modal-header">
-            <h5 class="modal-title" id="exampleModalLabel">Edit Fiscal Year Information</h5>
-            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <h5 class="modal-title" id="exampleModalLabel">Edit Permission Information</h5>
+            <button type="button" class="close" title="Close" data-dismiss="modal" aria-label="Close">
                 <span aria-hidden="true">&times;</span>
             </button>
             <div class="modal-footer mra_edit_footer">
@@ -28,7 +28,7 @@
                                 </div>
                                 <div class="col-lg-10 col-xs-12 col-sm-9 col-md-9">
                                     <div class="form_modal">
-                                        @Html.TextBoxFor(m => m.permissionEntity.PermissionName, htmlAttributes: new { @class = "form-control mrp_modalselect", @id = "PermissionName" })
+                                        @Html.TextBoxFor(m => m.permissionEntity.PermissionName, htmlAttributes: new { @class = "form-control mrp_modalselect", @id = "PermissionName", @ReadOnly="ReadOnly" })
                                     </div>
                                 </div>
                             </div>

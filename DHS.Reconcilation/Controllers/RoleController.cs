@@ -226,7 +226,7 @@ namespace DHS.Reconcilation.Controllers
             if (!Common.SessionExists())
                 return RedirectToAction("Index", "Home");
 
-            string url = strBaseURL + "Permission/GetPermissions";
+            string url = strBaseURL + "Role/GetPermissions";
             client.BaseAddress = new Uri(url);
             HttpResponseMessage responseMessage = await client.GetAsync(url);
 
@@ -258,7 +258,7 @@ namespace DHS.Reconcilation.Controllers
             if (!Common.SessionExists())
                 return RedirectToAction("Index", "Home");
 
-            string url = strBaseURL + "Permission/GetPermission";
+            string url = strBaseURL + "Role/GetPermission";
             client.BaseAddress = new Uri(url);
             RoleRequest statusRequest = new RoleRequest();
             PermissionEntity permissionEntity = new PermissionEntity();
@@ -300,7 +300,7 @@ namespace DHS.Reconcilation.Controllers
 
             permissionEntity.PermissionId = Convert.ToInt32(id);
             statusRequest.permissionEntity = permissionEntity;
-            string url = strBaseURL + "Permission/GetPermission";
+            string url = strBaseURL + "Role/GetPermission";
             client.BaseAddress = new Uri(url);
 
             HttpResponseMessage responseMessage = await client.PostAsJsonAsync(url, statusRequest);
@@ -339,7 +339,7 @@ namespace DHS.Reconcilation.Controllers
 
             permissionEntity.PermissionId = Convert.ToInt32(id);
             statusRequest.permissionEntity = permissionEntity;
-            string url = strBaseURL + "Permission/GetPermission";
+            string url = strBaseURL + "Role/GetPermission";
             client.BaseAddress = new Uri(url);
 
             HttpResponseMessage responseMessage = await client.PostAsJsonAsync(url, statusRequest);

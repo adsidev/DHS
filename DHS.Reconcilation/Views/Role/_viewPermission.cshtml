@@ -10,10 +10,10 @@
                 View Permission Information
             </h5>
 
-            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close" title="Close">
                 <span aria-hidden="true">&times;</span>
             </button>
-            <span class="mrp_modaledit"> <strong><i class="fa fa-pencil" aria-hidden="true" onclick="EditPermission(@Model.permissionEntity.PermissionId)"></i></strong></span>
+            <span class="mrp_modaledit"> <strong><i class="fa fa-pencil" aria-hidden="true" onclick="EditPermission(@Model.permissionEntity.PermissionId)" title="Edit Permission Information"></i></strong></span>
         </div>
         <div class="modal-body">
             <div class="mrp_modalcontent">
@@ -57,7 +57,7 @@
         var options = { "backdrop": "static", keyboard: true };
         $.ajax({
             type: "GET",
-            url: "/Permission/EditPermission/" + PermissionId,
+            url: "/Role/EditPermission/" + PermissionId,
             dataType: "html",
             success: function (evt) {
                 $('#PermissionModal').html(evt);

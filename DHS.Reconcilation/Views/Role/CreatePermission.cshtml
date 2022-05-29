@@ -54,7 +54,8 @@
                 </div>
 
                 <div class="modal-footer">
-                    <input type="submit" id="btnSubmit" class="btn btn-primary btn-updated" onclick="return SubmitValue()" value="Save Changes" />
+                    <input type="submit" id="btnSubmit" class="btn btn-primary btn-updated" onclick="return SubmitValue()" value="Save Changes" title="Save Permission Information" />
+                    <input type="button" id="btnCancel" class="btn btn-primary btn-updated" onclick="location.href='/Role/ManagePermission'" value="Cancel" title="Cancel save Permission Information" />
                 </div>
             </div>
         </div>
@@ -78,7 +79,7 @@
                 };
 
                 $.ajax({
-                    url: "/Permission/CheckPermission",
+                    url: "/Role/CheckPermission",
                     type: "POST",
                     data: roleRequest,
                     dataType: 'json',
@@ -112,7 +113,7 @@
             };
 
             $.ajax({
-                url: "/Permission/SavePermission",
+                url: "/Role/SavePermission",
                 type: "POST",
                 data: roleRequest,
                 dataType: 'json',
