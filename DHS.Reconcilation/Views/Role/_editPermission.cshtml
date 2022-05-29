@@ -69,7 +69,7 @@
                 };
 
                 $.ajax({
-                    url: "/Permission/CheckPermission",
+                    url: "/Role/CheckPermission",
                     type: "POST",
                     data: roleRequest,
                     dataType: 'json',
@@ -103,7 +103,7 @@
             };
 
             $.ajax({
-                url: "/Permission/SavePermission",
+                url: "/Role/SavePermission",
                 type: "POST",
                 data: roleRequest,
                 dataType: 'json',
