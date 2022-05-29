@@ -16,7 +16,6 @@ namespace DHS.Reconcilation.Controllers
     {
         HttpClient client;
         readonly string strBaseURL;
-        //The URL of the WEB API Service
 
         public RevenueController()
         {
@@ -764,7 +763,6 @@ namespace DHS.Reconcilation.Controllers
             }
         }
 
-
         public async Task<ActionResult> ManageRevenueTransactions(int? page)
         {
             if (!Common.SessionExists())
@@ -1303,6 +1301,44 @@ namespace DHS.Reconcilation.Controllers
             revenueTransactionEntity.RevenueTransactionId = Convert.ToInt64(id);
             revenueRequest.revenueTransactionEntity = revenueTransactionEntity;
             string url = strBaseURL + "Revenue/GetExpenseRevenueTransactions";
+            client.BaseAddress = new Uri(url);
+
+            HttpResponseMessage responseMessage = await client.PostAsJsonAsync(url, revenueRequest);
+
+            if (responseMessage.IsSuccessStatusCode)
+            {
+                var responseData = responseMessage.Content.ReadAsStringAsync().Result;
+                revenueResponse = JsonConvert.DeserializeObject<RevenueResponse>(responseData);
+                if (revenueResponse.Message == string.Empty && revenueResponse.ErrorMessage == string.Empty)
+                {
+                    string PageName = "Revenues";
+                    revenueResponse.rolePermissionEntity = Common.PagePermissions(PageName);
+                    return View(revenueResponse);
+                }
+                else
+                {
+                    TempData["LoginFailure"] = revenueResponse.Message;
+                    return RedirectToAction("Error", "Home");
+                }
+            }
+            else
+            {
+                TempData["LoginFailure"] = responseMessage.ToString();
+                return RedirectToAction("Error", "Home");
+            }
+        }
+
+        public async Task<ActionResult> ManageRevenueExpenseCompare()
+        {
+            if (!Common.SessionExists())
+                return RedirectToAction("Index", "Home");
+
+            RevenueResponse revenueResponse = new RevenueResponse();
+
+            RevenueRequest revenueRequest = new RevenueRequest();
+            RevenueTransactionEntity revenueTransactionEntity = new RevenueTransactionEntity();
+            revenueRequest.revenueTransactionEntity = revenueTransactionEntity;
+            string url = strBaseURL + "Revenue/GetRevenueExpenseCompare";
             client.BaseAddress = new Uri(url);
 
             HttpResponseMessage responseMessage = await client.PostAsJsonAsync(url, revenueRequest);

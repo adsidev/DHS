@@ -1573,5 +1573,68 @@ namespace DHSDAL
             revenueResponse.priorYearTransactionDetailEntities = priorYearTransactionDetailEntities;
             return revenueResponse;
         }
+
+        public RevenueResponse GetRevenueExpenseCompare(RevenueRequest revenueRequest)
+        {
+            List<RevenueExpenseCompareEntity> revenueExpenseCompareEntities = new List<RevenueExpenseCompareEntity>();
+
+            var drawDataSet = SqlHelper.ExecuteDataset(_connectionString, StoredProcedures.Revenue.USPREPORTDIFFREVENUEEXPENSETRANSACTION);
+            foreach (DataRow expenseDataRow in drawDataSet.Tables[0].Rows)
+            {
+                RevenueExpenseCompareEntity revenueExpenseCompareEntity = new RevenueExpenseCompareEntity();
+                try
+                {
+                    revenueExpenseCompareEntity.TransactionNumber = expenseDataRow["RevenueTransactionNumber"].ToString();
+                    revenueExpenseCompareEntity.Remarks = expenseDataRow["RevenueTranscationDescription"].ToString();
+                    revenueExpenseCompareEntity.DrawDepositAmount = Convert.ToDecimal(expenseDataRow["RevenueTransactionAmount"].ToString());
+                    revenueExpenseCompareEntity.ExpenseTotal = Convert.ToDecimal(expenseDataRow["TransactionAmount"].ToString());
+                    revenueExpenseCompareEntity.OrgName = expenseDataRow["OrgName"].ToString();
+                    revenueExpenseCompareEntity.ObjectName = expenseDataRow["ObjectName"].ToString();
+                    revenueExpenseCompareEntity.ProjectName = expenseDataRow["ProjectName"].ToString();
+                    revenueExpenseCompareEntity.DrawNumber = expenseDataRow["DrawNumber"].ToString();
+                    revenueExpenseCompareEntity.RevenueTypeName = expenseDataRow["RevenueTypeName"].ToString();
+                    revenueExpenseCompareEntity.DrawNumber = expenseDataRow["DrawNumber"].ToString();
+                    revenueExpenseCompareEntity.DrawnAmount = Convert.ToDecimal(expenseDataRow["DarwDownAmount"].ToString());
+                    revenueExpenseCompareEntity.BatchNumber = expenseDataRow["BatchNumber"].ToString();
+                    revenueExpenseCompareEntity.CashReceipt = expenseDataRow["CashReceipt"].ToString();
+                    try
+                    {
+                        revenueExpenseCompareEntity.TransactionDate = Convert.ToDateTime(expenseDataRow["RevenueTransactionDate"].ToString()).ToShortDateString();
+                    }
+                    catch (Exception)
+                    {
+                        revenueExpenseCompareEntity.TransactionDate = expenseDataRow["RevenueTransactionDate"].ToString();
+                    }
+                    try
+                    {
+                        revenueExpenseCompareEntity.DrawnDate = Convert.ToDateTime(expenseDataRow["DrawDownDate"].ToString()).ToShortDateString();
+                    }
+                    catch (Exception)
+                    {
+                        revenueExpenseCompareEntity.DrawnDate = expenseDataRow["DrawDownDate"].ToString();
+                    }
+                    try
+                    {
+                        revenueExpenseCompareEntity.DatePosted = Convert.ToDateTime(expenseDataRow["DatePosted"].ToString()).ToShortDateString();
+                    }
+                    catch (Exception)
+                    {
+                        revenueExpenseCompareEntity.DatePosted = expenseDataRow["DatePosted"].ToString();
+                    }
+                }
+                catch (Exception exception)
+                {
+                    revenueResponse.ErrorMessage = exception.Message;
+                    revenueResponse.Exception = exception;
+                }
+                finally
+                {
+                    revenueExpenseCompareEntities.Add(revenueExpenseCompareEntity);
+                }
+            }
+
+            revenueResponse.revenueExpenseCompareEntities = revenueExpenseCompareEntities;
+            return revenueResponse;
+        }
     }
 }

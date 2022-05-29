@@ -30,5 +30,6 @@ namespace DHSDAL
         RevenueResponse DrawMissingRevenue(RevenueRequest revenueRequest);
         RevenueResponse MissingRevenues(RevenueRequest revenueRequest);
         RevenueResponse GetExpenseRevenueTransactions(RevenueRequest revenueRequest);
+        RevenueResponse GetRevenueExpenseCompare(RevenueRequest revenueRequest);
     }
 }

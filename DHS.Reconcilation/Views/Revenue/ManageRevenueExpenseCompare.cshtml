@@ -1,0 +1,165 @@
+﻿@model DHSEntities.RevenueResponse
+@using PagedList.Mvc
+@using DHS.Reconcilation.Models
+
+@{
+    ViewBag.Title = "DHS Reconcilation :: Manage Revenue Expense Compare";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+<title>@ViewBag.Title</title>
+<script src="~/Scripts/jquery-1.10.2.min.js"></script>
+@section LeftMenuSection
+{
+    @Html.Partial("_menuCRPayments");
+}
+@using (Html.BeginForm("ManageReceivables", "Revenue", FormMethod.Post, new { @id = "frmExpenses" }))
+{
+    <title>@ViewBag.Title</title>
+    <input type="hidden" id="hdnExpenseId" name="hdnExpenseId" />
+    <div class="tab-pane active" id="dashboard">
+        <div class="container-fluid">
+            <!-- top tiles -->
+            <div class="row ">
+                <div class="col-lg-12">
+                    <div class="mrp_content">
+                        <h2>Revenue/Draw Deposits Matched to Total Expense Transactions</h2>
+                        <form class="mrp_selectdetails form-inline">
+                            <div class="row">
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+            <div class="row mrp_table-row">
+                <div class="col-lg-12 col-xs-12">
+                    <div class="table-responsive">
+                        <div class="mrp_contentbody mrp_contenttable">
+                            <div class="mrp_table">
+                                <table class="table table-bordered table-striped">
+                                    <thead>
+                                        <tr>
+                                            <th nowrap>
+                                                Transaction Number
+                                            </th>
+                                            <th nowrap>
+                                                Transaction Date
+                                            </th>
+                                            <th nowrap>
+                                                Draw Deposit Amount
+                                            </th>
+                                            <th nowrap>
+                                                Expense Total
+                                            </th>
+                                            <th nowrap>
+                                                Difference
+                                            </th>
+                                            <th nowrap>
+                                                Org Name
+                                            </th>
+                                            <th nowrap>
+                                                Object Name
+                                            </th>
+                                            <th nowrap>
+                                                Project Name
+                                            </th>
+                                            <th nowrap>
+                                                Revenue Type Name
+                                            </th>
+                                            <th nowrap>
+                                                Draw Number
+                                            </th>
+                                            <th nowrap>
+                                                Batch Number
+                                            </th>
+                                            <th nowrap>
+                                                Drawn Amount
+                                            </th>
+                                            <th nowrap>
+                                                Drawn Date
+                                            </th>
+                                            <th nowrap>
+                                                Cash Receipt
+                                            </th>
+                                            <th nowrap>
+                                                Date Posted
+                                            </th>
+                                            <th nowrap style="text-align:left">
+                                                Notes
+                                            </th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        @{
+                                            foreach (var item in Model.revenueExpenseCompareEntities)
+                                            {
+                                                <tr>
+                                                    <td nowrap>
+                                                        @item.TransactionNumber
+                                                    </td>
+                                                    <td nowrap>
+                                                        @item.TransactionDate
+                                                    </td>
+                                                    <td nowrap>
+                                                        @String.Format("{0:$#,##0.00}", item.DrawDepositAmount)
+                                                    </td>
+                                                    <td nowrap>
+                                                        @String.Format("{0:$#,##0.00}", item.ExpenseTotal)
+                                                    </td>
+                                                    <td nowrap>
+                                                        @String.Format("{0:$#,##0.00}", (item.DrawDepositAmount+ item.ExpenseTotal))
+                                                    </td>
+                                                    <td nowrap>
+                                                        @item.OrgName
+                                                    </td>
+                                                    <td nowrap>
+                                                        @item.ObjectName
+                                                    </td>
+                                                    <td nowrap>
+                                                        @item.ProjectName
+                                                    </td>
+                                                    <td nowrap>
+                                                        @item.RevenueTypeName
+                                                    </td>
+                                                    <td nowrap>
+                                                        @item.DrawNumber
+                                                    </td>
+                                                    <td nowrap>
+                                                        @item.BatchNumber
+                                                    </td>
+                                                    <td nowrap>
+                                                        @item.DrawnAmount
+                                                    </td>
+                                                    <td nowrap>
+                                                        @item.DrawnDate
+                                                    </td>
+                                                    <td nowrap>
+                                                        @item.CashReceipt
+                                                    </td>
+                                                    <td nowrap>
+                                                        @item.DatePosted
+                                                    </td>
+                                                    <td style="text-align:left;" nowrap>
+                                                        @item.Remarks
+                                                    </td>
+                                                </tr>
+                                            }
+                                        }
+                                    </tbody>
+                                </table>
+
+                            </div>
+                        </div>
+                    </div>
+                    <!-- /top tiles -->
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script type="text/javascript">
+        $(document).ready(function () {
+            $('#mra_subliMREC').addClass('active');
+        });
+
+    </script>
+}

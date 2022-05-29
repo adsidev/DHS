@@ -77,6 +77,7 @@
     <Compile Include="Report\ReportEntity.cs" />
     <Compile Include="Report\ReportRequest.cs" />
     <Compile Include="Report\ReportResponse.cs" />
+    <Compile Include="RevenueExpenseCompareEntity.cs" />
     <Compile Include="Revenue\RevenueTransactionEntity.cs" />
     <Compile Include="RevenueType\RevenueTypeEntity.cs" />
     <Compile Include="RevenueType\RevenueTypeRequest.cs" />

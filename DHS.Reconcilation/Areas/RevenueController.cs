@@ -444,6 +444,24 @@ namespace DHS.Reconcilation.Areas
             }
             return expenseResponse;
         }
+
+
+        [HttpPost]
+        [Route("GetRevenueExpenseCompare")]
+        public RevenueResponse GetRevenueExpenseCompare(RevenueRequest revenueRequest)
+        {
+            try
+            {
+                expenseResponse = expenseRepository.GetRevenueExpenseCompare(revenueRequest);
+            }
+            catch (Exception ex)
+            {
+                expenseResponse.ErrorMessage = ex.Message;
+                expenseResponse.Exception = ex;
+            }
+            return expenseResponse;
+        }
+
         
     }
 }

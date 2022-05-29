@@ -92,6 +92,7 @@ namespace DHSDAL
             public const string USPGETMISSINGREVENUETRANSACTION = "sp_GetMissingRevenueTransaction";
             public const string USPSAVEMISSINGREVENEUTRANSACTION = "sp_SaveMissingRevenueTransaction";
             public const string USPGETTRANSACTIONSBYREVENUETRANSACTIONID = "sp_GetTransactionsByRevenueTransactionId";
+            public const string USPREPORTDIFFREVENUEEXPENSETRANSACTION = "sp_ReportDiffRevenueExpenseTransaction";
             public const string USPGETPRIORYEAREXPENSETRANSACTIONSBYREVENUETRANSACTIONID = "sp_GetPriorYearExpenseTransactionsByRevenueTransactionId";
         }
 
