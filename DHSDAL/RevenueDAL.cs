@@ -826,7 +826,7 @@ namespace DHSDAL
                         {
                             transactionDetailEntity.RevenueTransactionDate = Convert.ToDateTime(expenseDataRow["RevenueTransactionDate"].ToString()).ToShortDateString();
                         }
-                        catch (Exception ex)
+                        catch (Exception)
                         {
                             transactionDetailEntity.RevenueTransactionDate = expenseDataRow["RevenueTransactionDate"].ToString();
                         }

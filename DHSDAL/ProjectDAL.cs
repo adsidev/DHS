@@ -410,7 +410,7 @@ namespace DHSDAL
                     {
                         transactionDetailEntity.DrawDate = Convert.ToDateTime(expenseDataRow["DrawDate"].ToString()).ToShortDateString();
                     }
-                    catch (Exception ex )
+                    catch (Exception )
                     {
                         transactionDetailEntity.DrawDate = expenseDataRow["DrawDate"].ToString();
                     }
@@ -519,6 +519,101 @@ namespace DHSDAL
                 }
             }
             return projectEntity;
+        }
+
+        public ProjectResponse GetProjectStatuses()
+        {
+            var periodDataSet = SqlHelper.ExecuteDataset(_connectionString, StoredProcedures.Project.USPGETPROJECTSTATUSES);
+            List<ProjectStatusEntity> projectStatusEntities = new List<ProjectStatusEntity>();
+            foreach (DataRow expenseDataRow in periodDataSet.Tables[0].Rows)
+            {
+                ProjectStatusEntity projectStatusEntity = new ProjectStatusEntity();
+                try
+                {
+                    projectStatusEntity.ProjectStatusId = Convert.ToInt32(expenseDataRow["ProjectStatusId"]);
+                    projectStatusEntity.ProjectStatus = expenseDataRow["ProjectStatus"].ToString();
+                }
+                catch (Exception exception)
+                {
+                    projectResponse.ErrorMessage = exception.Message;
+                    projectResponse.Exception = exception;
+                }
+                finally
+                {
+                    projectStatusEntities.Add(projectStatusEntity);
+                }
+            }
+            projectResponse.projectStatusEntities = projectStatusEntities;
+            return projectResponse;
+        }
+
+        public ProjectResponse GetProjectStatus(ProjectRequest projectRequest)
+        {
+            SqlObject.Parameters = new object[] {
+                   projectRequest.projectStatusEntity.ProjectStatusId
+                };
+            var periodDataSet = SqlHelper.ExecuteDataset(_connectionString, StoredProcedures.Project.USPGETPROJECTSTATUS, SqlObject.Parameters);
+            ProjectStatusEntity projectStatusEntity = new ProjectStatusEntity();
+            foreach (DataRow expenseDataRow in periodDataSet.Tables[0].Rows)
+            {
+                try
+                {
+                    projectStatusEntity.ProjectStatusId = Convert.ToInt32(expenseDataRow["ProjectStatusId"]);
+                    projectStatusEntity.ProjectStatus = expenseDataRow["ProjectStatus"].ToString();
+                }
+                catch (Exception exception)
+                {
+                    projectResponse.ErrorMessage = exception.Message;
+                    projectResponse.Exception = exception;
+                }
+                finally
+                {
+
+                }
+            }
+            projectResponse.projectStatusEntity = projectStatusEntity;
+            return projectResponse;
+        }
+
+        public ProjectResponse SaveProjectStatus(ProjectRequest projectRequest)
+        {
+            try
+            {
+                SqlObject.Parameters = new object[] {
+                projectRequest.projectStatusEntity.ProjectStatusId,
+                projectRequest.projectStatusEntity.ProjectStatus,
+                projectRequest.projectStatusEntity.ModifiedBy,
+                };
+                var intResult = SqlHelper.ExecuteScalar(_connectionString, StoredProcedures.Project.USPSAVEPROJECTSTATUS, SqlObject.Parameters);
+                projectResponse.Message = string.Empty;
+                projectResponse.ErrorMessage = string.Empty;
+            }
+            catch (Exception ex)
+            {
+                projectResponse.ErrorMessage = ex.Message;
+                projectResponse.Exception = ex;
+            }
+            return projectResponse;
+        }
+
+        public ProjectResponse CheckProjectStatus(ProjectRequest projectRequest)
+        {
+            try
+            {
+                SqlObject.Parameters = new object[] {
+                projectRequest.projectStatusEntity.ProjectStatusId,
+                projectRequest.projectStatusEntity.ProjectStatus
+                };
+                var intResult = SqlHelper.ExecuteScalar(_connectionString, StoredProcedures.Project.USPCHECKPROJECTSTATUS, SqlObject.Parameters);
+                projectResponse.Message = string.Empty;
+                projectResponse.ErrorMessage = string.Empty;
+            }
+            catch (Exception ex)
+            {
+                projectResponse.ErrorMessage = ex.Message;
+                projectResponse.Exception = ex;
+            }
+            return projectResponse;
         }
     }
 }

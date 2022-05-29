@@ -41,7 +41,7 @@ namespace DHS.Reconcilation.Controllers
                 roleResponse = JsonConvert.DeserializeObject<RoleResponse>(responseData);
                 if (roleResponse.Message == string.Empty && roleResponse.ErrorMessage == string.Empty)
                 {
-                    string PageName = "Roles";
+                    int PageName = 17;
                     roleResponse.RolePermissionEntity = Common.PagePermissions(PageName);
                     return View(roleResponse);
                 }
@@ -94,7 +94,7 @@ namespace DHS.Reconcilation.Controllers
                 roleResponse = JsonConvert.DeserializeObject<RoleResponse>(responseData);
                 if (roleResponse.Message == string.Empty && roleResponse.ErrorMessage == string.Empty)
                 {
-                    string PageName = "Roles";
+                    int PageName = 17;
                     roleResponse.RolePermissionEntity = Common.PagePermissions(PageName);
                     return View(roleResponse);
                 }
@@ -182,7 +182,7 @@ namespace DHS.Reconcilation.Controllers
 
             rolePermissionEntity.RoleName = Request.Form[1];
             rolePermissionEntity.RoleDescription = Request.Form[2];
-            rolePermissionEntity.PermissionId = Request.Form[3];
+            rolePermissionEntity.PermissionId = Convert.ToInt32(Request.Form[3]);
             rolePermissionEntity.View = SplitString(Request.Form[4]);
             rolePermissionEntity.Edit = SplitString(Request.Form[5]);
             rolePermissionEntity.Create = SplitString(Request.Form[6]);
@@ -204,7 +204,7 @@ namespace DHS.Reconcilation.Controllers
                 roleResponse = JsonConvert.DeserializeObject<RoleResponse>(responseData);
                 if (roleResponse.Message == string.Empty && roleResponse.ErrorMessage == string.Empty)
                 {
-                    string PageName = "Roles";
+                    int PageName = 17;
                     roleResponse.RolePermissionEntity = Common.PagePermissions(PageName);
                     return View(roleResponse);
                 }
@@ -236,7 +236,7 @@ namespace DHS.Reconcilation.Controllers
                 roleResponse = JsonConvert.DeserializeObject<RoleResponse>(responseData);
                 if (roleResponse.Message == string.Empty && roleResponse.ErrorMessage == string.Empty)
                 {
-                    string PageName = "Permission";
+                    int PageName = 16;
                     roleResponse.RolePermissionEntity = Common.PagePermissions(PageName);
                     return View(roleResponse);
                 }
@@ -272,7 +272,7 @@ namespace DHS.Reconcilation.Controllers
                 roleResponse = JsonConvert.DeserializeObject<RoleResponse>(responseData);
                 if (roleResponse.Message == string.Empty && roleResponse.ErrorMessage == string.Empty)
                 {
-                    string PageName = "Permission";
+                    int PageName = 16;
                     roleResponse.RolePermissionEntity = Common.PagePermissions(PageName);
                     return View(roleResponse);
                 }
@@ -311,7 +311,7 @@ namespace DHS.Reconcilation.Controllers
                 roleResponse = JsonConvert.DeserializeObject<RoleResponse>(responseData);
                 if (roleResponse.Message == string.Empty && roleResponse.ErrorMessage == string.Empty)
                 {
-                    string PageName = "Permission";
+                    int PageName = 16;
                     roleResponse.RolePermissionEntity = Common.PagePermissions(PageName);
                     return PartialView("_viewPermission", roleResponse);
                 }
@@ -350,7 +350,7 @@ namespace DHS.Reconcilation.Controllers
                 roleResponse = JsonConvert.DeserializeObject<RoleResponse>(responseData);
                 if (roleResponse.Message == string.Empty && roleResponse.ErrorMessage == string.Empty)
                 {
-                    string PageName = "Permission";
+                    int PageName = 16;
                     roleResponse.RolePermissionEntity = Common.PagePermissions(PageName);
                     return PartialView("_editPermission", roleResponse);
                 }

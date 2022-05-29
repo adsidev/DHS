@@ -38,7 +38,7 @@ namespace DHS.Reconcilation.Models
             return IsSessionExists;
         }
 
-        public static RolePermissionEntity PagePermissions(string PageName)
+        public static RolePermissionEntity PagePermissions(int PermissionId)
         {
             List<RolePermissionEntity> rolePermission = (List<RolePermissionEntity>)HttpContext.Current.Session["UserRollPermissions"];
             RolePermissionEntity objRolePermissions = new RolePermissionEntity();
@@ -49,7 +49,7 @@ namespace DHS.Reconcilation.Models
 
             if (rolePermission != null)
             {
-                var permission = from n in rolePermission where ((n.ViewBit == true || n.EditBit == true || n.CreateBit == true || n.DeleteBit == true) && n.PermissionName == PageName) select n;
+                var permission = from n in rolePermission where ((n.ViewBit == true || n.EditBit == true || n.CreateBit == true || n.DeleteBit == true) && n.PermissionId == PermissionId) select n;
                 foreach (var item in permission)
                 {
                     objRolePermissions.CreateBit = item.CreateBit;
@@ -60,14 +60,14 @@ namespace DHS.Reconcilation.Models
             }
             return objRolePermissions;
         }
-
-        public static bool PageHasPermission(string PageName)
+        
+        public static bool PageHasPermission(int PermissionId)
         {
             List<RolePermissionEntity> rolePermission = (List<RolePermissionEntity>)HttpContext.Current.Session["UserRollPermissions"];
             if (rolePermission != null)
             {
 
-                var permission = from n in rolePermission where ((n.ViewBit == true || n.EditBit == true || n.CreateBit == true || n.DeleteBit == true) && n.PermissionName == PageName) select n;
+                var permission = from n in rolePermission where ((n.ViewBit == true || n.EditBit == true || n.CreateBit == true || n.DeleteBit == true) && n.PermissionId == PermissionId) select n;
                 if (permission.Count() > 0)
                     return true;
                 else
@@ -75,14 +75,14 @@ namespace DHS.Reconcilation.Models
             }
             return true;
         }
-
-        public static bool AdminPageHasPermission(string PageName)
+                
+        public static bool AdminPageHasPermission(int PermissionId)
         {
             List<RolePermissionEntity> rolePermission = (List<RolePermissionEntity>)HttpContext.Current.Session["UserRollPermissions"];
             if (rolePermission != null)
             {
 
-                var permission = from n in rolePermission where ((n.EditBit == true || n.CreateBit == true || n.DeleteBit == true) && n.PermissionName == PageName) select n;
+                var permission = from n in rolePermission where ((n.EditBit == true || n.CreateBit == true || n.DeleteBit == true) && n.PermissionId == PermissionId) select n;
                 if (permission.Count() > 0)
                     return true;
                 else

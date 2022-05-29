@@ -43,7 +43,7 @@ namespace DHS.Reconcilation.Controllers
                 statusResponse = JsonConvert.DeserializeObject<StatusResponse>(responseData);
                 if (statusResponse.Message == string.Empty && statusResponse.ErrorMessage == string.Empty)
                 {
-                    string PageName = "Status";
+                    int PageName = 14;
                     statusResponse.rolePermissionEntity = Common.PagePermissions(PageName);
                     return View(statusResponse);
                 }
@@ -79,7 +79,7 @@ namespace DHS.Reconcilation.Controllers
                 statusResponse = JsonConvert.DeserializeObject<StatusResponse>(responseData);
                 if (statusResponse.Message == string.Empty && statusResponse.ErrorMessage == string.Empty)
                 {
-                    string PageName = "Status";
+                    int PageName = 14;
                     statusResponse.rolePermissionEntity = Common.PagePermissions(PageName);
                     return View(statusResponse);
                 }
@@ -119,7 +119,7 @@ namespace DHS.Reconcilation.Controllers
                 statusResponse = JsonConvert.DeserializeObject<StatusResponse>(responseData);
                 if (statusResponse.Message == string.Empty && statusResponse.ErrorMessage == string.Empty)
                 {
-                    string PageName = "Status";
+                    int PageName = 14;
                     statusResponse.rolePermissionEntity = Common.PagePermissions(PageName);
 
                     return PartialView("_viewStatus", statusResponse);
@@ -159,7 +159,7 @@ namespace DHS.Reconcilation.Controllers
                 statusResponse = JsonConvert.DeserializeObject<StatusResponse>(responseData);
                 if (statusResponse.Message == string.Empty && statusResponse.ErrorMessage == string.Empty)
                 {
-                    string PageName = "Status";
+                    int PageName = 14;
                     statusResponse.rolePermissionEntity = Common.PagePermissions(PageName);
 
                     return PartialView("_editStatus", statusResponse);

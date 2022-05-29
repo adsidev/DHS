@@ -200,7 +200,6 @@
     <Compile Include="Areas\RevenueController.cs" />
     <Compile Include="Areas\RoleController.cs" />
     <Compile Include="Areas\UserController.cs" />
-    <Compile Include="Controllers\AuditReportsController.cs" />
     <Compile Include="Controllers\FGTCategoryController.cs" />
     <Compile Include="Controllers\StatusController .cs" />
     <Compile Include="Controllers\PayrollController.cs" />

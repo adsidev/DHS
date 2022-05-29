@@ -45,7 +45,7 @@ namespace DHS.Reconcilation.Controllers
                 journalResponse = JsonConvert.DeserializeObject<JournalResponse>(responseData);
                 if (journalResponse.Message == string.Empty && journalResponse.ErrorMessage == string.Empty)
                 {
-                    string PageName = "Journals";
+                    int PageName = 5;
                     journalResponse.rolePermissionEntity = Common.PagePermissions(PageName);
                     journalResponse.pagedJournalEntities = journalResponse.journalEntities.ToPagedList(pageIndex, pageSize);
                     return View(journalResponse);
@@ -83,7 +83,7 @@ namespace DHS.Reconcilation.Controllers
                 journalResponse = JsonConvert.DeserializeObject<JournalResponse>(responseData);
                 if (journalResponse.Message == string.Empty && journalResponse.ErrorMessage == string.Empty)
                 {
-                    string PageName = "Journals";
+                    int PageName = 5;
                     journalResponse.rolePermissionEntity = Common.PagePermissions(PageName);
 
                     return View(journalResponse);
@@ -122,7 +122,7 @@ namespace DHS.Reconcilation.Controllers
                 journalResponse = JsonConvert.DeserializeObject<JournalResponse>(responseData);
                 if (journalResponse.Message == string.Empty && journalResponse.ErrorMessage == string.Empty)
                 {
-                    string PageName = "Journals";
+                    int PageName = 5;
                     journalResponse.rolePermissionEntity = Common.PagePermissions(PageName);
 
                     return PartialView("_viewJournal", journalResponse);
@@ -160,7 +160,7 @@ namespace DHS.Reconcilation.Controllers
                 journalResponse = JsonConvert.DeserializeObject<JournalResponse>(responseData);
                 if (journalResponse.Message == string.Empty && journalResponse.ErrorMessage == string.Empty)
                 {
-                    string PageName = "Journals";
+                    int PageName = 5;
                     journalResponse.rolePermissionEntity = Common.PagePermissions(PageName);
 
                     return PartialView("_editJournal", journalResponse);

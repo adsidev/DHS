@@ -45,7 +45,7 @@ namespace DHS.Reconcilation.Controllers
                 FGTCategoryResponse = JsonConvert.DeserializeObject<FGTCategoryResponse>(responseData);
                 if (FGTCategoryResponse.Message == string.Empty && FGTCategoryResponse.ErrorMessage == string.Empty)
                 {
-                    string PageName = "FGTCategories";
+                    int PageName = 6;
                     FGTCategoryResponse.rolePermissionEntity = Common.PagePermissions(PageName);
                     FGTCategoryResponse.pagedFGTCategoryEntities = FGTCategoryResponse.fGTCategoryEntities.ToPagedList(pageIndex, pageSize);
                     return View(FGTCategoryResponse);
@@ -83,7 +83,7 @@ namespace DHS.Reconcilation.Controllers
                 FGTCategoryResponse = JsonConvert.DeserializeObject<FGTCategoryResponse>(responseData);
                 if (FGTCategoryResponse.Message == string.Empty && FGTCategoryResponse.ErrorMessage == string.Empty)
                 {
-                    string PageName = "FGTCategories";
+                    int PageName = 6;
                     FGTCategoryResponse.rolePermissionEntity = Common.PagePermissions(PageName);
 
                     return View(FGTCategoryResponse);
@@ -122,7 +122,7 @@ namespace DHS.Reconcilation.Controllers
                 FGTCategoryResponse = JsonConvert.DeserializeObject<FGTCategoryResponse>(responseData);
                 if (FGTCategoryResponse.Message == string.Empty && FGTCategoryResponse.ErrorMessage == string.Empty)
                 {
-                    string PageName = "FGTCategories";
+                    int PageName = 6;
                     FGTCategoryResponse.rolePermissionEntity = Common.PagePermissions(PageName);
 
                     return PartialView("_viewFGTCategory", FGTCategoryResponse);
@@ -160,7 +160,7 @@ namespace DHS.Reconcilation.Controllers
                 FGTCategoryResponse = JsonConvert.DeserializeObject<FGTCategoryResponse>(responseData);
                 if (FGTCategoryResponse.Message == string.Empty && FGTCategoryResponse.ErrorMessage == string.Empty)
                 {
-                    string PageName = "FGTCategories";
+                    int PageName = 6;
                     FGTCategoryResponse.rolePermissionEntity = Common.PagePermissions(PageName);
 
                     return PartialView("_editFGTCategory", FGTCategoryResponse);

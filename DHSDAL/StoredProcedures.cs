@@ -189,6 +189,9 @@ namespace DHSDAL
             public const string USPGETPROJECT = "sp_GetProject";
             public const string USPSAVEPROJECT = "sp_SaveProject";
             public const string USPGETPROJECTSTATUSES = "sp_GetProjectStatuses";
+            public const string USPGETPROJECTSTATUS = "sp_GetProjectStatus";
+            public const string USPSAVEPROJECTSTATUS = "sp_SaveProjectStatus";
+            public const string USPCHECKPROJECTSTATUS = "sp_CheckProjectStatus";
             public const string USPGETPROJECTGROUPS = "sp_GetProjectGroups";
         }
         public class Report

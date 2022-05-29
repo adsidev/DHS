@@ -19,6 +19,20 @@ namespace DHSEntities
             }
             return true;
         }
+
+        public static bool PageHasPermission(int PermissionId)
+        {
+            List<RolePermissionEntity> rolePermission = (List<RolePermissionEntity>)HttpContext.Current.Session["UserRollPermissions"];
+            if (rolePermission != null)
+            {
+                var permission = from n in rolePermission where ((n.ViewBit == true || n.EditBit == true || n.CreateBit == true || n.DeleteBit == true) && n.PermissionId == PermissionId) select n;
+                if (permission.Count() > 0)
+                    return true;
+                else
+                    return false;
+            }
+            return true;
+        }
     }
 
     public class AdminAndReconciliation

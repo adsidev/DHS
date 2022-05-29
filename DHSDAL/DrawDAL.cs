@@ -51,7 +51,7 @@ namespace DHSDAL
                     {
                         drawEntity.DrawDownDate = Convert.ToDateTime(drawDataRow["DrawDownDate"].ToString()).ToShortDateString();
                     }
-                    catch (Exception ex)
+                    catch (Exception)
                     {
                         drawEntity.DrawDownDate = drawDataRow["DrawDownDate"].ToString();
                     }
@@ -60,7 +60,7 @@ namespace DHSDAL
                         if (drawDataRow["DatePosted"].ToString() != "")
                             drawEntity.DatePosted = Convert.ToDateTime(drawDataRow["DatePosted"].ToString()).ToShortDateString();
                     }
-                    catch (Exception ex)
+                    catch (Exception)
                     {
                         drawEntity.DatePosted = drawDataRow["DatePosted"].ToString();
                     }                    
@@ -285,7 +285,7 @@ namespace DHSDAL
                         {
                             transactionDetailEntity.DrawDate = Convert.ToDateTime(expenseDataRow["DrawDate"].ToString()).ToShortDateString();
                         }
-                        catch (Exception ex)
+                        catch (Exception)
                         {
                             transactionDetailEntity.DrawDate = expenseDataRow["DrawDate"].ToString();
                         }
@@ -297,7 +297,7 @@ namespace DHSDAL
                         {
                             transactionDetailEntity.RevenueTransactionDate = Convert.ToDateTime(expenseDataRow["RevenueTransactionDate"].ToString()).ToShortDateString();
                         }
-                        catch (Exception ex)
+                        catch (Exception)
                         {
                             transactionDetailEntity.RevenueTransactionDate = expenseDataRow["RevenueTransactionDate"].ToString();
                         }

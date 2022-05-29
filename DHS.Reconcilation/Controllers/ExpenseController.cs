@@ -72,7 +72,7 @@ namespace DHS.Reconcilation.Controllers
                 expenseResponse = JsonConvert.DeserializeObject<ExpenseResponse>(responseData);
                 if (expenseResponse.Message == string.Empty && expenseResponse.ErrorMessage == string.Empty)
                 {
-                    string PageName = "Expesnses";
+                    int PageName = 1;
                     expenseResponse.expenseEntity = expenseEntity;
                     expenseResponse.rolePermissionEntity = Common.PagePermissions(PageName);
                     expenseResponse.pagedExpenseEntities = expenseResponse.expenseEntities.ToPagedList(pageIndex, pageSize);
@@ -149,7 +149,7 @@ namespace DHS.Reconcilation.Controllers
                 expenseResponse = JsonConvert.DeserializeObject<ExpenseResponse>(responseData);
                 if (expenseResponse.Message == string.Empty && expenseResponse.ErrorMessage == string.Empty)
                 {
-                    string PageName = "Expesnses";
+                    int PageName = 1;
                     expenseResponse.expenseEntity = expenseEntity;
                     expenseResponse.rolePermissionEntity = Common.PagePermissions(PageName);
                     expenseResponse.pagedExpenseEntities = expenseResponse.expenseEntities.ToPagedList(pageIndex, pageSize);
@@ -188,7 +188,7 @@ namespace DHS.Reconcilation.Controllers
                 expenseResponse = JsonConvert.DeserializeObject<ExpenseResponse>(responseData);
                 if (expenseResponse.Message == string.Empty && expenseResponse.ErrorMessage == string.Empty)
                 {
-                    string PageName = "Expesnses";
+                    int PageName = 1;
                     expenseResponse.rolePermissionEntity = Common.PagePermissions(PageName);
 
                     return View(expenseResponse);
@@ -229,7 +229,7 @@ namespace DHS.Reconcilation.Controllers
                 expenseResponse = JsonConvert.DeserializeObject<ExpenseResponse>(responseData);
                 if (expenseResponse.Message == string.Empty && expenseResponse.ErrorMessage == string.Empty)
                 {
-                    string PageName = "Expesnses";
+                    int PageName = 1;
                     expenseResponse.rolePermissionEntity = Common.PagePermissions(PageName);
 
                     return PartialView("_viewExpense", expenseResponse);
@@ -269,7 +269,7 @@ namespace DHS.Reconcilation.Controllers
                 expenseResponse = JsonConvert.DeserializeObject<ExpenseResponse>(responseData);
                 if (expenseResponse.Message == string.Empty && expenseResponse.ErrorMessage == string.Empty)
                 {
-                    string PageName = "Expesnses";
+                    int PageName = 1;
                     expenseResponse.rolePermissionEntity = Common.PagePermissions(PageName);
 
                     return PartialView("_editExpense", expenseResponse);
@@ -310,7 +310,7 @@ namespace DHS.Reconcilation.Controllers
                 expenseResponse = JsonConvert.DeserializeObject<ExpenseResponse>(responseData);
                 if (expenseResponse.Message == string.Empty && expenseResponse.ErrorMessage == string.Empty)
                 {
-                    string PageName = "Expesnses";
+                    int PageName = 1;
                     expenseResponse.rolePermissionEntity = Common.PagePermissions(PageName);
 
                     //expenseResponse.pagedTransactionDetailEntity = expenseResponse.transactionDetailEntities.ToPagedList(pageIndex, pageSize);
@@ -353,7 +353,7 @@ namespace DHS.Reconcilation.Controllers
         //        expenseResponse = JsonConvert.DeserializeObject<ExpenseResponse>(responseData);
         //        if (expenseResponse.Message == string.Empty && expenseResponse.ErrorMessage == string.Empty)
         //        {
-        //            string PageName = "Expesnses";
+        //            int PageName = 1;
         //            expenseResponse.rolePermissionEntity = Common.PagePermissions(PageName);
         //            return View(expenseResponse);
         //        }
@@ -393,7 +393,7 @@ namespace DHS.Reconcilation.Controllers
                 expenseResponse = JsonConvert.DeserializeObject<ExpenseResponse>(responseData);
                 if (expenseResponse.Message == string.Empty && expenseResponse.ErrorMessage == string.Empty)
                 {
-                    string PageName = "Expesnses";
+                    int PageName = 1;
                     expenseResponse.rolePermissionEntity = Common.PagePermissions(PageName);
                     return View(expenseResponse);
                 }
@@ -433,7 +433,7 @@ namespace DHS.Reconcilation.Controllers
                 expenseResponse = JsonConvert.DeserializeObject<ExpenseResponse>(responseData);
                 if (expenseResponse.Message == string.Empty && expenseResponse.ErrorMessage == string.Empty)
                 {
-                    string PageName = "Expesnses";
+                    int PageName = 1;
                     expenseResponse.rolePermissionEntity = Common.PagePermissions(PageName);
 
                     return PartialView("_viewTransactionDetail", expenseResponse);
@@ -473,7 +473,7 @@ namespace DHS.Reconcilation.Controllers
                 expenseResponse = JsonConvert.DeserializeObject<ExpenseResponse>(responseData);
                 if (expenseResponse.Message == string.Empty && expenseResponse.ErrorMessage == string.Empty)
                 {
-                    string PageName = "Expesnses";
+                    int PageName = 1;
                     expenseResponse.rolePermissionEntity = Common.PagePermissions(PageName);
 
                     return PartialView("_editTransactionDetail", expenseResponse);
@@ -513,7 +513,7 @@ namespace DHS.Reconcilation.Controllers
                 expenseResponse = JsonConvert.DeserializeObject<ExpenseResponse>(responseData);
                 if (expenseResponse.Message == string.Empty && expenseResponse.ErrorMessage == string.Empty)
                 {
-                    string PageName = "Expesnses";
+                    int PageName = 1;
                     expenseResponse.rolePermissionEntity = Common.PagePermissions(PageName);
                     if(expenseResponse.revenueEntities.Count==0)
                     {
@@ -556,7 +556,7 @@ namespace DHS.Reconcilation.Controllers
                 expenseResponse = JsonConvert.DeserializeObject<ExpenseResponse>(responseData);
                 if (expenseResponse.Message == string.Empty && expenseResponse.ErrorMessage == string.Empty)
                 {
-                    string PageName = "Expesnses";
+                    int PageName = 1;
                     expenseResponse.rolePermissionEntity = Common.PagePermissions(PageName);
                     return View(expenseResponse);
                 }
@@ -595,7 +595,7 @@ namespace DHS.Reconcilation.Controllers
                 expenseResponse = JsonConvert.DeserializeObject<ExpenseResponse>(responseData);
                 if (expenseResponse.Message == string.Empty && expenseResponse.ErrorMessage == string.Empty)
                 {
-                    string PageName = "Expesnses";
+                    int PageName = 1;
                     expenseResponse.rolePermissionEntity = Common.PagePermissions(PageName);
                     return View(expenseResponse);
                 }
@@ -634,7 +634,7 @@ namespace DHS.Reconcilation.Controllers
                 expenseResponse = JsonConvert.DeserializeObject<ExpenseResponse>(responseData);
                 if (expenseResponse.Message == string.Empty && expenseResponse.ErrorMessage == string.Empty)
                 {
-                    string PageName = "Expesnses";
+                    int PageName = 1;
                     expenseResponse.rolePermissionEntity = Common.PagePermissions(PageName);
                     return View(expenseResponse);
                 }
@@ -674,7 +674,7 @@ namespace DHS.Reconcilation.Controllers
                 {
                     if (id == 0)
                         expenseResponse.documentEntity = documentEntity; 
-                    string PageName = "Expesnses";
+                    int PageName = 1;
                     expenseResponse.rolePermissionEntity = Common.PagePermissions(PageName);
                     return View(expenseResponse);
                 }
@@ -772,7 +772,7 @@ namespace DHS.Reconcilation.Controllers
                 revenueResponse = JsonConvert.DeserializeObject<RevenueResponse>(responseData);
                 if (revenueResponse.Message == string.Empty && revenueResponse.ErrorMessage == string.Empty)
                 {
-                    string PageName = "Revenues";
+                    int PageName = 1;
                     revenueResponse.rolePermissionEntity = Common.PagePermissions(PageName);
 
                     return PartialView("_viewRevenue", revenueResponse);
@@ -813,7 +813,7 @@ namespace DHS.Reconcilation.Controllers
                 expenseResponse = JsonConvert.DeserializeObject<ExpenseResponse>(responseData);
                 if (expenseResponse.Message == string.Empty && expenseResponse.ErrorMessage == string.Empty)
                 {
-                    string PageName = "Expesnses";
+                    int PageName = 1;
                     expenseResponse.rolePermissionEntity = Common.PagePermissions(PageName);
                     return PartialView("_revenueTransaction", expenseResponse);
                 }
@@ -876,7 +876,7 @@ namespace DHS.Reconcilation.Controllers
                 expenseResponse = JsonConvert.DeserializeObject<ExpenseResponse>(responseData);
                 if (expenseResponse.Message == string.Empty && expenseResponse.ErrorMessage == string.Empty)
                 {
-                    string PageName = "Expesnses";
+                    int PageName = 1;
                     expenseResponse.transactionDetailEntity = transactionDetailEntity;
                     expenseResponse.rolePermissionEntity = Common.PagePermissions(PageName);
                     expenseResponse.pagedTransactionDetailEntity = expenseResponse.transactionDetailEntities.ToPagedList(pageIndex, pageSize);
@@ -948,7 +948,7 @@ namespace DHS.Reconcilation.Controllers
                 expenseResponse = JsonConvert.DeserializeObject<ExpenseResponse>(responseData);
                 if (expenseResponse.Message == string.Empty && expenseResponse.ErrorMessage == string.Empty)
                 {
-                    string PageName = "Expesnses";
+                    int PageName = 1;
                     expenseResponse.transactionDetailEntity = transactionDetailEntity;
                     expenseResponse.rolePermissionEntity = Common.PagePermissions(PageName);
                     expenseResponse.pagedTransactionDetailEntity = expenseResponse.transactionDetailEntities.ToPagedList(pageIndex, pageSize);
@@ -989,7 +989,7 @@ namespace DHS.Reconcilation.Controllers
                 expenseResponse = JsonConvert.DeserializeObject<ExpenseResponse>(responseData);
                 if (expenseResponse.Message == string.Empty && expenseResponse.ErrorMessage == string.Empty)
                 {
-                    string PageName = "Expesnses";
+                    int PageName = 1;
                     expenseResponse.rolePermissionEntity = Common.PagePermissions(PageName);
                     expenseResponse.expenseEntity = expenseEntity;
                     return PartialView("_viewExpenseTransactionDetail", expenseResponse);
@@ -1044,7 +1044,7 @@ namespace DHS.Reconcilation.Controllers
                 expenseResponse = JsonConvert.DeserializeObject<ExpenseResponse>(responseData);
                 if (expenseResponse.Message == string.Empty && expenseResponse.ErrorMessage == string.Empty)
                 {
-                    string PageName = "Expesnses";
+                    int PageName = 1;
                     expenseResponse.expenseEntity = expenseEntity;
                     expenseResponse.rolePermissionEntity = Common.PagePermissions(PageName);
                     expenseResponse.pagedExpenseEntities = expenseResponse.expenseEntities.ToPagedList(pageIndex, pageSize);
@@ -1106,7 +1106,7 @@ namespace DHS.Reconcilation.Controllers
                 expenseResponse = JsonConvert.DeserializeObject<ExpenseResponse>(responseData);
                 if (expenseResponse.Message == string.Empty && expenseResponse.ErrorMessage == string.Empty)
                 {
-                    string PageName = "Expesnses";
+                    int PageName = 1;
                     expenseResponse.expenseEntity = expenseEntity;
                     expenseResponse.rolePermissionEntity = Common.PagePermissions(PageName);
                     expenseResponse.pagedExpenseEntities = expenseResponse.expenseEntities.ToPagedList(pageIndex, pageSize);
@@ -1171,7 +1171,7 @@ namespace DHS.Reconcilation.Controllers
                 expenseResponse = JsonConvert.DeserializeObject<ExpenseResponse>(responseData);
                 if (expenseResponse.Message == string.Empty && expenseResponse.ErrorMessage == string.Empty)
                 {
-                    string PageName = "Expesnses";
+                    int PageName = 1;
                     expenseResponse.transactionDetailEntity = transactionDetailEntity;
                     expenseResponse.rolePermissionEntity = Common.PagePermissions(PageName);
                     expenseResponse.pagedTransactionDetailEntity = expenseResponse.transactionDetailEntities.ToPagedList(pageIndex, pageSize);
@@ -1243,7 +1243,7 @@ namespace DHS.Reconcilation.Controllers
                 expenseResponse = JsonConvert.DeserializeObject<ExpenseResponse>(responseData);
                 if (expenseResponse.Message == string.Empty && expenseResponse.ErrorMessage == string.Empty)
                 {
-                    string PageName = "Expesnses";
+                    int PageName = 1;
                     expenseResponse.transactionDetailEntity = transactionDetailEntity;
                     expenseResponse.rolePermissionEntity = Common.PagePermissions(PageName);
                     expenseResponse.pagedTransactionDetailEntity = expenseResponse.transactionDetailEntities.ToPagedList(pageIndex, pageSize);
@@ -1281,7 +1281,7 @@ namespace DHS.Reconcilation.Controllers
                 expenseResponse = JsonConvert.DeserializeObject<ExpenseResponse>(responseData);
                 if (expenseResponse.Message == string.Empty && expenseResponse.ErrorMessage == string.Empty)
                 {
-                    string PageName = "Expesnses";
+                    int PageName = 1;
                     expenseResponse.rolePermissionEntity = Common.PagePermissions(PageName);
                     return View(expenseResponse);
                 }
@@ -1317,7 +1317,7 @@ namespace DHS.Reconcilation.Controllers
                 expenseResponse = JsonConvert.DeserializeObject<ExpenseResponse>(responseData);
                 if (expenseResponse.Message == string.Empty && expenseResponse.ErrorMessage == string.Empty)
                 {
-                    string PageName = "Expesnses";
+                    int PageName = 1;
                     expenseResponse.rolePermissionEntity = Common.PagePermissions(PageName);
                     return PartialView("_viewMissingExpenseTransaction", expenseResponse);                    
                 }
@@ -1353,7 +1353,7 @@ namespace DHS.Reconcilation.Controllers
                 expenseResponse = JsonConvert.DeserializeObject<ExpenseResponse>(responseData);
                 if (expenseResponse.Message == string.Empty && expenseResponse.ErrorMessage == string.Empty)
                 {
-                    string PageName = "Expesnses";
+                    int PageName = 1;
                     expenseResponse.rolePermissionEntity = Common.PagePermissions(PageName);
                     return PartialView("_editMissingExpenseTransaction", expenseResponse);
                 }
@@ -1390,7 +1390,7 @@ namespace DHS.Reconcilation.Controllers
                 expenseResponse = JsonConvert.DeserializeObject<ExpenseResponse>(responseData);
                 if (expenseResponse.Message == string.Empty && expenseResponse.ErrorMessage == string.Empty)
                 {
-                    string PageName = "Expesnses";
+                    int PageName = 1;
                     expenseResponse.rolePermissionEntity = Common.PagePermissions(PageName);
                     return PartialView("_revenueMissingTransaction", expenseResponse);
                 }
@@ -1453,7 +1453,7 @@ namespace DHS.Reconcilation.Controllers
                 expenseResponse = JsonConvert.DeserializeObject<ExpenseResponse>(responseData);
                 if (expenseResponse.Message == string.Empty && expenseResponse.ErrorMessage == string.Empty)
                 {
-                    string PageName = "Expesnses";
+                    int PageName = 1;
                     expenseResponse.transactionDetailEntity = transactionDetailEntity;
                     expenseResponse.rolePermissionEntity = Common.PagePermissions(PageName);
                     expenseResponse.pagedTransactionDetailEntity = expenseResponse.transactionDetailEntities.ToPagedList(pageIndex, pageSize);
@@ -1525,7 +1525,7 @@ namespace DHS.Reconcilation.Controllers
                 expenseResponse = JsonConvert.DeserializeObject<ExpenseResponse>(responseData);
                 if (expenseResponse.Message == string.Empty && expenseResponse.ErrorMessage == string.Empty)
                 {
-                    string PageName = "Expesnses";
+                    int PageName = 1;
                     expenseResponse.transactionDetailEntity = transactionDetailEntity;
                     expenseResponse.rolePermissionEntity = Common.PagePermissions(PageName);
                     expenseResponse.pagedTransactionDetailEntity = expenseResponse.transactionDetailEntities.ToPagedList(pageIndex, pageSize);
@@ -1567,7 +1567,7 @@ namespace DHS.Reconcilation.Controllers
                 expenseResponse = JsonConvert.DeserializeObject<ExpenseResponse>(responseData);
                 if (expenseResponse.Message == string.Empty && expenseResponse.ErrorMessage == string.Empty)
                 {
-                    string PageName = "Expesnses";
+                    int PageName = 1;
                     expenseResponse.rolePermissionEntity = Common.PagePermissions(PageName);
 
                     return PartialView("_viewPriorYearTransactionDetail", expenseResponse);
@@ -1608,7 +1608,7 @@ namespace DHS.Reconcilation.Controllers
                 expenseResponse = JsonConvert.DeserializeObject<ExpenseResponse>(responseData);
                 if (expenseResponse.Message == string.Empty && expenseResponse.ErrorMessage == string.Empty)
                 {
-                    string PageName = "Expesnses";
+                    int PageName = 1;
                     expenseResponse.rolePermissionEntity = Common.PagePermissions(PageName);
 
                     return View(expenseResponse);

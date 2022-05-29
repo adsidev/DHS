@@ -45,7 +45,7 @@ namespace DHS.Reconcilation.Controllers
                 revenueTypeResponse = JsonConvert.DeserializeObject<RevenueTypeResponse>(responseData);
                 if (revenueTypeResponse.Message == string.Empty && revenueTypeResponse.ErrorMessage == string.Empty)
                 {
-                    string PageName = "RevenueType";
+                    int PageName = 8;
                     revenueTypeResponse.rolePermissionEntity = Common.PagePermissions(PageName);
                     revenueTypeResponse.pagedRevenueTypeEntities = revenueTypeResponse.RevenueTypeEntities.ToPagedList(pageIndex, pageSize);
                     return View(revenueTypeResponse);
@@ -83,7 +83,7 @@ namespace DHS.Reconcilation.Controllers
                 revenueTypeResponse = JsonConvert.DeserializeObject<RevenueTypeResponse>(responseData);
                 if (revenueTypeResponse.Message == string.Empty && revenueTypeResponse.ErrorMessage == string.Empty)
                 {
-                    string PageName = "RevenueType";
+                    int PageName = 8;
                     revenueTypeResponse.rolePermissionEntity = Common.PagePermissions(PageName);
 
                     return View(revenueTypeResponse);
@@ -122,7 +122,7 @@ namespace DHS.Reconcilation.Controllers
                 revenueTypeResponse = JsonConvert.DeserializeObject<RevenueTypeResponse>(responseData);
                 if (revenueTypeResponse.Message == string.Empty && revenueTypeResponse.ErrorMessage == string.Empty)
                 {
-                    string PageName = "RevenueType";
+                    int PageName = 8;
                     revenueTypeResponse.rolePermissionEntity = Common.PagePermissions(PageName);
 
                     return PartialView("_viewRevenueType", revenueTypeResponse);
@@ -160,7 +160,7 @@ namespace DHS.Reconcilation.Controllers
                 revenueTypeResponse = JsonConvert.DeserializeObject<RevenueTypeResponse>(responseData);
                 if (revenueTypeResponse.Message == string.Empty && revenueTypeResponse.ErrorMessage == string.Empty)
                 {
-                    string PageName = "RevenueType";
+                    int PageName = 8;
                     revenueTypeResponse.rolePermissionEntity = Common.PagePermissions(PageName);
 
                     return PartialView("_editRevenueType", revenueTypeResponse);

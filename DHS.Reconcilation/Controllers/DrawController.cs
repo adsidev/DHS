@@ -78,7 +78,7 @@ namespace DHS.Reconcilation.Controllers
                 drawResponse = JsonConvert.DeserializeObject<DrawResponse>(responseData);
                 if (drawResponse.Message == string.Empty && drawResponse.ErrorMessage == string.Empty)
                 {
-                    string PageName = "Draws";
+                    int PageName = 4;
                     drawResponse.drawEntity = drawEntity;
                     drawResponse.rolePermissionEntity = Common.PagePermissions(PageName);
                     drawResponse.pagedDrawEntities = drawResponse.drawEntities.ToPagedList(pageIndex, pageSize);
@@ -159,7 +159,7 @@ namespace DHS.Reconcilation.Controllers
                 drawResponse = JsonConvert.DeserializeObject<DrawResponse>(responseData);
                 if (drawResponse.Message == string.Empty && drawResponse.ErrorMessage == string.Empty)
                 {
-                    string PageName = "Draws";
+                    int PageName = 4;
                     drawResponse.drawEntity = drawEntity;
                     drawResponse.rolePermissionEntity = Common.PagePermissions(PageName);
                     drawResponse.pagedDrawEntities = drawResponse.drawEntities.ToPagedList(pageIndex, pageSize);
@@ -198,7 +198,7 @@ namespace DHS.Reconcilation.Controllers
                 drawResponse = JsonConvert.DeserializeObject<DrawResponse>(responseData);
                 if (drawResponse.Message == string.Empty && drawResponse.ErrorMessage == string.Empty)
                 {
-                    string PageName = "Draws";
+                    int PageName = 4;
                     drawResponse.rolePermissionEntity = Common.PagePermissions(PageName);
 
                     return View(drawResponse);
@@ -240,7 +240,7 @@ namespace DHS.Reconcilation.Controllers
                 drawResponse = JsonConvert.DeserializeObject<DrawResponse>(responseData);
                 if (drawResponse.Message == string.Empty && drawResponse.ErrorMessage == string.Empty)
                 {
-                    string PageName = "Draws";
+                    int PageName = 4;
                     drawResponse.rolePermissionEntity = Common.PagePermissions(PageName);
 
                     return PartialView("_viewDraw", drawResponse);
@@ -280,7 +280,7 @@ namespace DHS.Reconcilation.Controllers
                 drawResponse = JsonConvert.DeserializeObject<DrawResponse>(responseData);
                 if (drawResponse.Message == string.Empty && drawResponse.ErrorMessage == string.Empty)
                 {
-                    string PageName = "Draws";
+                    int PageName = 4;
                     drawResponse.rolePermissionEntity = Common.PagePermissions(PageName);
 
                     return PartialView("_editDraw", drawResponse);
@@ -320,7 +320,7 @@ namespace DHS.Reconcilation.Controllers
                 drawResponse = JsonConvert.DeserializeObject<DrawResponse>(responseData);
                 if (drawResponse.Message == string.Empty && drawResponse.ErrorMessage == string.Empty)
                 {
-                    string PageName = "Expesnses";
+                    int PageName = 4;
                     drawResponse.rolePermissionEntity = Common.PagePermissions(PageName);
                     return View(drawResponse);
                 }
@@ -360,7 +360,7 @@ namespace DHS.Reconcilation.Controllers
                 {
                     if (id == 0)
                         drawResponse.documentEntity = documentEntity;
-                    string PageName = "Expesnses";
+                    int PageName = 4;
                     drawResponse.rolePermissionEntity = Common.PagePermissions(PageName);
                     return View(drawResponse);
                 }
@@ -461,7 +461,7 @@ namespace DHS.Reconcilation.Controllers
                 drawResponse = JsonConvert.DeserializeObject<DrawResponse>(responseData);
                 if (drawResponse.Message == string.Empty && drawResponse.ErrorMessage == string.Empty)
                 {
-                    string PageName = "Draws";
+                    int PageName = 4;
                     drawResponse.rolePermissionEntity = Common.PagePermissions(PageName);
                     return View(drawResponse);
                 }
@@ -500,7 +500,7 @@ namespace DHS.Reconcilation.Controllers
                 drawResponse = JsonConvert.DeserializeObject<DrawResponse>(responseData);
                 if (drawResponse.Message == string.Empty && drawResponse.ErrorMessage == string.Empty)
                 {
-                    string PageName = "Draws";
+                    int PageName = 4;
                     drawResponse.rolePermissionEntity = Common.PagePermissions(PageName);
                     return View(drawResponse);
                 }

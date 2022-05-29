@@ -43,7 +43,7 @@ namespace DHS.Reconcilation.Controllers
                 fiscalYearResponse = JsonConvert.DeserializeObject<FiscalYearResponse>(responseData);
                 if (fiscalYearResponse.Message == string.Empty && fiscalYearResponse.ErrorMessage == string.Empty)
                 {
-                    string PageName = "FiscalYear";
+                    int PageName = 13;
                     fiscalYearResponse.rolePermissionEntity = Common.PagePermissions(PageName);
                     return View(fiscalYearResponse);
                 }
@@ -79,7 +79,7 @@ namespace DHS.Reconcilation.Controllers
                 fiscalYearResponse = JsonConvert.DeserializeObject<FiscalYearResponse>(responseData);
                 if (fiscalYearResponse.Message == string.Empty && fiscalYearResponse.ErrorMessage == string.Empty)
                 {
-                    string PageName = "FiscalYear";
+                    int PageName = 13;
                     fiscalYearResponse.rolePermissionEntity = Common.PagePermissions(PageName);
                     return View(fiscalYearResponse);
                 }
@@ -119,7 +119,7 @@ namespace DHS.Reconcilation.Controllers
                 fiscalYearResponse = JsonConvert.DeserializeObject<FiscalYearResponse>(responseData);
                 if (fiscalYearResponse.Message == string.Empty && fiscalYearResponse.ErrorMessage == string.Empty)
                 {
-                    string PageName = "FiscalYear";
+                    int PageName = 13;
                     fiscalYearResponse.rolePermissionEntity = Common.PagePermissions(PageName);
 
                     return PartialView("_viewFiscalYear", fiscalYearResponse);
@@ -159,7 +159,7 @@ namespace DHS.Reconcilation.Controllers
                 fiscalYearResponse = JsonConvert.DeserializeObject<FiscalYearResponse>(responseData);
                 if (fiscalYearResponse.Message == string.Empty && fiscalYearResponse.ErrorMessage == string.Empty)
                 {
-                    string PageName = "FiscalYear";
+                    int PageName = 13;
                     fiscalYearResponse.rolePermissionEntity = Common.PagePermissions(PageName);
 
                     return PartialView("_editFiscalYear", fiscalYearResponse);

@@ -52,7 +52,7 @@ namespace DHS.Reconcilation.Controllers
                 vendorResponse = JsonConvert.DeserializeObject<VendorResponse>(responseData);
                 if (vendorResponse.Message == string.Empty && vendorResponse.ErrorMessage == string.Empty)
                 {
-                    string PageName = "Vendor";
+                    int PageName = 9;
                     vendorResponse.rolePermissionEntity = Common.PagePermissions(PageName);
                     vendorResponse.pagedVendorEntities = vendorResponse.vendorEntities.ToPagedList(pageIndex, pageSize);
                     return View(vendorResponse);
@@ -98,7 +98,7 @@ namespace DHS.Reconcilation.Controllers
                 vendorResponse = JsonConvert.DeserializeObject<VendorResponse>(responseData);
                 if (vendorResponse.Message == string.Empty && vendorResponse.ErrorMessage == string.Empty)
                 {
-                    string PageName = "Vendor";
+                    int PageName = 9;
                     vendorResponse.vendorEntity = vendorEntity;
                     vendorResponse.rolePermissionEntity = Common.PagePermissions(PageName);
                     vendorResponse.pagedVendorEntities = vendorResponse.vendorEntities.ToPagedList(pageIndex, pageSize);
@@ -136,7 +136,7 @@ namespace DHS.Reconcilation.Controllers
                 vendorResponse = JsonConvert.DeserializeObject<VendorResponse>(responseData);
                 if (vendorResponse.Message == string.Empty && vendorResponse.ErrorMessage == string.Empty)
                 {
-                    string PageName = "Vendor";
+                    int PageName = 9;
                     vendorResponse.rolePermissionEntity = Common.PagePermissions(PageName);
 
                     return View(vendorResponse);
@@ -175,7 +175,7 @@ namespace DHS.Reconcilation.Controllers
                 vendorResponse = JsonConvert.DeserializeObject<VendorResponse>(responseData);
                 if (vendorResponse.Message == string.Empty && vendorResponse.ErrorMessage == string.Empty)
                 {
-                    string PageName = "Vendor";
+                    int PageName = 9;
                     vendorResponse.rolePermissionEntity = Common.PagePermissions(PageName);
 
                     return PartialView("_viewVendor", vendorResponse);
@@ -213,7 +213,7 @@ namespace DHS.Reconcilation.Controllers
                 vendorResponse = JsonConvert.DeserializeObject<VendorResponse>(responseData);
                 if (vendorResponse.Message == string.Empty && vendorResponse.ErrorMessage == string.Empty)
                 {
-                    string PageName = "Vendor";
+                    int PageName = 9;
                     vendorResponse.rolePermissionEntity = Common.PagePermissions(PageName);
 
                     return PartialView("_editVendor", vendorResponse);

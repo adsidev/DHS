@@ -105,7 +105,7 @@ namespace DHSDAL
                 try
                 {
                     rolePermissionEntity.RoleId = Convert.ToInt32(roleDataRow["RoleId"].ToString());
-                    rolePermissionEntity.PermissionId = roleDataRow["PermissionID"].ToString();
+                    rolePermissionEntity.PermissionId = Convert.ToInt32(roleDataRow["PermissionID"].ToString());
                     rolePermissionEntity.RoleName = roleDataRow["RoleName"].ToString();
                     rolePermissionEntity.RoleDescription = roleDataRow["Description"].ToString();
                     rolePermissionEntity.PermissionName = roleDataRow["Name"].ToString();
@@ -148,6 +148,7 @@ namespace DHSDAL
                 try
                 {
                     rolePermissionEntity.RoleId = Convert.ToInt32(roleDataRow["RoleId"].ToString());
+                    rolePermissionEntity.PermissionId = Convert.ToInt32(roleDataRow["PermissionId"].ToString());
                     rolePermissionEntity.PermissionName = roleDataRow["PermissionName"].ToString();
                     rolePermissionEntity.ViewBit = Convert.ToBoolean(roleDataRow["ViewIndicator"].ToString());
                     rolePermissionEntity.EditBit = Convert.ToBoolean(roleDataRow["EditIndicator"].ToString());

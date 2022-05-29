@@ -17,5 +17,6 @@ namespace DHSEntities
         public List<FiscalYearEntity> fiscalYearEntities { get; set; }
         public List<ProjectStatusEntity> projectStatusEntities { get; set; }
         public List<ProjectGroupEntity> projectGroupEntities { get; set; }
+        public ProjectStatusEntity projectStatusEntity { get; set; }
     }
 }

@@ -483,7 +483,7 @@ namespace DHS.Reconcilation.Controllers
 
                 return excelSheets;
             }
-            catch (Exception ex)
+            catch (Exception)
             {
                 return null;
             }

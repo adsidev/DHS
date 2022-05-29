@@ -49,7 +49,7 @@ namespace DHS.Reconcilation.Controllers
                 payrollResponse = JsonConvert.DeserializeObject<PayrollResponse>(responseData);
                 if (payrollResponse.Message == string.Empty && payrollResponse.ErrorMessage == string.Empty)
                 {
-                    string PageName = "Payroll";
+                    int PageName = 12;
                     payrollResponse.payrollProjectEntity = payrollProjectEntity;
                     payrollResponse.rolePermissionEntity = Common.PagePermissions(PageName);
                     return View(payrollResponse);
@@ -91,7 +91,7 @@ namespace DHS.Reconcilation.Controllers
                 payrollResponse = JsonConvert.DeserializeObject<PayrollResponse>(responseData);
                 if (payrollResponse.Message == string.Empty && payrollResponse.ErrorMessage == string.Empty)
                 {
-                    string PageName = "Payroll";
+                    int PageName = 12;
                     payrollResponse.payrollProjectEntity = payrollProjectEntity;
                     payrollResponse.rolePermissionEntity = Common.PagePermissions(PageName);
                     return View(payrollResponse);
@@ -132,7 +132,7 @@ namespace DHS.Reconcilation.Controllers
                 payrollResponse = JsonConvert.DeserializeObject<PayrollResponse>(responseData);
                 if (payrollResponse.Message == string.Empty && payrollResponse.ErrorMessage == string.Empty)
                 {
-                    string PageName = "Payroll";
+                    int PageName = 12;
                     payrollResponse.rolePermissionEntity = Common.PagePermissions(PageName);
                     return View(payrollResponse);
                 }
@@ -171,7 +171,7 @@ namespace DHS.Reconcilation.Controllers
                 payrollResponse = JsonConvert.DeserializeObject<PayrollResponse>(responseData);
                 if (payrollResponse.Message == string.Empty && payrollResponse.ErrorMessage == string.Empty)
                 {
-                    string PageName = "Payroll";
+                    int PageName = 12;
                     payrollResponse.rolePermissionEntity = Common.PagePermissions(PageName);
 
                     return PartialView("_viewPayrollProject", payrollResponse);
@@ -211,7 +211,7 @@ namespace DHS.Reconcilation.Controllers
                 payrollResponse = JsonConvert.DeserializeObject<PayrollResponse>(responseData);
                 if (payrollResponse.Message == string.Empty && payrollResponse.ErrorMessage == string.Empty)
                 {
-                    string PageName = "Payroll";
+                    int PageName = 12;
                     payrollResponse.rolePermissionEntity = Common.PagePermissions(PageName);
 
                     return PartialView("_editPayrollProject", payrollResponse);
@@ -251,7 +251,7 @@ namespace DHS.Reconcilation.Controllers
                 payrollResponse = JsonConvert.DeserializeObject<PayrollResponse>(responseData);
                 if (payrollResponse.Message == string.Empty && payrollResponse.ErrorMessage == string.Empty)
                 {
-                    string PageName = "Payroll";
+                    int PageName = 12;
                     payrollResponse.rolePermissionEntity = Common.PagePermissions(PageName);
                     return View(payrollResponse);
                 }
@@ -290,7 +290,7 @@ namespace DHS.Reconcilation.Controllers
                 {
                     if (id == 0)
                         payrollResponse.documentEntity = documentEntity;
-                    string PageName = "Payroll";
+                    int PageName = 12;
                     payrollResponse.rolePermissionEntity = Common.PagePermissions(PageName);
                     return View(payrollResponse);
                 }

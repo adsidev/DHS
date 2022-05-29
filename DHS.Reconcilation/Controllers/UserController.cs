@@ -42,7 +42,7 @@ namespace DHS.Reconcilation.Controllers
                 userResponse = JsonConvert.DeserializeObject<UserResponse>(responseData);
                 if (userResponse.Message == string.Empty && userResponse.ErrorMessage == string.Empty)
                 {
-                    string PageName = "Users";
+                    int PageName = 15;
                     userResponse.rolePermissionEntity = Common.PagePermissions(PageName);
                     return View(userResponse);
                 }
@@ -78,7 +78,7 @@ namespace DHS.Reconcilation.Controllers
                 userResponse = JsonConvert.DeserializeObject<UserResponse>(responseData);
                 if (userResponse.Message == string.Empty && userResponse.ErrorMessage == string.Empty)
                 {
-                    string PageName = "Users";
+                    int PageName = 15;
                     userResponse.rolePermissionEntity = Common.PagePermissions(PageName);
                     return View(userResponse);
                 }
@@ -119,7 +119,7 @@ namespace DHS.Reconcilation.Controllers
                 userResponse = JsonConvert.DeserializeObject<UserResponse>(responseData);
                 if (userResponse.Message == string.Empty && userResponse.ErrorMessage == string.Empty)
                 {
-                    string PageName = "Users";
+                    int PageName = 15;
                     userResponse.rolePermissionEntity = Common.PagePermissions(PageName);
                     Common.RemoveSession("UserId");
                     return RedirectToAction("Users");
@@ -198,7 +198,7 @@ namespace DHS.Reconcilation.Controllers
                 userResponse = JsonConvert.DeserializeObject<UserResponse>(responseData);
                 if (userResponse.Message == string.Empty && userResponse.ErrorMessage == string.Empty)
                 {
-                    string PageName = "User";
+                    int PageName = 15;
                     userResponse.rolePermissionEntity = Common.PagePermissions(PageName);
 
                     return PartialView("_viewUser", userResponse);
@@ -238,7 +238,7 @@ namespace DHS.Reconcilation.Controllers
                 userResponse = JsonConvert.DeserializeObject<UserResponse>(responseData);
                 if (userResponse.Message == string.Empty && userResponse.ErrorMessage == string.Empty)
                 {
-                    string PageName = "User";
+                    int PageName = 15;
                     userResponse.rolePermissionEntity = Common.PagePermissions(PageName);
                     userResponse.userEntity.Password = DecodeFrom64(userResponse.userEntity.Password);
                     return PartialView("_editUser", userResponse);

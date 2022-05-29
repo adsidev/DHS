@@ -66,7 +66,7 @@ namespace DHS.Reconcilation.Controllers
                         var roleResponse = JsonConvert.DeserializeObject<RoleResponse>(roleResponseData);
                         if (roleResponse.Message == string.Empty)
                         {
-                            string PageName = "Index";
+                            int PageName = 3;
                             Session["UserRollPermissions"] =  roleResponse.LstRolePermissionEntities;
                             userResponse.rolePermissionEntity = Common.PagePermissions(PageName);
                             userResponse.adminAndReconciliation = AdminAndReconciliation.AdminPageOrReconciliation();

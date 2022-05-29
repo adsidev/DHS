@@ -54,7 +54,7 @@ namespace DHS.Reconcilation.Controllers
                 reportResponse = JsonConvert.DeserializeObject<ReportResponse>(responseData);
                 if (reportResponse.Message == string.Empty && reportResponse.ErrorMessage == string.Empty)
                 {
-                    string PageName = "Reports";
+                    int PageName = 10;
                     reportResponse.rolePermissionEntity = Common.PagePermissions(PageName); bool PageHasPermissionsOrNot = CheckPagePermissionHeadders.PageHasPermission(PageName);
                     if (!PageHasPermissionsOrNot)
                         return RedirectToAction("Index", new { ErrorMsg = "You do not have access to this activity. Please contact your administrator." });
@@ -104,7 +104,7 @@ namespace DHS.Reconcilation.Controllers
                 reportResponse = JsonConvert.DeserializeObject<ReportResponse>(responseData);
                 if (reportResponse.Message == string.Empty && reportResponse.ErrorMessage == string.Empty)
                 {
-                    string PageName = "Reports";
+                    int PageName = 10;
                     reportResponse.rolePermissionEntity = Common.PagePermissions(PageName); bool PageHasPermissionsOrNot = CheckPagePermissionHeadders.PageHasPermission(PageName);
                     if (!PageHasPermissionsOrNot)
                         return RedirectToAction("Index", new { ErrorMsg = "You do not have access to this activity. Please contact your administrator." });
@@ -145,7 +145,7 @@ namespace DHS.Reconcilation.Controllers
                 reportResponse = JsonConvert.DeserializeObject<ReportResponse>(responseData);
                 if (reportResponse.Message == string.Empty && reportResponse.ErrorMessage == string.Empty)
                 {
-                    string PageName = "Reports";
+                    int PageName = 10;
                     reportResponse.rolePermissionEntity = Common.PagePermissions(PageName); bool PageHasPermissionsOrNot = CheckPagePermissionHeadders.PageHasPermission(PageName);
                     if (!PageHasPermissionsOrNot)
                         return RedirectToAction("Index", new { ErrorMsg = "You do not have access to this activity. Please contact your administrator." });
@@ -189,7 +189,7 @@ namespace DHS.Reconcilation.Controllers
                 reportResponse = JsonConvert.DeserializeObject<ReportResponse>(responseData);
                 if (reportResponse.Message == string.Empty && reportResponse.ErrorMessage == string.Empty)
                 {
-                    string PageName = "Reports";
+                    int PageName = 10;
                     reportResponse.rolePermissionEntity = Common.PagePermissions(PageName); bool PageHasPermissionsOrNot = CheckPagePermissionHeadders.PageHasPermission(PageName);
                     if (!PageHasPermissionsOrNot)
                         return RedirectToAction("Index", new { ErrorMsg = "You do not have access to this activity. Please contact your administrator." });
@@ -231,7 +231,7 @@ namespace DHS.Reconcilation.Controllers
                 reportResponse = JsonConvert.DeserializeObject<ReportResponse>(responseData);
                 if (reportResponse.Message == string.Empty && reportResponse.ErrorMessage == string.Empty)
                 {
-                    string PageName = "Reports";
+                    int PageName = 10;
                     reportResponse.rolePermissionEntity = Common.PagePermissions(PageName); bool PageHasPermissionsOrNot = CheckPagePermissionHeadders.PageHasPermission(PageName);
                     if (!PageHasPermissionsOrNot)
                         return RedirectToAction("Index", new { ErrorMsg = "You do not have access to this activity. Please contact your administrator." });
@@ -275,7 +275,7 @@ namespace DHS.Reconcilation.Controllers
                 reportResponse = JsonConvert.DeserializeObject<ReportResponse>(responseData);
                 if (reportResponse.Message == string.Empty && reportResponse.ErrorMessage == string.Empty)
                 {
-                    string PageName = "Reports";
+                    int PageName = 10;
                     reportResponse.rolePermissionEntity = Common.PagePermissions(PageName); bool PageHasPermissionsOrNot = CheckPagePermissionHeadders.PageHasPermission(PageName);
                     if (!PageHasPermissionsOrNot)
                         return RedirectToAction("Index", new { ErrorMsg = "You do not have access to this activity. Please contact your administrator." });
@@ -318,7 +318,7 @@ namespace DHS.Reconcilation.Controllers
                 {
                     reportResponse.ProjectId = reportRequest.ProjectId;
                     reportResponse.FiscalYearId = reportRequest.FiscalYearId;
-                    string PageName = "Reports";
+                    int PageName = 10;
                     reportResponse.rolePermissionEntity = Common.PagePermissions(PageName); bool PageHasPermissionsOrNot = CheckPagePermissionHeadders.PageHasPermission(PageName);
                     if (!PageHasPermissionsOrNot)
                         return RedirectToAction("Index", new { ErrorMsg = "You do not have access to this activity. Please contact your administrator." });
@@ -362,7 +362,7 @@ namespace DHS.Reconcilation.Controllers
                 reportResponse = JsonConvert.DeserializeObject<ReportResponse>(responseData);
                 if (reportResponse.Message == string.Empty && reportResponse.ErrorMessage == string.Empty)
                 {
-                    string PageName = "Reports";
+                    int PageName = 10;
                     reportResponse.ProjectId = reportRequest.ProjectId;
                     reportResponse.FiscalYearId = reportRequest.FiscalYearId;
                     reportResponse.rolePermissionEntity = Common.PagePermissions(PageName); bool PageHasPermissionsOrNot = CheckPagePermissionHeadders.PageHasPermission(PageName);
@@ -406,7 +406,7 @@ namespace DHS.Reconcilation.Controllers
                 reportResponse = JsonConvert.DeserializeObject<ReportResponse>(responseData);
                 if (reportResponse.Message == string.Empty && reportResponse.ErrorMessage == string.Empty)
                 {
-                    string PageName = "Reports";
+                    int PageName = 10;
                     reportResponse.rolePermissionEntity = Common.PagePermissions(PageName); bool PageHasPermissionsOrNot = CheckPagePermissionHeadders.PageHasPermission(PageName);
                     if (!PageHasPermissionsOrNot)
                         return RedirectToAction("Index", new { ErrorMsg = "You do not have access to this activity. Please contact your administrator." });
@@ -464,7 +464,7 @@ namespace DHS.Reconcilation.Controllers
                 reportResponse = JsonConvert.DeserializeObject<ReportResponse>(responseData);
                 if (reportResponse.Message == string.Empty && reportResponse.ErrorMessage == string.Empty)
                 {
-                    string PageName = "Reports";
+                    int PageName = 10;
                     reportResponse.rolePermissionEntity = Common.PagePermissions(PageName); bool PageHasPermissionsOrNot = CheckPagePermissionHeadders.PageHasPermission(PageName);
                     if (!PageHasPermissionsOrNot)
                         return RedirectToAction("Index", new { ErrorMsg = "You do not have access to this activity. Please contact your administrator." });
@@ -505,7 +505,7 @@ namespace DHS.Reconcilation.Controllers
                 reportResponse = JsonConvert.DeserializeObject<ReportResponse>(responseData);
                 if (reportResponse.Message == string.Empty && reportResponse.ErrorMessage == string.Empty)
                 {
-                    string PageName = "Reports";
+                    int PageName = 10;
                     reportResponse.rolePermissionEntity = Common.PagePermissions(PageName); bool PageHasPermissionsOrNot = CheckPagePermissionHeadders.PageHasPermission(PageName);
                     if (!PageHasPermissionsOrNot)
                         return RedirectToAction("Index", new { ErrorMsg = "You do not have access to this activity. Please contact your administrator." });
@@ -555,7 +555,7 @@ namespace DHS.Reconcilation.Controllers
                 reportResponse = JsonConvert.DeserializeObject<ReportResponse>(responseData);
                 if (reportResponse.Message == string.Empty && reportResponse.ErrorMessage == string.Empty)
                 {
-                    string PageName = "Reports";
+                    int PageName = 10;
                     reportResponse.rolePermissionEntity = Common.PagePermissions(PageName); bool PageHasPermissionsOrNot = CheckPagePermissionHeadders.PageHasPermission(PageName);
                     if (!PageHasPermissionsOrNot)
                         return RedirectToAction("Index", new { ErrorMsg = "You do not have access to this activity. Please contact your administrator." });
@@ -600,7 +600,7 @@ namespace DHS.Reconcilation.Controllers
                     reportResponse.ProjectStatusId = reportRequest.ProjectStatusId;
                     reportResponse.ProjectId = reportRequest.ProjectId;
                     reportResponse.FiscalYearId = reportRequest.FiscalYearId;
-                    string PageName = "Reports";
+                    int PageName = 10;
                     reportResponse.rolePermissionEntity = Common.PagePermissions(PageName); bool PageHasPermissionsOrNot = CheckPagePermissionHeadders.PageHasPermission(PageName);
                     if (!PageHasPermissionsOrNot)
                         return RedirectToAction("Index", new { ErrorMsg = "You do not have access to this activity. Please contact your administrator." });
@@ -651,7 +651,7 @@ namespace DHS.Reconcilation.Controllers
                 reportResponse = JsonConvert.DeserializeObject<ReportResponse>(responseData);
                 if (reportResponse.Message == string.Empty && reportResponse.ErrorMessage == string.Empty)
                 {
-                    string PageName = "Reports";
+                    int PageName = 10;
                     reportResponse.FiscalYearId = reportRequest.FiscalYearId;
                     reportResponse.ProjectStatusId = reportRequest.ProjectStatusId;
                     reportResponse.ProjectId = reportRequest.ProjectId;
@@ -698,7 +698,7 @@ namespace DHS.Reconcilation.Controllers
                     reportResponse.ProjectStatusId = reportRequest.ProjectStatusId;
                     reportResponse.ProjectId = reportRequest.ProjectId;
                     reportResponse.FiscalYearId = reportRequest.FiscalYearId;
-                    string PageName = "Reports";
+                    int PageName = 10;
                     reportResponse.rolePermissionEntity = Common.PagePermissions(PageName); bool PageHasPermissionsOrNot = CheckPagePermissionHeadders.PageHasPermission(PageName);
                     if (!PageHasPermissionsOrNot)
                         return RedirectToAction("Index", new { ErrorMsg = "You do not have access to this activity. Please contact your administrator." });

@@ -87,5 +87,62 @@ namespace DHSBAL
             }
             return ProjectResponse;
         }
+
+        public ProjectResponse GetProjectStatuses()
+        {
+            try
+            {
+                ProjectResponse = ProjectDALRepository.GetProjectStatuses();
+            }
+            catch (Exception ex)
+            {
+                ProjectResponse.ErrorMessage = ex.Message;
+                ProjectResponse.Exception = ex;
+            }
+            return ProjectResponse;
+        }
+
+        public ProjectResponse GetProjectStatus(ProjectRequest projectRequest)
+        {
+            try
+            {
+                ProjectResponse = ProjectDALRepository.GetProjectStatus(projectRequest);
+            }
+            catch (Exception ex)
+            {
+                ProjectResponse.ErrorMessage = ex.Message;
+                ProjectResponse.Exception = ex;
+            }
+            return ProjectResponse;
+        }
+
+        public ProjectResponse SaveProjectStatus(ProjectRequest projectRequest)
+        {
+            try
+            {
+                ProjectResponse = ProjectDALRepository.SaveProjectStatus(projectRequest);
+            }
+            catch (Exception ex)
+            {
+                ProjectResponse.ErrorMessage = ex.Message;
+                ProjectResponse.Exception = ex;
+            }
+            return ProjectResponse;
+        }
+
+
+        public ProjectResponse CheckProjectStatus(ProjectRequest projectRequest)
+        {
+            try
+            {
+                ProjectResponse = ProjectDALRepository.CheckProjectStatus(projectRequest);
+            }
+            catch (Exception ex)
+            {
+                ProjectResponse.ErrorMessage = ex.Message;
+                ProjectResponse.Exception = ex;
+            }
+            return ProjectResponse;
+        }
     }
 }

@@ -49,7 +49,7 @@ namespace DHS.Reconcilation.Controllers
                 projectResponse = JsonConvert.DeserializeObject<ProjectResponse>(responseData);
                 if (projectResponse.Message == string.Empty && projectResponse.ErrorMessage == string.Empty)
                 {
-                    string PageName = "Project";
+                    int PageName = 11;
                     projectResponse.projectEntity = ProjectRequest.projectEntity; 
                     projectResponse.rolePermissionEntity = Common.PagePermissions(PageName);
                     projectResponse.pagedProjectEntities = projectResponse.projectEntities.ToPagedList(pageIndex, 15);
@@ -93,7 +93,7 @@ namespace DHS.Reconcilation.Controllers
                 projectResponse = JsonConvert.DeserializeObject<ProjectResponse>(responseData);
                 if (projectResponse.Message == string.Empty && projectResponse.ErrorMessage == string.Empty)
                 {
-                    string PageName = "Project";
+                    int PageName = 11;
                     projectResponse.projectEntity = ProjectRequest.projectEntity;
                     projectResponse.rolePermissionEntity = Common.PagePermissions(PageName);
                     projectResponse.pagedProjectEntities = projectResponse.projectEntities.ToPagedList(pageIndex, 15);
@@ -131,7 +131,7 @@ namespace DHS.Reconcilation.Controllers
                 projectResponse = JsonConvert.DeserializeObject<ProjectResponse>(responseData);
                 if (projectResponse.Message == string.Empty && projectResponse.ErrorMessage == string.Empty)
                 {
-                    string PageName = "Project";
+                    int PageName = 11;
                     projectResponse.rolePermissionEntity = Common.PagePermissions(PageName);
                     projectResponse.projectEntity = projectEntity;
                     return View(projectResponse);
@@ -169,7 +169,7 @@ namespace DHS.Reconcilation.Controllers
                 projectResponse = JsonConvert.DeserializeObject<ProjectResponse>(responseData);
                 if (projectResponse.Message == string.Empty && projectResponse.ErrorMessage == string.Empty)
                 {
-                    string PageName = "Project";
+                    int PageName = 11;
                     projectResponse.rolePermissionEntity = Common.PagePermissions(PageName);
                     projectResponse.projectEntity = projectEntity;
                     return View(projectResponse);
@@ -210,7 +210,7 @@ namespace DHS.Reconcilation.Controllers
                 projectResponse = JsonConvert.DeserializeObject<ProjectResponse>(responseData);
                 if (projectResponse.Message == string.Empty && projectResponse.ErrorMessage == string.Empty)
                 {
-                    string PageName = "Project";
+                    int PageName = 11;
                     projectResponse.rolePermissionEntity = Common.PagePermissions(PageName);
                     return View(projectResponse);
                 }
@@ -249,7 +249,7 @@ namespace DHS.Reconcilation.Controllers
                 projectResponse = JsonConvert.DeserializeObject<ProjectResponse>(responseData);
                 if (projectResponse.Message == string.Empty && projectResponse.ErrorMessage == string.Empty)
                 {
-                    string PageName = "Project";
+                    int PageName = 11;
                     projectResponse.rolePermissionEntity = Common.PagePermissions(PageName);
                     return View(projectResponse);
                 }
@@ -289,7 +289,7 @@ namespace DHS.Reconcilation.Controllers
                 projectResponse = JsonConvert.DeserializeObject<ProjectResponse>(responseData);
                 if (projectResponse.Message == string.Empty && projectResponse.ErrorMessage == string.Empty)
                 {
-                    string PageName = "Project";
+                    int PageName = 11;
                     projectResponse.rolePermissionEntity = Common.PagePermissions(PageName);
 
                     return PartialView("_viewProject", projectResponse);
@@ -330,7 +330,7 @@ namespace DHS.Reconcilation.Controllers
                 projectResponse = JsonConvert.DeserializeObject<ProjectResponse>(responseData);
                 if (projectResponse.Message == string.Empty && projectResponse.ErrorMessage == string.Empty)
                 {
-                    string PageName = "Project";
+                    int PageName = 11;
                     projectResponse.rolePermissionEntity = Common.PagePermissions(PageName);
 
                     return PartialView("_editProject", projectResponse);

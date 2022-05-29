@@ -9,5 +9,6 @@ namespace DHSEntities
     public class ProjectRequest
     {
         public ProjectEntity projectEntity { get; set; }
+        public ProjectStatusEntity projectStatusEntity { get; set; }
     }
 }

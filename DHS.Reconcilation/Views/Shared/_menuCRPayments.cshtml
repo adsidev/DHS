@@ -7,7 +7,7 @@
     <div class="leftmenulist">
         <ul class="mtree transit sidebar-nav nav nav-tabs has-submenu mra_ullist" id="mra_menubar">
 
-            @if (Common.PageHasPermission("Expesnses"))
+            @if (Common.PageHasPermission(1))
             {
                 <li>
                     <a href="#">EXPENSES</a>
@@ -20,7 +20,7 @@
                     </ul>
                 </li>
             }
-            @if (Common.PageHasPermission("Revenues"))
+            @if (Common.PageHasPermission(2))
             {
                 <li>
                     <a href="#">REVENUES</a>
@@ -34,7 +34,7 @@
                 </li>
             }
 
-            @if (Common.PageHasPermission("Draws"))
+            @if (Common.PageHasPermission(4))
             {
 
                 <li>
@@ -44,7 +44,7 @@
                     </ul>
                 </li>
             }
-            @if (Common.PageHasPermission("Reports"))
+            @if (Common.PageHasPermission(10))
             {
                 <li>
                     <a href="#">REPORTS</a>
@@ -55,7 +55,7 @@
                     </ul>
                 </li>
             }
-            @if (Common.AdminPageHasPermission("Project"))
+            @if (Common.AdminPageHasPermission(11))
             {
                 <li>
                     <a href="#">PROJECT</a>
@@ -65,7 +65,7 @@
                     </ul>
                 </li>
             }
-            @if (Common.AdminPageHasPermission("Payroll"))
+            @if (Common.AdminPageHasPermission(12))
             {
                 <li>
                     <a href="#">Payroll</a>
@@ -74,7 +74,7 @@
                     </ul>
                 </li>
             }
-            @if (Common.AdminPageHasPermission("FGTCategories"))
+            @if (Common.AdminPageHasPermission(6))
             {
                 <li>
                     <a href="#">CATEGORIES</a>
@@ -83,7 +83,7 @@
                     </ul>
                 </li>
             }
-            @if (Common.AdminPageHasPermission("Journals"))
+            @if (Common.AdminPageHasPermission(5))
             {
 
                 <li>
@@ -95,7 +95,7 @@
             }
 
 
-            @if (Common.AdminPageHasPermission("Import"))
+            @if (Common.AdminPageHasPermission(7))
             {
                 <li>
                     <a href="#">IMPORT</a>
@@ -107,7 +107,7 @@
                     </ul>
                 </li>
             }
-            @if (Common.AdminPageHasPermission("RevenueType"))
+            @if (Common.AdminPageHasPermission(8))
             {
                 <li>
                     <a href="#">REVENUE TYPES</a>
@@ -117,7 +117,7 @@
                 </li>
             }
 
-            @if (Common.AdminPageHasPermission("Vendor"))
+            @if (Common.AdminPageHasPermission(9))
             {
                 <li>
                     <a href="#">VENDORS</a>
@@ -127,7 +127,7 @@
                 </li>
             }
 
-            @if (Common.AdminPageHasPermission("FiscalYear"))
+            @if (Common.AdminPageHasPermission(13))
             {
                 <li>
                     <a href="#">FISCAL YEAR</a>
@@ -137,7 +137,7 @@
                 </li>
             }
 
-            @if (Common.AdminPageHasPermission("Status"))
+            @if (Common.AdminPageHasPermission(14))
             {
                 <li>
                     <a href="#">STATUS</a>
@@ -147,7 +147,7 @@
                 </li>
             }
 
-            @if (Common.AdminPageHasPermission("Permission"))
+            @if (Common.AdminPageHasPermission(16))
             {
                 <li>
                     <a href="#">PERMISSION</a>
@@ -156,7 +156,7 @@
                     </ul>
                 </li>
             }
-            @if (Common.AdminPageHasPermission("Users"))
+            @if (Common.AdminPageHasPermission(15))
             {
                 <li>
                     <a href="#">USER</a>
