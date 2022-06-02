@@ -14,7 +14,7 @@ namespace DHS.Reconcilation.Controllers
 {
     public class ReportController : Controller
     {
-         HttpClient client;
+        HttpClient client;
         readonly string strBaseURL;
         //The URL of the WEB API Service
 
@@ -25,7 +25,7 @@ namespace DHS.Reconcilation.Controllers
             client.DefaultRequestHeaders.Accept.Clear();
             client.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
         }
-        
+
         public ActionResult ManageReports()
         {
             if (!Common.SessionExists())
@@ -90,7 +90,7 @@ namespace DHS.Reconcilation.Controllers
             else
                 ViewData["FiscalYear"] = Convert.ToInt32(Request.Form["FiscalYearId"]);
             Session["FGReport"] = "0";
-           ReportRequest reportRequest = new ReportRequest();
+            ReportRequest reportRequest = new ReportRequest();
             reportRequest.ProjectId = Convert.ToInt32(ViewData["Project"]);
             reportRequest.FiscalYearId = Convert.ToInt32(ViewData["FiscalYear"]);
 
@@ -351,7 +351,7 @@ namespace DHS.Reconcilation.Controllers
                 reportRequest.FiscalYearId = 0;
             else
                 reportRequest.FiscalYearId = Convert.ToInt32(Request.Form["FiscalYearId"]);
-            
+
             string url = strBaseURL + "Report/GetGrantReport";
             client.BaseAddress = new Uri(url);
             HttpResponseMessage responseMessage = await client.PostAsJsonAsync(url, reportRequest);
@@ -398,6 +398,7 @@ namespace DHS.Reconcilation.Controllers
             reportRequest.FiscalYearId = 0;
             reportRequest.ProjectStatusId = 0;
             reportRequest.ProjectId = 0;
+            reportRequest.ProjectGroupId = 0;
             HttpResponseMessage responseMessage = await client.PostAsJsonAsync(url, reportRequest);
 
             if (responseMessage.IsSuccessStatusCode)
@@ -443,16 +444,23 @@ namespace DHS.Reconcilation.Controllers
             else
                 ViewData["ProjectName"] = Convert.ToInt32(Request.Form["ProjectId"]);
 
+            if (Request.Form["ProjectGroupId"] == "")
+                ViewData["ProjectGroup"] = "0";
+            else
+                ViewData["ProjectGroup"] = Convert.ToInt32(Request.Form["ProjectGroupId"]);
+
 
             if (Request.Form["FiscalYearId"] == "")
                 ViewData["FiscalYear"] = "0";
             else
                 ViewData["FiscalYear"] = Convert.ToInt32(Request.Form["FiscalYearId"]);
             Session["FGReport"] = "0";
+
             ReportRequest reportRequest = new ReportRequest();
             reportRequest.ProjectStatusId = Convert.ToInt32(ViewData["StatusName"]);
             reportRequest.ProjectId = Convert.ToInt32(ViewData["ProjectName"]);
             reportRequest.FiscalYearId = Convert.ToInt32(ViewData["FiscalYear"]);
+            reportRequest.ProjectGroupId = Convert.ToInt32(ViewData["ProjectGroup"]);
 
             string url = strBaseURL + "Report/GetGrantProjectReport";
             client.BaseAddress = new Uri(url);
