@@ -11,5 +11,6 @@ namespace DHSEntities
         public int FiscalYearId { get; set; }
         public int ProjectId { get; set; }
         public int ProjectStatusId { get; set; }
+        public int ProjectGroupId { get; set; }
     }
 }

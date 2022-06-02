@@ -41,19 +41,23 @@
                 <h2>Detailed Receivables Report for all Projects</h2>
             </div>
             <div class="mra_manage_settlement_report">
-                <div class="form-group col-lg-3">
-                    <label for="Facility">Select&nbsp;Fiscal Year</label>
+                <div class="form-group col-lg-2">
+                    <label for="Facility">Fiscal Year</label>
                     @Html.DropDownList("FiscalYearId", new SelectList(Model.fiscalYearEntities, "FiscalYearId", "FiscalYear", @ViewData["FiscalYear"]), "", new { @class = "form-control mrp_modalselect" })
                 </div>
-                <div class="form-group col-lg-3">
-                    <label for="Facility">Expense&nbsp;Status</label>
+                <div class="form-group col-lg-2">
+                    <label for="Facility">Expense Status</label>
                     @Html.DropDownList("StatusId", new SelectList(Model.statusEntities, "StatusId", "StatusName", @ViewData["StatusName"]), "", new { @class = "form-control mrp_modalselect" })
                 </div>
-                <div class="form-group col-lg-3">
-                    <label for="Facility">Project&nbsp;Status</label>
+                <div class="form-group col-lg-2">
+                    <label for="Facility">Project Status</label>
                     @Html.DropDownList("ProjectID", new SelectList(Model.projectStatusEntities, "ProjectStatusId", "ProjectStatus", @ViewData["ProjectName"]), "", new { @class = "form-control mrp_modalselect" })
                 </div>
-                <div class="col-md-3">
+                <div class="form-group col-lg-2">
+                    <label for="Facility">Project Group</label>
+                    @Html.DropDownList("ProjectGroupId", new SelectList(Model.projectGroupEntities, "ProjectGroupId", "ProjectGroup", @ViewData["ProjectGroup"]), "", new { @id = "ProjectGroupId", @class = "form-control mrp_modalselect" })
+                </div>
+                <div class="col-md-4">
                     @if (Model.rolePermissionEntity.ViewBit)
                     {
                         <input type="submit" value=" Get Report " class="btn btn-primary btn-updated" onclick="return ValidateFields();" />

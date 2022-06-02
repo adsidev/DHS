@@ -10,10 +10,11 @@
                 ReportViewer1.ServerReport.ReportPath = "/" + ConfigurationManager.AppSettings["SSRSFolder"].ToString() + "/ProjectReceivables";
                 Uri uri = new Uri(ConfigurationManager.AppSettings["SSRSURL"].ToString());
                 ReportViewer1.ServerReport.ReportServerUrl = uri;
-                Microsoft.Reporting.WebForms.ReportParameter[] Param = new Microsoft.Reporting.WebForms.ReportParameter[3];
+                Microsoft.Reporting.WebForms.ReportParameter[] Param = new Microsoft.Reporting.WebForms.ReportParameter[4];
                 Param[0] = new Microsoft.Reporting.WebForms.ReportParameter("FiscalYearId", ViewData["FiscalYear"].ToString());
                 Param[1] = new Microsoft.Reporting.WebForms.ReportParameter("StatusId", ViewData["StatusName"].ToString());
                 Param[2] = new Microsoft.Reporting.WebForms.ReportParameter("ProjectId", ViewData["ProjectName"].ToString());
+                Param[3] = new Microsoft.Reporting.WebForms.ReportParameter("ProjectGroupId", ViewData["ProjectGroup"].ToString());
                 ReportViewer1.ShowParameterPrompts = false;
                 ReportViewer1.ServerReport.SetParameters(Param);
                 ReportViewer1.ServerReport.Refresh();

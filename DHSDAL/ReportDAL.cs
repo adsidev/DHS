@@ -34,6 +34,7 @@ namespace DHSDAL
                 reportResponse.statusEntities = commonDAL.GetStatuses();
                 ProjectDAL projectDAL = new ProjectDAL();
                 reportResponse.projectStatusEntities = projectDAL.GetProjectStatus();
+                reportResponse.projectGroupEntities = projectDAL.GetProjectGroups().projectGroupEntities;
             }
             catch (Exception exception)
             {
@@ -625,7 +626,8 @@ namespace DHSDAL
             SqlObject.Parameters = new object[] {
                     reportRequest.FiscalYearId,
                     reportRequest.ProjectStatusId,
-                    reportRequest.ProjectId
+                    reportRequest.ProjectId,
+                    reportRequest.ProjectGroupId
             };
             var transactionDetailDataSet = SqlHelper.ExecuteDataset(_connectionString, StoredProcedures.Report.USPREPORTPROJECTRECEIVABLES, SqlObject.Parameters);
             foreach (DataRow expenseDataRow in transactionDetailDataSet.Tables[0].DefaultView.ToTable().Rows)
@@ -697,6 +699,7 @@ namespace DHSDAL
             reportResponse.statusEntities = commonDAL.GetStatuses();
             ProjectDAL projectDAL = new ProjectDAL();
             reportResponse.projectStatusEntities = projectDAL.GetProjectStatus();
+            reportResponse.projectGroupEntities = projectDAL.GetProjectGroups().projectGroupEntities;
             return reportResponse;
         }
 

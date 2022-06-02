@@ -11,6 +11,7 @@ namespace DHSEntities
         public int ProjectId { get; set; }
         public int FiscalYearId { get; set; }
         public int ProjectStatusId { get; set; }
+        public int ProjectGroupId { get; set; }
         public List<FiscalYearEntity> fiscalYearEntities { get; set; }
         public List<ProjectEntity> projectEntities { get; set; }
         public RolePermissionEntity rolePermissionEntity { get; set; }
@@ -25,6 +26,7 @@ namespace DHSEntities
         public List<RevenueAdjustments> revenueAdjustments { get; set; }
         public List<DrawEntity> drawEntities { get; set; }
         public List<ProjectStatusEntity> projectStatusEntities { get; set; }
+        public List<ProjectGroupEntity> projectGroupEntities { get; set; }
         public List<ProjectReceivables> priorYearExpenseTransactions { get; set; }
         public List<StatusEntity> statusEntities { get; set; }
     }
