@@ -12,7 +12,7 @@
 {
     @Html.Partial("_menuCRPayments");
 }
-@using (Html.BeginForm("ManageReceivables", "Revenue", FormMethod.Post, new { @id = "frmExpenses" }))
+@using (Html.BeginForm("ManageRevenueExpenseCompare", "Revenue", FormMethod.Post, new { @id = "frmExpenses" }))
 {
     <title>@ViewBag.Title</title>
     <input type="hidden" id="hdnExpenseId" name="hdnExpenseId" />
@@ -25,6 +25,68 @@
                         <h2>Revenue/Draw Deposits Matched to Total Expense Transactions</h2>
                         <form class="mrp_selectdetails form-inline">
                             <div class="row">
+                                <div class="form-group col-lg-3 col-xs-12 col-sm-6">
+                                    <label for="SearchOn">Fiscal&nbsp;Year:</label>
+                                    <div class="form_modal">
+                                        @Html.DropDownList("FiscalYearId", new SelectList(Model.fiscalYearEntities, "FiscalYearId", "FiscalYear", Model.revenueTransactionEntity.FiscalYearId), "", new { @id = "FiscalYearId", @class = "form-control mrp_modalselect" })
+                                    </div>
+                                </div>
+                                <div class="form-group col-lg-3 col-xs-12 col-sm-6">
+                                    <label for="SearchOn">Project:</label>
+                                    <div class="form_modal">
+                                        @Html.TextBoxFor(m => m.revenueTransactionEntity.ProjectName, htmlAttributes: new { @id = "ProjectName", @class = "form-control mrp_modalselect", @autocomplete = "off" })
+                                    </div>
+                                </div>
+                                <div class="form-group col-lg-3 col-xs-12 col-sm-6">
+                                    <label for="SearchOn">Batch&nbsp;Number:</label>
+                                    <div class="form_modal">
+                                        @Html.TextBoxFor(m => m.revenueTransactionEntity.BatchNumber, htmlAttributes: new { @id = "BatchNumber", @class = "form-control mrp_modalselect", @autocomplete = "off" })
+                                    </div>
+                                </div>
+                                <div class="form-group col-lg-2 col-xs-12 col-sm-6">
+                                    <label for="SearchOn">Difference:</label>
+                                    <div class="form_modal">
+                                        <select name="Difference" id="Difference" class="form-control mrp_modalselect">
+                                            <option value="">Select</option>
+                                            @if (Model.revenueTransactionEntity.Difference == 1)
+                                            {
+                                                <option value="1" selected>Zero</option>
+                                            }
+                                            else
+                                            {
+                                                <option value="1">Zero</option>
+                                            }
+                                            @if (Model.revenueTransactionEntity.Difference == 2)
+                                            {
+                                                <option value="2" selected>Negative</option>
+                                            }
+                                            else
+                                            {
+                                                <option value="2">Negative</option>
+                                            }
+                                            @if (Model.revenueTransactionEntity.Difference == 3)
+                                            {
+                                                <option value="3" selected>Positive</option>
+                                            }
+                                            else
+                                            {
+                                                <option value="3">Positive</option>
+                                            }
+                                        </select>
+                                    </div>
+                                </div>
+                                <div class="form-group col-lg-1 col-xs-12 col-sm-7">
+                                    <div class="form_modal">
+                                        @if (Model.rolePermissionEntity.ViewBit)
+                                        {
+                                            <img src="~/images/search.png" class="img-responsive" height="40" width="40" onclick="SelectedIndexChanged()" style="cursor:pointer;" alt="Search Expense Information" />
+                                        }
+                                        else
+                                        {
+                                            <img src="~/images/search.png" class="disableButton" height="40" width="40" alt="Search Expense Information" />
+                                        }
+                                    </div>
+                                </div>
                             </div>
                         </form>
                     </div>
@@ -160,6 +222,14 @@
         $(document).ready(function () {
             $('#mra_subliMREC').addClass('active');
         });
-
+        function SelectedIndexChanged() {
+            if ($("#SearchOn").val() != "" & $("#txtSearch").val() == "") {
+                alert("Please enter value to search");
+                $("#txtSearch").focus();
+            }
+            else {
+                $('#frmExpenses').submit();
+            }
+        }
     </script>
 }

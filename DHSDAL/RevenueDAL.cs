@@ -1578,7 +1578,13 @@ namespace DHSDAL
         {
             List<RevenueExpenseCompareEntity> revenueExpenseCompareEntities = new List<RevenueExpenseCompareEntity>();
 
-            var drawDataSet = SqlHelper.ExecuteDataset(_connectionString, StoredProcedures.Revenue.USPREPORTDIFFREVENUEEXPENSETRANSACTION);
+            SqlObject.Parameters = new object[] {
+                    revenueRequest.revenueTransactionEntity.FiscalYearId,
+                    revenueRequest.revenueTransactionEntity.ProjectName,
+                    revenueRequest.revenueTransactionEntity.BatchNumber,
+                    revenueRequest.revenueTransactionEntity.Difference,
+            };
+            var drawDataSet = SqlHelper.ExecuteDataset(_connectionString, StoredProcedures.Revenue.USPREPORTDIFFREVENUEEXPENSETRANSACTIONONSCREEN, SqlObject.Parameters);
             foreach (DataRow expenseDataRow in drawDataSet.Tables[0].Rows)
             {
                 RevenueExpenseCompareEntity revenueExpenseCompareEntity = new RevenueExpenseCompareEntity();
@@ -1634,6 +1640,8 @@ namespace DHSDAL
             }
 
             revenueResponse.revenueExpenseCompareEntities = revenueExpenseCompareEntities;
+            CommonDAL commonDAL = new CommonDAL();
+            revenueResponse.fiscalYearEntities = commonDAL.GetFiscalYears();
             return revenueResponse;
         }
     }

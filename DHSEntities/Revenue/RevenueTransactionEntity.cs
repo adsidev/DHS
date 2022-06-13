@@ -36,5 +36,6 @@ namespace DHSEntities
         public string RelatedTrans { get; set; }
         public int StatusId { get; set; }
         public string StatusName { get; set; }
+        public int Difference { get; set; }
     }
 }

@@ -1337,6 +1337,10 @@ namespace DHS.Reconcilation.Controllers
 
             RevenueRequest revenueRequest = new RevenueRequest();
             RevenueTransactionEntity revenueTransactionEntity = new RevenueTransactionEntity();
+            revenueTransactionEntity.ProjectName = string.Empty;
+            revenueTransactionEntity.BatchNumber = string.Empty;
+            revenueTransactionEntity.FiscalYearId = 0;
+            revenueTransactionEntity.Difference = 0;
             revenueRequest.revenueTransactionEntity = revenueTransactionEntity;
             string url = strBaseURL + "Revenue/GetRevenueExpenseCompare";
             client.BaseAddress = new Uri(url);
@@ -1350,6 +1354,60 @@ namespace DHS.Reconcilation.Controllers
                 if (revenueResponse.Message == string.Empty && revenueResponse.ErrorMessage == string.Empty)
                 {
                     int PageName = 2;
+                    revenueResponse.rolePermissionEntity = Common.PagePermissions(PageName);
+                    revenueResponse.revenueTransactionEntity = revenueTransactionEntity;
+                    return View(revenueResponse);
+                }
+                else
+                {
+                    TempData["LoginFailure"] = revenueResponse.Message;
+                    return RedirectToAction("Error", "Home");
+                }
+            }
+            else
+            {
+                TempData["LoginFailure"] = responseMessage.ToString();
+                return RedirectToAction("Error", "Home");
+            }
+        }
+        
+        [HttpPost]
+        public async Task<ActionResult> ManageRevenueExpenseCompare(int? page, int? id = 0)
+        {
+            if (!Common.SessionExists())
+                return RedirectToAction("Index", "Home");
+
+            RevenueResponse revenueResponse = new RevenueResponse();
+
+            RevenueRequest revenueRequest = new RevenueRequest();
+            RevenueTransactionEntity revenueTransactionEntity = new RevenueTransactionEntity();
+            revenueTransactionEntity.ProjectName = string.Empty;
+            revenueTransactionEntity.BatchNumber = string.Empty;
+            revenueTransactionEntity.FiscalYearId = 0;
+            revenueTransactionEntity.Difference = 0;
+
+            if (Request["FiscalYearId"] != "")
+                revenueTransactionEntity.FiscalYearId = Convert.ToInt32(Request["FiscalYearId"]);
+
+            if (Request["Difference"] != "")
+                revenueTransactionEntity.Difference = Convert.ToInt32(Request["Difference"]);
+
+            revenueTransactionEntity.ProjectName = Request["revenueTransactionEntity.ProjectName"];
+            revenueTransactionEntity.BatchNumber = Request["revenueTransactionEntity.BatchNumber"];
+            revenueRequest.revenueTransactionEntity = revenueTransactionEntity;
+            string url = strBaseURL + "Revenue/GetRevenueExpenseCompare";
+            client.BaseAddress = new Uri(url);
+
+            HttpResponseMessage responseMessage = await client.PostAsJsonAsync(url, revenueRequest);
+
+            if (responseMessage.IsSuccessStatusCode)
+            {
+                var responseData = responseMessage.Content.ReadAsStringAsync().Result;
+                revenueResponse = JsonConvert.DeserializeObject<RevenueResponse>(responseData);
+                if (revenueResponse.Message == string.Empty && revenueResponse.ErrorMessage == string.Empty)
+                {
+                    int PageName = 2;
+                    revenueResponse.revenueTransactionEntity = revenueTransactionEntity;
                     revenueResponse.rolePermissionEntity = Common.PagePermissions(PageName);
                     return View(revenueResponse);
                 }
