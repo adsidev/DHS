@@ -860,7 +860,9 @@ namespace DHSDAL
             var transactionDetailEntities = new List<TransactionDetailEntity>();
             SqlObject.Parameters = new object[] {
                     revenueRequest.transactionDetailEntity.FiscalYearId,
-                    revenueRequest.transactionDetailEntity.TransProject
+                    revenueRequest.transactionDetailEntity.TransProject,
+                    revenueRequest.transactionDetailEntity.TransOrg,
+                    revenueRequest.transactionDetailEntity.TransactionNumber
             };
             var transactionDetailDataSet = SqlHelper.ExecuteDataset(_connectionString, StoredProcedures.Revenue.USPGETALLMANAGERECEIVABLES, SqlObject.Parameters);
             foreach (DataRow expenseDataRow in transactionDetailDataSet.Tables[0].Rows)
