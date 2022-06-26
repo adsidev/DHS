@@ -676,7 +676,10 @@
                                             string RevenueInfo = string.Empty;
                                             foreach (var item in Model.transactionDetailEntities)
                                             {
-                                                Total = Total + item.TransactionAmount;
+                                                if (item.CorrectAmount != 0)
+                                                { Total = Total + item.CorrectAmount; }
+                                                else
+                                                { Total = Total + item.TransactionAmount; }
                                                 RevenueInfo = item.RevenueTransactionNumber + " - " + item.RevenueTransactionDate + " - " + String.Format("{0:$#,##0.00}", item.RevenueTransactionAmount) + " - " + item.RevenueProjectName + " - " + item.BatchNumber + " - " + String.Format("{0:$#,##0.00}", item.DrawAmount) + " - " + item.DrawDate;
                                                 <tr>
                                                     <td nowrap>

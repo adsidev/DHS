@@ -389,6 +389,7 @@
     <Content Include="Scripts\respond.min.js" />
     <Content Include="Views\Report\frmDERSummaryReport.ascx" />
     <Content Include="Views\Report\frmDifferenceRevenueExpenseTransactions.ascx" />
+    <Content Include="Views\Report\frmDrawsDone.ascx" />
     <Content Include="Views\Report\frmProjectSummariesReport.ascx" />
     <Content Include="Views\Report\frmReceivableReport.ascx" />
     <Content Include="Views\Report\frmDHSSummaryReport.ascx" />
@@ -541,6 +542,7 @@
     <Content Include="Views\ProjectGroup\_viewProjectGroup.cshtml" />
     <Content Include="Views\ProjectGroup\CreateProjectGroup.cshtml" />
     <Content Include="Views\ProjectGroup\ManageProjectGroup.cshtml" />
+    <Content Include="Views\Report\ManageDrawsDone.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
