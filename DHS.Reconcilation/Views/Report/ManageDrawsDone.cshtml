@@ -100,7 +100,7 @@
             data: projectRequest,
             dataType: 'json',
             success: function (data) {
-                var s = '<option value="-1">Please Select Project</option>';
+                var s = '<option value="0">Please Select Project</option>';
                 for (var i = 0; i < data.projectEntities.length; i++) {
                     s += '<option value="' + data.projectEntities[i].ProjectId + '">' + data.projectEntities[i].ProjectName + ' - ' + data.projectEntities[i].ProjectDescription + '</option>';
                 }
