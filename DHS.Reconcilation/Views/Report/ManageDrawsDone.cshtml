@@ -23,7 +23,7 @@
     <div class="tab-pane active" id="dashboard">
         <div class="container-fluid">
             <div class="mrp_content">
-                <h2>Detailed report of Draws Done in a fiscal year by project</h2>
+                <h2>Draws by Project Detailed Report</h2>
             </div>
             <div class="mra_manage_settlement_report">
                 <div class="form-group col-lg-6">
@@ -69,12 +69,12 @@
             return false;
         }
 
-        var ProjectId = $('#ProjectId option:selected').text();
-        if (ProjectId == "") {
-            alert("Please select project.");
-            $("#ProjectId").focus();
-            return false;
-        }
+        //var ProjectId = $('#ProjectId option:selected').text();
+        //if (ProjectId == "") {
+        //    alert("Please select project.");
+        //    $("#ProjectId").focus();
+        //    return false;
+        //}
         return true;
     }
     $(document).ready(function () {
