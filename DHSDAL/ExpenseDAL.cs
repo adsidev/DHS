@@ -72,7 +72,8 @@ namespace DHSDAL
                     expenseEntity.AssignedToUser = expenseDataRow["AssignedToUser"].ToString();
                     expenseEntity.FiscalYear = expenseDataRow["FiscalYear"].ToString();
                     expenseEntity.Notes = expenseDataRow["Notes"].ToString();
-                    expenseEntity.ExpenseDate = Convert.ToDateTime(expenseDataRow["ExpenseDate"].ToString()).ToShortDateString();
+                    if (expenseDataRow["ExpenseDate"].ToString() != String.Empty)
+                        expenseEntity.ExpenseDate = Convert.ToDateTime(expenseDataRow["ExpenseDate"].ToString()).ToShortDateString();
                 }
                 catch (Exception exception)
                 {

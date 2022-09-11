@@ -76,7 +76,8 @@ namespace DHSDAL
                     revenueEntity.Reference4 = revenueDataRow["Reference4"].ToString();
                     revenueEntity.Notes = revenueDataRow["Notes"].ToString();
                     revenueEntity.NetAmount = Convert.ToDecimal(revenueDataRow["NetAmount"].ToString());
-                    revenueEntity.RevenueDate = Convert.ToDateTime(revenueDataRow["RevenueDate"].ToString()).ToShortDateString();
+                    if (revenueDataRow["RevenueDate"].ToString() != String.Empty)
+                        revenueEntity.RevenueDate = Convert.ToDateTime(revenueDataRow["RevenueDate"].ToString()).ToShortDateString();
                 }
                 catch (Exception exception)
                 {
