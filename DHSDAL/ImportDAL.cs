@@ -390,15 +390,27 @@ namespace DHSDAL
             var expenseDataSet = importRequest.dataset;
             try
             {
+                string ExpenseAmount = "0";
+                string RevenueAmount = "0";
                 foreach (DataRow expenseDataRow in expenseDataSet.Tables[0].Rows)
                 {
+                    if (expenseDataRow["EXPENSES-ERP"].ToString() == "")
+                        ExpenseAmount = "0";
+                    else
+                        ExpenseAmount = expenseDataRow["EXPENSES-ERP"].ToString();
+
+
+                    if (expenseDataRow["REVENUE-ERP"].ToString() == "")
+                        RevenueAmount = "0";
+                    else
+                        RevenueAmount = expenseDataRow["REVENUE-ERP"].ToString();
                     if (expenseDataRow["PROJECT"].ToString() != "")
                     {
                         SqlObject.Parameters = new object[] {
                         expenseDataRow["PROJECT"].ToString(),
                         expenseDataRow["CFDA#"].ToString(),
-                        expenseDataRow["EXPENSES-ERP"].ToString(),
-                        expenseDataRow["REVENUE-ERP"].ToString(),
+                        ExpenseAmount,
+                        RevenueAmount,
                         importRequest.FiscalYear
                         };
                         var intResult = SqlHelper.ExecuteScalar(_connectionString, StoredProcedures.Import.USPIMPORTPROJECT, SqlObject.Parameters);

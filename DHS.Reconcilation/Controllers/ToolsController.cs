@@ -642,7 +642,7 @@ namespace DHS.Reconcilation.Controllers
 
                         ImportRequest importRequest = new ImportRequest();
                         importRequest.dataset = dset;
-                        importRequest.FiscalYear = item.Replace("'", "").Replace("$", "");
+                        importRequest.FiscalYear = Request["FiscalYear"];
                         importRequest.CreatedBy = Convert.ToInt32(Common.GetSession("UserID"));
                         oleDbConnection.Close();
                         string url = string.Empty;
