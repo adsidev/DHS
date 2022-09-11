@@ -543,6 +543,7 @@
     <Content Include="Views\ProjectGroup\CreateProjectGroup.cshtml" />
     <Content Include="Views\ProjectGroup\ManageProjectGroup.cshtml" />
     <Content Include="Views\Report\ManageDrawsDone.cshtml" />
+    <Content Include="Views\Tools\ImportFY21.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

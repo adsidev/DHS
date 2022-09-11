@@ -49,6 +49,25 @@ namespace DHS.Reconcilation.Areas
             return errorMessages;
         }
 
+        
+
+        [HttpPost]
+        [Route("ImportProject")]
+        public ErrorMessages ImportProject(ImportRequest ImportRequest)
+        {
+            ErrorMessages errorMessages = new ErrorMessages();
+            try
+            {
+                errorMessages = importRepository.ImportProject(ImportRequest);
+            }
+            catch (Exception ex)
+            {
+                errorMessages.ErrorMessage = ex.Message;
+                errorMessages.Exception = ex;
+            }
+            return errorMessages;
+        }
+
 
         [HttpPost]
         [Route("ImportRevenue")]

@@ -590,5 +590,99 @@ namespace DHS.Reconcilation.Controllers
             }
         }
 
+        [HttpGet]
+        public ActionResult ImportFY21()
+        {
+            if (!Common.SessionExists())
+                return RedirectToAction("Index", "Home");
+            return View();
+        }
+
+        [HttpPost]
+        public async Task<ActionResult> ImportFY21(HttpPostedFileBase fileUpload)
+        {
+            if (!Common.SessionExists())
+                return RedirectToAction("Index", "Home");
+
+            string fileName = string.Empty;
+            if (fileUpload != null)
+            {
+                string destinationPath = string.Empty;
+                fileName = System.IO.Path.GetFileName(fileUpload.FileName);
+                fileName = fileName.Replace(" ", "");
+                destinationPath = Path.Combine(Server.MapPath("~/Documents/Import"), fileName);
+                fileUpload.SaveAs(destinationPath);
+                string ConnectionString = string.Empty;
+                string read = Path.GetFullPath(Path.Combine(Server.MapPath("~/Documents/Import"), fileName));
+                OleDbConnection oleDbConnection = null;
+                if (Path.GetExtension(read) == ".xls")
+                {
+                    ConnectionString = @"Provider=Microsoft.Jet.OLEDB.4.0;Data Source=" + read + ";Extended Properties='Excel 8.0;HDR=Yes;IMEX=2;'";
+                }
+                else if (Path.GetExtension(read) == ".xlsx")
+                {
+                    ConnectionString = @"Provider=Microsoft.ACE.OLEDB.12.0;Data Source=" + read + ";Extended Properties='Excel 12.0;HDR=YES;IMEX=1;'";
+                }
+                string[] SheetName = GetExcelSheetNames(ConnectionString);
+
+                foreach (var item in SheetName)
+                {
+                    if(item== ConfigurationManager.AppSettings["FY21Frs"] || item == ConfigurationManager.AppSettings["FY21Exp"] || item == ConfigurationManager.AppSettings["FY21Rev"])
+                    {
+                        oleDbConnection = new OleDbConnection(ConnectionString);
+                        oleDbConnection.Open();
+                        OleDbCommand y = new OleDbCommand();
+                        OleDbDataAdapter z = new OleDbDataAdapter();
+                        DataSet dset = new DataSet();
+                        y.Connection = oleDbConnection;
+                        y.CommandType = CommandType.Text;
+                        y.CommandText = "SELECT * FROM [" + item + "]";
+                        z = new OleDbDataAdapter(y);
+                        z.Fill(dset);
+
+                        ImportRequest importRequest = new ImportRequest();
+                        importRequest.dataset = dset;
+                        importRequest.FiscalYear = item.Replace("'", "").Replace("$", "");
+                        importRequest.CreatedBy = Convert.ToInt32(Common.GetSession("UserID"));
+                        oleDbConnection.Close();
+                        string url = string.Empty;
+                        if (item == ConfigurationManager.AppSettings["FY21Frs"])
+                            url = strBaseURL + "Import/ImportProject";
+                        else if (item == ConfigurationManager.AppSettings["FY21Exp"])
+                            url = strBaseURL + "Import/ImportExpense";
+                        else if (item == ConfigurationManager.AppSettings["FY21Rev"])
+                            url = strBaseURL + "Import/ImportRevenue";
+
+                        HttpClient client = new HttpClient();
+                        client.DefaultRequestHeaders.Accept.Clear();
+                        client.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
+                        client.BaseAddress = new Uri(url);
+                        HttpResponseMessage responseMessage = await client.PostAsJsonAsync(url, importRequest);
+                        if (responseMessage.IsSuccessStatusCode)
+                        {
+                            var responseData = responseMessage.Content.ReadAsStringAsync().Result;
+                            ErrorMessages errorMessages = JsonConvert.DeserializeObject<ErrorMessages>(responseData);
+                            if (errorMessages.Message == string.Empty)
+                            {
+
+                            }
+                            else
+                            {
+
+                            }
+                        }
+                        else
+                        {
+
+                        }
+                    }                    
+                }
+                return View();
+            }
+            else
+            {
+                return View();
+            }
+        }
     }
 }

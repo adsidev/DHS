@@ -382,5 +382,35 @@ namespace DHSDAL
             }
             return errorMessages;
         }
+
+        public ErrorMessages ImportProject(ImportRequest importRequest)
+        {
+            ErrorMessages errorMessages = new ErrorMessages();
+            errorMessages.Message = string.Empty;
+            var expenseDataSet = importRequest.dataset;
+            try
+            {
+                foreach (DataRow expenseDataRow in expenseDataSet.Tables[0].Rows)
+                {
+                    if (expenseDataRow["PROJECT"].ToString() != "")
+                    {
+                        SqlObject.Parameters = new object[] {
+                        expenseDataRow["PROJECT"].ToString(),
+                        expenseDataRow["CFDA#"].ToString(),
+                        expenseDataRow["EXPENSES-ERP"].ToString(),
+                        expenseDataRow["REVENUE-ERP"].ToString(),
+                        importRequest.FiscalYear
+                        };
+                        var intResult = SqlHelper.ExecuteScalar(_connectionString, StoredProcedures.Import.USPIMPORTPROJECT, SqlObject.Parameters);
+                    }
+                }
+            }
+            catch (System.Exception ex)
+            {
+                errorMessages.Message = ex.Message;
+                errorMessages.Exception = ex;
+            }
+            return errorMessages;
+        }
     }
 }
