@@ -704,7 +704,8 @@ namespace DHSDAL
             SqlObject.Parameters = new object[] {
                     revenueRequest.revenueTransactionEntity.ProjectName,
                     revenueRequest.revenueTransactionEntity.RevenueTransactionNumber,
-                    revenueRequest.revenueTransactionEntity.RevenueTypeId
+                    revenueRequest.revenueTransactionEntity.RevenueTypeId,
+                    revenueRequest.revenueTransactionEntity.FiscalYearId
             };
             var transactionDetailDataSet = SqlHelper.ExecuteDataset(_connectionString, StoredProcedures.Revenue.USPGETALLREVENUETRANSACTIONS, SqlObject.Parameters);
             foreach (DataRow revenueDataRow in transactionDetailDataSet.Tables[0].Rows)
@@ -722,6 +723,7 @@ namespace DHSDAL
                     revenueTransactionEntity.ObjectDescription = revenueDataRow["ObjectDescription"].ToString();
                     revenueTransactionEntity.OrgName = revenueDataRow["OrgName"].ToString();
                     revenueTransactionEntity.ObjectName = revenueDataRow["ObjectName"].ToString();
+                    revenueTransactionEntity.FiscalYear = revenueDataRow["FiscalYear"].ToString();
                     revenueTransactionEntity.BatchNumber = revenueDataRow["BatchNumber"].ToString();
                     revenueTransactionEntity.ProjectName = revenueDataRow["ProjectName"].ToString();
                     revenueTransactionEntity.DrawNumber = revenueDataRow["DrawNumber"].ToString();
@@ -751,6 +753,7 @@ namespace DHSDAL
 
             CommonDAL commonDAL = new CommonDAL();
             revenueResponse.revenueTypeEntities = commonDAL.GetRevenueTypes();
+            revenueResponse.fiscalYearEntities = commonDAL.GetFiscalYears();
             return revenueResponse;
         }
 

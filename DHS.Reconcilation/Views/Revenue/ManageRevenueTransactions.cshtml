@@ -45,7 +45,13 @@
                                         @Html.DropDownList("RevenueTypeId", new SelectList(Model.revenueTypeEntities, "RevenueTypeId", "RevenueTypeName", Model.revenueTransactionEntity.RevenueTypeId), "", new { @id = "RevenueTypeId", @class = "form-control mrp_modalselect" })
                                     </div>
                                 </div>
-                                <div class="form-group col-lg-3 col-xs-12 col-sm-7">
+                                <div class="form-group col-lg-2 col-xs-12 col-sm-7">
+                                    <label for="SearchOn">Fiscal&nbsp;Year:</label>
+                                    <div class="form_modal">
+                                        @Html.DropDownList("FiscalYearId", new SelectList(Model.fiscalYearEntities, "FiscalYearId", "FiscalYear", Model.revenueTransactionEntity.FiscalYearId), "", new { @id = "FiscalYearId", @class = "form-control mrp_modalselect" })
+                                    </div>
+                                </div>
+                                <div class="form-group col-lg-1 col-xs-12 col-sm-7">
                                     <div class="form_modal">
                                         @if (Model.rolePermissionEntity.ViewBit)
                                         {
@@ -73,6 +79,9 @@
                                         <tr>
                                             <th style="margin-left:1px; margin-right:1px;">
                                                 Action
+                                            </th>
+                                            <th nowrap>
+                                                Fiscal Year
                                             </th>
                                             <th nowrap>
                                                 Transaction No
@@ -137,6 +146,9 @@
                                                                 <img src="~/images/view-icon.png" alt="View Revenue Transaction Information" class="img-responsive disableButton" />
                                                             </a>
                                                         }
+                                                    </td>
+                                                    <td>
+                                                        @item.FiscalYear
                                                     </td>
                                                     <td>
                                                         @item.RevenueTransactionNumber
