@@ -46,6 +46,12 @@
                                     </div>
                                 </div>
                                 <div class="form-group col-lg-2 col-xs-12 col-sm-7">
+                                    <label for="SearchOn">Fiscal&nbsp;Year:</label>
+                                    <div class="form_modal">
+                                        @Html.DropDownList("FiscalYearId", new SelectList(Model.fiscalYearEntities, "FiscalYearId", "FiscalYear", Model.revenueTransactionEntity.FiscalYearId), "", new { @id = "FiscalYearId", @class = "form-control mrp_modalselect" })
+                                    </div>
+                                </div>
+                                <div class="form-group col-lg-1 col-xs-12 col-sm-7">
                                     <div class="form_modal">
                                         @if (Model.rolePermissionEntity.ViewBit)
                                         {
